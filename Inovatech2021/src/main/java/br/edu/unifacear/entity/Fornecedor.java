@@ -8,5 +8,6 @@ public class Fornecedor {
 	private String cnpj;
 	private String email;	
 	
+	private Contato[] contato;
 	
 }

@@ -1,9 +1,9 @@
 package br.edu.unifacear.entity;
 
-public class FornecedorPedido {
+public class PedidoFornecedor {
 	
 	private int id;
 	private Item[] item;
-	private Fornecedor[] fornecedor;
+	private Fornecedor fornecedor;
 	
 }
