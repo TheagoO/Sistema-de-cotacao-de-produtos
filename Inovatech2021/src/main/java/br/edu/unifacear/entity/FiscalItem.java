@@ -6,6 +6,46 @@ public class FiscalItem {
 	private String ncm;
 	private String origem;
 	
+	public FiscalItem() {
+		
+	}
+	
+	public FiscalItem(int id, String ncm, String origem) {
+		super();
+		this.id = id;
+		this.ncm = ncm;
+		this.origem = origem;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNcm() {
+		return ncm;
+	}
+
+	public void setNcm(String ncm) {
+		this.ncm = ncm;
+	}
+
+	public String getOrigem() {
+		return origem;
+	}
+
+	public void setOrigem(String origem) {
+		this.origem = origem;
+	}
+
+	@Override
+	public String toString() {
+		return "FiscalItem [id=" + id + ", ncm=" + ncm + ", origem=" + origem + "]";
+	}
+	
 	
 	
 }

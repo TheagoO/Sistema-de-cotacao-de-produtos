@@ -3,6 +3,7 @@ package br.edu.unifacear.entity;
 import java.util.Arrays;
 
 public class Cidade {
+	
 	private int id;
 	private String nome;
 	private int codigo;
