@@ -21,17 +21,21 @@ public class Endereco {
 	@Column(name = "CEP")
 	private String cep;
 	
+	@ManyToOne
+	private Cidade cidade;
+	
 	public Endereco() {
 		
 	}
 	
-	public Endereco(int id, String logradouro, int numero, String complemento, String cep) {
+	public Endereco(int id, String logradouro, int numero, String complemento, String cep, Cidade cidade) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;
 		this.cep = cep;
+		this.cidade = cidade;
 	}
 
 	public int getId() {
@@ -73,13 +77,19 @@ public class Endereco {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
+	
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
 
 	@Override
 	public String toString() {
 		return "Endereco [id=" + id + ", logradouro=" + logradouro + ", numero=" + numero + ", complemento="
-				+ complemento + ", cep=" + cep + "]";
+				+ complemento + ", cep=" + cep + ", cidade=" + cidade + "]";
 	}
-	
-	
 	
 }

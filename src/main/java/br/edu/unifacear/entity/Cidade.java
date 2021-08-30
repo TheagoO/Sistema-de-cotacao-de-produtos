@@ -1,8 +1,5 @@
 package br.edu.unifacear.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.*;
 
 @Entity
@@ -18,20 +15,19 @@ public class Cidade {
 	@Column(name = "CODIGO")
 	private int codigo;
 	
-	@OneToMany
-	private List<Endereco> endereco = new ArrayList<>();
+	@ManyToOne
+	private Estado estado;
 	
 	public Cidade() {
-		this.endereco = new ArrayList<>();
+		
 	}
 	
-	public Cidade(int id, String nome, int codigo, List<Endereco> endereco) {
+	public Cidade(int id, String nome, int codigo, Estado estado) {
 		super();
-		this.endereco = new ArrayList<>();
 		this.id = id;
 		this.nome = nome;
 		this.codigo = codigo;
-		this.endereco = endereco;
+		this.estado = estado;
 	}
 
 	public int getId() {
@@ -57,21 +53,18 @@ public class Cidade {
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
-
-	public Endereco getEndereco(int i) {
-		return endereco.get(i);
+	
+	public Estado getEstado() {
+		return estado;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco.add(endereco);
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	@Override
 	public String toString() {
-		return "Cidade [id=" + id + ", nome=" + nome + ", codigo=" + codigo + ", endereco=" + endereco
-				+ "]";
+		return "Cidade [id=" + id + ", nome=" + nome + ", codigo=" + codigo + ", estado=" + estado + "]";
 	}
-	
-	
-	
+
 }

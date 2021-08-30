@@ -37,14 +37,13 @@ public class Fornecedor {
 	
 	public Fornecedor(int id, String nome, String empresa, String cnpj, String email, List<Contato> contato, List<Endereco> endereco) {
 		super();
-		this.contato = new ArrayList<>();
-		this.endereco = new ArrayList<>();
 		this.id = id;
 		this.nome = nome;
 		this.empresa = empresa;
 		this.cnpj = cnpj;
 		this.email = email;
 		this.contato = contato;
+		this.endereco = endereco;
 	}
 
 	public int getId() {
