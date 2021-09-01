@@ -1,4 +1,4 @@
-package br.edu.unifacear.teste;
+package br.edu.unifacear.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

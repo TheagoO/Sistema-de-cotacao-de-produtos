@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import br.edu.unifacear.dao.Connect;
 import br.edu.unifacear.entity.Cidade;
 import br.edu.unifacear.entity.Contato;
 import br.edu.unifacear.entity.Endereco;
