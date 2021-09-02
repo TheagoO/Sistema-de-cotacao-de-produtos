@@ -9,10 +9,7 @@ public class Connect {
 	public static EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysql");
 	
 	public static EntityManager connection() {
-		
-		
 		return emf.createEntityManager();
-		
 	}
 	
 }

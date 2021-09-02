@@ -12,14 +12,14 @@ public class FiscalItem {
 	@Column(name = "NCM")
 	private String ncm;
 	
-	@Column(name = "ORIGEM")
-	private String origem;
+	@ManyToOne
+	private Pais origem;
 	
 	public FiscalItem() {
 		
 	}
 	
-	public FiscalItem(int id, String ncm, String origem) {
+	public FiscalItem(int id, String ncm, Pais origem) {
 		super();
 		this.id = id;
 		this.ncm = ncm;
@@ -42,11 +42,11 @@ public class FiscalItem {
 		this.ncm = ncm;
 	}
 
-	public String getOrigem() {
+	public Pais getOrigem() {
 		return origem;
 	}
 
-	public void setOrigem(String origem) {
+	public void setOrigem(Pais origem) {
 		this.origem = origem;
 	}
 
