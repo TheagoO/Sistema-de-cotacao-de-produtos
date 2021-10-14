@@ -1,0 +1,111 @@
+@charset "ISO-8859-1";
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+header{
+	width:100%;
+	height:10%;
+	display:flex;
+	box-shadow: 0px 0px 1px;
+	background-color: #2d5e71;
+}
+
+.d-logo{
+	width:30%;
+	display:flex;
+}
+
+.d-logo-center{
+	display:flex;
+	height:37px;
+	margin-top:auto;
+	margin-bottom:auto;
+	font-family: 'Brush Script MT', cursive;
+	font-size:10pt;
+}
+
+.d-center{
+	width:40%;
+}
+
+.d-user{
+	width:30%;
+	overflow:hidden;
+}
+
+.user-r-md{
+	height:100%;
+	display:flex;
+	float:right;
+	margin-right:2rem;
+}
+
+.a{
+	text-decoration:none;
+	color:black;
+	margin-right:1rem;
+}
+
+.logo{
+	vertical-align:middle;
+}
+
+.menu-area{
+	width:25%;
+}
+
+section{
+	position:relative;
+	width:100%;
+	height:80%;
+	display:flex;
+}
+
+.content-area{
+	width:60%;
+	margin-top:auto;
+	margin-bottom:auto;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.btns-area{
+	width:100%;
+	overflow:hidden;	
+}
+
+.card{
+	width:300px;
+	display:flex;
+	justify-content: space-between;
+	float:right;
+}
+
+footer{
+	position:fixed;
+	bottom:0px;
+	width:100%;
+    height: 10%;
+    display:flex;
+    box-shadow: 0.1px 0.1px 1px;
+    background-color: #2d5e71;
+}
+
+.rdp{
+	display:flex;
+}
+
+.mid{
+	height:40px;
+	margin-left:2rem;
+	margin-top:auto;
+	margin-bottom:auto;
+}
+
+p{
+	margin-bottom:10px;
+}
+
