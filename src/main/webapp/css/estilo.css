@@ -1,28 +1,15 @@
 @charset "ISO-8859-1";
 
 .rdp-cad{
-<<<<<<< HEAD
 	position:relative;
 	width:100%;
-    height: 90px;
-=======
-	width:100%;
-    height: 10%;
-    bottom:0px;
     display:flex;
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
     box-shadow: 0.1px 0.1px 1px;
     background-color: #2d5e71;
 }
 
-<<<<<<< HEAD
 .rdp-c{
 	width:100px;
 	height: 100%;
 	display:flex;
 }
-=======
-
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
-
-

@@ -7,38 +7,21 @@
 	xmlns:p="http://primefaces.org/ui" lang="pt-br">
 
 <h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>InovaTech 2021</title>
-	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/estilo.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	
 </h:head>
 
 <h:body>
 
 	<!-- Cabeçalho da Tela -->
 	<header>
-<<<<<<< HEAD
-	<div class="d-logo">
-		<img src="imagens/infotechlogo.png" alt="Logo.png" style="width: 220px;"/>
-		<div class="d-logo-center">
-			<h1>Administrador</h1>
-		</div>
-	</div>
-	<div class="d-center"></div>
-	<div class="d-user">
-		<div class="user-r-md">
-			<div class="mid">
-				<h:link href="#" class="a">Saír</h:link>
-				<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
-			</div>
-		</div>
-	</div>
-=======
 		<div class="d-logo">
-			<img src="imagens/logo.png" alt="Logo.png" />
+			<img src="imagens/logo.png" alt="Logo.png" style="width: 220px;"/>
 			<div class="d-logo-center">
 				<h1>Administrador</h1>
 			</div>
@@ -52,25 +35,16 @@
 				</div>
 			</div>
 		</div>
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 	</header>
 
 	<!-- Meio da Tela -->
 	<section>
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 	<div class="menu-area">
 
 		<p:panel id="fold" header="Menu">
 			<h:form>
-<<<<<<< HEAD
 				<p:tieredMenu style="width:100%; height:730px;">
-=======
-				<p:tieredMenu style="width:100%; height:100%;">
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 					<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 						<p:menuitem value="Novo" icon="pi pi-fw pi-plus" />
 						<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog" />
@@ -89,16 +63,11 @@
 
 				</p:tieredMenu>
 			</h:form>
-<<<<<<< HEAD
-=======
-			<p:effect type="fold" event="dblclick" />
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 		</p:panel>
 
 	</div>
 
 	<!-- CADASTRO -->
-<<<<<<< HEAD
 	<div class="content-area" style="margin-top:20px;">
 		<p:panel header="Cadastro">
 			<div class="ui-fluid">
@@ -106,25 +75,13 @@
 					<p:tabView>
 						<p:tab title="Fornecedor">
 
-=======
-	<div class="content-area">
-		<p:panel header="Cadastro">
-			<h:form id="New-Produto">
-				<p:tabView>
-					<p:tab title="Fornecedor">
-						<div class="ui-fluid">
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 							<!-- Input Nome Fornecedor -->
 
 							<span class="ui-float-label" style="width: 100%;"> <p:inputText
 									id="nome-float-fornecedor" value="#{inputTextView.text}" /> <p:outputLabel
 									for="@previous" value="Nome" />
-<<<<<<< HEAD
 							</span>
 							<br />
-=======
-							</span> <br />
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 
 
 							<!-- Input Email Fornecedor-->
@@ -132,23 +89,15 @@
 							<span class="ui-float-label"> <p:inputText
 									id="email-float-fornecedor" value="#{inputTextView.text}" /> <p:outputLabel
 									for="@previous" value="Email" />
-<<<<<<< HEAD
 							</span>
 							<br />
-=======
-							</span> <br />
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 							<!-- Input Empresa Fornecedor -->
 
 							<span class="ui-float-label"> <p:inputText
 									id="empresa-float-fornecedor" value="#{inputTextView.text}" />
 								<p:outputLabel for="@previous" value="Empresa" />
-<<<<<<< HEAD
 							</span>
 							<br />
-=======
-							</span> <br />
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 							<!-- Input CNPJ Fornecedor-->
 
 							<div class="p-field p-col-12 p-md-4">
@@ -166,47 +115,31 @@
 							</div>
 							<br />
 							<!-- Estado Fornecedor -->
-<<<<<<< HEAD
 							<p:outputLabel for="@next" value="Estado" />
-=======
-							<p:outputLabel for="@next" value="Estado:" />
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 							<br />
 							<p:selectOneMenu id="estado" value="#{selectOneMenuView.city}"
 								effect="fold" editable="true">
 								<f:selectItem itemLabel="" itemValue="" />
 								<f:selectItems value="#{selectOneMenuView.cities}" />
 							</p:selectOneMenu>
-<<<<<<< HEAD
 							<br />
 							<br />
 							<!-- Municipio Fornecedor -->
 
 							<p:outputLabel for="@next" value="Município" />
-=======
-							<br /> <br />
-							<!-- Municipio Fornecedor -->
-
-							<p:outputLabel for="@next" value="Município:" />
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 							<br />
 							<p:selectOneMenu id="municipio" value="#{selectOneMenuView.city}"
 								effect="fold" editable="true">
 								<f:selectItem itemLabel="" itemValue="" />
 								<f:selectItems value="#{selectOneMenuView.cities}" />
 							</p:selectOneMenu>
-<<<<<<< HEAD
 							<br />
 							<br />
-=======
-							<br /> <br />
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 							<!-- Input lugradouro Fornecedor -->
 
 							<span class="ui-float-label"> <p:inputText
 									id="endereco-float-fornecedor" value="#{inputTextView.text}" />
 								<p:outputLabel for="@previous" value="Lugradouro" />
-<<<<<<< HEAD
 							</span>
 							<br />
 
@@ -282,134 +215,23 @@
 					</p:tabView>
 				</h:form>
 			</div>
-=======
-							</span> <br />
-						</div>
-						<!-- BOTÃO -->
-
-						<p:button value="Confirmar" />
-						<br />
-					</p:tab>
-					<p:tab title="Almoxarifado">
-						<!-- Input Nome Almoxarifado -->
-
-						<span class="ui-float-label"> <p:inputText
-								id="nome-float-Almoxarifado" value="#{inputTextView.text}" /> <p:outputLabel
-								for="@previous" value="Nome" />
-						</span>
-						<br />
-						<!-- Input Senha Almoxarifado-->
-
-						<p:password id="senha-almoxarifado"
-							value="#{passwordView.password6}" toggleMask="true"
-							redisplay="true" />
-						<br />
-						<!-- Input Email Almoxarifado-->
-
-						<span class="ui-float-label"> <p:inputText
-								id="email-float-Almoxarifado" value="#{inputTextView.text}" />
-							<p:outputLabel for="@previous" value="Email" />
-						</span>
-						<br />
-						<!-- BOTÃO -->
-
-						<p:button value="Confirmar" />
-						<br />
-
-
-
-					</p:tab>
-					<p:tab title="Gestor">
-
-						<!-- Input Nome Gestor -->
-
-						<span class="ui-float-label"> <p:inputText
-								id="nome-float-gestor" value="#{inputTextView.text}" /> <p:outputLabel
-								for="@previous" value="Nome" />
-						</span>
-						<br />
-						<!-- Input Senha Gestor-->
-
-						<p:password id="senha-gestor" value="#{passwordView.password6}"
-							toggleMask="true" redisplay="true" />
-						<br />
-						<!-- Input Email Gestor-->
-
-						<span class="ui-float-label"> <p:inputText
-								id="email-float-gestor" value="#{inputTextView.text}" /> <p:outputLabel
-								for="@previous" value="Email" />
-						</span>
-						<br />
-						<!-- Input CPF Gestor-->
-
-						<div class="p-field p-col-12 p-md-4">
-							<p:outputLabel for="cpf" value="CPF" />
-							<p:inputMask id="cpf" value="#{maskView.cpf}"
-								mask="999.999.999-99" validateMask="true" />
-						</div>
-						<br />
-						<!-- BOTÃO -->
-
-						<p:button value="Confirmar" />
-						<br />
-
-					</p:tab>
-				</p:tabView>
-			</h:form>
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 		</p:panel>
 
 	</div>
 	</section>
 	<!-- Rodapé de Tela -->
-	<div class="rdp-cad">
-<<<<<<< HEAD
+	<div class="rdp-cad" style="height:90px;">
 		<div class="rdp-c">
-=======
-		<div class="rdp">
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 			<div class="mid">
 				<p:commandButton id="ajuda" value="Ajuda" type="button" />
 				<p:overlayPanel for="ajuda" style="width:350px">
 					<p class="p-m-0">
-<<<<<<< HEAD
 						<strong>Cadastro</strong>: Selecione qual deseija cadastrar.
 					</p>
 					<p class="p-m-0">
 						<strong>Lugradouro</strong>: Específique onde mora, Rua, bairro, número.
 					</p>
 
-=======
-						<strong>Nome</strong>: Nome do produto.
-					</p>
-					<p class="p-m-0">
-						<strong>Marca</strong>: Marca do produto.
-					</p>
-					<p>
-						<strong>Código</strong>: Código de barras do produto.
-					</p>
-					<p class="p-m-0">
-						<strong>NCM</strong>: Código de oito digitos e descrição do
-						produto.
-					</p>
-					<p class="p-m-0">
-						<strong>Origem</strong>: Produto nacional ou estrangeiro.
-					</p>
-
-					<p:button value="Nova Origem" action="" onclick="PF('dlg3').show()" />
-
-					<p:dialog header="Cadastrar origem" widgetVar="dlg3" minHeight="40"
-						width="350" showEffect="fade">
-						<p class="p-m-0">Origem:</p>
-						<p:inputText name="origem" />
-						<f:facet name="footer">
-							<p:commandButton type="button" value="Cancelar"
-								styleClass="ui-button-flat p-mr-2" style="width: 6rem" />
-							<p:commandButton type="button" value="Confirmar"
-								style="width: 7rem" />
-						</f:facet>
-					</p:dialog>
->>>>>>> cbe9e4c9cc51beface510677ec89d8bfb19315c1
 				</p:overlayPanel>
 			</div>
 		</div>
