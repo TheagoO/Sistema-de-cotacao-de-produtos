@@ -10,16 +10,16 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="css/style.css" />
-	<script src="js/script.js" />
+	<script src="js/script.js"></script>
 	<title>InovaTech2021</title>
 </h:head>
 <h:body>
 
 	<header>
 		<div class="d-logo">
-			<img src="imagens/logo.png" alt="Logo.png" />
+			<img src="imagens/infotechlogo.png" alt="Logo.png" width="120" />
 			<div class="d-logo-center">
-				<h1>Administrador</h1>
+				<h1>Gestor</h1>
 			</div>
 		</div>
 		<div class="d-center"></div>
@@ -47,7 +47,7 @@
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
 							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" />
 							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" />
+							<p:menuitem value="Gerenciar itens" icon="pi pi-fw pi-cog" />
 						</p:submenu>
 
 						<p:submenu label="Produtos" icon="pi pi-fw pi-table">
@@ -57,68 +57,40 @@
 
 					</p:tieredMenu>
 				</h:form>
-				
+				<p:effect type="fold" event="dblclick" />
 			</p:panel>
 
 		</div>
-
+	     
 		<div class="content-area">
 
-			<p:panel header="Novo produto">
-				<h:form id="New-Produto">
+			<p:panel header="Nota Fiscal">
+				<h:form id="NotaFiscal">
 					<p:messages />
-					<div class="ui-fluid">
-						<span class="ui-float-label"> <p:inputText id="nome"
-								value="#{inputTextView.text}" /> <p:outputLabel for="@previous"
-								value="Nome" />
-						</span> <br /> <span class="ui-float-label"> <p:inputText
-								id="marca" value="#{inputTextView.text}" /> <p:outputLabel
-								for="@previous" value="Marca" />
-						</span> <br /> <span class="ui-float-label"> <p:inputText
-								id="codigo" value="#{inputTextView.text}">
-								<p:keyFilter mask="num" />
-							</p:inputText> <p:outputLabel for="@previous" value="Código" />
-						</span> <br />
-
-
-
-						<div class="p-field p-col-12 p-md-4">
-							<p:outputLabel for="@next" value="NCM:" />
-							<p:selectOneMenu id="ncm" value="#{selectOneMenuView.city}"
-								effect="fold" editable="true">
-								<f:selectItem itemLabel="" itemValue="" />
-								<f:selectItems value="#{selectOneMenuView.cities}" />
-							</p:selectOneMenu>
-						</div>
-						<br />
-
-						<p:outputLabel for="@previous" value="Origem:" />
-						<span class="ui-float-label"> <p:selectOneMenu id="pais"
-								value="#{dropdownView.ncm}">
-								<p:ajax listener="#{dropdownView.onCountryChange}" />
-								<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
-								<f:selectItems value="#{dropdownView.countries}" />
-							</p:selectOneMenu>
-						</span> <br />
-					</div>
+					
+					<p:dataTable>
+					
+					<p:column headerText="Produto">#{p.Nome}</p:column>
+					<p:column headerText="Item">#{p.Item}</p:column>
+					<p:column headerText="Codigo">#{p.Codigo}</p:column>
+					<p:column headerText="Quantidade">#{p.Quantidade}</p:column>
+					<p:column headerText="Fornecedor">#{p.Fornecedor}</p:column>
+					
+					
+					</p:dataTable>
+					
 					<div class="btns-area">
 
 						<div class="card">
 
 							<p:growl id="message" showDetail="true" />
 
-							<p:commandButton value="Cancelar" action="#{confirmView.delete}"
-								update="message" styleClass="ui-button-danger"
-								icon="pi pi-times">
-								<p:confirm header="Atenção"
-									message="Deseja mesmo cancelar esse cadastro?"
-									icon="pi pi-info-circle" />
-							</p:commandButton>
+						
 
-							<p:commandButton value="Confirmar"
+							<p:commandButton value="Finalizar"
 								action="#{confirmView.confirm}" update="message"
 								styleClass="p-mr-2" icon="pi pi-check">
-								<p:confirm header="Atenção" message="Deseja mesmo continuar?"
+								<p:confirm header="Atenção" message="Deseja dar baixa nessa nota fiscal?"
 									icon="pi pi-exclamation-triangle" />
 							</p:commandButton>
 
@@ -148,17 +120,16 @@
 						<strong>Nome</strong>: Nome do produto.
 					</p>
 					<p class="p-m-0">
-						<strong>Marca</strong>: Marca do produto.
+						<strong>Item</strong>: Número do Item da nota fiscal.
 					</p>
 					<p>
 						<strong>Código</strong>: Código de barras do produto.
 					</p>
 					<p class="p-m-0">
-						<strong>NCM</strong>: Código de oito digitos e descrição do
-						produto.
+						<strong>Quantidade</strong>: Quantidade do produto entregue.
 					</p>
 					<p class="p-m-0">
-						<strong>Origem</strong>: Produto nacional ou estrangeiro.
+						<strong>Fornecedor</strong>: Fornecedor que entregou o produto.
 					</p>
 
 					<p:button value="Nova Origem" action="" onclick="PF('dlg3').show()" />
