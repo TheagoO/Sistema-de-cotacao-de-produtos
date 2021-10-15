@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" lang="pt-br">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>InovaTech 2021</title>
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/estilo.css" />
+</h:head>
+
+<h:body>
+
+	<!-- Cabeçalho da Tela -->
+	<header>
+	<div class="d-logo">
+		<img src="imagens/infotechlogo.png" alt="Logo.png" style="width: 220px;"/>
+		<div class="d-logo-center">
+			<h1>Administrador</h1>
+		</div>
+	</div>
+	<div class="d-center"></div>
+	<div class="d-user">
+		<div class="user-r-md">
+			<div class="mid">
+				<h:link href="#" class="a">Saír</h:link>
+				<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
+			</div>
+		</div>
+	</div>
+	</header>
+
+	<!-- Meio da Tela -->
+	<section>
+
+	<div class="menu-area">
+
+		<p:panel id="fold" header="Menu">
+			<h:form>
+				<p:tieredMenu style="width:100%; height:730px;">
+					<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
+						<p:menuitem value="Novo" icon="pi pi-fw pi-plus" />
+						<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog" />
+					</p:submenu>
+
+					<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
+						<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" />
+						<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" />
+						<p:menuitem value="Gerenciar itens" icon="pi pi-fw pi-cog" />
+					</p:submenu>
+
+					<p:submenu label="Produtos" icon="pi pi-fw pi-table">
+						<p:menuitem value="Novo" icon="pi pi-fw pi-user-plus" />
+						<p:menuitem value="Gerenciar produtos" icon="pi pi-fw pi-cog" />
+					</p:submenu>
+
+				</p:tieredMenu>
+			</h:form>
+		</p:panel>
+
+	</div>
+
+	<!-- CADASTRO -->
+	<div class="content-area" style="margin-top:20px;">
+		<p:panel header="Cadastro">
+			<div class="ui-fluid">
+				<h:form id="New-Produto">
+					<p:tabView>
+						<p:tab title="Fornecedor">
+
+							<!-- Input Nome Fornecedor -->
+
+							<span class="ui-float-label" style="width: 100%;"> <p:inputText
+									id="nome-float-fornecedor" value="#{inputTextView.text}" /> <p:outputLabel
+									for="@previous" value="Nome" />
+							</span>
+							<br />
+
+
+							<!-- Input Email Fornecedor-->
+
+							<span class="ui-float-label"> <p:inputText
+									id="email-float-fornecedor" value="#{inputTextView.text}" /> <p:outputLabel
+									for="@previous" value="Email" />
+							</span>
+							<br />
+							<!-- Input Empresa Fornecedor -->
+
+							<span class="ui-float-label"> <p:inputText
+									id="empresa-float-fornecedor" value="#{inputTextView.text}" />
+								<p:outputLabel for="@previous" value="Empresa" />
+							</span>
+							<br />
+							<!-- Input CNPJ Fornecedor-->
+
+							<div class="p-field p-col-12 p-md-4">
+								<p:outputLabel for="cnpj" value="CNPJ" />
+								<p:inputMask id="cnpj" value="#{maskView.cnpj}"
+									mask="999.999.999/9999-99" validateMask="true" />
+							</div>
+							<br />
+							<!-- Input CEP Fornecedor-->
+
+							<div class="p-field p-col-12 p-md-4">
+								<p:outputLabel for="cpf" value="CEP" />
+								<p:inputMask id="cep-fornecedor" value="#{maskView.cpf}"
+									mask="99999-999" validateMask="true" />
+							</div>
+							<br />
+							<!-- Estado Fornecedor -->
+							<p:outputLabel for="@next" value="Estado" />
+							<br />
+							<p:selectOneMenu id="estado" value="#{selectOneMenuView.city}"
+								effect="fold" editable="true">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems value="#{selectOneMenuView.cities}" />
+							</p:selectOneMenu>
+							<br />
+							<br />
+							<!-- Municipio Fornecedor -->
+
+							<p:outputLabel for="@next" value="Município" />
+							<br />
+							<p:selectOneMenu id="municipio" value="#{selectOneMenuView.city}"
+								effect="fold" editable="true">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems value="#{selectOneMenuView.cities}" />
+							</p:selectOneMenu>
+							<br />
+							<br />
+							<!-- Input lugradouro Fornecedor -->
+
+							<span class="ui-float-label"> <p:inputText
+									id="endereco-float-fornecedor" value="#{inputTextView.text}" />
+								<p:outputLabel for="@previous" value="Lugradouro" />
+							</span>
+							<br />
+
+							<!-- BOTÃO -->
+
+							<p:button value="Confirmar" />
+							<br />
+						</p:tab>
+						<p:tab title="Almoxarifado">
+							<!-- Input Nome Almoxarifado -->
+
+							<span class="ui-float-label"> <p:inputText
+									id="nome-float-Almoxarifado" value="#{inputTextView.text}" />
+								<p:outputLabel for="@previous" value="Nome" />
+							</span>
+							<br />
+							<!-- Input Senha Almoxarifado-->
+							<p:outputLabel for="senha-gestor" value="Senha" />
+							<p:password id="senha-almoxarifado"
+								value="#{passwordView.password6}" toggleMask="true"
+								redisplay="true" style="width:100%;" />
+							<br />
+							<!-- Input Email Almoxarifado-->
+
+							<span class="ui-float-label"> <p:inputText
+									id="email-float-Almoxarifado" value="#{inputTextView.text}" />
+								<p:outputLabel for="@previous" value="Email" />
+							</span>
+							<br />
+							<!-- BOTÃO -->
+
+							<p:button value="Confirmar" />
+							<br />
+
+
+
+						</p:tab>
+						<p:tab title="Gestor">
+
+							<!-- Input Nome Gestor -->
+
+							<span class="ui-float-label"> <p:inputText
+									id="nome-float-gestor" value="#{inputTextView.text}" /> <p:outputLabel
+									for="@previous" value="Nome" />
+							</span>
+							<br />
+							<!-- Input Senha Gestor-->
+							<p:outputLabel for="senha-gestor" value="Senha" />
+							<p:password id="senha-gestor" value="#{passwordView.password6}"
+								toggleMask="true" redisplay="true" style="width:100%;" />
+							<br />
+							<!-- Input Email Gestor-->
+							
+							<span class="ui-float-label"> <p:inputText
+									id="email-float-gestor" value="#{inputTextView.text}" /> <p:outputLabel
+									for="@previous" value="Email" />
+							</span>
+							<br />
+							<!-- Input CPF Gestor-->
+
+							<div class="p-field p-col-12 p-md-4">
+								<p:outputLabel for="cpf" value="CPF" />
+								<p:inputMask id="cpf" value="#{maskView.cpf}"
+									mask="999.999.999-99" validateMask="true" />
+							</div>
+							<br />
+							<!-- BOTÃO -->
+
+							<p:button value="Confirmar" />
+							<br />
+
+						</p:tab>
+					</p:tabView>
+				</h:form>
+			</div>
+		</p:panel>
+
+	</div>
+	</section>
+	<!-- Rodapé de Tela -->
+	<div class="rdp-cad">
+		<div class="rdp-c">
+			<div class="mid">
+				<p:commandButton id="ajuda" value="Ajuda" type="button" />
+				<p:overlayPanel for="ajuda" style="width:350px">
+					<p class="p-m-0">
+						<strong>Cadastro</strong>: Selecione qual deseija cadastrar.
+					</p>
+					<p class="p-m-0">
+						<strong>Lugradouro</strong>: Específique onde mora, Rua, bairro, número.
+					</p>
+
+				</p:overlayPanel>
+			</div>
+		</div>
+	</div>
+
+
+</h:body>
+
+</html>
