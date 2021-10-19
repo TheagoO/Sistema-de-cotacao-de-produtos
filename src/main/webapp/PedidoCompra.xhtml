@@ -82,108 +82,83 @@
 
 			<!-- Cabeçalho -->
 			<div class="heade-area">
-				<h3>Colaboradores</h3>
+				<h3>Pedidos de compra</h3>
 			</div>
 
 
 			<!-- Conteúdo -->
 
-			<h:form id="form">
-				<div class="card">
-					<div class="p-mt-3 p-mb-5">
+			<div class="card">
+				<h:form id="pedido">
+					<p:dataTable var="customer" value="#{dtRowGroupView.customers}"
+						sortBy="#{customer.representative.name}">
+						<p:headerRow field="representative.name" expandable="true"
+							expanded="#{customer.representative.name != 'Stephen Shaw'}">
 
-						<!-- Área de pesquisa e "novo" colaborador -->
+							<p:column colspan="6">
+								<div class="p-d-inline-flex p-ai-center"
+									style="vertical-align: middle">
+									<p:graphicImage
+										name="images/avatar/#{customer.representative.image}"
+										library="demo" width="32" style="vertical-align: middle" />
+									<h:outputText styleClass="p-ml-2"
+										value="#{customer.representative.name}" />
+								</div>
+							</p:column>
+						</p:headerRow>
 
-						<div class="search-area">
-							<div class="ui-inputgroup">
-								<p:inputText id="template"
-									value="#{dtColumnsView.columnTemplate}" style="width:100%" />
-								<p:commandButton icon="pi pi-search" styleClass="ui-button" />
-							</div>
-
-							<p:commandButton update="products1"
-								action="#{dtColumnsView.updateColumns}" value="Update"
-								process="@parent" icon="pi pi-refresh"
-								oncomplete="PF('customersTable').clearFilters()" />
-							
-							<p:commandButton value="Novo" />
-						</div>
-
-					</div>
-
-					<!-- Listagem dos Colaboradores -->
-
-					<p:growl id="msgs" showDetail="true" />
-
-					<p:dataTable id="products1" var="product"
-						value="#{dtEditView.products1}" editable="true"
-						style="margin-bottom:20px; margin-top:20px;">
-
-						<p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}"
-							update=":form:msgs" />
-						<p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}"
-							update=":form:msgs" />
-
-						<p:column headerText="Código">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.code}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText id="modelInput" value="#{product.code}"
-										style="width:100%" />
-								</f:facet>
-							</p:cellEditor>
+						<p:column headerText="Remetente">
+							<h:outputText value="#{customer.representative.name}" />
 						</p:column>
 
-						<p:column headerText="Name">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.name}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{product.name}" style="width:100%"
-										label="Name" />
-								</f:facet>
-							</p:cellEditor>
+						<p:column headerText="Produto">
+							<h:outputText value="#{customer.produto}" />
 						</p:column>
 
-						<p:column headerText="Tipo">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.inventoryStatus}" />
-								</f:facet>
-								<f:facet name="input">
-									<h:selectOneMenu value="#{product.inventoryStatus}"
-										style="width:100%">
-										<f:selectItems value="#{dtEditView.inventoryStatusList}"
-											var="status" itemLabel="#{status.text}" itemValue="#{status}" />
-									</h:selectOneMenu>
-								</f:facet>
-							</p:cellEditor>
+						<p:column headerText="Quantidade">
+							<span class="flag flag-#{customer.country.code}"
+								style="width: 30px; height: 20px" />
+							<h:outputText style="vertical-align: middle; margin-left: .5rem"
+								value="#{customer.quantidade}" />
 						</p:column>
 
-						<p:column headerText="Empresa">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.price}">
-										<f:convertNumber type="currency" currencySymbol="$" />
-									</h:outputText>
-								</f:facet>
-								<f:facet name="input">
-									<p:inputNumber value="#{product.price}" style="width:100%"
-										label="Empresa" />
-								</f:facet>
-							</p:cellEditor>
+						<p:column headerText="Preço">
+							<span class="flag flag-#{customer.country.code}"
+								style="width: 30px; height: 20px" />
+							<h:outputText style="vertical-align: middle; margin-left: .5rem"
+								value="#{customer.preco}" />
 						</p:column>
-
-						<p:column style="width:6rem">
-							<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit"
-								saveTitle="Save Row" />
-						</p:column>
+						
+						<!-- Total de produtos -->
+						<p:summaryRow>
+							<p:column colspan="5" style="text-align:right">
+								<h:outputText value="Total de produtos:" />
+							</p:column>
+							<p:column>
+								<h:outputText
+									value="#{dtRowGroupView.getTotalCount(customer.representative.name)}" />
+							</p:column>
+						</p:summaryRow>
+						
+						<!-- Total a pagar -->
+						<p:summaryRow>
+							<p:column colspan="5" style="text-align:right">
+								<h:outputText value="Valor total:" />
+							</p:column>
+							<p:column>
+								<h:outputText
+									value="#{dtRowGroupView.getTotalCount(customer.representative.name)}">
+									<f:convertNumber type="currency" currencySymbol="$" />
+								</h:outputText>
+							</p:column>
+						</p:summaryRow>
+						
+						<p:commandButton value="Cancelar" />
+						<p:commandButton value="Aprovar" />
 					</p:dataTable>
-				</div>
-			</h:form>
+					
+				</h:form>
+			</div>
 
 
 		</div>

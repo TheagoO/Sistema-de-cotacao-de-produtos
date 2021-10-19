@@ -58,7 +58,7 @@
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
 							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" />
-							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" />
+							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" action="PedidoCompra"/>
 							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" />
 						</p:submenu>
 
@@ -82,7 +82,7 @@
 
 			<!-- Cabeçalho -->
 			<div class="heade-area">
-				<h3>Colaboradores</h3>
+				<h3>Lançar cotação</h3>
 			</div>
 
 
@@ -90,80 +90,54 @@
 
 			<h:form id="form">
 				<div class="card">
-					<div class="p-mt-3 p-mb-5">
 
-						<!-- Área de pesquisa e "novo" colaborador -->
-
-						<div class="search-area">
-							<div class="ui-inputgroup">
-								<p:inputText id="template"
-									value="#{dtColumnsView.columnTemplate}" style="width:100%" />
-								<p:commandButton icon="pi pi-search" styleClass="ui-button" />
-							</div>
-
-							<p:commandButton update="products1"
-								action="#{dtColumnsView.updateColumns}" value="Update"
-								process="@parent" icon="pi pi-refresh"
-								oncomplete="PF('customersTable').clearFilters()" />
-							
-							<p:commandButton value="Novo" />
-						</div>
-
-					</div>
-
-					<!-- Listagem dos Colaboradores -->
+					<!-- Listagem dos produtos -->
 
 					<p:growl id="msgs" showDetail="true" />
 
-					<p:dataTable id="products1" var="product"
-						value="#{dtEditView.products1}" editable="true"
-						style="margin-bottom:20px; margin-top:20px;">
+					<h5>*Clique com botão esquerdo para editar os campos</h5>
+					<p:dataTable id="products2" var="product" editable="true"
+						editMode="cell" value="#{dtGroupView.sales}"
+						widgetVar="cellProducts" scrollable="true" scrollWidth="100%">
 
-						<p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}"
+						<p:ajax event="cellEdit" listener="#{dtEditView.onCellEdit}"
 							update=":form:msgs" />
-						<p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}"
-							update=":form:msgs" />
 
-						<p:column headerText="Código">
+						<!-- Cabeçalho das colunas -->
+
+						<p:columnGroup type="header">
+							<p:row>
+								<p:column rowspan="2" headerText="Item" />
+
+								<!-- Nome do fornecedor -->
+								<p:column colspan="2" headerText="#{Fornecedor}" />
+							</p:row>
+							<p:row>
+								<p:column headerText="Qtd." />
+								<p:column headerText="Valor uni." />
+							</p:row>
+						</p:columnGroup>
+
+						<!-- Linhas -->
+
+						<p:column>
+							<f:facet name="output">
+								<h:outputText value="#{product.name}" />
+							</f:facet>
+						</p:column>
+
+						<p:column>
 							<p:cellEditor>
 								<f:facet name="output">
-									<h:outputText value="#{product.code}" />
+									<h:outputText value="#{product.quantidade}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText id="modelInput" value="#{product.code}"
-										style="width:100%" />
+									<p:inputText value="#{product.quantidade}" style="width:100%" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
 
-						<p:column headerText="Name">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.name}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{product.name}" style="width:100%"
-										label="Name" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-
-						<p:column headerText="Tipo">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.inventoryStatus}" />
-								</f:facet>
-								<f:facet name="input">
-									<h:selectOneMenu value="#{product.inventoryStatus}"
-										style="width:100%">
-										<f:selectItems value="#{dtEditView.inventoryStatusList}"
-											var="status" itemLabel="#{status.text}" itemValue="#{status}" />
-									</h:selectOneMenu>
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-
-						<p:column headerText="Empresa">
+						<p:column>
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{product.price}">
@@ -171,16 +145,12 @@
 									</h:outputText>
 								</f:facet>
 								<f:facet name="input">
-									<p:inputNumber value="#{product.price}" style="width:100%"
-										label="Empresa" />
+									<p:inputNumber value="#{product.price}" style="width:100%" symbol="$" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-
-						<p:column style="width:6rem">
-							<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit"
-								saveTitle="Save Row" />
-						</p:column>
+						
+						<p:commandButton value="Lançar" />
 					</p:dataTable>
 				</div>
 			</h:form>
