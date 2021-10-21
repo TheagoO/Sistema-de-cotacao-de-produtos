@@ -1,5 +1,7 @@
 package br.edu.unifacear.model.entity;
 
+import java.util.Objects;
+
 import javax.persistence.*;
 
 @Entity
@@ -90,6 +92,26 @@ public class NotaFiscalItem {
 	public String toString() {
 		return "NotaFiscalItem [id=" + id + ", codigo=" + codigo + ", quantidade=" + quantidade + ", valor_Unitario="
 				+ valor_Unitario + ", valor_total=" + valor_total + ", item=" + item + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo, id, item, quantidade, valor_Unitario, valor_total);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NotaFiscalItem other = (NotaFiscalItem) obj;
+		return codigo == other.codigo && id == other.id && Objects.equals(item, other.item)
+				&& Float.floatToIntBits(quantidade) == Float.floatToIntBits(other.quantidade)
+				&& Double.doubleToLongBits(valor_Unitario) == Double.doubleToLongBits(other.valor_Unitario)
+				&& Double.doubleToLongBits(valor_total) == Double.doubleToLongBits(other.valor_total);
 	}
 	
 	

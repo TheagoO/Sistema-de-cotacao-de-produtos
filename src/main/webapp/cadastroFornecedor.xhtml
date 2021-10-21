@@ -156,20 +156,20 @@
 							<!-- Input Nome Almoxarifado -->
 
 							<span class="ui-float-label"> <p:inputText
-									id="nome-float-Almoxarifado" value="#{inputTextView.text}" />
+									id="nome" value="#{BeanAlmoxarifado.almoxarifado.nome}" />
 								<p:outputLabel for="@previous" value="Nome" />
 							</span>
 							<br />
 							<!-- Input Senha Almoxarifado-->
-							<p:outputLabel for="senha-gestor" value="Senha" />
-							<p:password id="senha-almoxarifado"
-								value="#{passwordView.password6}" toggleMask="true"
+							<p:outputLabel for="senha" value="Senha" />
+							<p:password id="senha"
+								value="#{BeanAlmoxarifado.almoxarifado.senha}" toggleMask="true"
 								redisplay="true" style="width:100%;" />
 							<br />
 							<!-- Input Email Almoxarifado-->
 
 							<span class="ui-float-label"> <p:inputText
-									id="email-float-Almoxarifado" value="#{inputTextView.text}" />
+									id="email" value="#{BeanAlmoxarifado.almoxarifado.email}" />
 								<p:outputLabel for="@previous" value="Email" />
 							</span>
 							<br />

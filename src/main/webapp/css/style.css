@@ -57,13 +57,14 @@ h1, h2, h3, h4, h5{
 
 .menu-area{
 	width:25%;
+	background-color: blue;
 }
 
 section{
 	position:realtive;
-	width:100%;
-	height:80%;
 	display:flex;
+	height:80%;
+	background-color: black;
 }
 
 .content-area{

@@ -1,7 +1,6 @@
 package br.edu.unifacear.model.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -23,31 +22,18 @@ public class Gestor {
 	
 	@Column(name = "SENHA")
 	private String senha;
-	
-	@OneToMany
-	private List<PedidoCompra> pedido = new ArrayList<>();
-	
-	@OneToMany
-	private List<PedidoCotacao> cotacao = new ArrayList<>();
-	
+		
 	public Gestor() {
-		this.pedido = new ArrayList<>();
-		this.cotacao = new ArrayList<>();
 	}
 	
 
-	public Gestor(int id, String nome, String cpf, String email, String senha, List<PedidoCompra> pedido,
-			List<PedidoCotacao> cotacao) {
+	public Gestor(int id, String nome, String cpf, String email, String senha) {
 		super();
-		this.pedido = new ArrayList<>();
-		this.cotacao = new ArrayList<>();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
 		this.senha = senha;
-		this.pedido = pedido;
-		this.cotacao = cotacao;
 	}
 
 	
@@ -92,30 +78,31 @@ public class Gestor {
 	}
 
 
-	public PedidoCompra getPedido(int i) {
-		return pedido.get(i);
-	}
-
-
-	public void setPedido(PedidoCompra pedido) {
-		this.pedido.add(pedido);
-	}
-
-
-	public PedidoCotacao getCotacao(int i) {
-		return cotacao.get(i);
-	}
-
-
-	public void setCotacao(PedidoCotacao cotacao) {
-		this.cotacao.add(cotacao);
+	@Override
+	public String toString() {
+		return "Gestor [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", senha=" + senha + "]";
 	}
 
 
 	@Override
-	public String toString() {
-		return "Gestor [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", senha=" + senha
-				+ ", pedido=" + pedido + ", cotacao=" + cotacao + "]";
+	public int hashCode() {
+		return Objects.hash(cpf, email, id, nome, senha);
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Gestor other = (Gestor) obj;
+		return Objects.equals(cpf, other.cpf) && Objects.equals(email, other.email) && id == other.id
+				&& Objects.equals(nome, other.nome) && Objects.equals(senha, other.senha);
+	}
+
+	
 
 }

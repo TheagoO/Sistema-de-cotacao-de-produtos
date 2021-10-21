@@ -1,5 +1,7 @@
 package br.edu.unifacear.model.entity;
 
+import java.util.Objects;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,10 +11,10 @@ public class CotacaoItem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "QTD")
+	@Column(name = "QUANTIDADE")
 	private float quantidade;
 	
-	@Column(name = "DISPONIVEL")
+	@Column(name = "DISPONIBILIDADE")
 	private String disponibilidade;
 	
 	@Column(name = "VALOR_UNI")
@@ -91,6 +93,27 @@ public class CotacaoItem {
 	public String toString() {
 		return "CotacaoItem [id=" + id + ", quantidade=" + quantidade + ", disponibilidade=" + disponibilidade
 				+ ", valor_Unitario=" + valor_Unitario + ", valor_Total=" + valor_Total + ", item=" + item + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(disponibilidade, id, item, quantidade, valor_Total, valor_Unitario);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CotacaoItem other = (CotacaoItem) obj;
+		return Objects.equals(disponibilidade, other.disponibilidade) && id == other.id
+				&& Objects.equals(item, other.item)
+				&& Float.floatToIntBits(quantidade) == Float.floatToIntBits(other.quantidade)
+				&& Double.doubleToLongBits(valor_Total) == Double.doubleToLongBits(other.valor_Total)
+				&& Double.doubleToLongBits(valor_Unitario) == Double.doubleToLongBits(other.valor_Unitario);
 	}
 	
 	

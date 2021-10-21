@@ -1,5 +1,7 @@
 package br.edu.unifacear.model.entity;
 
+import java.util.Objects;
+
 import javax.persistence.*;
 
 @Entity
@@ -53,6 +55,23 @@ public class FiscalItem {
 	@Override
 	public String toString() {
 		return "FiscalItem [id=" + id + ", ncm=" + ncm + ", origem=" + origem + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, ncm, origem);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FiscalItem other = (FiscalItem) obj;
+		return id == other.id && Objects.equals(ncm, other.ncm) && Objects.equals(origem, other.origem);
 	}
 	
 	

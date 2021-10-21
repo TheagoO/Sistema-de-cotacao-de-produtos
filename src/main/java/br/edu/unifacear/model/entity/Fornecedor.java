@@ -2,6 +2,7 @@ package br.edu.unifacear.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -109,5 +110,24 @@ public class Fornecedor {
 				+ email + ", contato=" + contato + ", endereco=" + endereco + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(cnpj, contato, email, empresa, endereco, id, nome);
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fornecedor other = (Fornecedor) obj;
+		return Objects.equals(cnpj, other.cnpj) && Objects.equals(contato, other.contato)
+				&& Objects.equals(email, other.email) && Objects.equals(empresa, other.empresa)
+				&& Objects.equals(endereco, other.endereco) && id == other.id && Objects.equals(nome, other.nome);
+	}
+
+	
 }

@@ -1,5 +1,7 @@
 package br.edu.unifacear.model.entity;
 
+import java.util.Objects;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,8 +17,7 @@ public class CotacaoFornecedor {
 	@ManyToOne
 	private Fornecedor fornecedor;
 
-	public CotacaoFornecedor() {
-		
+	public CotacaoFornecedor() {	
 	}
 	
 	public CotacaoFornecedor(int id, int codigo, Fornecedor fornecedor) {
@@ -53,6 +54,23 @@ public class CotacaoFornecedor {
 	@Override
 	public String toString() {
 		return "CotacaoFornecedor [id=" + id + ", codigo=" + codigo + ", fornecedor=" + fornecedor + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo, fornecedor, id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CotacaoFornecedor other = (CotacaoFornecedor) obj;
+		return codigo == other.codigo && Objects.equals(fornecedor, other.fornecedor) && id == other.id;
 	}
 	
 	

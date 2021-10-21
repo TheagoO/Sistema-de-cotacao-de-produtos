@@ -1,5 +1,7 @@
 package br.edu.unifacear.model.entity;
 
+import java.util.Objects;
+
 import javax.persistence.*;
 
 @Entity
@@ -91,5 +93,25 @@ public class Endereco {
 		return "Endereco [id=" + id + ", logradouro=" + logradouro + ", numero=" + numero + ", complemento="
 				+ complemento + ", cep=" + cep + ", cidade=" + cidade + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cep, cidade, complemento, id, logradouro, numero);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Endereco other = (Endereco) obj;
+		return Objects.equals(cep, other.cep) && Objects.equals(cidade, other.cidade)
+				&& Objects.equals(complemento, other.complemento) && id == other.id
+				&& Objects.equals(logradouro, other.logradouro) && numero == other.numero;
+	}
+	
 	
 }
