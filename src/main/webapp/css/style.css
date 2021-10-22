@@ -20,13 +20,15 @@ header{
 	display:flex;
 }
 
+h1, h2, h3, h4, h5{
+	font-family: 'Brush Script MT', cursive;
+}
+
 .d-logo-center{
 	display:flex;
 	height:37px;
 	margin-top:auto;
 	margin-bottom:auto;
-	font-family: 'Brush Script MT', cursive;
-	font-size:10pt;
 }
 
 .d-center{
@@ -57,21 +59,22 @@ header{
 
 .menu-area{
 	width:25%;
+	background-color: blue;
 }
 
 section{
-	position:relative;
-	width:100%;
-	height:80%;
+	position:realtive;
 	display:flex;
+	height:80%;
+	background-color: black;
 }
 
 .content-area{
 	width:60%;
-	margin-top:auto;
-	margin-bottom:auto;
+	margin-top:20px;
 	margin-left:auto;
 	margin-right:auto;
+
 }
 
 .btns-area{
@@ -79,12 +82,7 @@ section{
 	overflow:hidden;	
 }
 
-.card{
-	width:300px;
-	display:flex;
-	justify-content: space-between;
-	float:right;
-}
+
 
 footer{
 	position:fixed;
@@ -117,5 +115,21 @@ footer{
 
 p{
 	margin-bottom:10px;
+}
+
+.search-area{
+	width:100%;
+	display: flex; 
+	justify-content: space-between;
+}
+
+.ui-inputgroup{
+	width:80%;
+}
+
+.heade-area{
+	width:100%;
+	height:70px;
+	text-align:center;
 }
 

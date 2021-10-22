@@ -16,13 +16,19 @@
 <h:body>
 
 	<header>
+
+		<!-- Área da logo -->
 		<div class="d-logo">
-			<img src="imagens/logo.png" alt="Logo.png" style="width: 220px;"/>
+			<img src="imagens/logo.png" alt="Logo.png" style="width: 220px;" />
 			<div class="d-logo-center">
 				<h2>Administrador</h2>
 			</div>
 		</div>
+
+
 		<div class="d-center"></div>
+
+		<!-- Área do usuário -->
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
@@ -32,12 +38,13 @@
 			</div>
 		</div>
 	</header>
+
 	<section>
 		<p:growl id="messages" showDetail="true" />
-		
+
 		<!-- Container do menu esquerdo -->
 		<div class="menu-area">
-			
+
 			<!-- Menu -->
 			<p:panel id="fold" header="Menu">
 				<h:form>
@@ -45,7 +52,8 @@
 						<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
 								action="cadastroFornecedor" />
-							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog" action="Colaboradores" />
+							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
+								action="Colaboradores" />
 						</p:submenu>
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
@@ -63,100 +71,125 @@
 
 					</p:tieredMenu>
 				</h:form>
-				
+
 			</p:panel>
 
 		</div>
-		
-		
+
+
 		<!-- Container do conteúdo da página  -->
 		<div class="content-area">
-			
-			<!-- Painel do formulario de cadastro -->
-			<p:panel header="Novo produto">
-				<h:form id="New-Produto">										
-					<div class="ui-fluid">
 
-						<!-- Input "Nome" -->
-						<span class="ui-float-label"> <p:inputText id="nome"
-								value="#{inputTextView.text}" /> <p:outputLabel for="@previous"
-								value="Nome" />
-						</span> <br /> 
-						
-						<!-- Input "Marca" -->
-						<span class="ui-float-label"> <p:inputText
-								id="marca" value="#{inputTextView.text}" /> <p:outputLabel
-								for="@previous" value="Marca" />
-						</span> <br /> 
-						
-						<!-- Input "Código" -->
-						<span class="ui-float-label"> <p:inputText
-								id="codigo" value="#{inputTextView.text}">
-								<p:keyFilter mask="num" />
-							</p:inputText> <p:outputLabel for="@previous" value="Código" />
-						</span> <br />
+			<!-- Cabeçalho -->
+			<div class="heade-area">
+				<h3>Colaboradores</h3>
+			</div>
 
-						<!-- Select option "NCM" -->
-						<div class="p-field p-col-12 p-md-4">
-							<p:outputLabel for="@next" value="NCM:" />
-							<p:selectOneMenu id="ncm" value="#{selectOneMenuView.city}"
-								effect="fold" editable="true">
-								<f:selectItem itemLabel="" itemValue="" />
-								<f:selectItems value="#{selectOneMenuView.cities}" />
-							</p:selectOneMenu>
+
+			<!-- Conteúdo -->
+
+			<h:form id="form">
+				<div class="card">
+					<div class="p-mt-3 p-mb-5">
+
+						<!-- Área de pesquisa e "novo" colaborador -->
+
+						<div class="search-area">
+							<div class="ui-inputgroup">
+								<p:inputText id="template"
+									value="#{dtColumnsView.columnTemplate}" style="width:100%" />
+								<p:commandButton icon="pi pi-search" styleClass="ui-button" />
+							</div>
+
+							<p:commandButton update="products1"
+								action="#{dtColumnsView.updateColumns}" value="Update"
+								process="@parent" icon="pi pi-refresh"
+								oncomplete="PF('customersTable').clearFilters()" />
+							
+							<p:commandButton value="Novo" />
 						</div>
-						<br />
-						
-						<!-- Select option "Origem" -->
-						<p:outputLabel for="@previous" value="Origem:" />
-						<span class="ui-float-label"> <p:selectOneMenu id="pais"
-								value="#{dropdownView.ncm}">
-								<p:ajax listener="#{dropdownView.onCountryChange}" />
-								<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
-								<f:selectItems value="#{dropdownView.countries}" />
-							</p:selectOneMenu>
-						</span> <br />
-					</div>
-					
-					<!-- Container dos botões -->
-					<div class="btns-area">
-						<div class="card">
-							<p:growl id="message" showDetail="true" />
-							
-							<!-- Botão "Cancelar" -->
-							<p:commandButton value="Cancelar" action="#{confirmView.delete}"
-								update="message" styleClass="ui-button-danger"
-								icon="pi pi-times">
-								<p:confirm header="Atenção"
-									message="Deseja mesmo cancelar esse cadastro?"
-									icon="pi pi-info-circle" />
-							</p:commandButton>
-							
-							<!-- Botão "Confirmar" -->
-							<p:commandButton value="Confirmar"
-								action="#{confirmView.confirm}" update="message"
-								styleClass="p-mr-2" icon="pi pi-check">
-								<p:confirm header="Atenção" message="Deseja mesmo continuar?"
-									icon="pi pi-exclamation-triangle" />
-							</p:commandButton>
-							
-							<!-- Caixa de confirmação -->
-							<p:confirmDialog global="true" showEffect="fade"
-								hideEffect="fade" responsive="true" width="350">
-								<p:commandButton value="Não" type="button"
-									styleClass="ui-confirmdialog-no ui-button-flat" />
-								<p:commandButton value="Sim" type="button"
-									styleClass="ui-confirmdialog-yes" />
-							</p:confirmDialog>
 
-						</div>
 					</div>
-				</h:form>
-			</p:panel>
+
+					<!-- Listagem dos Colaboradores -->
+
+					<p:growl id="msgs" showDetail="true" />
+
+					<p:dataTable id="products1" var="product"
+						value="#{dtEditView.products1}" editable="true"
+						style="margin-bottom:20px; margin-top:20px;">
+
+						<p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}"
+							update=":form:msgs" />
+						<p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}"
+							update=":form:msgs" />
+
+						<p:column headerText="Código">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{product.code}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText id="modelInput" value="#{product.code}"
+										style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+
+						<p:column headerText="Name">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{product.name}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{product.name}" style="width:100%"
+										label="Name" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+
+						<p:column headerText="Tipo">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{product.inventoryStatus}" />
+								</f:facet>
+								<f:facet name="input">
+									<h:selectOneMenu value="#{product.inventoryStatus}"
+										style="width:100%">
+										<f:selectItems value="#{dtEditView.inventoryStatusList}"
+											var="status" itemLabel="#{status.text}" itemValue="#{status}" />
+									</h:selectOneMenu>
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+
+						<p:column headerText="Empresa">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{product.price}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</f:facet>
+								<f:facet name="input">
+									<p:inputNumber value="#{product.price}" style="width:100%"
+										label="Empresa" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+
+						<p:column style="width:6rem">
+							<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit"
+								saveTitle="Save Row" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</h:form>
+
+
 		</div>
 	</section>
 
-
+	<!-- Rodapé -->
 	<footer>
 		<div class="rdp">
 			<div class="mid">

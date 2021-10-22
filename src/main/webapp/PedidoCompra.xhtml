@@ -16,13 +16,19 @@
 <h:body>
 
 	<header>
+
+		<!-- Área da logo -->
 		<div class="d-logo">
-			<img src="imagens/logo.png" alt="Logo.png" style="width: 220px;"/>
+			<img src="imagens/logo.png" alt="Logo.png" style="width: 220px;" />
 			<div class="d-logo-center">
 				<h2>Administrador</h2>
 			</div>
 		</div>
+
+
 		<div class="d-center"></div>
+
+		<!-- Área do usuário -->
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
@@ -32,12 +38,13 @@
 			</div>
 		</div>
 	</header>
+
 	<section>
 		<p:growl id="messages" showDetail="true" />
-		
+
 		<!-- Container do menu esquerdo -->
 		<div class="menu-area">
-			
+
 			<!-- Menu -->
 			<p:panel id="fold" header="Menu">
 				<h:form>
@@ -45,7 +52,8 @@
 						<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
 								action="cadastroFornecedor" />
-							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog" action="Colaboradores" />
+							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
+								action="Colaboradores" />
 						</p:submenu>
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
@@ -63,100 +71,100 @@
 
 					</p:tieredMenu>
 				</h:form>
-				
+
 			</p:panel>
 
 		</div>
-		
-		
+
+
 		<!-- Container do conteúdo da página  -->
 		<div class="content-area">
-			
-			<!-- Painel do formulario de cadastro -->
-			<p:panel header="Novo produto">
-				<h:form id="New-Produto">										
-					<div class="ui-fluid">
 
-						<!-- Input "Nome" -->
-						<span class="ui-float-label"> <p:inputText id="nome"
-								value="#{inputTextView.text}" /> <p:outputLabel for="@previous"
-								value="Nome" />
-						</span> <br /> 
-						
-						<!-- Input "Marca" -->
-						<span class="ui-float-label"> <p:inputText
-								id="marca" value="#{inputTextView.text}" /> <p:outputLabel
-								for="@previous" value="Marca" />
-						</span> <br /> 
-						
-						<!-- Input "Código" -->
-						<span class="ui-float-label"> <p:inputText
-								id="codigo" value="#{inputTextView.text}">
-								<p:keyFilter mask="num" />
-							</p:inputText> <p:outputLabel for="@previous" value="Código" />
-						</span> <br />
+			<!-- Cabeçalho -->
+			<div class="heade-area">
+				<h3>Pedidos de compra</h3>
+			</div>
 
-						<!-- Select option "NCM" -->
-						<div class="p-field p-col-12 p-md-4">
-							<p:outputLabel for="@next" value="NCM:" />
-							<p:selectOneMenu id="ncm" value="#{selectOneMenuView.city}"
-								effect="fold" editable="true">
-								<f:selectItem itemLabel="" itemValue="" />
-								<f:selectItems value="#{selectOneMenuView.cities}" />
-							</p:selectOneMenu>
-						</div>
-						<br />
+
+			<!-- Conteúdo -->
+
+			<div class="card">
+				<h:form id="pedido">
+					<p:dataTable var="customer" value="#{dtRowGroupView.customers}"
+						sortBy="#{customer.representative.name}">
+						<p:headerRow field="representative.name" expandable="true"
+							expanded="#{customer.representative.name != 'Stephen Shaw'}">
+
+							<p:column colspan="6">
+								<div class="p-d-inline-flex p-ai-center"
+									style="vertical-align: middle">
+									<p:graphicImage
+										name="images/avatar/#{customer.representative.image}"
+										library="demo" width="32" style="vertical-align: middle" />
+									<h:outputText styleClass="p-ml-2"
+										value="#{customer.representative.name}" />
+								</div>
+							</p:column>
+						</p:headerRow>
+
+						<p:column headerText="Remetente">
+							<h:outputText value="#{customer.representative.name}" />
+						</p:column>
+
+						<p:column headerText="Produto">
+							<h:outputText value="#{customer.produto}" />
+						</p:column>
+
+						<p:column headerText="Quantidade">
+							<span class="flag flag-#{customer.country.code}"
+								style="width: 30px; height: 20px" />
+							<h:outputText style="vertical-align: middle; margin-left: .5rem"
+								value="#{customer.quantidade}" />
+						</p:column>
+
+						<p:column headerText="Preço">
+							<span class="flag flag-#{customer.country.code}"
+								style="width: 30px; height: 20px" />
+							<h:outputText style="vertical-align: middle; margin-left: .5rem"
+								value="#{customer.preco}" />
+						</p:column>
 						
-						<!-- Select option "Origem" -->
-						<p:outputLabel for="@previous" value="Origem:" />
-						<span class="ui-float-label"> <p:selectOneMenu id="pais"
-								value="#{dropdownView.ncm}">
-								<p:ajax listener="#{dropdownView.onCountryChange}" />
-								<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
-								<f:selectItems value="#{dropdownView.countries}" />
-							</p:selectOneMenu>
-						</span> <br />
-					</div>
+						<!-- Total de produtos -->
+						<p:summaryRow>
+							<p:column colspan="5" style="text-align:right">
+								<h:outputText value="Total de produtos:" />
+							</p:column>
+							<p:column>
+								<h:outputText
+									value="#{dtRowGroupView.getTotalCount(customer.representative.name)}" />
+							</p:column>
+						</p:summaryRow>
+						
+						<!-- Total a pagar -->
+						<p:summaryRow>
+							<p:column colspan="5" style="text-align:right">
+								<h:outputText value="Valor total:" />
+							</p:column>
+							<p:column>
+								<h:outputText
+									value="#{dtRowGroupView.getTotalCount(customer.representative.name)}">
+									<f:convertNumber type="currency" currencySymbol="$" />
+								</h:outputText>
+							</p:column>
+						</p:summaryRow>
+						
+						<p:commandButton value="Cancelar" />
+						<p:commandButton value="Aprovar" />
+					</p:dataTable>
 					
-					<!-- Container dos botões -->
-					<div class="btns-area">
-						<div class="card">
-							<p:growl id="message" showDetail="true" />
-							
-							<!-- Botão "Cancelar" -->
-							<p:commandButton value="Cancelar" action="#{confirmView.delete}"
-								update="message" styleClass="ui-button-danger"
-								icon="pi pi-times">
-								<p:confirm header="Atenção"
-									message="Deseja mesmo cancelar esse cadastro?"
-									icon="pi pi-info-circle" />
-							</p:commandButton>
-							
-							<!-- Botão "Confirmar" -->
-							<p:commandButton value="Confirmar"
-								action="#{confirmView.confirm}" update="message"
-								styleClass="p-mr-2" icon="pi pi-check">
-								<p:confirm header="Atenção" message="Deseja mesmo continuar?"
-									icon="pi pi-exclamation-triangle" />
-							</p:commandButton>
-							
-							<!-- Caixa de confirmação -->
-							<p:confirmDialog global="true" showEffect="fade"
-								hideEffect="fade" responsive="true" width="350">
-								<p:commandButton value="Não" type="button"
-									styleClass="ui-confirmdialog-no ui-button-flat" />
-								<p:commandButton value="Sim" type="button"
-									styleClass="ui-confirmdialog-yes" />
-							</p:confirmDialog>
-
-						</div>
-					</div>
 				</h:form>
-			</p:panel>
+			</div>
+
+
 		</div>
 	</section>
 
-
+	<!-- Rodapé -->
 	<footer>
 		<div class="rdp">
 			<div class="mid">

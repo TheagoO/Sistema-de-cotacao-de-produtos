@@ -9,18 +9,24 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 	<link rel="stylesheet" href="css/style.css" />
 	<script src="js/script.js"></script>
 	<title>InovaTech2021</title>
+
+	<title>InovaTech 2021</title>
+	<link rel="stylesheet" href="css/estilo.css" />
+	<link rel="stylesheet" href="css/style.css" />
+
 </h:head>
 <h:body>
 
 	<!-- Cabeçalho da Tela -->
 	<header>
 	<div class="d-logo">
-		<img src="imagens/infotechlogo.png" alt="Logo.png" style="width: 220px;"/>
+		<img src="imagens/logo.png" alt="Logo.png" style="width: 220px;" />
 		<div class="d-logo-center">
-			<h1>Administrador</h1>
+			<h2>Administrador</h2>
 		</div>
 	</div>
 	<div class="d-center"></div>
@@ -55,32 +61,44 @@
 	<section>
 
 
+
+	</header>
+
+	<!-- Meio da Tela -->
+	<section style="height:100%;">
+
 	<div class="menu-area">
 
 		<p:panel id="fold" header="Menu">
 			<h:form>
 
+
 				<p:tieredMenu style="width:100%; height:730px;">
 
 				<p:tieredMenu style="width:100%; height:100%;">
 					<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
-						<p:menuitem value="Novo" icon="pi pi-fw pi-plus" />
-						<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog" />
+						<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
+							action="cadastroFornecedor" />
+						<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
+							action="Colaboradores" />
 					</p:submenu>
 
 					<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
 						<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" />
 						<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" />
-						<p:menuitem value="Gerenciar itens" icon="pi pi-fw pi-cog" />
+						<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" />
 					</p:submenu>
 
 					<p:submenu label="Produtos" icon="pi pi-fw pi-table">
-						<p:menuitem value="Novo" icon="pi pi-fw pi-user-plus" />
-						<p:menuitem value="Gerenciar produtos" icon="pi pi-fw pi-cog" />
+						<p:menuitem value="Novo" icon="pi pi-fw pi-user-plus"
+							action="CadastroProduto" />
+						<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
+							action="Produtos" />
 					</p:submenu>
 
 				</p:tieredMenu>
 			</h:form>
+
 
 
 			<p:effect type="fold" event="dblclick" />
@@ -92,11 +110,15 @@
 	<!-- CADASTRO -->
 
 	<div class="content-area" style="margin-top:20px;">
+
+	<div class="content-area">
+
 		<p:panel header="Cadastro">
 			<div class="ui-fluid">
 				<h:form id="forn">
 					<p:tabView>
 						<p:tab title="Fornecedor">
+
 
 	<div class="content-area">
 		<p:panel header="Cadastro">
@@ -111,10 +133,15 @@
 									id="nome-float-fornecedor" value="#{inputTextView.text}" /> <p:outputLabel
 									for="@previous" value="Nome" />
 
+
 							</span>
 							<br />
 
 							</span> <br />
+
+
+							</span>
+							<br />
 
 
 
@@ -126,7 +153,9 @@
 							</span>
 							<br />
 
+
 							</span> <br />
+
 
 							<!-- Input Empresa Fornecedor -->
 
@@ -134,11 +163,16 @@
 									id="empresa-float-fornecedor" value="#{inputTextView.text}" />
 								<p:outputLabel for="@previous" value="Empresa" />
 
+
 							</span>
 							<br />
 						</span>
 						 <br />
 
+=======
+							</span>
+							<br />
+>>>>>>> 74a854140ced2b123e7630a02ccdbae02b1895db
 							<!-- Input CNPJ Fornecedor-->
 
 							<div class="p-field p-col-12 p-md-4">
@@ -156,47 +190,65 @@
 							</div>
 							<br />
 							<!-- Estado Fornecedor -->
+<<<<<<< HEAD
 
 							<p:outputLabel for="@next" value="Estado" />
 
 							<p:outputLabel for="@next" value="Estado:" />
 
+=======
+							<p:outputLabel for="@next" value="Estado" />
+>>>>>>> 74a854140ced2b123e7630a02ccdbae02b1895db
 							<br />
 							<p:selectOneMenu id="estado" value="#{selectOneMenuView.city}"
 								effect="fold" editable="true">
 								<f:selectItem itemLabel="" itemValue="" />
 								<f:selectItems value="#{selectOneMenuView.cities}" />
 							</p:selectOneMenu>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 74a854140ced2b123e7630a02ccdbae02b1895db
 							<br />
 							<br />
 							<!-- Municipio Fornecedor -->
 
 							<p:outputLabel for="@next" value="Município" />
+<<<<<<< HEAD
 
 							<br /> <br />
 							<!-- Municipio Fornecedor -->
 
 							<p:outputLabel for="@next" value="Município:" />
 
+=======
+>>>>>>> 74a854140ced2b123e7630a02ccdbae02b1895db
 							<br />
 							<p:selectOneMenu id="municipio" value="#{selectOneMenuView.city}"
 								effect="fold" editable="true">
 								<f:selectItem itemLabel="" itemValue="" />
 								<f:selectItems value="#{selectOneMenuView.cities}" />
 							</p:selectOneMenu>
+<<<<<<< HEAD
 
 							<br />
 							<br />
 
 							<br /> <br />
 
+=======
+							<br />
+							<br />
+>>>>>>> 74a854140ced2b123e7630a02ccdbae02b1895db
 							<!-- Input lugradouro Fornecedor -->
 
 							<span class="ui-float-label"> <p:inputText
 									id="endereco-float-fornecedor" value="#{inputTextView.text}" />
 								<p:outputLabel for="@previous" value="Lugradouro" />
+<<<<<<< HEAD
 
+=======
+>>>>>>> 74a854140ced2b123e7630a02ccdbae02b1895db
 							</span>
 							<br />
 
@@ -209,20 +261,20 @@
 							<!-- Input Nome Almoxarifado -->
 
 							<span class="ui-float-label"> <p:inputText
-									id="nome-float-Almoxarifado" value="#{inputTextView.text}" />
+									id="nome" value="#{BeanAlmoxarifado.almoxarifado.nome}" />
 								<p:outputLabel for="@previous" value="Nome" />
 							</span>
 							<br />
 							<!-- Input Senha Almoxarifado-->
-							<p:outputLabel for="senha-gestor" value="Senha" />
-							<p:password id="senha-almoxarifado"
-								value="#{passwordView.password6}" toggleMask="true"
+							<p:outputLabel for="senha" value="Senha" />
+							<p:password id="senha"
+								value="#{BeanAlmoxarifado.almoxarifado.senha}" toggleMask="true"
 								redisplay="true" style="width:100%;" />
 							<br />
 							<!-- Input Email Almoxarifado-->
 
 							<span class="ui-float-label"> <p:inputText
-									id="email-float-Almoxarifado" value="#{inputTextView.text}" />
+									id="email" value="#{BeanAlmoxarifado.almoxarifado.email}" />
 								<p:outputLabel for="@previous" value="Email" />
 							</span>
 							<br />
@@ -249,7 +301,7 @@
 								toggleMask="true" redisplay="true" style="width:100%;" />
 							<br />
 							<!-- Input Email Gestor-->
-							
+
 							<span class="ui-float-label"> <p:inputText
 									id="email-float-gestor" value="#{inputTextView.text}" /> <p:outputLabel
 									for="@previous" value="Email" />
@@ -272,6 +324,7 @@
 					</p:tabView>
 				</h:form>
 			</div>
+<<<<<<< HEAD
 
 							 <br />
 						</div>
@@ -347,21 +400,29 @@
 				</p:tabView>
 			</h:form>
 
+=======
+>>>>>>> 74a854140ced2b123e7630a02ccdbae02b1895db
 		</p:panel>
 
 	</div>
 	</section>
 	<!-- Rodapé de Tela -->
+<<<<<<< HEAD
 	<div class="cad">
 
 		<div class="rdp-c">
 
 		<div class="rdp">
 
+=======
+	<div class="rdp-cad" style="height: 90px;">
+		<div class="rdp-c">
+>>>>>>> 74a854140ced2b123e7630a02ccdbae02b1895db
 			<div class="mid">
 				<p:commandButton id="ajuda" value="Ajuda" type="button" />
 				<p:overlayPanel for="ajuda" style="width:350px">
 					<p class="p-m-0">
+<<<<<<< HEAD
 
 						<strong>Cadastro</strong>: Selecione qual deseija cadastrar.
 					</p>
@@ -400,6 +461,15 @@
 						</f:facet>
 					</p:dialog>
 
+=======
+						<strong>Cadastro</strong>: Selecione qual deseija cadastrar.
+					</p>
+					<p class="p-m-0">
+						<strong>Lugradouro</strong>: Específique onde mora, Rua, bairro,
+						número.
+					</p>
+
+>>>>>>> 74a854140ced2b123e7630a02ccdbae02b1895db
 				</p:overlayPanel>
 			</div>
 		</div>
