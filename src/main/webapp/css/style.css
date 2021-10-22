@@ -4,7 +4,9 @@
     margin: 0px;
     padding: 0px;
 }
-
+a{
+	color: black;
+}
 
 
 header{
@@ -49,7 +51,6 @@ h1, h2, h3, h4, h5{
 
 .a{
 	text-decoration:none;
-	color:black;
 	margin-right:1rem;
 }
 
@@ -66,7 +67,6 @@ section{
 	position:realtive;
 	display:flex;
 	height:80%;
-	background-color: black;
 }
 
 .content-area{
