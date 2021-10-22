@@ -1,11 +1,12 @@
 package br.edu.unifacear.model.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.*;
 
 @Entity
-public class FiscalItem {
+public class FiscalItem implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package br.edu.unifacear.model.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -7,7 +8,7 @@ import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
-public class PedidoCompra {
+public class PedidoCompra implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

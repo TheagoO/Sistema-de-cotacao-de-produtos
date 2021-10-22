@@ -1,11 +1,12 @@
 package br.edu.unifacear.model.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.*;
 
 @Entity
-public class TipoContato {
+public class TipoContato implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
