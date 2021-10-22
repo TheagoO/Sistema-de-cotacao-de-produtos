@@ -27,11 +27,12 @@ public class AlmoxarifadoController {
 	}
 	
 	public String salvar() {
-		AlmoxarifadoBo dao = new AlmoxarifadoBo();
+		AlmoxarifadoBo ab = new AlmoxarifadoBo();
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
-			dao.salvar(almoxarifado);
+			ab.salvar(almoxarifado);
 		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar colaborador!", "ERROR"));
 			e.printStackTrace();
 		}
 		
