@@ -4,9 +4,7 @@
     margin: 0px;
     padding: 0px;
 }
-a{
-	color: black;
-}
+
 
 
 header{
@@ -51,6 +49,7 @@ h1, h2, h3, h4, h5{
 
 .a{
 	text-decoration:none;
+	color:black;
 	margin-right:1rem;
 }
 
@@ -60,7 +59,6 @@ h1, h2, h3, h4, h5{
 
 .menu-area{
 	width:25%;
-	background-color: blue;
 }
 
 section{

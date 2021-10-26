@@ -19,7 +19,8 @@ public class FiscalItem implements Serializable {
 	private Pais origem;
 	
 	public FiscalItem() {
-		
+		this.id = 0;
+		this.origem = new Pais();
 	}
 	
 	public FiscalItem(int id, String ncm, Pais origem) {
@@ -55,7 +56,7 @@ public class FiscalItem implements Serializable {
 
 	@Override
 	public String toString() {
-		return "FiscalItem [id=" + id + ", ncm=" + ncm + ", origem=" + origem + "]";
+		return ncm;
 	}
 
 	@Override

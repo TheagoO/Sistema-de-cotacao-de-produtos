@@ -9,16 +9,15 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>InovaTech 2021</title>
-	<link rel="stylesheet" href="css/estilo.css" />
 	<link rel="stylesheet" href="css/style.css" />
-
+	<script src="js/script.js" />
+	<title>InovaTech2021</title>
 </h:head>
 <h:body>
 
 	<header>
 		<div class="d-logo">
-			<img src="imagens/logo.png" alt="Logo.png" style="width: 220px;"/>
+			<img src="imagens/logo.png" alt="Logo.png" style="width: 220px;" />
 			<div class="d-logo-center">
 				<h2>Administrador</h2>
 			</div>
@@ -35,10 +34,10 @@
 	</header>
 	<section>
 		<p:growl id="messages" showDetail="true" />
-		
+
 		<!-- Container do menu esquerdo -->
 		<div class="menu-area">
-			
+
 			<!-- Menu -->
 			<p:panel id="fold" header="Menu">
 				<h:form>
@@ -46,7 +45,8 @@
 						<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
 								action="cadastroFornecedor" />
-							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog" action="Colaboradores" />
+							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
+								action="Colaboradores" />
 						</p:submenu>
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
@@ -64,35 +64,35 @@
 
 					</p:tieredMenu>
 				</h:form>
-				
+
 			</p:panel>
 
 		</div>
-		
-		
+
+
 		<!-- Container do conteúdo da página  -->
 		<div class="content-area">
-			
+
 			<!-- Painel do formulario de cadastro -->
 			<p:panel header="Novo produto">
-				<h:form id="New-Produto">										
+				<h:form id="New-Produto">
 					<div class="ui-fluid">
 
 						<!-- Input "Nome" -->
 						<span class="ui-float-label"> <p:inputText id="nome"
-								value="#{inputTextView.text}" /> <p:outputLabel for="@previous"
+								value="#{itemBean.item.nome}" /> <p:outputLabel for="@previous"
 								value="Nome" />
-						</span> <br /> 
-						
+						</span> <br />
+
 						<!-- Input "Marca" -->
-						<span class="ui-float-label"> <p:inputText
-								id="marca" value="#{inputTextView.text}" /> <p:outputLabel
+						<span class="ui-float-label"> <p:inputText id="marca"
+								value="#{itemBean.item.marca}" /> <p:outputLabel
 								for="@previous" value="Marca" />
-						</span> <br /> 
-						
+						</span> <br />
+
 						<!-- Input "Código" -->
-						<span class="ui-float-label"> <p:inputText
-								id="codigo" value="#{inputTextView.text}">
+						<span class="ui-float-label"> <p:inputText id="codigo"
+								value="#{itemBean.item.codigo}">
 								<p:keyFilter mask="num" />
 							</p:inputText> <p:outputLabel for="@previous" value="Código" />
 						</span> <br />
@@ -100,30 +100,31 @@
 						<!-- Select option "NCM" -->
 						<div class="p-field p-col-12 p-md-4">
 							<p:outputLabel for="@next" value="NCM:" />
-							<p:selectOneMenu id="ncm" value="#{selectOneMenuView.city}"
+							<p:selectOneMenu id="ncm" value="#{itemBean.item.fiscalItem.id}"
 								effect="fold" editable="true">
-								<f:selectItem itemLabel="" itemValue="" />
-								<f:selectItems value="#{selectOneMenuView.cities}" />
+
+								<f:selectItems value="#{itemBean.ncm}" var="fisco"
+									itemValue="#{fisco.id}" />
 							</p:selectOneMenu>
 						</div>
 						<br />
-						
+
 						<!-- Select option "Origem" -->
 						<p:outputLabel for="@previous" value="Origem:" />
 						<span class="ui-float-label"> <p:selectOneMenu id="pais"
-								value="#{dropdownView.ncm}">
-								<p:ajax listener="#{dropdownView.onCountryChange}" />
-								<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
-								<f:selectItems value="#{dropdownView.countries}" />
+								value="#{itemBean.item.fiscalItem.origem.id}">
+								<f:selectItem itemLabel="Selecione" />
+								<f:selectItems value="#{paisBean.origem}" var="p"
+									itemValue="#{p.id}" />
 							</p:selectOneMenu>
 						</span> <br />
 					</div>
-					
+
 					<!-- Container dos botões -->
 					<div class="btns-area">
 						<div class="card">
 							<p:growl id="message" showDetail="true" />
-							
+
 							<!-- Botão "Cancelar" -->
 							<p:commandButton value="Cancelar" action="#{confirmView.delete}"
 								update="message" styleClass="ui-button-danger"
@@ -132,15 +133,15 @@
 									message="Deseja mesmo cancelar esse cadastro?"
 									icon="pi pi-info-circle" />
 							</p:commandButton>
-							
+
 							<!-- Botão "Confirmar" -->
 							<p:commandButton value="Confirmar"
-								action="#{confirmView.confirm}" update="message"
+								action="#{itemBean.salvarItem}" update="message"
 								styleClass="p-mr-2" icon="pi pi-check">
 								<p:confirm header="Atenção" message="Deseja mesmo continuar?"
 									icon="pi pi-exclamation-triangle" />
 							</p:commandButton>
-							
+
 							<!-- Caixa de confirmação -->
 							<p:confirmDialog global="true" showEffect="fade"
 								hideEffect="fade" responsive="true" width="350">
@@ -180,19 +181,21 @@
 						<strong>Origem</strong>: Produto nacional ou estrangeiro.
 					</p>
 
-					<p:button value="Nova Origem" action="" onclick="PF('dlg3').show()" />
+					<p:button value="Nova Origem" onclick="PF('dlg3').show()" />
 
-					<p:dialog header="Cadastrar origem" widgetVar="dlg3" minHeight="40"
-						width="350" showEffect="fade">
-						<p class="p-m-0">Origem:</p>
-						<p:inputText name="origem" />
-						<f:facet name="footer">
-							<p:commandButton type="button" value="Cancelar"
-								styleClass="ui-button-flat p-mr-2" style="width: 6rem" />
-							<p:commandButton type="button" value="Confirmar"
-								style="width: 7rem" />
-						</f:facet>
-					</p:dialog>
+					<h:form id="New-Origem">
+						<p:dialog header="Cadastrar origem" widgetVar="dlg3"
+							minHeight="40" width="350" showEffect="fade">
+							<p class="p-m-0">Origem:</p>
+							<p:inputText id="pais" value="#{paisBean.pais.pais}" />
+							<f:facet name="footer">
+								<p:commandButton value="Cancelar"
+									styleClass="ui-button-flat p-mr-2" style="width: 6rem" update="messages" />
+								<p:commandButton value="Confirmar" style="width: 7rem"
+									action="#{paisBean.salvarPais}" update="messages" />
+							</f:facet>
+						</p:dialog>
+					</h:form>
 				</p:overlayPanel>
 			</div>
 		</div>

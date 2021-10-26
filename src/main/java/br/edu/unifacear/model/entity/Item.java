@@ -25,10 +25,12 @@ public class Item implements Serializable {
 	private long codigo;
 	
 	@ManyToOne
-	private FiscalItem fiscal_Item;
+	private FiscalItem fiscalItem;
 
 	public Item() {
-		
+		this.id = 0;
+		this.valor = 0.0;
+		this.fiscalItem = new FiscalItem();
 	}
 	
 	public Item(int id, String nome, String marca, double valor, long codigo, FiscalItem fiscal_Item) {
@@ -38,7 +40,7 @@ public class Item implements Serializable {
 		this.marca = marca;
 		this.valor = valor;
 		this.codigo = codigo;
-		this.fiscal_Item = fiscal_Item;
+		this.fiscalItem = fiscal_Item;
 	}
 
 	public int getId() {
@@ -81,23 +83,23 @@ public class Item implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public FiscalItem getFiscal_Item() {
-		return fiscal_Item;
+	public FiscalItem getFiscalItem() {
+		return fiscalItem;
 	}
 
-	public void setFiscal_Item(FiscalItem fiscal_Item) {
-		this.fiscal_Item = fiscal_Item;
+	public void setFiscalItem(FiscalItem fiscalItem) {
+		this.fiscalItem = fiscalItem;
 	}
 
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", nome=" + nome + ", marca=" + marca + ", valor=" + valor + ", codigo=" + codigo
-				+ ", fiscal_Item=" + fiscal_Item + "]";
+				+ ", fiscalItem=" + fiscalItem + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo, fiscal_Item, id, marca, nome, valor);
+		return Objects.hash(codigo, fiscalItem, id, marca, nome, valor);
 	}
 
 	@Override
@@ -109,7 +111,7 @@ public class Item implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		return codigo == other.codigo && Objects.equals(fiscal_Item, other.fiscal_Item) && id == other.id
+		return codigo == other.codigo && Objects.equals(fiscalItem, other.fiscalItem) && id == other.id
 				&& Objects.equals(marca, other.marca) && Objects.equals(nome, other.nome)
 				&& Double.doubleToLongBits(valor) == Double.doubleToLongBits(other.valor);
 	}

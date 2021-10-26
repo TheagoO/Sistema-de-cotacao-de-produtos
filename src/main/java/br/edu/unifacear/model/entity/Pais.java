@@ -12,17 +12,17 @@ public class Pais implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "NOME")
-	private String nome;
+	@Column(name = "PAIS")
+	private String pais;
 	
 	public Pais() {
-		
+		this.id = 0;
 	}
 	
 	public Pais(int id, String nome) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.pais = nome;
 	}
 
 	public int getId() {
@@ -33,22 +33,22 @@ public class Pais implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getPais() {
+		return pais;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 
 	@Override
 	public String toString() {
-		return "Pais [id=" + id + ", nome=" + nome + "]";
+		return id +"-"+pais;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, nome);
+		return Objects.hash(id, pais);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class Pais implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pais other = (Pais) obj;
-		return id == other.id && Objects.equals(nome, other.nome);
+		return id == other.id && Objects.equals(pais, other.pais);
 	}
 	
 	
