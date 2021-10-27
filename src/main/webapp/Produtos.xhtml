@@ -40,7 +40,6 @@
 	</header>
 
 	<section>
-		<p:growl id="messages" showDetail="true" />
 
 		<!-- Container do menu esquerdo -->
 		<div class="menu-area">
@@ -97,81 +96,84 @@
 						<div class="search-area">
 							<div class="ui-inputgroup">
 								<p:inputText id="template"
-									value="#{dtColumnsView.columnTemplate}" style="width:100%" />
+									value="pesquisar" style="width:100%" />
 								<p:commandButton icon="pi pi-search" styleClass="ui-button" />
 							</div>
 
-							<p:commandButton update="products1"
-								action="#{dtColumnsView.updateColumns}" value="Update"
-								process="@parent" icon="pi pi-refresh"
-								oncomplete="PF('customersTable').clearFilters()" />
-							
+							<p:commandButton update="produtos" action="#{produto}"
+								value="Update" process="@parent" icon="pi pi-refresh" />
+
 							<p:commandButton value="Novo" />
 						</div>
-						
+
 					</div>
 
 					<!-- Listagem dos produtos -->
 
 					<p:growl id="msgs" showDetail="true" />
 
-					<p:dataTable id="products1" var="product"
-						value="#{dtEditView.products1}" editable="true"
-						style="margin-bottom:20px; margin-top:20px;">
+					<p:dataTable id="produtos" var="produto" value="#{itemBean.itens}"
+						editable="true" style="margin-bottom:20px; margin-top:20px;">
 
 						<p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}"
 							update=":form:msgs" />
 						<p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}"
 							update=":form:msgs" />
 
-						<p:column headerText="Code">
+						<p:column headerText="Código">
 							<p:cellEditor>
 								<f:facet name="output">
-									<h:outputText value="#{product.code}" />
+									<h:outputText value="#{produto.codigo}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText id="modelInput" value="#{product.code}"
+									<p:inputText id="modelInput" value="#{produto.codigo}"
 										style="width:100%" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
 
-						<p:column headerText="Name">
+						<p:column headerText="Nome">
 							<p:cellEditor>
 								<f:facet name="output">
-									<h:outputText value="#{product.name}" />
+									<h:outputText value="#{produto.nome}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{product.name}" style="width:100%"
-										label="Name" />
+									<p:inputText value="#{produto.nome}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						
+						<p:column headerText="Marca">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{produto.marca}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{produto.marca}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						
+						<p:column headerText="Nacionalidade">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{produto.fiscalItem.origem.pais}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{produto.fiscalItem.origem.pais}" style="width:100%" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
 
-						<p:column headerText="Status">
+						<p:column headerText="Preço">
 							<p:cellEditor>
 								<f:facet name="output">
-									<h:outputText value="#{product.inventoryStatus}" />
-								</f:facet>
-								<f:facet name="input">
-									<h:selectOneMenu value="#{product.inventoryStatus}"
-										style="width:100%">
-										<f:selectItems value="#{dtEditView.inventoryStatusList}"
-											var="status" itemLabel="#{status.text}" itemValue="#{status}" />
-									</h:selectOneMenu>
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-
-						<p:column headerText="Price">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.price}">
+									<h:outputText value="#{produto.valor}">
 										<f:convertNumber type="currency" currencySymbol="$" />
 									</h:outputText>
 								</f:facet>
 								<f:facet name="input">
-									<p:inputNumber value="#{product.price}" style="width:100%"
+									<p:inputNumber value="#{produto.valor}" style="width:100%"
 										label="Price" symbol="$" />
 								</f:facet>
 							</p:cellEditor>

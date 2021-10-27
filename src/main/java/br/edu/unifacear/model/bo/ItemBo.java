@@ -8,9 +8,8 @@ import br.edu.unifacear.model.dao.ItemDao;
 import br.edu.unifacear.model.entity.Item;
 
 public class ItemBo {
-	
-	public String salvar(Item item) 
-			throws Exception {
+
+	public String salvar(Item item) throws Exception {
 		validarDadosItem(item);
 		ItemDao itemDao = new ItemDao();
 		try {
@@ -19,10 +18,9 @@ public class ItemBo {
 			throw new Exception(e.getMessage());
 		}
 	}
-	
-	public String alterar(Item item) 
-			throws Exception {
-		validarDadosItem(item);
+
+	public String alterar(Item item) throws Exception {
+		
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
 			return new ItemDao().alterar(item);
@@ -30,10 +28,9 @@ public class ItemBo {
 			throw new Exception(e.getMessage());
 		}
 	}
-	
-	public String deletar(Item item) 
-			throws Exception {
-		validarDadosItem(item);
+
+	public String deletar(Item item) throws Exception {
+		
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
 			return new ItemDao().deletar(item);
@@ -41,24 +38,23 @@ public class ItemBo {
 			throw new Exception(e.getMessage());
 		}
 	}
-	
+
 	public List<Item> listar(String paramNome) throws Exception {
 		try {
 			return new ItemDao().listar(paramNome);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-	}		
-	
-	
+	}
 
 	private void validarDadosItem(Item item) throws Exception {
-//		if (item.getId() < 0) {
-//			throw new Exception("Id do item não pode ser negativo!");
-//		}
-		if (item.getNome().equals("")) {
-			throw new Exception("Nome do item não pode ficar em branco!");
+		
+		
+		
+		if(item.getCodigo() < 13) {
+			throw new Exception("Código inválido");
 		}
-	}	
-	
+		
+	}
+
 }

@@ -80,32 +80,44 @@
 
 						<!-- Input "Nome" -->
 						<span class="ui-float-label"> <p:inputText id="nome"
-								value="#{itemBean.item.nome}" /> <p:outputLabel for="@previous"
+								value="#{itemBean.item.nome}" required="true" /> <p:outputLabel for="@previous"
 								value="Nome" />
 						</span> <br />
 
 						<!-- Input "Marca" -->
 						<span class="ui-float-label"> <p:inputText id="marca"
-								value="#{itemBean.item.marca}" /> <p:outputLabel
+								value="#{itemBean.item.marca}" required="true" /> <p:outputLabel
 								for="@previous" value="Marca" />
 						</span> <br />
 
 						<!-- Input "Código" -->
 						<span class="ui-float-label"> <p:inputText id="codigo"
-								value="#{itemBean.item.codigo}">
-								<p:keyFilter mask="num" />
+								value="#{itemBean.item.codigo}" maxlength="13" >
+								<p:keyFilter mask="num"/>
 							</p:inputText> <p:outputLabel for="@previous" value="Código" />
 						</span> <br />
 
 						<!-- Select option "NCM" -->
 						<div class="p-field p-col-12 p-md-4">
 							<p:outputLabel for="@next" value="NCM:" />
-							<p:selectOneMenu id="ncm" value="#{itemBean.item.fiscalItem.id}"
-								effect="fold" editable="true">
 
-								<f:selectItems value="#{itemBean.ncm}" var="fisco"
+							<p:selectOneMenu id="ncm" value="#{itemBean.item.fiscalItem.id}"
+								panelStyle="width:180px" effect="fade" var="fi" filter="true"
+								filterMatchMode="startsWith">
+								<f:selectItem itemLabel="Selecione" />
+								<f:selectItems value="#{fiscalItemBean.ncm}" var="fisco"
 									itemValue="#{fisco.id}" />
+
+								<p:column style="width:10%">
+									<span class="flag flag-#{c.code}"
+										style="width: 30px; height: 20px" />
+								</p:column>
+
+								<p:column>
+									<h:outputText value="#{fi.name}" />
+								</p:column>
 							</p:selectOneMenu>
+							
 						</div>
 						<br />
 
@@ -135,9 +147,8 @@
 							</p:commandButton>
 
 							<!-- Botão "Confirmar" -->
-							<p:commandButton value="Confirmar"
-								action="#{itemBean.salvarItem}" update="message"
-								styleClass="p-mr-2" icon="pi pi-check">
+							<p:commandButton value="Confirmar" action="#{itemBean.salvar}"
+								update="message" styleClass="p-mr-2" icon="pi pi-check">
 								<p:confirm header="Atenção" message="Deseja mesmo continuar?"
 									icon="pi pi-exclamation-triangle" />
 							</p:commandButton>
@@ -190,9 +201,10 @@
 							<p:inputText id="pais" value="#{paisBean.pais.pais}" />
 							<f:facet name="footer">
 								<p:commandButton value="Cancelar"
-									styleClass="ui-button-flat p-mr-2" style="width: 6rem" update="messages" />
+									styleClass="ui-button-flat p-mr-2" style="width: 6rem"
+									onclick="PF('dlg3').close()" />
 								<p:commandButton value="Confirmar" style="width: 7rem"
-									action="#{paisBean.salvarPais}" update="messages" />
+									action="#{paisBean.salvar}" update="messages" />
 							</f:facet>
 						</p:dialog>
 					</h:form>
