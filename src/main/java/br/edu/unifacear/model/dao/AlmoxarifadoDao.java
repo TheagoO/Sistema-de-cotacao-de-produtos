@@ -21,7 +21,6 @@ public class AlmoxarifadoDao {
 	public String salvar(Almoxarifado almoxarifado) throws Exception {
 		String retorno;
 		// Gravar o Almoxarifado no BD
-	
 		try {			
 			em.getTransaction().begin();
 			em.persist(almoxarifado);

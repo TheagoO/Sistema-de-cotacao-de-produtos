@@ -9,9 +9,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
+
 import br.edu.unifacear.model.entity.Item;
 import br.edu.unifacear.model.facade.GestaoFacade;
-
 
 @ManagedBean(name = "itemBean")
 @SessionScoped
@@ -20,35 +22,77 @@ public class ItemController {
 	private Item item;
 	private List<Item> itens;
 
-	public String salvar() {
+	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
 			facade.salvarItem(item);
 			this.item = new Item();
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Item salvo com sucesso!", "SUCESSO"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto salvo!"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar item", e.getMessage()));
+			fc.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar produto"));
 			e.printStackTrace();
 		}
-		return "Sucesso!";
+
 	}
-	
+
 	public void listar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		
+		this.itens.removeAll(itens);
 		try {
-			for(Item i : facade.listarItens()) {
+			for (Item i : facade.listarItens()) {
 				this.itens.add(i);
 			}
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao listar itens", "ERROR"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar produtos"));
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void editar() {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+
+		try {
+			facade.editarItem(item);
+			listar();
+			this.item = new Item();
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto editado!"));
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar produto"));
+			e.printStackTrace();
+		}
+	}
+
+	public void onRowEdit(RowEditEvent<Item> event) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		Item novo = new Item();
+
+		for (Item i : this.itens) {
+			if (i.getId() == event.getObject().getId()) {
+				novo = i;
+			}
+		}
+
+		if (event.getObject() != null) {
+			try {
+				this.item = novo;
+				editar();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public void onRowCancel(RowEditEvent<Item> event) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "CANCELADO", "Edição cancelada!"));
+	}
+
 	public ItemController() {
 		this.item = new Item();
 		this.itens = new ArrayList<Item>();

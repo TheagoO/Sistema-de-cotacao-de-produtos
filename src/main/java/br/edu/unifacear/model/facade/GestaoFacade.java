@@ -29,4 +29,14 @@ public class GestaoFacade {
 		}
 		return null;
 	}
+	
+	public String editarItem(Item i) throws Exception {
+		try {
+			return this.itemBo.alterar(i);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

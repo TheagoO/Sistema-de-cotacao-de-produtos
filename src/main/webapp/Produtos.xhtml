@@ -100,8 +100,8 @@
 								<p:commandButton icon="pi pi-search" styleClass="ui-button" />
 							</div>
 
-							<p:commandButton update="produtos" action="#{produto}"
-								value="Update" process="@parent" icon="pi pi-refresh" />
+							<p:commandButton update="produtos" action="#{itemBean.listar}"
+								value="Atualizar" process="@parent" icon="pi pi-refresh" />
 
 							<p:commandButton value="Novo" />
 						</div>
@@ -115,9 +115,9 @@
 					<p:dataTable id="produtos" var="produto" value="#{itemBean.itens}"
 						editable="true" style="margin-bottom:20px; margin-top:20px;">
 
-						<p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}"
+						<p:ajax event="rowEdit" listener="#{itemBean.onRowEdit}"
 							update=":form:msgs" />
-						<p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}"
+						<p:ajax event="rowEditCancel" listener="#{itemBean.onRowCancel}"
 							update=":form:msgs" />
 
 						<p:column headerText="Código">
@@ -154,7 +154,7 @@
 							</p:cellEditor>
 						</p:column>
 						
-						<p:column headerText="Nacionalidade">
+						<p:column headerText="Origem">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{produto.fiscalItem.origem.pais}" />
@@ -180,8 +180,8 @@
 						</p:column>
 
 						<p:column style="width:6rem">
-							<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit"
-								saveTitle="Save Row" />
+							<p:rowEditor editTitle="Editar" cancelTitle="Cancelar"
+								saveTitle="Salvar" />
 						</p:column>
 					</p:dataTable>
 				</div>
