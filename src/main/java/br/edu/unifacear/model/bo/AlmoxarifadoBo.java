@@ -1,7 +1,5 @@
 package br.edu.unifacear.model.bo;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import br.edu.unifacear.model.dao.AlmoxarifadoDao;
@@ -12,9 +10,9 @@ public class AlmoxarifadoBo {
 	public String salvar(Almoxarifado almoxarifado) 
 			throws Exception {
 		validarDadosAlmoxarifado(almoxarifado);
-		AlmoxarifadoDao grupoDao = new AlmoxarifadoDao();
+		AlmoxarifadoDao aDao = new AlmoxarifadoDao();
 		try {
-			return grupoDao.salvar(almoxarifado);
+			return aDao.salvar(almoxarifado);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -52,11 +50,8 @@ public class AlmoxarifadoBo {
 	
 	
 
-	private void validarDadosAlmoxarifado(Almoxarifado almoxarifado) throws Exception {
+	private void validarDadosAlmoxarifado(Almoxarifado a) throws Exception {
 
-		if (almoxarifado.getNome().equals("")) {
-			throw new Exception("Nome do Almoxarifado não pode ficar em branco!");
-		}
 	}	
 	
 }

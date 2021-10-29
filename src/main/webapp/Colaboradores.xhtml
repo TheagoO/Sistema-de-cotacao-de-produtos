@@ -101,7 +101,7 @@
 								<p:commandButton icon="pi pi-search" styleClass="ui-button" />
 							</div>
 
-							<p:commandButton update="products1"
+							<p:commandButton update="colaboradores"
 								action="#{dtColumnsView.updateColumns}" value="Update"
 								process="@parent" icon="pi pi-refresh"
 								oncomplete="PF('customersTable').clearFilters()" />
@@ -115,7 +115,7 @@
 
 					<p:growl id="msgs" showDetail="true" />
 
-					<p:dataTable id="products1" var="product"
+					<p:dataTable id="colaboradores" var="users"
 						value="#{dtEditView.products1}" editable="true"
 						style="margin-bottom:20px; margin-top:20px;">
 

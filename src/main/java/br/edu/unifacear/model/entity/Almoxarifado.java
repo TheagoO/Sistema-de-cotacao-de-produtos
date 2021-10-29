@@ -23,10 +23,10 @@ public class Almoxarifado implements Serializable {
 	
 	
 	public Almoxarifado() {	
+		this.id = 0;
 	}
 	
 	public Almoxarifado(int id, String nome, String email, String senha) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;

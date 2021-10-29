@@ -22,11 +22,11 @@ public class Cidade implements Serializable {
 	private Estado estado;
 	
 	public Cidade() {
-		
+		this.id = 0;
+		this.estado = new Estado();
 	}
 	
 	public Cidade(int id, String nome, int codigo, Estado estado) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.codigo = codigo;

@@ -25,6 +25,7 @@ public class Gestor implements Serializable {
 	private String senha;
 		
 	public Gestor() {
+		this.id = 0;
 	}
 	
 

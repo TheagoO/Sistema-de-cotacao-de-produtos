@@ -19,25 +19,26 @@ public class NotaFiscalItem implements Serializable {
 	private float quantidade;
 	
 	@Column(name = "VALOR_UNI")
-	private double valor_Unitario;
+	private double valorUnitario;
 	
 	@Column(name = "TOTAL")
-	private double valor_total;
+	private double total;
 	
 	@ManyToOne
 	private Item item;
 
 	public NotaFiscalItem() {
-		
+		this.id = 0;
+		this.item = new Item();
 	}
 	
-	public NotaFiscalItem(int id, int codigo, float quantidade, double valor_Unitario, double valor_total, Item item) {
+	public NotaFiscalItem(int id, int codigo, float quantidade, double valorUnitario, double total, Item item) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
 		this.quantidade = quantidade;
-		this.valor_Unitario = valor_Unitario;
-		this.valor_total = valor_total;
+		this.valorUnitario = valorUnitario;
+		this.total = total;
 		this.item = item;
 	}
 
@@ -65,20 +66,20 @@ public class NotaFiscalItem implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public double getValor_Unitario() {
-		return valor_Unitario;
+	public double getValorUnitario() {
+		return valorUnitario;
 	}
 
-	public void setValor_Unitario(double valor_Unitario) {
-		this.valor_Unitario = valor_Unitario;
+	public void setValorUnitario(double valorUnitario) {
+		this.valorUnitario = valorUnitario;
 	}
 
-	public double getValor_total() {
-		return valor_total;
+	public double getTotal() {
+		return total;
 	}
 
-	public void setValor_total(double valor_total) {
-		this.valor_total = valor_total;
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 	public Item getItem() {
@@ -91,13 +92,13 @@ public class NotaFiscalItem implements Serializable {
 
 	@Override
 	public String toString() {
-		return "NotaFiscalItem [id=" + id + ", codigo=" + codigo + ", quantidade=" + quantidade + ", valor_Unitario="
-				+ valor_Unitario + ", valor_total=" + valor_total + ", item=" + item + "]";
+		return "NotaFiscalItem [id=" + id + ", codigo=" + codigo + ", quantidade=" + quantidade + ", valorUnitario="
+				+ valorUnitario + ", total=" + total + ", item=" + item + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo, id, item, quantidade, valor_Unitario, valor_total);
+		return Objects.hash(codigo, id, item, quantidade, total, valorUnitario);
 	}
 
 	@Override
@@ -111,10 +112,9 @@ public class NotaFiscalItem implements Serializable {
 		NotaFiscalItem other = (NotaFiscalItem) obj;
 		return codigo == other.codigo && id == other.id && Objects.equals(item, other.item)
 				&& Float.floatToIntBits(quantidade) == Float.floatToIntBits(other.quantidade)
-				&& Double.doubleToLongBits(valor_Unitario) == Double.doubleToLongBits(other.valor_Unitario)
-				&& Double.doubleToLongBits(valor_total) == Double.doubleToLongBits(other.valor_total);
+				&& Double.doubleToLongBits(total) == Double.doubleToLongBits(other.total)
+				&& Double.doubleToLongBits(valorUnitario) == Double.doubleToLongBits(other.valorUnitario);
 	}
-	
-	
+
 	
 }

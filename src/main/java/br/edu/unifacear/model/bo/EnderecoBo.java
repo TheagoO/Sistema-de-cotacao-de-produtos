@@ -1,7 +1,5 @@
 package br.edu.unifacear.model.bo;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import br.edu.unifacear.model.dao.EnderecoDao;
@@ -56,7 +54,7 @@ public class EnderecoBo {
 //		if (endereco.getId() < 0) {
 //			throw new Exception("Id do endereco não pode ser negativo!");
 //		}
-		if (endereco.getCidade().equals("")) {
+		if (endereco.getCidade().getNome().equals("")) {
 			throw new Exception("Nome do endereco não pode ficar em branco!");
 		}
 	}	

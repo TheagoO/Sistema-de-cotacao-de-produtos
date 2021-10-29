@@ -19,11 +19,11 @@ public class Contato implements Serializable {
 	private TipoContato tipo;
 
 	public Contato() {
-		
+		this.id = 0;
+		this.tipo = new TipoContato();
 	}
 	
 	public Contato(int id, String contato, TipoContato tipo) {
-		super();
 		this.id = id;
 		this.contato = contato;
 		this.tipo = tipo;

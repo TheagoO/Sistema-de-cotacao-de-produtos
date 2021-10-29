@@ -6,27 +6,22 @@ import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
-public class FiscalItem implements Serializable {
+public class Origem implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "NCM")
-	private String ncm;
+	@Column(name = "ORIGEM")
+	private String origem;
 	
-	@ManyToOne
-	private Origem origem;
-	
-	public FiscalItem() {
+	public Origem() {
 		this.id = 0;
-		this.origem = new Origem();
 	}
 	
-	public FiscalItem(int id, String ncm, Origem origem) {
+	public Origem(int id, String nome) {
 		this.id = id;
-		this.ncm = ncm;
-		this.origem = origem;
+		this.origem = nome;
 	}
 
 	public int getId() {
@@ -37,30 +32,22 @@ public class FiscalItem implements Serializable {
 		this.id = id;
 	}
 
-	public String getNcm() {
-		return ncm;
-	}
-
-	public void setNcm(String ncm) {
-		this.ncm = ncm;
-	}
-
-	public Origem getOrigem() {
+	public String getOrigem() {
 		return origem;
 	}
 
-	public void setOrigem(Origem origem) {
+	public void setOrigem(String origem) {
 		this.origem = origem;
 	}
 
 	@Override
 	public String toString() {
-		return ncm;
+		return id +"-"+origem;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, ncm, origem);
+		return Objects.hash(id, origem);
 	}
 
 	@Override
@@ -71,8 +58,8 @@ public class FiscalItem implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FiscalItem other = (FiscalItem) obj;
-		return id == other.id && Objects.equals(ncm, other.ncm) && Objects.equals(origem, other.origem);
+		Origem other = (Origem) obj;
+		return id == other.id && Objects.equals(origem, other.origem);
 	}
 	
 	

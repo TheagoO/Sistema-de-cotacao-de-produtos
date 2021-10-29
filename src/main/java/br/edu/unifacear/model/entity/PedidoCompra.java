@@ -1,8 +1,6 @@
 package br.edu.unifacear.model.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -14,29 +12,31 @@ public class PedidoCompra implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "STATUS")
-	private int status;
+	@Column(name = "CODIGO")
+	private int codigo;
 	
-	@OneToMany
-	private List<PedidoItem> item;
-	
-	@OneToOne
-	private Fornecedor fornecedor;
+	@Column(name = "QTD")
+	private float quantidade;
 	
 	@ManyToOne
-	private Gestor solicitante;
+	private Item item;
 	
+	@ManyToOne
+	private Almoxarifado almoxarifado;
+
 	public PedidoCompra() {
-		this.item = new ArrayList<>();
+		this.id = 0;
+		this.item = new Item();
+		this.almoxarifado = new Almoxarifado();
 	}
 
-	public PedidoCompra(int id, int status, List<PedidoItem> item, Fornecedor fornecedor, Gestor solicitante) {
+	public PedidoCompra(int id, int codigo, float quantidade, Item item, Almoxarifado almoxarifado) {
 		super();
 		this.id = id;
-		this.status = status;
+		this.codigo = codigo;
+		this.quantidade = quantidade;
 		this.item = item;
-		this.fornecedor = fornecedor;
-		this.solicitante = solicitante;
+		this.almoxarifado = almoxarifado;
 	}
 
 	public int getId() {
@@ -47,41 +47,47 @@ public class PedidoCompra implements Serializable {
 		this.id = id;
 	}
 
-	public int getStatus() {
-		return status;
+	public int getCodigo() {
+		return codigo;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
-	public List<PedidoItem> getItem() {
+	public float getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(float quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public Item getItem() {
 		return item;
 	}
 
-	public void setItem(List<PedidoItem> item) {
+	public void setItem(Item item) {
 		this.item = item;
 	}
 
-	public Fornecedor getFornecedor() {
-		return fornecedor;
+	public Almoxarifado getAlmoxarifado() {
+		return almoxarifado;
 	}
 
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
+	public void setAlmoxarifado(Almoxarifado almoxarifado) {
+		this.almoxarifado = almoxarifado;
 	}
 
-	public Gestor getSolicitante() {
-		return solicitante;
-	}
-
-	public void setSolicitante(Gestor solicitante) {
-		this.solicitante = solicitante;
+	@Override
+	public String toString() {
+		return "PedidoItem [id=" + id + ", codigo=" + codigo + ", quantidade=" + quantidade + ", item=" + item
+				+ ", almoxarifado=" + almoxarifado + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(fornecedor, id, item, solicitante, status);
+		return Objects.hash(almoxarifado, codigo, id, item, quantidade);
 	}
 
 	@Override
@@ -93,9 +99,13 @@ public class PedidoCompra implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		PedidoCompra other = (PedidoCompra) obj;
-		return Objects.equals(fornecedor, other.fornecedor) && id == other.id && Objects.equals(item, other.item)
-				&& Objects.equals(solicitante, other.solicitante) && status == other.status;
+		return Objects.equals(almoxarifado, other.almoxarifado) && codigo == other.codigo && id == other.id
+				&& Objects.equals(item, other.item)
+				&& Float.floatToIntBits(quantidade) == Float.floatToIntBits(other.quantidade);
 	}
+	
+	
+	
 	
 	
 }

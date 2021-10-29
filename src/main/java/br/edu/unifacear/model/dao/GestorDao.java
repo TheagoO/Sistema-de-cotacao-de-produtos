@@ -20,20 +20,26 @@ public class GestorDao {
 		EntityManager em = Connect.connection();
 	public String salvar(Gestor gestor) throws Exception {
 		String retorno;
-		// Gravar o Gestor no BD
-
-		try {			
-			em.getTransaction().begin();
-			em.persist(gestor);
-			em.getTransaction().commit();		
-			
-			retorno = "Gestor Inserido com Sucesso!";			
-		} catch (Exception e) {
-			retorno = e.getMessage();
-			throw new Exception("Erro Gravando Gestor\n"+e.getMessage());
-		} finally {
-			em.close();
+		List<Gestor> list = listar(gestor.getEmail());
+		
+		if(list.isEmpty()) {
+			try {			
+				em.getTransaction().begin();
+				em.persist(gestor);
+				em.getTransaction().commit();		
+				
+				retorno = "Gestor Inserido com Sucesso!";			
+			} catch (Exception e) {
+				retorno = e.getMessage();
+				throw new Exception("Erro Gravando Gestor\n"+e.getMessage());
+			} finally {
+				em.close();
+			}
+		}else {
+			return "E-mail já cadastrado";
 		}
+		
+		
 		return retorno;		
 	} // salvar
 	
@@ -85,15 +91,13 @@ public class GestorDao {
 		}
 		else {
 			q = em.createQuery("select g from Gestor g"
-					+" where nome like :nome");
-			q.setParameter("nome", "%"+paramNome+"%");
+					+" where email like :email");
+			q.setParameter("email", "%"+paramNome+"%");
 		}
 		
 		return q.getResultList();		
 	} //listar
-	
-	
-	
+		
 	public Gestor getObjectById(Long id) {
 	
 		return em.find(Gestor.class, id);

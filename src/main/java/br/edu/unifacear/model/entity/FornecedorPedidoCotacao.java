@@ -1,14 +1,12 @@
 package br.edu.unifacear.model.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
 
 @Entity
-public class NotaFiscal implements Serializable {
+public class FornecedorPedidoCotacao implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,28 +15,20 @@ public class NotaFiscal implements Serializable {
 	@Column(name = "CODIGO")
 	private int codigo;
 	
-	@OneToMany
-	private List<NotaFiscalItem> item;
-	
 	@ManyToOne
 	private Fornecedor fornecedor;
-	
-	public NotaFiscal() {
+
+	public FornecedorPedidoCotacao() {	
 		this.id = 0;
-		this.item = new ArrayList<NotaFiscalItem>();
 		this.fornecedor = new Fornecedor();
 	}
 	
-
-	public NotaFiscal(int id, int codigo, List<NotaFiscalItem> item, Fornecedor fornecedor) {
+	public FornecedorPedidoCotacao(int id, int codigo, Fornecedor fornecedor) {
 		super();
-		this.item = item;
 		this.id = id;
 		this.codigo = codigo;
-		this.item = item;
 		this.fornecedor = fornecedor;
 	}
-
 
 	public int getId() {
 		return id;
@@ -56,18 +46,6 @@ public class NotaFiscal implements Serializable {
 		this.codigo = codigo;
 	}
 
-	
-
-	public NotaFiscalItem getItem(int i) {
-		return item.get(i);
-	}
-
-
-	public void setItem(NotaFiscalItem item) {
-		this.item.add(item);
-	}
-
-
 	public Fornecedor getFornecedor() {
 		return fornecedor;
 	}
@@ -76,18 +54,15 @@ public class NotaFiscal implements Serializable {
 		this.fornecedor = fornecedor;
 	}
 
-
 	@Override
 	public String toString() {
-		return "NotaFiscal [id=" + id + ", codigo=" + codigo + ", item=" + item + ", fornecedor=" + fornecedor + "]";
+		return "CotacaoFornecedor [id=" + id + ", codigo=" + codigo + ", fornecedor=" + fornecedor + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo, fornecedor, id, item);
+		return Objects.hash(codigo, fornecedor, id);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -97,11 +72,9 @@ public class NotaFiscal implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NotaFiscal other = (NotaFiscal) obj;
-		return codigo == other.codigo && Objects.equals(fornecedor, other.fornecedor) && id == other.id
-				&& Objects.equals(item, other.item);
+		FornecedorPedidoCotacao other = (FornecedorPedidoCotacao) obj;
+		return codigo == other.codigo && Objects.equals(fornecedor, other.fornecedor) && id == other.id;
 	}
-	
 	
 	
 }

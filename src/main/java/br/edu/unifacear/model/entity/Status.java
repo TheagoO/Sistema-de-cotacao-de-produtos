@@ -6,21 +6,22 @@ import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
-public class TipoContato implements Serializable {
+public class Status implements Serializable {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name= "NOME")
-	private String nome;
+	@Column(name = "STATUS")
+	private String status;
 	
-	public TipoContato() {
+	public Status() {
 		this.id = 0;
 	}
-	
-	public TipoContato(int id, String nome) {
+
+	public Status(int id, String status) {
 		this.id = id;
-		this.nome = nome;
+		this.status = status;
 	}
 
 	public int getId() {
@@ -31,22 +32,22 @@ public class TipoContato implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "TipoContato [id=" + id + ", nome=" + nome + "]";
+		return "Status [id=" + id + ", status=" + status + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, nome);
+		return Objects.hash(id, status);
 	}
 
 	@Override
@@ -57,10 +58,8 @@ public class TipoContato implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TipoContato other = (TipoContato) obj;
-		return id == other.id && Objects.equals(nome, other.nome);
+		Status other = (Status) obj;
+		return id == other.id && Objects.equals(status, other.status);
 	}
-	
-	
-	
+
 }

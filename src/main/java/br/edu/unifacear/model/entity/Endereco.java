@@ -28,11 +28,11 @@ public class Endereco implements Serializable {
 	private Cidade cidade;
 	
 	public Endereco() {
-		
+		this.id = 0;
+		this.cidade = new Cidade();
 	}
 	
 	public Endereco(int id, String logradouro, int numero, String complemento, String cep, Cidade cidade) {
-		super();
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;

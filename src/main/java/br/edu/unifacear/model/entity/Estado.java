@@ -19,10 +19,10 @@ public class Estado implements Serializable {
 	private int codigo;
 		
 	public Estado() {
+		this.id = 0;
 	}
 	
 	public Estado(int id, String nome, int codigo) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.codigo = codigo;

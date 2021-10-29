@@ -15,74 +15,74 @@ import org.hibernate.Criteria;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 
-public class PedidoCompraDao {
+public class OrdemCompraDao {
 	EntityManager em = Connect.connection();
-	public String salvar(PedidoCompra pedidoitem) throws Exception {
+	public String salvar(OrdemCompra pedidocompra) throws Exception {
 		String retorno;
-		// Gravar o PedidoItem no BD
-
+		// Gravar o PedidoCompra no BD
+		
 		try {			
 			em.getTransaction().begin();
-			em.persist(pedidoitem);
+			em.persist(pedidocompra);
 			em.getTransaction().commit();		
 			
-			retorno = "PedidoItem Inserido com Sucesso!";			
+			retorno = "PedidoCompra Inserido com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();
-			throw new Exception("Erro Gravando PedidoItem\n"+e.getMessage());
+			throw new Exception("Erro Gravando PedidoCompra\n"+e.getMessage());
 		} finally {
 			em.close();
 		}
 		return retorno;		
 	} // salvar
 	
-	public String alterar(PedidoCompra pedidoitem) throws Exception {
+	public String alterar(OrdemCompra pedidocompra) throws Exception {
 		String retorno;
-		// Gravar o PedidoItem no BD		
+		// Gravar o PedidoCompra no BD		
 		try {
 			
-
+	
 			em.getTransaction().begin();
-			em.merge(pedidoitem);
+			em.merge(pedidocompra);
 			em.getTransaction().commit();	
 			
-			retorno = "PedidoItem Alterado com Sucesso!";			
+			retorno = "PedidoCompra Alterado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();
-			throw new Exception("Erro Alterando PedidoItem\n"+e.getMessage());
+			throw new Exception("Erro Alterando PedidoCompra\n"+e.getMessage());
 		}
 		return retorno;		
 	} // alterar
 
-	public String deletar(PedidoCompra pedidoitem) throws Exception {
+	public String deletar(OrdemCompra pedidocompra) throws Exception {
 		String retorno;
-		// Gravar o PedidoItem no BD		
+		// Gravar o PedidoCompra no BD		
 		try {
 
-		
-			PedidoCompra e = em.find(PedidoCompra.class, pedidoitem.getId());
+			OrdemCompra e = em.find(OrdemCompra.class, pedidocompra.getId());
 			em.getTransaction().begin();
 			em.remove(e);
 			
-			retorno = "PedidoItem Deletado com Sucesso!";			
+			retorno = "PedidoCompra Deletado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();
-			throw new Exception("Erro Deletando PedidoItem\n"+e.getMessage());
+			throw new Exception("Erro Deletando PedidoCompra\n"+e.getMessage());
 		}
 		return retorno;		
 	} // deletar
 
 	
-	public List<PedidoCompra> listar(String paramNome) throws Exception{		
+	
+	public List<OrdemCompra> listar(String paramNome) throws Exception{		
 
 		String cWhere = "";
 		Query q = null;
 
 		if(paramNome.equals("")) {
-			q = em.createQuery("select g from PedidoCompra g");
+			q = em.createQuery("select g from OrdemCompra g");
 		}
 		else {
-			q = em.createQuery("select g from PedidoCompra g"
+			q = em.createQuery("select g from OrdemCompra g"
 					+" where nome like :nome");
 			q.setParameter("nome", "%"+paramNome+"%");
 		}
@@ -91,8 +91,8 @@ public class PedidoCompraDao {
 	} //listar
 	
 	
-	public PedidoCompra getObjectById(Long id) {
+	public OrdemCompra getObjectById(Long id) {
 
-		return em.find(PedidoCompra.class, id);
+		return em.find(OrdemCompra.class, id);
 	}
-} // final da classe PedidoItemDao
+} // final da classe PedidoCompraDao

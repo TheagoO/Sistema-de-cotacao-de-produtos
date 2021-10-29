@@ -74,98 +74,93 @@
 		<div class="content-area">
 
 			<!-- Painel do formulario de cadastro -->
-			<p:panel header="Novo produto">
-				<h:form id="New-Produto">
-					<div class="ui-fluid">
+			<div class="card">
+				<p:tabView>
+					<p:tab title="Almoxarifado">
+						<h:form id="almoxarifado">
+							<div class="ui-fluid">
+								<p:growl id="msgs" showDetail="true" />
 
-						<!-- Input "Nome" -->
-						<span class="ui-float-label"> <p:inputText id="nome"
-								value="#{itemBean.item.nome}" required="true" /> <p:outputLabel
-								for="@previous" value="Nome" />
-						</span> <br />
+								<span class="ui-float-label"> <p:inputText id="nome"
+										required="true" value="#{colaboradorBean.almoxarifado.nome}" />
+									<p:outputLabel for="@previous" value="Nome" />
+								</span> <br /> <span class="ui-float-label"> <p:inputText
+										id="email" required="true"
+										requiredMessage="Insira seu endereço de E-mail."
+										validatorMessage="Email inválido."
+										value="#{colaboradorBean.almoxarifado.email}">
 
-						<!-- Input "Marca" -->
-						<span class="ui-float-label"> <p:inputText id="marca"
-								value="#{itemBean.item.marca}" required="true" /> <p:outputLabel
-								for="@previous" value="Marca" />
-						</span> <br />
+										<f:validateRegex
+											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 
-						<!-- Input "Código" -->
-						<span class="ui-float-label"> <p:inputText id="codigo"
-								value="#{itemBean.item.codigo}" maxlength="13">
-								<p:keyFilter mask="num" />
-							</p:inputText> <p:outputLabel for="@previous" value="Código" />
-						</span> <br />
+									</p:inputText> <p:outputLabel for="@previous" value="E-mail" />
+								</span> <br /> <span class="ui-float-label"> <p:password
+										id="senha" required="true"
+										value="#{colaboradorBean.almoxarifado.senha}"
+										toggleMask="true" redisplay="true" style="width:100%;" /> <p:outputLabel
+										for="@previous" value="Senha" />
+								</span> <br /> <span class="ui-float-label"> <p:password
+										id="cnf_senha" required="true"
+										value="#{colaboradorBean.senha}" toggleMask="true"
+										redisplay="true" style="width:100%;" /> <p:outputLabel
+										for="@previous" value="Confirmar senha" />
+								</span> <br />
 
-						<!-- Select option "NCM" -->
-						<div class="p-field p-col-12 p-md-4">
-							<p:outputLabel for="@next" value="NCM:" />
 
-							<p:selectOneMenu id="ncm" value="#{itemBean.item.fiscalItem.id}"
-								panelStyle="width:180px" effect="fade" var="fi" filter="true"
-								filterMatchMode="startsWith">
-								<f:selectItem itemLabel="Selecione" />
-								<f:selectItems value="#{fiscalItemBean.ncm}" var="fisco"
-									itemValue="#{fisco.id}" />
+							</div>
 
-								<p:column style="width:10%">
-									<span class="flag flag-#{c.code}"
-										style="width: 30px; height: 20px" />
-								</p:column>
+							<p:commandButton value="Salvar" update="almoxarifado"
+								action="#{colaboradorBean.salvarAlmoxarifado}"
+								icon="pi pi-check" />
 
-								<p:column>
-									<h:outputText value="#{fi.name}" />
-								</p:column>
-							</p:selectOneMenu>
+						</h:form>
+					</p:tab>
+					<p:tab title="Gestor">
+						<h:form id="gestor">
+							<div class="ui-fluid">
 
-						</div>
-						<br />
+								<p:growl id="msgs" showDetail="true" />
 
-						<!-- Select option "Origem" -->
-						<p:outputLabel for="@previous" value="Origem:" />
-						<span class="ui-float-label"> <p:selectOneMenu id="origem"
-								value="#{itemBean.item.fiscalItem.origem.id}">
-								<f:selectItem itemLabel="Selecione" />
-								<f:selectItems value="#{origemBean.origens}" var="p"
-									itemValue="#{p.id}" />
-							</p:selectOneMenu>
-						</span> <br />
-					</div>
+								<span class="ui-float-label"> <p:inputText id="nome"
+										required="true" value="#{colaboradorBean.gestor.nome}" /> <p:outputLabel
+										for="@previous" value="Nome" />
+								</span> <br />
 
-					<!-- Container dos botões -->
-					<div class="btns-area">
-						<div class="card">
-							<p:growl id="message" showDetail="true" />
+								<span class="ui-float-label">
 
-							<!-- Botão "Cancelar" -->
-							<p:commandButton value="Cancelar" action="#{confirmView.delete}"
-								update="message" styleClass="ui-button-danger"
-								icon="pi pi-times">
-								<p:confirm header="Atenção"
-									message="Deseja mesmo cancelar esse cadastro?"
-									icon="pi pi-info-circle" />
-							</p:commandButton>
+									<p:inputMask id="taxId" value="#{colaboradorBean.gestor.cpf}"
+										mask="999.999.999-99" validateMask="true" required="true" />
+									<p:outputLabel for="@previous" value="CPF" />
+								</span> <br />
 
-							<!-- Botão "Confirmar" -->
-							<p:commandButton value="Confirmar" action="#{itemBean.salvar}"
-								update="message" styleClass="p-mr-2" icon="pi pi-check">
-								<p:confirm header="Atenção" message="Deseja mesmo continuar?"
-									icon="pi pi-exclamation-triangle" />
-							</p:commandButton>
+								<span class="ui-float-label"> <p:inputText id="email"
+										required="true"
+										requiredMessage="Insira seu endereço de E-mail."
+										validatorMessage="Email inválido."
+										value="#{colaboradorBean.gestor.email}">
 
-							<!-- Caixa de confirmação -->
-							<p:confirmDialog global="true" showEffect="fade"
-								hideEffect="fade" responsive="true" width="350">
-								<p:commandButton value="Não" type="button"
-									styleClass="ui-confirmdialog-no ui-button-flat" />
-								<p:commandButton value="Sim" type="button"
-									styleClass="ui-confirmdialog-yes" />
-							</p:confirmDialog>
+										<f:validateRegex
+											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 
-						</div>
-					</div>
-				</h:form>
-			</p:panel>
+									</p:inputText> <p:outputLabel for="@previous" value="E-mail" />
+								</span> <br /> <span class="ui-float-label"> <p:password
+										id="senha" value="#{colaboradorBean.gestor.senha}"
+										toggleMask="true" redisplay="true" style="width:100%;" /> <p:outputLabel
+										for="@previous" value="Senha" />
+								</span> <br /> <span class="ui-float-label"> <p:password
+										id="cnf_senha" value="#{colaboradorBean.senha}"
+										toggleMask="true" redisplay="true" style="width:100%;" /> <p:outputLabel
+										for="@previous" value="Confirmar senha" />
+								</span> <br />
+							</div>
+							
+							<p:commandButton value="Salvar" update="gestor"
+							action="#{colaboradorBean.salvarGestor}" icon="pi pi-check" />
+						</h:form>
+						
+					</p:tab>
+				</p:tabView>
+			</div>
 		</div>
 	</section>
 

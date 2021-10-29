@@ -1,7 +1,5 @@
 package br.edu.unifacear.model.bo;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import br.edu.unifacear.model.dao.PedidoCompraDao;
@@ -9,34 +7,34 @@ import br.edu.unifacear.model.entity.PedidoCompra;
 
 public class PedidoCompraBo {
 	
-	public String salvar(PedidoCompra pedidocompra) 
+	public String salvar(PedidoCompra pedidoitem) 
 			throws Exception {
-		validarDadosPedidoCompra(pedidocompra);
-		PedidoCompraDao pedidocompraDao = new PedidoCompraDao();
+		validarDadosPedidoItem(pedidoitem);
+		PedidoCompraDao pedidoitemDao = new PedidoCompraDao();
 		try {
-			return pedidocompraDao.salvar(pedidocompra);
+			return pedidoitemDao.salvar(pedidoitem);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 	}
 	
-	public String alterar(PedidoCompra pedidocompra) 
+	public String alterar(PedidoCompra pedidoitem) 
 			throws Exception {
-		validarDadosPedidoCompra(pedidocompra);
+		validarDadosPedidoItem(pedidoitem);
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
-			return new PedidoCompraDao().alterar(pedidocompra);
+			return new PedidoCompraDao().alterar(pedidoitem);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 	}
 	
-	public String deletar(PedidoCompra pedidocompra) 
+	public String deletar(PedidoCompra pedidoitem) 
 			throws Exception {
-		validarDadosPedidoCompra(pedidocompra);
+		validarDadosPedidoItem(pedidoitem);
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
-			return new PedidoCompraDao().deletar(pedidocompra);
+			return new PedidoCompraDao().deletar(pedidoitem);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -50,14 +48,13 @@ public class PedidoCompraBo {
 		}
 	}		
 	
-		
-
-	private void validarDadosPedidoCompra(PedidoCompra pedidocompra) throws Exception {
-//		if (pedidocompra.getId() < 0) {
-//			throw new Exception("Id do pedidocompra não pode ser negativo!");
+	
+	private void validarDadosPedidoItem(PedidoCompra pedidoitem) throws Exception {
+//		if (pedidoitem.getId() < 0) {
+//			throw new Exception("Id do pedidoitem não pode ser negativo!");
 //		}
-		if (pedidocompra.toString().equals("")) {
-			throw new Exception("Nome do pedido compra não pode ficar em branco!");
+		if (pedidoitem.getItem().getNome().equals("")) {
+			throw new Exception("Nome do pedido item não pode ficar em branco!");
 		}
 	}	
 	

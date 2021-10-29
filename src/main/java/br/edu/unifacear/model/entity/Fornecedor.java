@@ -27,14 +27,15 @@ public class Fornecedor implements Serializable {
 	private String email;	
 	
 	@OneToMany
-	private List<Contato> contato = new ArrayList<>();
+	private List<Contato> contato;
 	
 	@OneToMany
-	private List<Endereco> endereco = new ArrayList<>();
+	private List<Endereco> endereco;
 	
 	public Fornecedor() {
-		this.contato = new ArrayList<>();
-		this.endereco = new ArrayList<>();
+		this.id = 0;
+		this.contato = new ArrayList<Contato>();
+		this.endereco = new ArrayList<Endereco>();
 	}
 	
 	public Fornecedor(int id, String nome, String empresa, String cnpj, String email, List<Contato> contato, List<Endereco> endereco) {

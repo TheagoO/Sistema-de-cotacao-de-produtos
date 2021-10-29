@@ -113,7 +113,7 @@
 					<p:growl id="msgs" showDetail="true" />
 
 					<p:dataTable id="produtos" var="produto" value="#{itemBean.itens}"
-						editable="true" style="margin-bottom:20px; margin-top:20px;">
+						editable="true" style="margin-bottom:20px; margin-top:20px;" scrollable="true" scrollHeight="70%"  scrollWidth="false">
 
 						<p:ajax event="rowEdit" listener="#{itemBean.onRowEdit}"
 							update=":form:msgs" />
@@ -157,10 +157,10 @@
 						<p:column headerText="Origem">
 							<p:cellEditor>
 								<f:facet name="output">
-									<h:outputText value="#{produto.fiscalItem.origem.pais}" />
+									<h:outputText value="#{produto.fiscalItem.origem.origem}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{produto.fiscalItem.origem.pais}" style="width:100%" />
+									<p:inputText value="#{produto.fiscalItem.origem.origem}" style="width:100%" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>

@@ -1,7 +1,5 @@
 package br.edu.unifacear.model.bo;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import br.edu.unifacear.model.dao.ItemDao;
@@ -48,9 +46,7 @@ public class ItemBo {
 	}
 
 	private void validarDadosItem(Item item) throws Exception {
-		
-		
-		
+				
 		if(item.getCodigo() < 13) {
 			throw new Exception("Código inválido");
 		}

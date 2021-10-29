@@ -1,8 +1,5 @@
 package br.edu.unifacear.model.dao;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 
 import javax.persistence.*;
@@ -20,19 +17,26 @@ public class AlmoxarifadoDao {
 	
 	public String salvar(Almoxarifado almoxarifado) throws Exception {
 		String retorno;
-		// Gravar o Almoxarifado no BD
-		try {			
-			em.getTransaction().begin();
-			em.persist(almoxarifado);
-			em.getTransaction().commit();		
-			
-			retorno = "Almoxarifado Inserido com Sucesso!";			
-		} catch (Exception e) {
-			retorno = e.getMessage();
-			throw new Exception("Erro Gravando Almoxarifado\n"+e.getMessage());
-		} finally {
-			em.close();
+		List<Almoxarifado> list = listar(almoxarifado.getEmail());
+		
+		if(list.isEmpty()) {
+			try {			
+				em.getTransaction().begin();
+				em.persist(almoxarifado);
+				em.getTransaction().commit();		
+				
+				retorno = "Almoxarifado Inserido com Sucesso!";			
+			} catch (Exception e) {
+				retorno = e.getMessage();
+				throw new Exception("Erro Gravando Almoxarifado\n"+e.getMessage());
+			} finally {
+				em.close();
+			}
+		}else {
+			return "E-mail já cadastrado";
 		}
+		
+		
 		return retorno;		
 	} // salvar
 	
@@ -74,13 +78,13 @@ public class AlmoxarifadoDao {
 		String cWhere = "";
 		Query q = null;
 
-		if(paramNome.equals("")) {
+		if(paramNome.equals("") || paramNome == null) {
 			q = em.createQuery("select g from Almoxarifado g");
 		}
 		else {
 			q = em.createQuery("select g from Almoxarifado g"
-					+" where nome like :nome");
-			q.setParameter("nome", "%"+paramNome+"%");
+					+" where email like :email");
+			q.setParameter("email", "%"+paramNome+"%");
 		}
 		
 		return q.getResultList();		
@@ -88,7 +92,7 @@ public class AlmoxarifadoDao {
 	
 	
 	
-	public Almoxarifado getObjectById(Long id) {
-		return em.find(Almoxarifado.class, id);
+	public Almoxarifado getObjectById(String email) {
+		return em.find(Almoxarifado.class, email);
 	}
 } // final da classe AlmoxarifadoDao

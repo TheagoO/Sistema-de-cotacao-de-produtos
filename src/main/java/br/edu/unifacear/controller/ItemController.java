@@ -31,8 +31,7 @@ public class ItemController {
 			this.item = new Item();
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto salvo!"));
 		} catch (Exception e) {
-			fc.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar produto"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar produto"));
 			e.printStackTrace();
 		}
 
@@ -68,7 +67,6 @@ public class ItemController {
 	}
 
 	public void onRowEdit(RowEditEvent<Item> event) {
-		FacesContext fc = FacesContext.getCurrentInstance();
 		Item novo = new Item();
 
 		for (Item i : this.itens) {

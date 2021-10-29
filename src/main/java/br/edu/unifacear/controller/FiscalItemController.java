@@ -21,7 +21,7 @@ public class FiscalItemController {
 
 	public void listarNcm() {
 		FacesContext fc = FacesContext.getCurrentInstance();
-
+		this.ncm.removeAll(ncm);
 		try {
 			FiscalItemBo fib = new FiscalItemBo();
 

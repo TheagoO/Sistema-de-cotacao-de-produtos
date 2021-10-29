@@ -1,7 +1,5 @@
 package br.edu.unifacear.model.bo;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import br.edu.unifacear.model.dao.NotaFiscalDao;
@@ -56,7 +54,7 @@ public class NotaFiscalBo {
 //		if (notaFiscal.getId() < 0) {
 //			throw new Exception("Id do notaFiscal não pode ser negativo!");
 //		}
-		if (notaFiscal.getFornecedor().equals("")) {
+		if (notaFiscal.getFornecedor().getNome().equals("")) {
 			throw new Exception("Nome do nota fiscal não pode ficar em branco!");
 		}
 	}	
