@@ -10,39 +10,40 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.edu.unifacear.model.entity.Almoxarifado;
+import br.edu.unifacear.model.entity.Gestor;
+import br.edu.unifacear.model.entity.Item;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
-@ManagedBean(name = "almoxarifadoBean")
+@ManagedBean(name = "gestorBean")
 @SessionScoped
-public class AlmoxarifadoController {
+public class GestorController {
 	
-	private Almoxarifado almoxarifado;
+	private Gestor gestor;
 	private String senha;
-	private List<Almoxarifado> lista;
+	private List<Gestor> lista;
 	
-	public void salvar() {
+	public String salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
+		
 		try {
-
-			if (almoxarifado.getSenha().equals(senha)) {
-				String retorno = facade.salvarAlmoxarifado(almoxarifado);
+			if (gestor.getSenha().equals(senha)) {
+				String retorno = facade.salvarGestor(gestor);
 				if(retorno.contains("E-mail já cadastrado")) {
 					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail já cadastrado!"));
 				}else {
 					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador salvo!"));
 				}
-				this.almoxarifado = new Almoxarifado();
+				this.gestor = new Gestor();
 			} else {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha inválida!"));
 			}
-
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar colaborador!"));
 			e.printStackTrace();
 		}
 
+		return "sucesso";
 	}
 	
 	public void listar(){
@@ -50,8 +51,8 @@ public class AlmoxarifadoController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		this.lista.removeAll(lista);
 		try {
-			for (Almoxarifado a : facade.listarAlmoxarifado()) {
-				this.lista.add(a);
+			for (Gestor g : facade.listarGestor()) {
+				this.lista.add(g);
 			}
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar colaboradores"));
@@ -65,32 +66,32 @@ public class AlmoxarifadoController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		
 		try {
-			String retorno = facade.editarAlmoxarifado(almoxarifado);
-			if(retorno.contains("Nome em branco") || retorno.contains("E-mail em branco")) {
+			String retorno = facade.editarGestor(this.gestor);
+			if(retorno.contains("Dados em branco")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			}else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador editado!"));
 				listar();
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador editado!"));
 			}
-			this.almoxarifado = new Almoxarifado();
+			this.gestor = new Gestor();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar colaborador"));
 			e.printStackTrace();
 		}
 	}
 	
-	public void onRowEdit(RowEditEvent<Almoxarifado> event) {
-		Almoxarifado novo = new Almoxarifado();
+	public void onRowEdit(RowEditEvent<Gestor> event) {
+		Gestor novo = new Gestor();
 
-		for (Almoxarifado a : this.lista) {
-			if (a.getId() == event.getObject().getId()) {
-				novo = a;
+		for (Gestor g : this.lista) {
+			if (g.getId() == event.getObject().getId()) {
+				novo = g;
 			}
 		}
 
 		if (event.getObject() != null) {
 			try {
-				this.almoxarifado = novo;
+				this.gestor = novo;
 				editar();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -99,23 +100,23 @@ public class AlmoxarifadoController {
 
 	}
 
-	public void onRowCancel(RowEditEvent<Almoxarifado> event) {
+	public void onRowCancel(RowEditEvent<Gestor> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
 	}
 	
-	public AlmoxarifadoController() {
-		this.almoxarifado = new Almoxarifado();
-		this.lista = new ArrayList<Almoxarifado>();
+	public GestorController() {
+		this.gestor = new Gestor();
+		this.lista = new ArrayList<Gestor>();
 		listar();
 	}
 
-	public Almoxarifado getAlmoxarifado() {
-		return almoxarifado;
+	public Gestor getGestor() {
+		return gestor;
 	}
 
-	public void setAlmoxarifado(Almoxarifado almoxarifado) {
-		this.almoxarifado = almoxarifado;
+	public void setGestor(Gestor gestor) {
+		this.gestor = gestor;
 	}
 
 	public String getSenha() {
@@ -126,13 +127,12 @@ public class AlmoxarifadoController {
 		this.senha = senha;
 	}
 
-	public List<Almoxarifado> getLista() {
+	public List<Gestor> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<Almoxarifado> lista) {
+	public void setLista(List<Gestor> lista) {
 		this.lista = lista;
 	}
-	
 	
 }

@@ -55,7 +55,7 @@ public class Contato implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Contato [id=" + id + ", contato=" + contato + ", tipo=" + tipo + "]";
+		return this.contato;
 	}
 
 	@Override

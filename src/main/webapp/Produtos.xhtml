@@ -113,7 +113,7 @@
 					<p:growl id="msgs" showDetail="true" />
 
 					<p:dataTable id="produtos" var="produto" value="#{itemBean.itens}"
-						editable="true" style="margin-bottom:20px; margin-top:20px;" scrollable="true" scrollHeight="70%"  scrollWidth="false">
+						editable="true" style="margin-bottom:20px; margin-top:20px;" scrollable="true" scrollHeight="70%" >
 
 						<p:ajax event="rowEdit" listener="#{itemBean.onRowEdit}"
 							update=":form:msgs" />
@@ -138,7 +138,7 @@
 									<h:outputText value="#{produto.nome}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{produto.nome}" style="width:100%" />
+									<p:inputText value="#{produto.nome}" style="width:100%" required="true" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -149,7 +149,7 @@
 									<h:outputText value="#{produto.marca}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{produto.marca}" style="width:100%" />
+									<p:inputText value="#{produto.marca}" style="width:100%" required="true" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -160,7 +160,7 @@
 									<h:outputText value="#{produto.fiscalItem.origem.origem}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{produto.fiscalItem.origem.origem}" style="width:100%" />
+									<p:inputText value="#{produto.fiscalItem.origem.origem}" style="width:100%" required="true" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -174,7 +174,7 @@
 								</f:facet>
 								<f:facet name="input">
 									<p:inputNumber value="#{produto.valor}" style="width:100%"
-										label="Price" symbol="$" />
+										label="Price" symbol="$" required="true" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>

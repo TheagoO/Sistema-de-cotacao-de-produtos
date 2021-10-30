@@ -54,7 +54,7 @@ public class EstadoBo {
 //		if (estado.getId() < 0) {
 //			throw new Exception("Id do estado não pode ser negativo!");
 //		}
-		if (estado.getNome().equals("")) {
+		if (estado.getEstado().equals("")) {
 			throw new Exception("Nome do estado não pode ficar em branco!");
 		}
 	}	

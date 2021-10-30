@@ -8,7 +8,7 @@ import br.edu.unifacear.model.entity.Item;
 public class ItemBo {
 
 	public String salvar(Item item) throws Exception {
-		validarDadosItem(item);
+		validarDadosItem(item, "salvar");
 		ItemDao itemDao = new ItemDao();
 		try {
 			return itemDao.salvar(item);
@@ -18,8 +18,7 @@ public class ItemBo {
 	}
 
 	public String alterar(Item item) throws Exception {
-		
-		// exemplo chamando a DAO com a instancia direta do obj
+		validarDadosItem(item, "editar");
 		try {
 			return new ItemDao().alterar(item);
 		} catch (Exception e) {
@@ -45,11 +44,24 @@ public class ItemBo {
 		}
 	}
 
-	private void validarDadosItem(Item item) throws Exception {
-				
-		if(item.getCodigo() < 13) {
-			throw new Exception("Código inválido");
+	private void validarDadosItem(Item i, String s) throws Exception {
+		if(s.contains("salvar")) {
+			if(i.getCodigo() < 13 || i.getCodigo() == 0) {
+				throw new Exception("Código inválido");
+			}
+		}else {
+			if(i.getCodigo() < 13) {
+				throw new Exception("Código inválido");
+			}
+			if(i.getNome() == "" || i.getNome() == null) {
+				throw new Exception("Dados em branco");
+			}
+			if(i.getMarca() == "" || i.getMarca() == null) {
+				throw new Exception("Dados em branco");
+			}
 		}
+		
+		
 		
 	}
 

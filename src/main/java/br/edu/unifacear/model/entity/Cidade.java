@@ -13,10 +13,7 @@ public class Cidade implements Serializable {
 	private int id;
 	
 	@Column(name = "NOME")
-	private String nome;
-	
-	@Column(name = "CODIGO")
-	private int codigo;
+	private String cidade;
 	
 	@ManyToOne
 	private Estado estado;
@@ -26,10 +23,9 @@ public class Cidade implements Serializable {
 		this.estado = new Estado();
 	}
 	
-	public Cidade(int id, String nome, int codigo, Estado estado) {
+	public Cidade(int id, String cidade, Estado estado) {
 		this.id = id;
-		this.nome = nome;
-		this.codigo = codigo;
+		this.cidade = cidade;
 		this.estado = estado;
 	}
 
@@ -42,19 +38,11 @@ public class Cidade implements Serializable {
 	}
 
 	public String getNome() {
-		return nome;
+		return cidade;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public int getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setNome(String cidade) {
+		this.cidade = cidade;
 	}
 	
 	public Estado getEstado() {
@@ -67,12 +55,12 @@ public class Cidade implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Cidade [id=" + id + ", nome=" + nome + ", codigo=" + codigo + ", estado=" + estado + "]";
+		return "Cidade [id=" + id + ", cidade=" + cidade + ", estado=" + estado + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo, estado, id, nome);
+		return Objects.hash(estado, id, cidade);
 	}
 
 	@Override
@@ -84,8 +72,8 @@ public class Cidade implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cidade other = (Cidade) obj;
-		return codigo == other.codigo && Objects.equals(estado, other.estado) && id == other.id
-				&& Objects.equals(nome, other.nome);
+		return Objects.equals(estado, other.estado) && id == other.id
+				&& Objects.equals(cidade, other.cidade);
 	}
 	
 	

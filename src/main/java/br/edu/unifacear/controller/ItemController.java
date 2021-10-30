@@ -56,10 +56,14 @@ public class ItemController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			facade.editarItem(item);
-			listar();
+			String retorno = facade.editarItem(item);
+			if(retorno.contains("Dados em branco") || retorno.contains("Código inválido")) {
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
+			}else {
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto editado!"));
+				listar();
+			}
 			this.item = new Item();
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto editado!"));
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar produto"));
 			e.printStackTrace();
@@ -88,7 +92,7 @@ public class ItemController {
 
 	public void onRowCancel(RowEditEvent<Item> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "CANCELADO", "Edição cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
 	}
 
 	public ItemController() {

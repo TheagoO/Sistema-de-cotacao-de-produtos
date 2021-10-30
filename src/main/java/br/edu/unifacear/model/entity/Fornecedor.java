@@ -26,26 +26,25 @@ public class Fornecedor implements Serializable {
 	@Column(name = "EMAIL")
 	private String email;	
 	
-	@OneToMany
-	private List<Contato> contato;
+	@Column(name = "CONTATO")
+	private String contato;
 	
-	@OneToMany
-	private List<Endereco> endereco;
+	@Column(name = "ENDERECO")
+	@OneToOne
+	private Endereco endereco;
 	
 	public Fornecedor() {
 		this.id = 0;
-		this.contato = new ArrayList<Contato>();
-		this.endereco = new ArrayList<Endereco>();
+		this.endereco = new Endereco();
 	}
 	
-	public Fornecedor(int id, String nome, String empresa, String cnpj, String email, List<Contato> contato, List<Endereco> endereco) {
+	public Fornecedor(int id, String nome, String empresa, String cnpj, String email, Endereco endereco) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.empresa = empresa;
 		this.cnpj = cnpj;
 		this.email = email;
-		this.contato = contato;
 		this.endereco = endereco;
 	}
 
@@ -88,22 +87,21 @@ public class Fornecedor implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
-	public Contato getContato(int i) {
-		return contato.get(i);
+		
+	public String getContato() {
+		return contato;
 	}
 
-	public void setContato(Contato contato) {
-		this.contato.add(contato);
+	public void setContato(String contato) {
+		this.contato = contato;
 	}
 
-	public Endereco getEndereco(int i) {
-		return endereco.get(i);
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
 	public void setEndereco(Endereco endereco) {
-		this.endereco.add(endereco);
+		this.endereco = endereco;
 	}
 
 	@Override
@@ -131,5 +129,4 @@ public class Fornecedor implements Serializable {
 				&& Objects.equals(endereco, other.endereco) && id == other.id && Objects.equals(nome, other.nome);
 	}
 
-	
 }

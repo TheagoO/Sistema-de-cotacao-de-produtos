@@ -51,7 +51,7 @@ public class AlmoxarifadoBo {
 	
 
 	private void validarDadosAlmoxarifado(Almoxarifado a) throws Exception {
-
+	
 	}	
 	
 }

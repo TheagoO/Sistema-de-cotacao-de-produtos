@@ -13,19 +13,16 @@ public class Estado implements Serializable {
 	private int id;
 	
 	@Column(name = "NOME")
-	private String nome;
+	private String estado;
 	
-	@Column(name = "CODIGO")
-	private int codigo;
 		
 	public Estado() {
 		this.id = 0;
 	}
 	
-	public Estado(int id, String nome, int codigo) {
+	public Estado(int id, String estado) {
 		this.id = id;
-		this.nome = nome;
-		this.codigo = codigo;
+		this.estado = estado;
 	}
 
 	public int getId() {
@@ -36,31 +33,22 @@ public class Estado implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getEstado() {
+		return estado;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
-
-	public int getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
-	}
-
 
 	@Override
 	public String toString() {
-		return "Estado [id=" + id + ", nome=" + nome + ", codigo=" + codigo + "]";
+		return "Estado [id=" + id + ", estado=" + estado;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo, id, nome);
+		return Objects.hash(id, estado);
 	}
 
 	@Override
@@ -72,7 +60,7 @@ public class Estado implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Estado other = (Estado) obj;
-		return codigo == other.codigo && id == other.id && Objects.equals(nome, other.nome);
+		return id == other.id && Objects.equals(estado, other.estado);
 	}
 
 }

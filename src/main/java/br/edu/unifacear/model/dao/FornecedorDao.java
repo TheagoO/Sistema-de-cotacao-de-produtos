@@ -1,8 +1,5 @@
 package br.edu.unifacear.model.dao;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 
 import javax.persistence.*;
@@ -11,29 +8,29 @@ import javax.persistence.Query;
 import br.edu.unifacear.model.entity.*;
 import br.edu.unifacear.model.util.Connect;
 
-import org.hibernate.Criteria;
-import org.hibernate.*;
-import org.hibernate.criterion.Restrictions;
-
 public class FornecedorDao {
 	EntityManager em = Connect.connection();
 
 	public String salvar(Fornecedor fornecedor) throws Exception {
 		String retorno;
-		// Gravar o Fornecedor no BD
-
-		try {			
-			em.getTransaction().begin();
-			em.persist(fornecedor);
-			em.getTransaction().commit();		
-			
-			retorno = "Fornecedor Inserido com Sucesso!";			
-		} catch (Exception e) {
-			retorno = e.getMessage();
-			throw new Exception("Erro Gravando Fornecedor\n"+e.getMessage());
-		} finally {
-			em.close();
+		
+		if(listar(fornecedor.getCnpj()).isEmpty()) {
+			try {			
+				em.getTransaction().begin();
+				em.persist(fornecedor);
+				em.getTransaction().commit();		
+				
+				retorno = "Fornecedor Inserido com Sucesso!";			
+			} catch (Exception e) {
+				retorno = e.getMessage();
+				throw new Exception("Erro Gravando Fornecedor\n"+e.getMessage());
+			} finally {
+				em.close();
+			}
+		}else {
+			return "CNPJ já cadastrado";
 		}
+		
 		return retorno;		
 	} // salvar
 	
@@ -84,8 +81,8 @@ public class FornecedorDao {
 		}
 		else {
 			q = em.createQuery("select g from Fornecedor g"
-					+" where nome like :nome");
-			q.setParameter("nome", "%"+paramNome+"%");
+					+" where cnpj like :cnpj");
+			q.setParameter("cnpj", "%"+paramNome+"%");
 		}
 		
 		return q.getResultList();		

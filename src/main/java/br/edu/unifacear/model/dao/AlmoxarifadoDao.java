@@ -49,10 +49,10 @@ public class AlmoxarifadoDao {
 			em.merge(almoxarifado);
 			em.getTransaction().commit();	
 			
-			retorno = "Almoxarifado Alterado com Sucesso!";			
+			retorno = "Almoxarifado alterado com Sucesso!";			
 		} catch (Exception e) {
-			retorno = e.getMessage();
-			throw new Exception("Erro Alterando Almoxarifado\n"+e.getMessage());
+			retorno = "Erro alterando Almoxarifado";
+			throw new Exception("Erro alterando Almoxarifado");
 		}
 		return retorno;		
 	} // alterar

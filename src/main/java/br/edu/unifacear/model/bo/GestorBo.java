@@ -9,7 +9,7 @@ public class GestorBo {
 	
 	public String salvar(Gestor gestor) 
 			throws Exception {
-		validarDadosGestor(gestor);
+		validarDadosGestor(gestor, "salvar");
 		GestorDao gestorDao = new GestorDao();
 		try {
 			return gestorDao.salvar(gestor);
@@ -20,7 +20,7 @@ public class GestorBo {
 	
 	public String alterar(Gestor gestor) 
 			throws Exception {
-		validarDadosGestor(gestor);
+		validarDadosGestor(gestor, " ");
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
 			return new GestorDao().alterar(gestor);
@@ -31,7 +31,7 @@ public class GestorBo {
 	
 	public String deletar(Gestor gestor) 
 			throws Exception {
-		validarDadosGestor(gestor);
+
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
 			return new GestorDao().deletar(gestor);
@@ -49,13 +49,8 @@ public class GestorBo {
 	}		
 		
 
-	private void validarDadosGestor(Gestor gestor) throws Exception {
-//		if (gestor.getId() < 0) {
-//			throw new Exception("Id do gestor não pode ser negativo!");
-//		}
-		if (gestor.getNome().equals("")) {
-			throw new Exception("Nome do gestor não pode ficar em branco!");
-		}
+	private void validarDadosGestor(Gestor g, String s) throws Exception {
+				
 	}	
 	
 }

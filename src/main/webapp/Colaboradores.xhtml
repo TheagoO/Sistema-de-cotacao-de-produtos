@@ -89,99 +89,296 @@
 			<!-- Conteúdo -->
 
 			<h:form id="form">
+
 				<div class="card">
-					<div class="p-mt-3 p-mb-5">
-
-						<!-- Área de pesquisa e "novo" colaborador -->
-
-						<div class="search-area">
-							<div class="ui-inputgroup">
-								<p:inputText id="template"
-									value="#{dtColumnsView.columnTemplate}" style="width:100%" />
-								<p:commandButton icon="pi pi-search" styleClass="ui-button" />
-							</div>
-
-							<p:commandButton update="colaboradores"
-								action="#{dtColumnsView.updateColumns}" value="Update"
-								process="@parent" icon="pi pi-refresh"
-								oncomplete="PF('customersTable').clearFilters()" />
-							
-							<p:commandButton value="Novo" />
-						</div>
-
-					</div>
-
 					<!-- Listagem dos Colaboradores -->
-
+					
 					<p:growl id="msgs" showDetail="true" />
 
-					<p:dataTable id="colaboradores" var="users"
-						value="#{dtEditView.products1}" editable="true"
-						style="margin-bottom:20px; margin-top:20px;">
+					<p:tabView>
 
-						<p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}"
-							update=":form:msgs" />
-						<p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}"
-							update=":form:msgs" />
+						<p:tab title="Almoxarifado">
+							<h:form id="form_almoxarifado">
+							
+								<div class="p-mt-3 p-mb-5">
 
-						<p:column headerText="Código">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.code}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText id="modelInput" value="#{product.code}"
-										style="width:100%" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
+									<!-- Área de pesquisa e "novo" colaborador -->
 
-						<p:column headerText="Name">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.name}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{product.name}" style="width:100%"
-										label="Name" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
+									<div class="search-area">
+										<div class="ui-inputgroup">
+											<p:inputText id="template" value="Pesquisar"
+												style="width:100%" />
+											<p:commandButton icon="pi pi-search" styleClass="ui-button" />
+										</div>
 
-						<p:column headerText="Tipo">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.inventoryStatus}" />
-								</f:facet>
-								<f:facet name="input">
-									<h:selectOneMenu value="#{product.inventoryStatus}"
-										style="width:100%">
-										<f:selectItems value="#{dtEditView.inventoryStatusList}"
-											var="status" itemLabel="#{status.text}" itemValue="#{status}" />
-									</h:selectOneMenu>
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
+										<p:commandButton update="listAlmo"
+											action="#{almoxarifadoBean.listar}" value="Atualizar"
+											process="@parent" icon="pi pi-refresh" />
 
-						<p:column headerText="Empresa">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.price}">
-										<f:convertNumber type="currency" currencySymbol="$" />
-									</h:outputText>
-								</f:facet>
-								<f:facet name="input">
-									<p:inputNumber value="#{product.price}" style="width:100%"
-										label="Empresa" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
+										<p:commandButton value="Novo" />
+									</div>
 
-						<p:column style="width:6rem">
-							<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit"
-								saveTitle="Save Row" />
-						</p:column>
-					</p:dataTable>
+								</div>
+
+								<p:dataTable id="listAlmo" value="#{almoxarifadoBean.lista}"
+									var="almox" editable="true"
+									style="margin-bottom:20px; margin-top:20px;" scrollable="true"
+									scrollHeight="70%">
+
+									<p:ajax event="rowEdit"
+										listener="#{almoxarifadoBean.onRowEdit}" update=":form:msgs" />
+									<p:ajax event="rowEditCancel"
+										listener="#{almoxarifadoBean.onRowCancel}" update=":form:msgs" />
+
+									<p:column headerText="Código">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{almox.id}" />
+											</f:facet>
+											<f:facet name="input">
+												<h:outputText value="#{almox.id}" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column headerText="Nome">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{almox.nome}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{almox.nome}" style="width:100%"
+													label="nome" required="true" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column headerText="E-mail">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{almox.email}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{almox.email}" style="width:100%"
+													label="email" required="true" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column style="width:6rem">
+										<p:rowEditor editTitle="Editar" cancelTitle="Cancelar"
+											saveTitle="Salvar" />
+									</p:column>
+								</p:dataTable>
+							</h:form>
+						</p:tab>
+
+
+
+
+						<p:tab title="Fornecedor">
+							<h:form id="form_fornecedor">
+								<div class="p-mt-3 p-mb-5">
+
+									<!-- Área de pesquisa e "novo" colaborador -->
+
+									<div class="search-area">
+										<div class="ui-inputgroup">
+											<p:inputText id="template" value="Pesquisar"
+												style="width:100%" />
+											<p:commandButton icon="pi pi-search" styleClass="ui-button" />
+										</div>
+
+										<p:commandButton update="listForn"
+											action="#{fornecedorBean.listar}" value="Atualizar"
+											process="@parent" icon="pi pi-refresh" />
+
+										<p:commandButton value="Novo" />
+									</div>
+
+								</div>
+
+								<p:dataTable id="listForn" value="#{fornecedorBean.lista}"
+									var="forne" editable="true"
+									style="margin-bottom:20px; margin-top:20px;" scrollable="true"
+									scrollHeight="70%">
+
+									<p:ajax event="rowEdit" listener="#{fornecedorBean.onRowEdit}"
+										update=":form:msgs" />
+									<p:ajax event="rowEditCancel"
+										listener="#{fornecedorBean.onRowCancel}" update=":form:msgs" />
+
+									<p:column headerText="Código">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{forne.id}" />
+											</f:facet>
+											<f:facet name="input">
+												<h:outputText value="#{forne.id}" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column headerText="CNPJ">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{forne.cnpj}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{forne.cnpj}" style="width:100%"
+													label="cnpj" required="true" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column headerText="Empresa">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{forne.empresa}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{forne.empresa}" style="width:100%"
+													label="empresa" required="true" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column headerText="Nome">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{forne.nome}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{forne.nome}" style="width:100%"
+													label="nome" required="true" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column headerText="E-mail">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{forne.email}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{forne.email}" style="width:100%"
+													label="email" required="true" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column headerText="Contato">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{forne.contato.contato}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{forne.contato.contato}"
+													style="width:100%" label="contato" required="true" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column style="width:6rem">
+										<p:rowEditor editTitle="Editar" cancelTitle="Cancelar"
+											saveTitle="Salvar" />
+									</p:column>
+								</p:dataTable>
+							</h:form>
+						</p:tab>
+
+
+
+						<p:tab title="Gestor">
+							<h:form id="form_gestor">
+								<div class="p-mt-3 p-mb-5">
+
+									<!-- Área de pesquisa e "novo" colaborador -->
+
+									<div class="search-area">
+										<div class="ui-inputgroup">
+											<p:inputText id="template" value="Pesquisar"
+												style="width:100%" />
+											<p:commandButton icon="pi pi-search" styleClass="ui-button" />
+										</div>
+
+										<p:commandButton update="listGestor"
+											action="#{gestorBean.listar}" value="Atualizar"
+											process="@parent" icon="pi pi-refresh" />
+
+										<p:commandButton value="Novo" />
+									</div>
+
+								</div>
+
+								<p:dataTable id="listGestor" value="#{gestorBean.lista}"
+									var="gestor" editable="true"
+									style="margin-bottom:20px; margin-top:20px;" scrollable="true"
+									scrollHeight="70%">
+
+									<p:ajax event="rowEdit" listener="#{gestorBean.onRowEdit}"
+										update=":form:msgs" />
+									<p:ajax event="rowEditCancel"
+										listener="#{gestorBean.onRowCancel}" update=":form:msgs" />
+
+									<p:column headerText="Código">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{gestor.id}" />
+											</f:facet>
+											<f:facet name="input">
+												<h:outputText value="#{gestor.id}" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column headerText="Nome">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{gestor.nome}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{gestor.nome}" style="width:100%"
+													label="nome" required="true" />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column headerText="CPF">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{gestor.cpf}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{gestor.cpf}" style="width:100%"
+													label="cpf" required="true"  />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column headerText="E-mail">
+										<p:cellEditor>
+											<f:facet name="output">
+												<h:outputText value="#{gestor.email}" />
+											</f:facet>
+											<f:facet name="input">
+												<p:inputText value="#{gestor.email}" style="width:100%"
+													label="email" required="true"  />
+											</f:facet>
+										</p:cellEditor>
+									</p:column>
+
+									<p:column style="width:6rem">
+										<p:rowEditor editTitle="Editar" cancelTitle="Cancelar"
+											saveTitle="Salvar" />
+									</p:column>
+								</p:dataTable>
+							</h:form>
+						</p:tab>
+
+
+					</p:tabView>
+
 				</div>
 			</h:form>
 
