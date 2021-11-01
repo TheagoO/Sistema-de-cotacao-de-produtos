@@ -90,65 +90,57 @@
 					<p:growl id="msgs" showDetail="true" />
 
 					<p:panel header="Lançar cotação">
-						<p:dataTable id="cotacao" var="pedido" editable="true"
-							editMode="cell" value="#{pedidoCotacaoBean.selecionado}"
-							widgetVar="cellProducts" scrollable="true" scrollWidth="100%">
+						<p:dataTable id="cotacao" var="item" editable="true"
+							value="#{pedidoCotacaoBean.itens}" scrollable="true"
+							scrollHeight="300px;">
 
-							<p:ajax event="cellEdit" listener="#{dtEditView.onCellEdit}"
+							<p:ajax event="rowEdit" listener="#{pedidoCotacaoBean.onRowEdit}"
 								update=":form:msgs" />
+							<p:ajax event="rowEditCancel"
+								listener="#{pedidoCotacaoBean.onRowCancel}" update=":form:msgs" />
 
 							<!-- Cabeçalho das colunas -->
 
-							<p:columnGroup type="header">
-								<p:row>
-									<p:column rowspan="2" headerText="Item" />
+							<p:column headerText="Fornecedor">
+								<p:dataTable id="fornecedores"
+									value="#{pedidoCotacaoBean.fornecedores}" var="forn">
 
-									<!-- Nome do fornecedor -->
-									<p:column colspan="2" headerText="#{pedido.fornecedor.fornecedor.nome}" />
-								</p:row>
-								<p:row>
-									<p:column headerText="Qtd." />
-									<p:column headerText="Valor uni." />
-								</p:row>
-							</p:columnGroup>
+									<h:outputText value="#{forn.nome}" />
 
-							<!-- Linhas -->
-
-							<p:column>
-								<f:facet name="output">
-									<h:outputText value="#{pedido.item.item.nome}" />
-								</f:facet>
+								</p:dataTable>
 							</p:column>
 
-							<p:column>
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{pedido}">
-											
-										</h:outputText>
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{pedido}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
+							<p:column headerText="Item">
+
+								<h:outputText value="#{item.nome}" />
+
 							</p:column>
 
-							<p:column>
+							<p:column headerText="Preço">
 								<p:cellEditor>
 									<f:facet name="output">
-										<h:outputText value="#{pedidoCotacaoBean.cotacao.preco}">
+										<h:outputText value="#{item.valor}">
 											<f:convertNumber type="currency" currencySymbol="$" />
 										</h:outputText>
 									</f:facet>
 									<f:facet name="input">
-										<p:inputNumber value="#{pedidoCotacaoBean.cotacao.preco}" style="width:100%"
-											symbol="$" />
+										<p:inputNumber value="#{item.valor}" style="width:100%"
+											label="Price" symbol="$" required="true" />
 									</f:facet>
 								</p:cellEditor>
 							</p:column>
 
-							<p:commandButton value="Lançar" />
+							<p:column style="width:6rem" headerText="Editar">
+								<p:rowEditor editTitle="Editar" cancelTitle="Cancelar"
+									saveTitle="Salvar" />
+							</p:column>
+
+
 						</p:dataTable>
+						<br />
+						<p:commandButton value="Lançar" icon="pi pi-check"
+							styleClass="ui-button-success" action="#{pedidoCotacaoBean.lancarCotacao}" />
+						<br />
 					</p:panel>
 				</div>
 			</h:form>

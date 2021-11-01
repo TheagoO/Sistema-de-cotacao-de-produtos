@@ -4,21 +4,26 @@ import java.util.List;
 
 import br.edu.unifacear.model.bo.AlmoxarifadoBo;
 import br.edu.unifacear.model.bo.CidadeBo;
+import br.edu.unifacear.model.bo.CotacaoBo;
 import br.edu.unifacear.model.bo.EnderecoBo;
 import br.edu.unifacear.model.bo.EstadoBo;
 import br.edu.unifacear.model.bo.FiscalItemBo;
 import br.edu.unifacear.model.bo.FornecedorBo;
+import br.edu.unifacear.model.bo.FornecedorPedidoCotacaoBo;
 import br.edu.unifacear.model.bo.GestorBo;
 import br.edu.unifacear.model.bo.ItemBo;
+import br.edu.unifacear.model.bo.ItemCotacaoBo;
 import br.edu.unifacear.model.bo.PedidoCotacaoBo;
 import br.edu.unifacear.model.entity.Almoxarifado;
 import br.edu.unifacear.model.entity.Cidade;
+import br.edu.unifacear.model.entity.Cotacao;
 import br.edu.unifacear.model.entity.Endereco;
 import br.edu.unifacear.model.entity.Estado;
-import br.edu.unifacear.model.entity.FiscalItem;
 import br.edu.unifacear.model.entity.Fornecedor;
+import br.edu.unifacear.model.entity.FornecedorPedidoCotacao;
 import br.edu.unifacear.model.entity.Gestor;
 import br.edu.unifacear.model.entity.Item;
+import br.edu.unifacear.model.entity.ItemCotacao;
 import br.edu.unifacear.model.entity.PedidoCotacao;
 
 public class GestaoFacade {
@@ -32,6 +37,9 @@ public class GestaoFacade {
 	private EstadoBo estadoBo;
 	private EnderecoBo enderecoBo;
 	private PedidoCotacaoBo pedidoCotacaoBo;
+	private ItemCotacaoBo itemCotacaoBo;
+	private FornecedorPedidoCotacaoBo fornecedorPedidoCotacaoBo;
+	private CotacaoBo cotacaoBo;
 
 	public GestaoFacade() {
 		this.fiscoItemBo = new FiscalItemBo();
@@ -43,6 +51,9 @@ public class GestaoFacade {
 		this.estadoBo = new EstadoBo();
 		this.enderecoBo = new EnderecoBo();
 		this.pedidoCotacaoBo = new PedidoCotacaoBo();
+		this.itemCotacaoBo = new ItemCotacaoBo();
+		this.fornecedorPedidoCotacaoBo = new FornecedorPedidoCotacaoBo();
+		this.cotacaoBo = new CotacaoBo();
 	}
 
 	public void salvarItem(Item i) throws Exception {
@@ -158,7 +169,7 @@ public class GestaoFacade {
 	public List<Endereco> listarEndereco() throws Exception {
 		return this.enderecoBo.listar("");
 	}
-	
+
 	public String salvarPedidoCotacao(PedidoCotacao p) throws Exception {
 		return this.pedidoCotacaoBo.salvar(p);
 	}
@@ -173,5 +184,66 @@ public class GestaoFacade {
 
 	public List<PedidoCotacao> listarPedidoCotacao() throws Exception {
 		return this.pedidoCotacaoBo.listar("");
+	}
+
+	public String salvarItemCotacao(ItemCotacao i) throws Exception {
+		return this.itemCotacaoBo.salvar(i);
+	}
+
+	public String editarItemCotacao(ItemCotacao i) throws Exception {
+		return this.itemCotacaoBo.alterar(i);
+	}
+
+	public String excluirItemCotacao(ItemCotacao i) throws Exception {
+		return this.itemCotacaoBo.deletar(i);
+	}
+
+	public List<ItemCotacao> listarItemCotacao() throws Exception {
+		return this.itemCotacaoBo.listar("");
+	}
+
+	public String salvarFornecedorPedidoCotacao(FornecedorPedidoCotacao i) throws Exception {
+		return this.fornecedorPedidoCotacaoBo.salvar(i);
+	}
+
+	public String editarFornecedorPedidoCotacao(FornecedorPedidoCotacao i) throws Exception {
+		return this.fornecedorPedidoCotacaoBo.alterar(i);
+	}
+
+	public String excluirFornecedorPedidoCotacao(FornecedorPedidoCotacao i) throws Exception {
+		return this.fornecedorPedidoCotacaoBo.deletar(i);
+	}
+
+	public List<FornecedorPedidoCotacao> listarFornecedorPedidoCotacao() throws Exception {
+		return this.fornecedorPedidoCotacaoBo.listar("");
+	}
+
+	public String salvarCotacao(Cotacao cotacao, List<ItemCotacao> itens) throws Exception {
+		if (itens != null && cotacao == null) {
+
+			for (ItemCotacao i : itens) {
+				Cotacao c = new Cotacao();
+				c.setItem(i);
+				c.setPreco(i.getValor());
+				c.setFornecedor(new Fornecedor(i.getId(), null, null, null, null, null));
+				this.cotacaoBo.salvar(c);
+			}
+		} else {
+			return this.cotacaoBo.salvar(cotacao);
+		}
+
+		return "";
+	}
+
+	public String editarCotacao(Cotacao c) throws Exception {
+		return this.cotacaoBo.alterar(c);
+	}
+
+	public String excluirCotacao(Cotacao c) throws Exception {
+		return this.cotacaoBo.deletar(c);
+	}
+
+	public List<Cotacao> listarCotacao() throws Exception {
+		return this.cotacaoBo.listar("");
 	}
 }

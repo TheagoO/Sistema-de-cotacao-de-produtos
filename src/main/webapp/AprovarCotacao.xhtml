@@ -90,9 +90,41 @@
 					<p:growl id="msgs" showDetail="true" />
 
 					<p:panel header="Pedidos de cotação">
-						
-						
-						
+
+						<div class="card">
+
+							<h:form>
+								<p:dataTable var="pedido" value="#{pedidoCotacaoBean.lista}"
+									sortBy="#{pedido.solicitante.nome}">
+									<p:headerRow field="solicitante.nome" expandable="true">
+
+										<p:column colspan="6">
+											<div class="p-d-inline-flex p-ai-center"
+												style="vertical-align: middle">
+												
+												<h:outputText styleClass="p-ml-2"
+													value="#{pedido.solicitante.nome}" />
+											</div>
+										</p:column>
+									</p:headerRow>
+
+									<p:column headerText="Solicitante">
+										<h:outputText value="#{pedido.solicitante.nome}" />
+									</p:column>
+
+									<p:column headerText="Produto">
+										<h:outputText value="#{pedido.item.item.nome}" />
+									</p:column>
+
+									<p:column headerText="Quantidade">
+										<h:outputText value="#{pedido.item.quantidade}" />
+									</p:column>
+
+									
+								</p:dataTable>
+							</h:form>
+						</div>
+
 					</p:panel>
 				</div>
 			</h:form>

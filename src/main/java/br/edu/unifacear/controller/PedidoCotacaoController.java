@@ -10,22 +10,22 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.edu.unifacear.model.entity.Cotacao;
 import br.edu.unifacear.model.entity.Fornecedor;
 import br.edu.unifacear.model.entity.FornecedorPedidoCotacao;
+import br.edu.unifacear.model.entity.ItemCotacao;
 import br.edu.unifacear.model.entity.PedidoCotacao;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
 @ManagedBean(name = "pedidoCotacaoBean")
 @ApplicationScoped
 public class PedidoCotacaoController {
-	
+
 	private PedidoCotacao pedido;
 	private PedidoCotacao selecionado;
-	private Cotacao cotacao;
 	private List<PedidoCotacao> lista;
-	
-	
+	private List<ItemCotacao> itens;
+	private List<Fornecedor> fornecedores;
+
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -46,9 +46,15 @@ public class PedidoCotacaoController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		this.lista.removeAll(lista);
 		try {
-			for (PedidoCotacao i : facade.listarPedidoCotacao()) {
-				this.lista.add(i);
+			this.lista = facade.listarPedidoCotacao();
+			List<FornecedorPedidoCotacao> pc = facade.listarFornecedorPedidoCotacao();
+			this.fornecedores.removeAll(fornecedores);
+			for (FornecedorPedidoCotacao f : pc) {
+				this.fornecedores.add(f.getFornecedor());
 			}
+			this.itens.removeAll(itens);
+			this.itens = facade.listarItemCotacao();
+			
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar produtos"));
 			e.printStackTrace();
@@ -61,9 +67,9 @@ public class PedidoCotacaoController {
 
 		try {
 			String retorno = facade.editarPedidoCotacao(pedido);
-			if(retorno.contains("Dados em branco") || retorno.contains("Código inválido")) {
+			if (retorno.contains("Dados em branco") || retorno.contains("Código inválido")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
-			}else {
+			} else {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto editado!"));
 				listar();
 			}
@@ -88,19 +94,36 @@ public class PedidoCotacaoController {
 		}
 	}
 	
-	public void onRowEdit(RowEditEvent<PedidoCotacao> event) {
-		PedidoCotacao novo = new PedidoCotacao();
-
-		for (PedidoCotacao i : this.lista) {
+	public void lancarCotacao() {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		
+		try {
+			facade.salvarCotacao(null, itens);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cotação lançada!"));
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao lançar cotação"));
+			e.printStackTrace();
+		}
+	}
+	
+	public void onRowEdit(RowEditEvent<ItemCotacao> event) {
+		ItemCotacao novo = new ItemCotacao();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		
+		for (ItemCotacao i : this.itens) {
 			if (i.getId() == event.getObject().getId()) {
 				novo = i;
+				this.itens.remove(i);
+				break;
 			}
 		}
 
 		if (event.getObject() != null) {
 			try {
-				this.pedido = novo;
-				editar();
+				
+				this.itens.add(novo);
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Valor alterado!"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -112,44 +135,54 @@ public class PedidoCotacaoController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
 	}
-	
-	
-	
+
 	public PedidoCotacaoController() {
 		this.pedido = new PedidoCotacao();
-		
 		this.selecionado = new PedidoCotacao();
-		List<FornecedorPedidoCotacao> fornecedor = new ArrayList<FornecedorPedidoCotacao>();
-		fornecedor.add(new FornecedorPedidoCotacao(0, 1, new Fornecedor(0, "Thiago", null, null, null, null)));
-		this.selecionado.setFornecedor(fornecedor);
 		this.lista = new ArrayList<PedidoCotacao>();
-		this.cotacao = new Cotacao();
+		this.itens = new ArrayList<ItemCotacao>();
+		this.fornecedores = new ArrayList<Fornecedor>();
+		listar();
 	}
+
 	public PedidoCotacao getPedido() {
 		return pedido;
 	}
+
 	public void setPedido(PedidoCotacao pedido) {
 		this.pedido = pedido;
 	}
+
 	public PedidoCotacao getSelecionado() {
 		return selecionado;
 	}
+
 	public void setSelecionado(PedidoCotacao selecionado) {
 		this.selecionado = selecionado;
 	}
+
 	public List<PedidoCotacao> getLista() {
 		return lista;
 	}
+
 	public void setLista(List<PedidoCotacao> lista) {
 		this.lista = lista;
 	}
 
-	public Cotacao getCotacao() {
-		return cotacao;
+	public List<ItemCotacao> getItens() {
+		return itens;
 	}
 
-	public void setCotacao(Cotacao cotacao) {
-		this.cotacao = cotacao;
+	public void setItens(List<ItemCotacao> itens) {
+		this.itens = itens;
 	}
-		
+
+	public List<Fornecedor> getFornecedores() {
+		return fornecedores;
+	}
+
+	public void setFornecedores(List<Fornecedor> fornecedores) {
+		this.fornecedores = fornecedores;
+	}
+
 }

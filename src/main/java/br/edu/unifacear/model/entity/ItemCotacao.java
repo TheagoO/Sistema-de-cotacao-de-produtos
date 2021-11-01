@@ -12,26 +12,23 @@ public class ItemCotacao implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "DISPONIBILIDADE")
-	private String disponibilidade;
+	@Column(name = "NOME")
+	private String nome;
 	
-	@Column(name = "QUANTIDADE")
-	private float quantidade;
+	@Column(name = "MARCA")
+	private String marca;
+		
+	@Column(name = "VALOR")
+	private double valor;
 	
-	@ManyToOne
-	private Item item;
-
 	public ItemCotacao() {
 		this.id = 0;
-		this.item = new Item();
 	}
 	
-	public ItemCotacao(int id, String disponibilidade, float quantidade, Item item) {
+	public ItemCotacao(int id, double valor) {
 		super();
 		this.id = id;
-		this.disponibilidade = disponibilidade;
-		this.quantidade = quantidade;
-		this.item = item;
+		this.valor = valor;
 	}
 
 	public int getId() {
@@ -42,39 +39,38 @@ public class ItemCotacao implements Serializable {
 		this.id = id;
 	}
 
-	public String getDisponibilidade() {
-		return disponibilidade;
+	public double getValor() {
+		return valor;
 	}
 
-	public void setDisponibilidade(String disponibilidade) {
-		this.disponibilidade = disponibilidade;
+	public void setValor(double valor) {
+		this.valor = valor;
 	}
 
-	public Item getItem() {
-		return item;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setItem(Item item) {
-		this.item = item;
-	}
-		
-	public float getQuantidade() {
-		return quantidade;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public void setQuantidade(float quantidade) {
-		this.quantidade = quantidade;
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
 	}
 
 	@Override
 	public String toString() {
-		return "ItemCotacao [id=" + id + ", disponibilidade=" + disponibilidade + ", quantidade=" + quantidade
-				+ ", item=" + item + "]";
+		return "ItemCotacao [id=" + id + ", nome=" + nome + ", marca=" + marca + ", valor=" + valor + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(disponibilidade, id, item, quantidade);
+		return Objects.hash(id, marca, nome, valor);
 	}
 
 	@Override
@@ -86,10 +82,11 @@ public class ItemCotacao implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ItemCotacao other = (ItemCotacao) obj;
-		return Objects.equals(disponibilidade, other.disponibilidade) && id == other.id
-				&& Objects.equals(item, other.item)
-				&& Float.floatToIntBits(quantidade) == Float.floatToIntBits(other.quantidade);
+		return id == other.id && Objects.equals(marca, other.marca) && Objects.equals(nome, other.nome)
+				&& Double.doubleToLongBits(valor) == Double.doubleToLongBits(other.valor);
 	}
 
+
+	
 
 }
