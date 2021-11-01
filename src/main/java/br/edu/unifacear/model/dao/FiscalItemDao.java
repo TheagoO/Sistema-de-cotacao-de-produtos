@@ -63,7 +63,7 @@ public class FiscalItemDao {
 			FiscalItem e = em.find(FiscalItem.class, fiscalitem.getId());
 			em.getTransaction().begin();
 			em.remove(e);
-			
+			em.getTransaction().commit();
 			retorno = "FiscalItem Deletado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();

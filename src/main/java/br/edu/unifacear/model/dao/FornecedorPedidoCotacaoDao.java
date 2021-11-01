@@ -63,7 +63,7 @@ public class FornecedorPedidoCotacaoDao {
 			FornecedorPedidoCotacao e = em.find(FornecedorPedidoCotacao.class, cotacaofornecedor.getId());
 			em.getTransaction().begin();
 			em.remove(e);
-			
+			em.getTransaction().commit();
 			retorno = "CotacaoFornecedor Deletado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();

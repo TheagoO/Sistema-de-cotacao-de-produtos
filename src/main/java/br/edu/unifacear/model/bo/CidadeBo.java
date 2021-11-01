@@ -54,7 +54,7 @@ public class CidadeBo {
 //		if (cidade.getId() < 0) {
 //			throw new Exception("Id do cidade não pode ser negativo!");
 //		}
-		if (cidade.getNome().equals("")) {
+		if (cidade.getCidade().equals("")) {
 			throw new Exception("Nome do cidade não pode ficar em branco!");
 		}
 	}	

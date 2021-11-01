@@ -63,7 +63,7 @@ public class EstadoDao {
 			Estado e = em.find(Estado.class, estado.getId());
 			em.getTransaction().begin();
 			em.remove(e);
-			
+			em.getTransaction().commit();
 			retorno = "Estado Deletado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();

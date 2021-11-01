@@ -29,7 +29,7 @@ public class Fornecedor implements Serializable {
 	@Column(name = "CONTATO")
 	private String contato;
 	
-	@Column(name = "ENDERECO")
+	@OneToOne
 	private Endereco endereco;
 	
 	public Fornecedor() {

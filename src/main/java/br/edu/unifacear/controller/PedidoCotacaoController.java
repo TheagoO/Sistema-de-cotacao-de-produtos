@@ -4,30 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.edu.unifacear.model.entity.Item;
+import br.edu.unifacear.model.entity.Cotacao;
+import br.edu.unifacear.model.entity.Fornecedor;
+import br.edu.unifacear.model.entity.FornecedorPedidoCotacao;
+import br.edu.unifacear.model.entity.PedidoCotacao;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
-@ManagedBean(name = "itemBean")
-@SessionScoped
-public class ItemController {
-
-	private Item item;
-	private Item selecionado;
-	private List<Item> itens;
-
+@ManagedBean(name = "pedidoCotacaoBean")
+@ApplicationScoped
+public class PedidoCotacaoController {
+	
+	private PedidoCotacao pedido;
+	private PedidoCotacao selecionado;
+	private Cotacao cotacao;
+	private List<PedidoCotacao> lista;
+	
+	
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			facade.salvarItem(item);
-			this.item = new Item();
+			facade.salvarPedidoCotacao(pedido);
+			this.pedido = new PedidoCotacao();
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto salvo!"));
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar produto"));
@@ -39,10 +44,10 @@ public class ItemController {
 	public void listar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		this.itens.removeAll(itens);
+		this.lista.removeAll(lista);
 		try {
-			for (Item i : facade.listarItens()) {
-				this.itens.add(i);
+			for (PedidoCotacao i : facade.listarPedidoCotacao()) {
+				this.lista.add(i);
 			}
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar produtos"));
@@ -55,14 +60,14 @@ public class ItemController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			String retorno = facade.editarItem(item);
+			String retorno = facade.editarPedidoCotacao(pedido);
 			if(retorno.contains("Dados em branco") || retorno.contains("Código inválido")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			}else {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto editado!"));
 				listar();
 			}
-			this.item = new Item();
+			this.pedido = new PedidoCotacao();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar produto"));
 			e.printStackTrace();
@@ -74,19 +79,19 @@ public class ItemController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			facade.excluirItem(this.selecionado);
+			facade.excluirPedidoCotacao(this.selecionado);
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto deletado"));
-			this.selecionado = new Item();
+			this.selecionado = new PedidoCotacao();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir produto"));
 			e.printStackTrace();
 		}
 	}
 	
-	public void onRowEdit(RowEditEvent<Item> event) {
-		Item novo = new Item();
+	public void onRowEdit(RowEditEvent<PedidoCotacao> event) {
+		PedidoCotacao novo = new PedidoCotacao();
 
-		for (Item i : this.itens) {
+		for (PedidoCotacao i : this.lista) {
 			if (i.getId() == event.getObject().getId()) {
 				novo = i;
 			}
@@ -94,7 +99,7 @@ public class ItemController {
 
 		if (event.getObject() != null) {
 			try {
-				this.item = novo;
+				this.pedido = novo;
 				editar();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -103,40 +108,48 @@ public class ItemController {
 
 	}
 
-	public void onRowCancel(RowEditEvent<Item> event) {
+	public void onRowCancel(RowEditEvent<PedidoCotacao> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
 	}
-
-	public ItemController() {
-		this.item = new Item();
-		this.itens = new ArrayList<Item>();
-		this.selecionado = new Item();
-		listar();
+	
+	
+	
+	public PedidoCotacaoController() {
+		this.pedido = new PedidoCotacao();
+		
+		this.selecionado = new PedidoCotacao();
+		List<FornecedorPedidoCotacao> fornecedor = new ArrayList<FornecedorPedidoCotacao>();
+		fornecedor.add(new FornecedorPedidoCotacao(0, 1, new Fornecedor(0, "Thiago", null, null, null, null)));
+		this.selecionado.setFornecedor(fornecedor);
+		this.lista = new ArrayList<PedidoCotacao>();
+		this.cotacao = new Cotacao();
 	}
-
-	public Item getItem() {
-		return item;
+	public PedidoCotacao getPedido() {
+		return pedido;
 	}
-
-	public void setItem(Item item) {
-		this.item = item;
+	public void setPedido(PedidoCotacao pedido) {
+		this.pedido = pedido;
 	}
-
-	public List<Item> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<Item> itens) {
-		this.itens = itens;
-	}
-
-	public Item getSelecionado() {
+	public PedidoCotacao getSelecionado() {
 		return selecionado;
 	}
-
-	public void setSelecionado(Item selecionado) {
+	public void setSelecionado(PedidoCotacao selecionado) {
 		this.selecionado = selecionado;
 	}
+	public List<PedidoCotacao> getLista() {
+		return lista;
+	}
+	public void setLista(List<PedidoCotacao> lista) {
+		this.lista = lista;
+	}
 
+	public Cotacao getCotacao() {
+		return cotacao;
+	}
+
+	public void setCotacao(Cotacao cotacao) {
+		this.cotacao = cotacao;
+	}
+		
 }

@@ -61,7 +61,7 @@ public class CidadeDao {
 			Cidade e = em.find(Cidade.class, cidade.getId());
 			em.getTransaction().begin();
 			em.remove(e);
-			
+			em.getTransaction().commit();
 			retorno = "Cidade Deletado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();

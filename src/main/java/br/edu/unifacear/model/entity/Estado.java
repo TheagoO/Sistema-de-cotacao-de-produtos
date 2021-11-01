@@ -41,9 +41,11 @@ public class Estado implements Serializable {
 		this.estado = estado;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "Estado [id=" + id + ", estado=" + estado;
+		return estado;
 	}
 
 	@Override

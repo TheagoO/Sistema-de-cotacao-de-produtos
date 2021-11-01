@@ -4,7 +4,30 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
     version="2.3">
-
+		
+	<navigation-rule>
+	<from-view-id>/Colaboradores.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>novoC</from-outcome>
+			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listAlmo</from-outcome>
+			<to-view-id>/Almoxarifados.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>listForn</from-outcome>
+			<to-view-id>/Fornecedores.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>ListGest</from-outcome>
+			<to-view-id>/Gestores.xhtml</to-view-id>
+		</navigation-case>
+		
+	</navigation-rule>
+	
 </faces-config>
 
 

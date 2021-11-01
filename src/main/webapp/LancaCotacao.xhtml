@@ -58,7 +58,8 @@
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
 							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" />
-							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" action="PedidoCompra"/>
+							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
+								action="PedidoCompra" />
 							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" />
 						</p:submenu>
 
@@ -80,14 +81,7 @@
 		<!-- Container do conteúdo da página  -->
 		<div class="content-area">
 
-			<!-- Cabeçalho -->
-			<div class="heade-area">
-				<h3>Lançar cotação</h3>
-			</div>
-
-
 			<!-- Conteúdo -->
-
 			<h:form id="form">
 				<div class="card">
 
@@ -95,63 +89,67 @@
 
 					<p:growl id="msgs" showDetail="true" />
 
-					<h5>*Clique com botão esquerdo para editar os campos</h5>
-					<p:dataTable id="products2" var="product" editable="true"
-						editMode="cell" value="#{dtGroupView.sales}"
-						widgetVar="cellProducts" scrollable="true" scrollWidth="100%">
+					<p:panel header="Lançar cotação">
+						<p:dataTable id="cotacao" var="pedido" editable="true"
+							editMode="cell" value="#{pedidoCotacaoBean.selecionado}"
+							widgetVar="cellProducts" scrollable="true" scrollWidth="100%">
 
-						<p:ajax event="cellEdit" listener="#{dtEditView.onCellEdit}"
-							update=":form:msgs" />
+							<p:ajax event="cellEdit" listener="#{dtEditView.onCellEdit}"
+								update=":form:msgs" />
 
-						<!-- Cabeçalho das colunas -->
+							<!-- Cabeçalho das colunas -->
 
-						<p:columnGroup type="header">
-							<p:row>
-								<p:column rowspan="2" headerText="Item" />
+							<p:columnGroup type="header">
+								<p:row>
+									<p:column rowspan="2" headerText="Item" />
 
-								<!-- Nome do fornecedor -->
-								<p:column colspan="2" headerText="#{Fornecedor}" />
-							</p:row>
-							<p:row>
-								<p:column headerText="Qtd." />
-								<p:column headerText="Valor uni." />
-							</p:row>
-						</p:columnGroup>
+									<!-- Nome do fornecedor -->
+									<p:column colspan="2" headerText="#{pedido.fornecedor.fornecedor.nome}" />
+								</p:row>
+								<p:row>
+									<p:column headerText="Qtd." />
+									<p:column headerText="Valor uni." />
+								</p:row>
+							</p:columnGroup>
 
-						<!-- Linhas -->
+							<!-- Linhas -->
 
-						<p:column>
-							<f:facet name="output">
-								<h:outputText value="#{product.name}" />
-							</f:facet>
-						</p:column>
-
-						<p:column>
-							<p:cellEditor>
+							<p:column>
 								<f:facet name="output">
-									<h:outputText value="#{product.quantidade}" />
+									<h:outputText value="#{pedido.item.item.nome}" />
 								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{product.quantidade}" style="width:100%" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
+							</p:column>
 
-						<p:column>
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.price}">
-										<f:convertNumber type="currency" currencySymbol="$" />
-									</h:outputText>
-								</f:facet>
-								<f:facet name="input">
-									<p:inputNumber value="#{product.price}" style="width:100%" symbol="$" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-						
-						<p:commandButton value="Lançar" />
-					</p:dataTable>
+							<p:column>
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{pedido}">
+											
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{pedido}" style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column>
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{pedidoCotacaoBean.cotacao.preco}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:inputNumber value="#{pedidoCotacaoBean.cotacao.preco}" style="width:100%"
+											symbol="$" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:commandButton value="Lançar" />
+						</p:dataTable>
+					</p:panel>
 				</div>
 			</h:form>
 

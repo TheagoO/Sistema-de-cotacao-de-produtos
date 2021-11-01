@@ -36,15 +36,15 @@ public class Cidade implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getNome() {
+	
+	public String getCidade() {
 		return cidade;
 	}
 
-	public void setNome(String cidade) {
+	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	
+
 	public Estado getEstado() {
 		return estado;
 	}
@@ -55,7 +55,7 @@ public class Cidade implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Cidade [id=" + id + ", cidade=" + cidade + ", estado=" + estado + "]";
+		return cidade;
 	}
 
 	@Override

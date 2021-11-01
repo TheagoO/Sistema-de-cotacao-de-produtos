@@ -6,13 +6,15 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import br.edu.unifacear.model.entity.Cidade;
+import br.edu.unifacear.model.entity.Item;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
 @ManagedBean(name = "cidadeBean")
-@ApplicationScoped
+@SessionScoped
 public class CidadeController {
 	
 	private Cidade cidade;
@@ -34,12 +36,24 @@ public class CidadeController {
 		return "Sucesso!";
 	}
 	
-	
+	public void listar() {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		this.lista.removeAll(lista);
+		try {
+			for (Cidade c : facade.listarCidade()) {
+				this.lista.add(c);
+			}
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar cidades"));
+			e.printStackTrace();
+		}
+	}
 	
 	public CidadeController() {
 		this.cidade = new Cidade();
 		this.lista = new ArrayList<Cidade>();
-		
+		listar();		
 	}
 
 	public Cidade getCidade() {

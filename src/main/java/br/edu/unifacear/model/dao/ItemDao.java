@@ -63,7 +63,7 @@ public class ItemDao {
 			Item e = em.find(Item.class, item.getId());
 			em.getTransaction().begin();
 			em.remove(e);
-
+			em.getTransaction().commit();
 			retorno = "Item Deletado com Sucesso!";
 		} catch (Exception e) {
 			retorno = e.getMessage();
