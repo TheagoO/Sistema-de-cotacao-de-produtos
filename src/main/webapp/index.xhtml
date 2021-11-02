@@ -30,8 +30,6 @@ body {
 
 			<!-- Conteúdo -->
 
-
-
 			<p:panel header="LOGIN" style="text-align: center;">
 				<p:tabView>
 
@@ -69,13 +67,11 @@ body {
 								</div>
 
 								<br />
-								<p:button value="Entrar" styleClass="ui-button-success"
+								<p:commandButton value="Entrar" styleClass="ui-button-success"
 									action="#{loginBean.validarLogin}" update="msgs" />
 							</div>
 						</h:form>
 					</p:tab>
-
-
 
 					<p:tab title="Administrador">
 						<h:form id="Admin">
@@ -105,7 +101,7 @@ body {
 								</div>
 
 								<br />
-								<p:button value="Entrar" styleClass="ui-button-success"
+								<p:commandButton value="Entrar" styleClass="ui-button-success"
 									action="#{loginBean.validarAdmin}" update="msgs" />
 							</div>
 						</h:form>

@@ -36,11 +36,11 @@
 		
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
-			<to-view-id>/PedidoCotacao.xhtml</to-view-id>
+			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
-			<to-view-id>/PedidoCompra.xhtml</to-view-id>
+			<to-view-id>/AprovarCompra.xhtml</to-view-id>
 		</navigation-case>	
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
@@ -55,6 +55,10 @@
 			<from-outcome>Produtos</from-outcome>
 			<to-view-id>/Produtos.xhtml</to-view-id>
 		</navigation-case>	
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	<!-- TELA DE CADASTRO DE PRODUTOS -->
@@ -71,11 +75,11 @@
 		
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
-			<to-view-id>/PedidoCotacao.xhtml</to-view-id>
+			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
-			<to-view-id>/PedidoCompra.xhtml</to-view-id>
+			<to-view-id>/AprovarCompra.xhtml</to-view-id>
 		</navigation-case>	
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
@@ -95,6 +99,10 @@
 			<from-outcome>Cancelar</from-outcome>
 			<to-view-id>/Produtos.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	<!-- TELA DE CADASTRO DE COLABORADORES -->
@@ -111,11 +119,11 @@
 		
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
-			<to-view-id>/PedidoCotacao.xhtml</to-view-id>
+			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
-			<to-view-id>/PedidoCompra.xhtml</to-view-id>
+			<to-view-id>/AprovarCompra.xhtml</to-view-id>
 		</navigation-case>	
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
@@ -129,6 +137,10 @@
 		<navigation-case>
 			<from-outcome>Produtos</from-outcome>
 			<to-view-id>/Produtos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
@@ -146,11 +158,11 @@
 		
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
-			<to-view-id>/PedidoCotacao.xhtml</to-view-id>
+			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
-			<to-view-id>/PedidoCompra.xhtml</to-view-id>
+			<to-view-id>/AprovarCompra.xhtml</to-view-id>
 		</navigation-case>	
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
@@ -169,6 +181,10 @@
 			<from-outcome>SUCESSO</from-outcome>
 			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	<!-- TELA DE PRODUTOS -->
@@ -185,11 +201,11 @@
 		
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
-			<to-view-id>/PedidoCotacao.xhtml</to-view-id>
+			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
-			<to-view-id>/PedidoCompra.xhtml</to-view-id>
+			<to-view-id>/AprovarCompra.xhtml</to-view-id>
 		</navigation-case>	
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
@@ -203,6 +219,10 @@
 		<navigation-case>
 			<from-outcome>Produtos</from-outcome>
 			<to-view-id>/Produtos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	

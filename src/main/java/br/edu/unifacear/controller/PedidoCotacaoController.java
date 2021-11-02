@@ -29,7 +29,6 @@ public class PedidoCotacaoController {
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-
 		try {
 			facade.salvarPedidoCotacao(pedido);
 			this.pedido = new PedidoCotacao();
@@ -186,5 +185,5 @@ public class PedidoCotacaoController {
 	public void setFornecedores(List<Fornecedor> fornecedores) {
 		this.fornecedores = fornecedores;
 	}
-
+	
 }

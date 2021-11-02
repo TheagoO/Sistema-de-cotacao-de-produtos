@@ -32,7 +32,7 @@
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
-					<h:link href="#" class="a">Saír</h:link>
+					<h:link href="index.xhtml" class="a">Saír</h:link>
 					<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
 				</div>
 			</div>
@@ -92,8 +92,7 @@
 					<p:panel header="Pedidos de compra">
 
 						<div class="card">
-							<h5 class="first">Header Row</h5>
-							<h:form>
+							<h:form id="pedido">
 								<p:dataTable var="customer" value="#{dtRowGroupView.customers}"
 									sortBy="#{customer.representative.name}">
 									<p:headerRow field="representative.name" expandable="true"
@@ -111,47 +110,58 @@
 										</p:column>
 									</p:headerRow>
 
-									<p:column headerText="Representative">
+									<p:column headerText="Remetente">
 										<h:outputText value="#{customer.representative.name}" />
 									</p:column>
 
-									<p:column headerText="Name">
-										<h:outputText value="#{customer.name}" />
+									<p:column headerText="Produto">
+										<h:outputText value="#{customer.produto}" />
 									</p:column>
 
-									<p:column headerText="Country">
+									<p:column headerText="Quantidade">
 										<span class="flag flag-#{customer.country.code}"
 											style="width: 30px; height: 20px" />
 										<h:outputText
 											style="vertical-align: middle; margin-left: .5rem"
-											value="#{customer.country}" />
+											value="#{customer.quantidade}" />
 									</p:column>
 
-									<p:column headerText="Company">
-										<h:outputText value="#{customer.company}" />
+									<p:column headerText="Preço">
+										<span class="flag flag-#{customer.country.code}"
+											style="width: 30px; height: 20px" />
+										<h:outputText
+											style="vertical-align: middle; margin-left: .5rem"
+											value="#{customer.preco}" />
 									</p:column>
 
-									<p:column headerText="Status">
-										<span
-											class="customer-badge status-#{customer.status.name().toLowerCase()}">#{customer.status}</span>
-									</p:column>
-
-									<p:column headerText="Date">
-										<h:outputText value="#{customer.date}">
-											<f:convertDateTime pattern="MM/dd/yyyy" type="localDate" />
-										</h:outputText>
-									</p:column>
-
+									<!-- Total de produtos -->
 									<p:summaryRow>
 										<p:column colspan="5" style="text-align:right">
-											<h:outputText value="Total Customers:" />
+											<h:outputText value="Total de produtos:" />
 										</p:column>
 										<p:column>
 											<h:outputText
 												value="#{dtRowGroupView.getTotalCount(customer.representative.name)}" />
 										</p:column>
 									</p:summaryRow>
+
+									<!-- Total a pagar -->
+									<p:summaryRow>
+										<p:column colspan="5" style="text-align:right">
+											<h:outputText value="Valor total:" />
+										</p:column>
+										<p:column>
+											<h:outputText
+												value="#{dtRowGroupView.getTotalCount(customer.representative.name)}">
+												<f:convertNumber type="currency" currencySymbol="$" />
+											</h:outputText>
+										</p:column>
+									</p:summaryRow>
+
+									<p:commandButton value="Cancelar" />
+									<p:commandButton value="Aprovar" />
 								</p:dataTable>
+
 							</h:form>
 						</div>
 

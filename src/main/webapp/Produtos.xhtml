@@ -32,7 +32,7 @@
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
-					<h:link href="#" class="a">Saír</h:link>
+					<h:link action="sair" class="a">Saír</h:link>
 					<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
 				</div>
 			</div>
@@ -103,7 +103,7 @@
 
 						<p:dataTable id="produtos" var="produto" value="#{itemBean.itens}"
 							editable="true" style="margin-bottom:20px; margin-top:20px;"
-							scrollable="true" scrollHeight="70%">
+							scrollable="true" scrollHeight="100%">
 
 							<p:ajax event="rowEdit" listener="#{itemBean.onRowEdit}"
 								update=":form:msgs" />

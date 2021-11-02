@@ -32,7 +32,7 @@
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
-					<h:link href="#" class="a">Saír</h:link>
+					<h:link href="index.xhtml" class="a">Saír</h:link>
 					<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
 				</div>
 			</div>
@@ -112,7 +112,7 @@
 									<p:dataTable id="listAlmo" value="#{almoxarifadoBean.lista}"
 										var="almox" editable="true"
 										style="margin-bottom:20px; margin-top:20px;" scrollable="true"
-										scrollHeight="70%">
+										scrollHeight="100%">
 
 										<p:ajax event="rowEdit"
 											listener="#{almoxarifadoBean.onRowEdit}" update=":form:msgs" />
@@ -209,7 +209,7 @@
 									<p:dataTable id="listForn" value="#{fornecedorBean.lista}"
 										var="forne" editable="true"
 										style="margin-bottom:20px; margin-top:20px;" scrollable="true"
-										scrollHeight="70%">
+										scrollHeight="100%">
 
 										<p:ajax event="rowEdit" listener="#{fornecedorBean.onRowEdit}"
 											update=":form:msgs" />
@@ -278,10 +278,10 @@
 										<p:column headerText="Contato">
 											<p:cellEditor>
 												<f:facet name="output">
-													<h:outputText value="#{forne.contato.contato}" />
+													<h:outputText value="#{forne.contato}" />
 												</f:facet>
 												<f:facet name="input">
-													<p:inputText value="#{forne.contato.contato}"
+													<p:inputText value="#{forne.contato}"
 														style="width:100%" label="contato" required="true" />
 												</f:facet>
 											</p:cellEditor>
@@ -340,7 +340,7 @@
 									<p:dataTable id="listGestor" value="#{gestorBean.lista}"
 										var="gestor" editable="true"
 										style="margin-bottom:20px; margin-top:20px;" scrollable="true"
-										scrollHeight="70%">
+										scrollHeight="100%">
 
 										<p:ajax event="rowEdit" listener="#{gestorBean.onRowEdit}"
 											update=":form:msgs" />
