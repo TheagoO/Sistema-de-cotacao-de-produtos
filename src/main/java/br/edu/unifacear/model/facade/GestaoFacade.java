@@ -88,12 +88,12 @@ public class GestaoFacade {
 		return this.gestorBo.deletar(g);
 	}
 
-	public List<Almoxarifado> listarAlmoxarifado() throws Exception {
-		return this.almoxarifadoBo.listar("");
+	public List<Almoxarifado> listarAlmoxarifado(String s) throws Exception {
+		return this.almoxarifadoBo.listar(s);
 	}
 
-	public List<Gestor> listarGestor() throws Exception {
-		return this.gestorBo.listar("");
+	public List<Gestor> listarGestor(String s) throws Exception {
+		return this.gestorBo.listar(s);
 	}
 
 	public String editarAlmoxarifado(Almoxarifado a) throws Exception {
@@ -246,4 +246,5 @@ public class GestaoFacade {
 	public List<Cotacao> listarCotacao() throws Exception {
 		return this.cotacaoBo.listar("");
 	}
+
 }

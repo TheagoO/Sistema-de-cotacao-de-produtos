@@ -50,20 +50,20 @@
 					<p:tieredMenu style="width:100%; height:100%;">
 						<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
-								action="cadastroFornecedor" />
+								action="Cadastro" />
 							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
 								action="Colaboradores" />
 						</p:submenu>
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
-							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" />
-							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" />
+							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" action="Cotacao" />
+							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" action="Compra" />
+							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" action="Pedidos" />
 						</p:submenu>
 
 						<p:submenu label="Produtos" icon="pi pi-fw pi-table">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-user-plus"
-								action="CadastroProduto" />
+								action="NovoProduto" />
 							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
 								action="Produtos" />
 						</p:submenu>
@@ -79,113 +79,111 @@
 		<!-- Container do conteúdo da página  -->
 		<div class="content-area">
 
-			<!-- Cabeçalho -->
-			<div class="heade-area">
-				<h3>Produtos</h3>
-			</div>
+			<p:panel header="Produtos">
 
+				<h:form id="form">
+					<div class="card">
+						<div class="cls_right">
 
-			<!-- Conteúdo -->
+							<!-- Área de pesquisa e novo produto -->
 
-			<h:form id="form">
-				<div class="card">
-					<div class="p-mt-3 p-mb-5">
+							<div class="search-area">
 
-						<!-- Área de pesquisa e novo produto -->
+								<p:commandButton update="produtos" action="#{itemBean.listar}"
+									value="Atualizar" process="@parent" icon="pi pi-refresh" />
 
-						<div class="search-area">
-							<div class="ui-inputgroup">
-								<p:inputText id="template"
-									value="pesquisar" style="width:100%" />
-								<p:commandButton icon="pi pi-search" styleClass="ui-button" />
+								<p:commandButton value="Novo" styleClass="ui-button-success"  action="NovoProduto" />
 							</div>
 
-							<p:commandButton update="produtos" action="#{itemBean.listar}"
-								value="Atualizar" process="@parent" icon="pi pi-refresh" />
-
-							<p:commandButton value="Novo" />
 						</div>
 
+						<!-- Listagem dos produtos -->
+
+						<p:growl id="msgs" showDetail="true" />
+
+						<p:dataTable id="produtos" var="produto" value="#{itemBean.itens}"
+							editable="true" style="margin-bottom:20px; margin-top:20px;"
+							scrollable="true" scrollHeight="70%">
+
+							<p:ajax event="rowEdit" listener="#{itemBean.onRowEdit}"
+								update=":form:msgs" />
+							<p:ajax event="rowEditCancel" listener="#{itemBean.onRowCancel}"
+								update=":form:msgs" />
+
+							<p:column headerText="Código">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{produto.codigo}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText id="modelInput" value="#{produto.codigo}"
+											style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Nome">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{produto.nome}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{produto.nome}" style="width:100%"
+											required="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Marca">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{produto.marca}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{produto.marca}" style="width:100%"
+											required="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Origem">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{produto.fiscalItem.origem.origem}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{produto.fiscalItem.origem.origem}"
+											style="width:100%" required="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Preço">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{produto.valor}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:inputNumber value="#{produto.valor}" style="width:100%"
+											label="Price" symbol="$" required="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column style="width:6rem" headerText="Editar">
+								<p:rowEditor editTitle="Editar" cancelTitle="Cancelar"
+									saveTitle="Salvar" />
+							</p:column>
+						</p:dataTable>
 					</div>
+				</h:form>
 
-					<!-- Listagem dos produtos -->
+			</p:panel>
+			<!-- Conteúdo -->
 
-					<p:growl id="msgs" showDetail="true" />
 
-					<p:dataTable id="produtos" var="produto" value="#{itemBean.itens}"
-						editable="true" style="margin-bottom:20px; margin-top:20px;" scrollable="true" scrollHeight="70%" >
-
-						<p:ajax event="rowEdit" listener="#{itemBean.onRowEdit}"
-							update=":form:msgs" />
-						<p:ajax event="rowEditCancel" listener="#{itemBean.onRowCancel}"
-							update=":form:msgs" />
-
-						<p:column headerText="Código">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{produto.codigo}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText id="modelInput" value="#{produto.codigo}"
-										style="width:100%" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-
-						<p:column headerText="Nome">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{produto.nome}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{produto.nome}" style="width:100%" required="true" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-						
-						<p:column headerText="Marca">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{produto.marca}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{produto.marca}" style="width:100%" required="true" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-						
-						<p:column headerText="Origem">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{produto.fiscalItem.origem.origem}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{produto.fiscalItem.origem.origem}" style="width:100%" required="true" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-
-						<p:column headerText="Preço">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{produto.valor}">
-										<f:convertNumber type="currency" currencySymbol="$" />
-									</h:outputText>
-								</f:facet>
-								<f:facet name="input">
-									<p:inputNumber value="#{produto.valor}" style="width:100%"
-										label="Price" symbol="$" required="true" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-
-						<p:column style="width:6rem" headerText="Editar">
-							<p:rowEditor editTitle="Editar" cancelTitle="Cancelar"
-								saveTitle="Salvar" />
-						</p:column>
-					</p:dataTable>
-				</div>
-			</h:form>
 
 
 		</div>

@@ -52,7 +52,7 @@ public class GestorController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		this.lista.removeAll(lista);
 		try {
-			this.lista = facade.listarGestor();
+			this.lista = facade.listarGestor("");
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar colaboradores"));
 			e.printStackTrace();

@@ -94,17 +94,19 @@ public class PedidoCotacaoController {
 		}
 	}
 	
-	public void lancarCotacao() {
+	public String lancarCotacao() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
 		
 		try {
 			facade.salvarCotacao(null, itens);
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cotação lançada!"));
+			return "SUCESSO";
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao lançar cotação"));
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	public void onRowEdit(RowEditEvent<ItemCotacao> event) {

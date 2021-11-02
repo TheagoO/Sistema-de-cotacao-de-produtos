@@ -44,20 +44,20 @@
 					<p:tieredMenu style="width:100%; height:100%;">
 						<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
-								action="cadastroFornecedor" />
+								action="Cadastro" />
 							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
 								action="Colaboradores" />
 						</p:submenu>
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
-							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" />
-							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" />
+							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" action="Cotacao" />
+							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" action="Compra" />
+							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" action="Pedidos" />
 						</p:submenu>
 
 						<p:submenu label="Produtos" icon="pi pi-fw pi-table">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-user-plus"
-								action="CadastroProduto" />
+								action="NovoProduto" />
 							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
 								action="Produtos" />
 						</p:submenu>
@@ -290,7 +290,7 @@
 							<f:facet name="footer">
 								<p:commandButton value="Cancelar"
 									styleClass="ui-button-flat p-mr-2" style="width: 6rem"
-									onclick="PF('dlg3').close()" />
+									onclick="PF('dlg3').hide()" />
 								<p:commandButton value="Confirmar" style="width: 7rem"
 									action="#{origemBean.salvar}" update="messages" />
 							</f:facet>
