@@ -12,9 +12,9 @@
 		<properties>
 			<!-- Propriedades JDBC -->
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/compras?useTimezone=true&amp;serverTimezone=UTC" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/ProjetoIntegradorIV?useTimezone=true&amp;serverTimezone=UTC" />
 			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="#Geovana27" />
+			<property name="javax.persistence.jdbc.password" value="12345" />
 			<!-- Configurações específicas do Hibernate -->
 			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" /> -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />

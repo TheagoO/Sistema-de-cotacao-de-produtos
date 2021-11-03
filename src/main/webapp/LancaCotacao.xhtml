@@ -61,7 +61,8 @@
 								action="Cotacao" />
 							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
 								action="Compra" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" action="Pedidos" />
+							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square"
+								action="Pedidos" />
 						</p:submenu>
 
 						<p:submenu label="Produtos" icon="pi pi-fw pi-table">
@@ -92,7 +93,7 @@
 
 					<p:panel header="Lançar cotação">
 						<p:dataTable id="cotacao" var="item" editable="true"
-							value="#{pedidoCotacaoBean.itens}" scrollable="true"
+							value="#{pedidoCotacaoBean.pedido}" scrollable="true"
 							scrollHeight="300px;">
 
 							<p:ajax event="rowEdit" listener="#{pedidoCotacaoBean.onRowEdit}"
@@ -103,30 +104,25 @@
 							<!-- Cabeçalho das colunas -->
 
 							<p:column headerText="Fornecedor">
-								<p:dataTable id="fornecedores"
-									value="#{pedidoCotacaoBean.fornecedores}" var="forn">
-
-									<h:outputText value="#{forn.nome}" />
-
-								</p:dataTable>
+								<h:outputText value="#{item.fornecedor}" />
 							</p:column>
 
 							<p:column headerText="Item">
 
-								<h:outputText value="#{item.nome}" />
+								<h:outputText value="#{item.item}" />
 
 							</p:column>
 
 							<p:column headerText="Preço">
 								<p:cellEditor>
 									<f:facet name="output">
-										<h:outputText value="#{item.valor}">
+										<h:outputText value="#{cotacaoBean.cotacao.preco}">
 											<f:convertNumber type="currency" currencySymbol="$" />
 										</h:outputText>
 									</f:facet>
 									<f:facet name="input">
-										<p:inputNumber value="#{item.valor}" style="width:100%"
-											label="Price" symbol="$" required="true" />
+										<p:inputNumber value="#{cotacaoBean.cotacao.preco}"
+											style="width:100%" label="Price" symbol="$" required="true" />
 									</f:facet>
 								</p:cellEditor>
 							</p:column>

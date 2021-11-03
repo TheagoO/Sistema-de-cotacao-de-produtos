@@ -30,10 +30,10 @@ public class LoginController {
 				this.almoxarifado.setEmail(email);
 				this.almoxarifado.setSenha(senha);
 				try {
-					if(!facade.listarAlmoxarifado(this.almoxarifado.getEmail()).isEmpty()) {
-						List<Almoxarifado> almox = facade.listarAlmoxarifado(this.almoxarifado.getEmail());
+					if(!facade.listarAlmoxarifado(email).isEmpty()) {
+						List<Almoxarifado> almox = facade.listarAlmoxarifado(email);
 						for(Almoxarifado a : almox) {
-							if(a.getSenha() == this.almoxarifado.getSenha()) {
+							if(a.getSenha().contains(senha)) {
 								fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Login efetuado"));
 								return "Almoxarifado";
 							}
@@ -50,10 +50,10 @@ public class LoginController {
 				this.gestor.setEmail(email);
 				this.gestor.setSenha(senha);
 				try {
-					if(!facade.listarGestor(this.gestor.getEmail()).isEmpty()) {
-						List<Gestor> gest = facade.listarGestor(this.gestor.getEmail());
+					if(!facade.listarGestor(email).isEmpty()) {
+						List<Gestor> gest = facade.listarGestor(email);
 						for(Gestor g : gest) {
-							if(g.getSenha() == this.gestor.getSenha()) {
+							if(g.getSenha().contains(senha)) {
 								fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Login efetuado"));
 								return "Gestor";
 							}

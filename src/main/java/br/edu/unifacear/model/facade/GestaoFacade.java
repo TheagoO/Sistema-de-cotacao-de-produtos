@@ -241,7 +241,7 @@ public class GestaoFacade {
 		return this.pedidocompraBo.deletar(e);
 	}
 	
-	public List<PedidoCompra> listarPedidoCompra(PedidoCompra e) throws Exception {
+	public List<PedidoCompra> listarPedidoCompra(String e) throws Exception {
 		return this.pedidocompraBo.listar("");
 	}
 }

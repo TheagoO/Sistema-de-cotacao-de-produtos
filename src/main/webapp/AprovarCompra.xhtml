@@ -93,74 +93,84 @@
 
 						<div class="card">
 							<h:form id="pedido">
-								<p:dataTable var="customer" value="#{dtRowGroupView.customers}"
-									sortBy="#{customer.representative.name}">
-									<p:headerRow field="representative.name" expandable="true"
-										expanded="#{customer.representative.name != 'Stephen Shaw'}">
+								<p:dataTable var="pedido" value="#{PedidoCompraBean.pedidos}"
+									sortBy="#{pedido.almoxarifado.name}">
+									<p:headerRow field="almoxarifado.nome" expandable="true"
+										expanded="#{pedido.almoxarifado.nome}">
 
 										<p:column colspan="6">
 											<div class="p-d-inline-flex p-ai-center"
 												style="vertical-align: middle">
-												<p:graphicImage
-													name="images/avatar/#{customer.representative.image}"
-													library="demo" width="32" style="vertical-align: middle" />
+
 												<h:outputText styleClass="p-ml-2"
-													value="#{customer.representative.name}" />
+													value="#{pedido.almoxarifado.nome}" />
 											</div>
 										</p:column>
 									</p:headerRow>
 
 									<p:column headerText="Remetente">
-										<h:outputText value="#{customer.representative.name}" />
+										<h:outputText value="#{pedido.almoxarifado.nome}" />
 									</p:column>
 
 									<p:column headerText="Produto">
-										<h:outputText value="#{customer.produto}" />
+										<h:outputText value="#{pedido.item.nome}" />
 									</p:column>
 
 									<p:column headerText="Quantidade">
-										<span class="flag flag-#{customer.country.code}"
-											style="width: 30px; height: 20px" />
-										<h:outputText
-											style="vertical-align: middle; margin-left: .5rem"
-											value="#{customer.quantidade}" />
+										<h:outputText value="#{pedido.item.quantidade}" />
 									</p:column>
 
 									<p:column headerText="Preço">
-										<span class="flag flag-#{customer.country.code}"
-											style="width: 30px; height: 20px" />
-										<h:outputText
-											style="vertical-align: middle; margin-left: .5rem"
-											value="#{customer.preco}" />
+										<h:outputText value="#{pedido.item.valor}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
 									</p:column>
 
-									<!-- Total de produtos -->
+									<!-- Botões -->
 									<p:summaryRow>
-										<p:column colspan="5" style="text-align:right">
-											<h:outputText value="Total de produtos:" />
-										</p:column>
 										<p:column>
-											<h:outputText
-												value="#{dtRowGroupView.getTotalCount(customer.representative.name)}" />
+											<div class="search-area"
+												style="width: 200px; margin-left: 0px;">
+												<p:commandButton value="Negar" styleClass="ui-button-danger"
+													oncomplete="PF('deletePedidoDialog').show()"
+													process="@this">
+													<f:setPropertyActionListener value="#{pedido}"
+														target="#{PedidoCompraBean.pedidodecompra}" />
+												</p:commandButton>
+												<p:commandButton value="Aprovar"
+													styleClass="ui-button-success"
+													oncomplete="PF('confirmPedidoDialog').show()"
+													process="@this">
+
+													<f:setPropertyActionListener value="#{pedido}"
+														target="#{PedidoCompraBean.pedidodecompra}" />
+												</p:commandButton>
+											</div>
 										</p:column>
 									</p:summaryRow>
-
-									<!-- Total a pagar -->
-									<p:summaryRow>
-										<p:column colspan="5" style="text-align:right">
-											<h:outputText value="Valor total:" />
-										</p:column>
-										<p:column>
-											<h:outputText
-												value="#{dtRowGroupView.getTotalCount(customer.representative.name)}">
-												<f:convertNumber type="currency" currencySymbol="$" />
-											</h:outputText>
-										</p:column>
-									</p:summaryRow>
-
-									<p:commandButton value="Cancelar" />
-									<p:commandButton value="Aprovar" />
 								</p:dataTable>
+
+								<p:confirmDialog widgetVar="deletePedidoDialog"
+									showEffect="fade" width="300" message="Negar este pedido?"
+									header="Confirmar" severity="warn">
+									<p:commandButton value="Sim" icon="pi pi-check"
+										actionListener="#{PedidoCompraBean.excluir}" process="@this"
+										oncomplete="PF('deletePedidoDialog').hide()" />
+									<p:commandButton value="Não" type="button"
+										styleClass="ui-button-secondary" icon="pi pi-times"
+										onclick="PF('deletePedidoDialog').hide()" />
+								</p:confirmDialog>
+
+								<p:confirmDialog widgetVar="confirmPedidoDialog"
+									showEffect="fade" width="300" message="Aprova este pedido?"
+									header="Confirmar" severity="warn">
+									<p:commandButton value="Sim" icon="pi pi-check"
+										action="NotaFiscal.xhtml" process="@this"
+										oncomplete="PF('confirmPedidoDialog').hide()" />
+									<p:commandButton value="Não" type="button"
+										styleClass="ui-button-secondary" icon="pi pi-times"
+										onclick="PF('confirmPedidoDialog').hide()" />
+								</p:confirmDialog>
 
 							</h:form>
 						</div>

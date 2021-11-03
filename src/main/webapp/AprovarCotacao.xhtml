@@ -88,12 +88,12 @@
 
 				<div class="card">
 
-					<h:form>
+					<h:form id="form-p-cotacao">
 						<p:dataTable var="pedido" value="#{pedidoCotacaoBean.lista}"
-							sortBy="#{pedido.solicitante.nome}">
+							sortBy="#{pedido.solicitante.nome}" style="width: 100%;">
 							<p:headerRow field="solicitante.nome" expandable="true">
 
-								<p:column colspan="6">
+								<p:column>
 									<div class="p-d-inline-flex p-ai-center"
 										style="vertical-align: middle;">
 
@@ -107,89 +107,57 @@
 								<h:outputText value="#{pedido.solicitante.nome}" />
 							</p:column>
 
-							<p:column headerText="Produtos">
-								<p:commandButton value="Visulizar"
-									oncomplete="PF('manageProdutoDialog').show()"
-									styleClass="edit-button rounded-button ui-button-success"
-									process="@this">
-									<f:setPropertyActionListener value="#{pedido.item}"
-										target="#{pedidoCotacaoBean.itens}" />
-								</p:commandButton>
+							<p:column headerText="Qtd. Produtos">
+								<h:outputText value="#{pedido.item.size()}" />
 							</p:column>
 
-							<p:column headerText="Fornecedores">
-								<p:commandButton value="Visulizar"
-									oncomplete="PF('manageFornecedorDialog').show()"
-									styleClass="edit-button rounded-button ui-button-success"
-									process="@this">
-									<f:setPropertyActionListener value="#{pedido.fornecedor}"
-										target="#{pedidoCotacaoBean.fornecedores}" />
-								</p:commandButton>
+							<p:column headerText="Qtd. Fornecedores">
+								<h:outputText value="#{pedido.fornecedor.size()}" />
 							</p:column>
 
 							<p:summaryRow>
-
 								<p:column>
-									<div class="search-area" style="width: 200px;">
-										<p:commandButton value="Negar" styleClass="ui-button-danger" />
+									<div class="search-area"
+										style="width: 200px; margin-left: 0px;">
+										<p:commandButton value="Negar" styleClass="ui-button-danger"
+											oncomplete="PF('deletePedidoDialog').show()" process="@this">
+											<f:setPropertyActionListener value="#{pedido}"
+												target="#{pedidoCotacaoBean.selecionado}" />
+										</p:commandButton>
 										<p:commandButton value="Aprovar"
-											styleClass="ui-button-success" />
+											styleClass="ui-button-success" oncomplete="PF('confirmPedidoDialog').show()" process="@this">
+						
+											<f:setPropertyActionListener value="#{pedido}"
+												target="#{pedidoCotacaoBean.pedido}" />
+										</p:commandButton>
 									</div>
 								</p:column>
-
-
-
 							</p:summaryRow>
 
 						</p:dataTable>
 
-						<p:dialog header="Fornecedores" showEffect="fade" modal="true"
-							widgetVar="manageFornecedorDialog" responsive="true">
-							<p:outputPanel id="manage-fornecedor-content" styleClass="ui-fluid">
-								<p:outputPanel rendered="#{pedidoCotacaoBean.fornecedores}"
-									var="forn">
 
-									<div class="p-field">
-										<p:outputLabel for="name">Nome</p:outputLabel>
-										<h:outputText id="name" value="#{forn.nome}" />
-									</div>
-									<div class="p-field">
-										<p:outputLabel for="email">E-mail</p:outputLabel>
-										<h:outputText id="email" value="#{forn.email}" />
-									</div>
-									<div class="p-field">
-										<p:outputLabel for="contato">Contato</p:outputLabel>
-										<h:outputText id="contato" value="#{forn.contato}" />
-									</div>
-
-								</p:outputPanel>
-							</p:outputPanel>
-
-						</p:dialog>
-
-						<p:dialog header="Produtos" showEffect="fade" modal="true"
-							widgetVar="manageProdutoDialog" responsive="true">
-							<p:outputPanel id="manage-produto-content" styleClass="ui-fluid">
-								<p:outputPanel rendered="#{pedidoCotacaoBean.itens}" var="item">
-
-									<div class="p-field">
-										<p:outputLabel for="nome">Nome</p:outputLabel>
-										<h:outputText id="nome" value="#{item.nome}" />
-									</div>
-									<div class="p-field">
-										<p:outputLabel for="marca">Marca</p:outputLabel>
-										<h:outputText id="marca" value="#{item.marca}" />
-									</div>
-									<div class="p-field">
-										<p:outputLabel for="disponibilidade">Disponibilidade</p:outputLabel>
-										<h:outputText id="disponibilidade" value="#{item.disponibilidade}" />
-									</div>
-
-								</p:outputPanel>
-							</p:outputPanel>
-
-						</p:dialog>
-
+						<p:confirmDialog widgetVar="deletePedidoDialog" showEffect="fade"
+							width="300" message="Negar este pedido?" header="Confirmar"
+							severity="warn">
+							<p:commandButton value="Sim" icon="pi pi-check"
+								actionListener="#{pedidoCotacaoBean.excluir}" process="@this"
+								oncomplete="PF('deletePedidoDialog').hide()" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-button-secondary" icon="pi pi-times"
+								onclick="PF('deletePedidoDialog').hide()" />
+						</p:confirmDialog>
+						
+						<p:confirmDialog widgetVar="confirmPedidoDialog" showEffect="fade"
+							width="300" message="Aprova este pedido?" header="Confirmar"
+							severity="warn">
+							<p:commandButton value="Sim" icon="pi pi-check"
+								action="LancaCotacao.xhtml" process="@this"
+								oncomplete="PF('confirmPedidoDialog').hide()" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-button-secondary" icon="pi pi-times"
+								onclick="PF('confirmPedidoDialog').hide()" />
+						</p:confirmDialog>
 					</h:form>
 				</div>
 

@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
 import br.edu.unifacear.model.entity.PedidoCompra;
@@ -25,7 +23,7 @@ public class PedidoCompraController {
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-
+		
 		try {
 			facade.salvarPedidoCompra(pedidodecompra);
 			this.pedidodecompra = new PedidoCompra();
@@ -42,9 +40,7 @@ public class PedidoCompraController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		this.pedidos.removeAll(pedidos);
 		try {
-			for (PedidoCompra i : facade.listarPedidoCompra(pedidodecompra)) {
-				this.pedidos.add(i);
-			}
+			this.pedidos = facade.listarPedidoCompra("");
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar Itens"));
 			e.printStackTrace();
@@ -69,7 +65,21 @@ public class PedidoCompraController {
 			e.printStackTrace();
 		}
 	}
+	
+	public void excluir() {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
 
+		try {
+			facade.excluirPedidoCompra(this.pedidodecompra);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido deletado"));
+			this.pedidodecompra = new PedidoCompra();
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir pedido"));
+			e.printStackTrace();
+		}
+	}
+	
 	public void onRowEdit(RowEditEvent<PedidoCompra> event) {
 		PedidoCompra novo = new PedidoCompra();
 
@@ -101,20 +111,23 @@ public class PedidoCompraController {
 		listar();
 	}
 
-	public PedidoCompra getPedidoCompra() {
+	public PedidoCompra getPedidodecompra() {
 		return pedidodecompra;
 	}
 
-	public void setPedidoCompra(PedidoCompra pedidodecompra) {
+	public void setPedidodecompra(PedidoCompra pedidodecompra) {
 		this.pedidodecompra = pedidodecompra;
 	}
 
-	public List<PedidoCompra> getItens() {
+	public List<PedidoCompra> getPedidos() {
 		return pedidos;
 	}
 
-	public void setItens(List<PedidoCompra> pedidos) {
+	public void setPedidos(List<PedidoCompra> pedidos) {
 		this.pedidos = pedidos;
 	}
+
+	
+
 
 }
