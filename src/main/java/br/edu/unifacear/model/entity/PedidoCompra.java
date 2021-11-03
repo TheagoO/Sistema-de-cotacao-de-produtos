@@ -13,25 +13,29 @@ public class PedidoCompra implements Serializable {
 	private int id;
 	
 	@Column(name = "CODIGO")
-	private int codigo;
+	private long codigo;
 	
-	@ManyToOne
-	private Item item;
+	@Column(name = "NOME")
+	private String nome;
+	
+	@Column(name = "MARCA")
+	private String marca;
+	
+	@Column(name = "QUANTIDADE")
+	private float quantidade;
 	
 	@ManyToOne
 	private Almoxarifado almoxarifado;
 
 	public PedidoCompra() {
 		this.id = 0;
-		this.item = new Item();
 		this.almoxarifado = new Almoxarifado();
 	}
 
-	public PedidoCompra(int id, int codigo, Item item, Almoxarifado almoxarifado) {
+	public PedidoCompra(int id, int codigo, Almoxarifado almoxarifado) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
-		this.item = item;
 		this.almoxarifado = almoxarifado;
 	}
 
@@ -43,21 +47,12 @@ public class PedidoCompra implements Serializable {
 		this.id = id;
 	}
 
-	public int getCodigo() {
+	public long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	public void setCodigo(long codigo) {
 		this.codigo = codigo;
-	}
-
-
-	public Item getItem() {
-		return item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
 	}
 
 	public Almoxarifado getAlmoxarifado() {
@@ -68,15 +63,33 @@ public class PedidoCompra implements Serializable {
 		this.almoxarifado = almoxarifado;
 	}
 
-	@Override
-	public String toString() {
-		return "PedidoItem [id=" + id + ", codigo=" + codigo + " item=" + item
-				+ ", almoxarifado=" + almoxarifado + "]";
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public float getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(float quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(almoxarifado, codigo, id, item);
+		return Objects.hash(almoxarifado, codigo, id, marca, nome, quantidade);
 	}
 
 	@Override
@@ -89,11 +102,8 @@ public class PedidoCompra implements Serializable {
 			return false;
 		PedidoCompra other = (PedidoCompra) obj;
 		return Objects.equals(almoxarifado, other.almoxarifado) && codigo == other.codigo && id == other.id
-				&& Objects.equals(item, other.item);
+				&& Objects.equals(marca, other.marca) && Objects.equals(nome, other.nome)
+				&& Float.floatToIntBits(quantidade) == Float.floatToIntBits(other.quantidade);
 	}
-	
-	
-	
-	
-	
+
 }

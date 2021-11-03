@@ -35,6 +35,7 @@ public class LoginController {
 						for(Almoxarifado a : almox) {
 							if(a.getSenha().contains(senha)) {
 								fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Login efetuado"));
+								this.almoxarifado = a;
 								return "Almoxarifado";
 							}
 						}

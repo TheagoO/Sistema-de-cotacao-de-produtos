@@ -10,14 +10,17 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.edu.unifacear.model.entity.Almoxarifado;
+import br.edu.unifacear.model.entity.Item;
 import br.edu.unifacear.model.entity.PedidoCompra;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
-@ManagedBean(name = "PedidoCompraBean")
+@ManagedBean(name = "pedidoCompraBean")
 @SessionScoped
 public class PedidoCompraController {
 
 	private PedidoCompra pedidodecompra;
+	private Item selecionado;
 	private List<PedidoCompra> pedidos;
 
 	public void salvar() {
@@ -25,11 +28,16 @@ public class PedidoCompraController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		
 		try {
-			facade.salvarPedidoCompra(pedidodecompra);
+			for(PedidoCompra p : pedidos) {
+				facade.salvarPedidoCompra(p);
+			}
+			this.pedidos.removeAll(pedidos);
 			this.pedidodecompra = new PedidoCompra();
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "SolicitaÃ§Ã£o de Compra Enviada!"));
+			fc.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Solicitação de Compra Enviada!"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao Enviar SolicitaÃ§Ã£o de Compra!"));
+			fc.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao Enviar Solicitação de Compra!"));
 			e.printStackTrace();
 		}
 
@@ -53,7 +61,7 @@ public class PedidoCompraController {
 
 		try {
 			String retorno = facade.editarPedidoCompra(pedidodecompra);
-			if (retorno.contains("Dados em branco") || retorno.contains("Cï¿½digo invï¿½lido")) {
+			if (retorno.contains("Dados em branco") || retorno.contains("Código inválido")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			} else {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "PedidoCompra editado!"));
@@ -65,7 +73,7 @@ public class PedidoCompraController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void excluir() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -79,7 +87,16 @@ public class PedidoCompraController {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void addItem(Almoxarifado a) {
+		pedidodecompra.setAlmoxarifado(a);
+		pedidodecompra.setNome(selecionado.getNome());
+		pedidodecompra.setMarca(selecionado.getMarca());
+		pedidodecompra.setCodigo(selecionado.getCodigo());
+		this.pedidos.add(pedidodecompra);
+		pedidodecompra = new PedidoCompra();
+	}
+
 	public void onRowEdit(RowEditEvent<PedidoCompra> event) {
 		PedidoCompra novo = new PedidoCompra();
 
@@ -102,11 +119,12 @@ public class PedidoCompraController {
 
 	public void onRowCancel(RowEditEvent<PedidoCompra> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Ediï¿½ï¿½o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
 	}
 
 	public PedidoCompraController() {
 		this.pedidodecompra = new PedidoCompra();
+		this.selecionado = new Item();
 		this.pedidos = new ArrayList<PedidoCompra>();
 		listar();
 	}
@@ -127,7 +145,12 @@ public class PedidoCompraController {
 		this.pedidos = pedidos;
 	}
 
-	
+	public Item getSelecionado() {
+		return selecionado;
+	}
 
+	public void setSelecionado(Item selecionado) {
+		this.selecionado = selecionado;
+	}
 
 }

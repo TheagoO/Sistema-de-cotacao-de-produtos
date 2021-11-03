@@ -19,7 +19,8 @@ public class GestaoFacade {
 	private ItemCotacaoBo itemCotacaoBo;
 	private FornecedorPedidoCotacaoBo fornecedorPedidoCotacaoBo;
 	private CotacaoBo cotacaoBo;
-	private PedidoCompraBo pedidocompraBo;
+	private OrdemCompraBo ordemCompraBo;
+	private PedidoCompraBo pedidoCompraBo;
 
 	public GestaoFacade() {
 		this.fiscoItemBo = new FiscalItemBo();
@@ -34,7 +35,8 @@ public class GestaoFacade {
 		this.itemCotacaoBo = new ItemCotacaoBo();
 		this.fornecedorPedidoCotacaoBo = new FornecedorPedidoCotacaoBo();
 		this.cotacaoBo = new CotacaoBo();
-		this.pedidocompraBo =new PedidoCompraBo();
+		this.ordemCompraBo =new OrdemCompraBo();
+		this.pedidoCompraBo = new PedidoCompraBo();
 	}
 
 	public void salvarItem(Item i) throws Exception {
@@ -229,19 +231,36 @@ public class GestaoFacade {
 	}
 
 
+	public String salvarOrdemCompra(OrdemCompra e) throws Exception {
+		return this.ordemCompraBo.salvar(e);
+	}
+	
+	public String editarOrdemCompra(OrdemCompra e) throws Exception {
+		return this.ordemCompraBo.alterar(e);
+	}
+	
+	public String excluirOrdemCompra(OrdemCompra e) throws Exception {
+		return this.ordemCompraBo.deletar(e);
+	}
+	
+	public List<OrdemCompra> listarOrdemCompra(String e) throws Exception {
+		return this.ordemCompraBo.listar("");
+	}
+	
 	public String salvarPedidoCompra(PedidoCompra e) throws Exception {
-		return this.pedidocompraBo.salvar(e);
+		return this.pedidoCompraBo.salvar(e);
 	}
 	
 	public String editarPedidoCompra(PedidoCompra e) throws Exception {
-		return this.pedidocompraBo.alterar(e);
+		return this.pedidoCompraBo.alterar(e);
 	}
 	
 	public String excluirPedidoCompra(PedidoCompra e) throws Exception {
-		return this.pedidocompraBo.deletar(e);
+		return this.pedidoCompraBo.deletar(e);
 	}
 	
 	public List<PedidoCompra> listarPedidoCompra(String e) throws Exception {
-		return this.pedidocompraBo.listar("");
+		return this.pedidoCompraBo.listar("");
 	}
+	
 }

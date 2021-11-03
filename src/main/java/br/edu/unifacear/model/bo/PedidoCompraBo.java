@@ -50,12 +50,7 @@ public class PedidoCompraBo {
 	
 	
 	private void validarDadosPedidoItem(PedidoCompra pedidoitem) throws Exception {
-//		if (pedidoitem.getId() < 0) {
-//			throw new Exception("Id do pedidoitem não pode ser negativo!");
-//		}
-		if (pedidoitem.getItem().getNome().equals("")) {
-			throw new Exception("Nome do pedido item não pode ficar em branco!");
-		}
+
 	}	
 	
 }

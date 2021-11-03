@@ -125,6 +125,10 @@
 											<f:convertNumber type="currency" currencySymbol="$" />
 										</h:outputText>
 									</p:column>
+									
+									<p:column headerText="Fornecedor">
+										<h:outputText value="#{pedido.item.quantidade}" />
+									</p:column>
 
 									<!-- Botões -->
 									<p:summaryRow>
