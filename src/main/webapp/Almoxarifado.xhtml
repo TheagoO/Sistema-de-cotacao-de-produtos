@@ -55,98 +55,110 @@
 	 
 	     
 	     <div class="content-area">
-	     	<H1 class="titulos">ADICIONE O PRODUTO A SOLICITAÇÃO</H1>
-	  <h:form>
-    <div >
-        <p:dataTable var="row" value="#{dtBasicView.products}">
-            <p:column field="name" headerText="Código" />
-            <p:column field="category" headerText="Produto" />
-        </p:dataTable>
-    </div>
-</h:form>   
-	<br/>
-	<br/>  
-	<br/>  
-    <h:form id="form">
-    	    	<H1 class="titulos">SOLICIÇÃO DE COMPRA</H1>
-        <p:dataTable id="products" var="product" value="#{dtContextMenuView.products}" rowKey="#{product.id}"
-                     selection="#{dtContextMenuView.selectedProduct}" selectionMode="single">
-            <f:facet name="header">
-               
-            </f:facet>
+	     
+	     
+	    <h:form id="form">
+	    			<BR/>
+					<BR/>
+					<BR/>
+	    			<h1 class="titulos">SELECIONE OS ITEM PRA SOLICITAÇÃO</h1>
+	    			<div>
+	    			 <p:selectOneMenu id="pedido" value="#{itemBean.item.nome}" filter="true">
+						<f:selectItem itemLabel="Selecione o produto para adicionar a solicitação de compra" />
+						<f:selectItems value="#{itemBean.item.nome}" var="p" itemValue="#{p.id}" />
+					</p:selectOneMenu> 
+					<BR/>
+					<BR/>
+					<p:commandButton value="Adicionar a solicitação" update="products2"/>
+					<BR/>
+					<BR/>
+					<BR/>
+	    			</div>
+	    	    	<H1 class="titulos">SOLICIÇÃO DE COMPRA</H1>
+	    	    	
+	    	    	<p:growl id="msgs" showDetail="true" />
+	    	    	<p:dataTable id="products2" var="product" editable="true"
+						editMode="cell" value="#{dtGroupView.sales}"
+						widgetVar="cellProducts" scrollable="true" scrollWidth="100%">
 
-            <p:column headerText="Código">
-            </p:column>
-            <p:column headerText="Produto">
-            </p:column>
-            <p:column headerText="Quantidade">
-            </p:column>
-            <p:column headerText="Observação">
-            </p:column>
-        </p:dataTable>
-         <p:contextMenu for="products">
-            <p:menuitem value="View" update="productDetail" icon="pi pi-search"
-                        oncomplete="PF('productDialog').show()"/>
-            <p:menuitem value="Delete" update="products" icon="pi pi-times"
-                        action="#{dtContextMenuView.deleteProduct}"/>
-        </p:contextMenu>
+						<p:ajax event="cellEdit" listener="#{dtEditView.onCellEdit}"
+							update=":form:msgs" />
 
-        <p:dialog header="Product Info" widgetVar="productDialog" modal="true" showEffect="fade"
-                  hideEffect="fade" resizable="false">
-            <p:outputPanel id="productDetail" style="text-align:center;">
-                <p:column >
-                    <div class="product">
-                        <div class="product-grid-item border-0" style="margin-bottom: 0">
-                            <div class="product-grid-item-top">
-                                <div>
-                                    <i class="pi pi-tag product-category-icon"/>
-                                    <span class="product-category"></span>
-                                </div>
-                            </div>
-                            
-                            <div class="product-grid-item-bottom">
-                                <h:outputText value="	"
-                                              styleClass="product-price">
-                                    <f:convertNumber currencySymbol="$" type="currency"/>
-                                </h:outputText>
-                                <p:commandButton type="button" value="Add To Cart"
-                                                 icon="pi pi-shopping-cart">
-                                </p:commandButton>
-                            </div>
-                        </div>
-                    </div>
-                </p:column>
-            </p:outputPanel>
-        </p:dialog>
-        
-        		<div class="btns-area">
+						<!-- Cabeçalho das colunas -->
 
-						<div class="card">
-
-							<p:growl id="message" showDetail="true" />
-
+						<p:columnGroup type="header">
+							
+								<p:column headerText="Qtd." width="100px" />
+								<p:column headerText="Produto" />
+								<p:column headerText="Código" />
+								<p:column headerText="Marca" />
 						
+						</p:columnGroup>
 
-							<p:commandButton value="Enviar"
-								action="#{confirmView.confirm}" update="message"
-								styleClass="p-mr-2" icon="pi pi-check">
-								<p:confirm header="Atenção" message="Deseja enviar essa Solicitação de compra ?"
-									icon="pi pi-exclamation-triangle" />
-							</p:commandButton>
+						<!-- Linhas -->
 
-							<p:confirmDialog global="true" showEffect="fade"
-								hideEffect="fade" responsive="true" width="350">
-								<p:commandButton value="Não" type="button"
-									styleClass="ui-confirmdialog-no ui-button-flat" />
-								<p:commandButton value="Sim" type="button"
-									styleClass="ui-confirmdialog-yes" />
-							</p:confirmDialog>
+						<p:column>
+							<f:facet name="output">
+								<h:outputText value="#{product.name}" />
+							</f:facet>
+						</p:column>
 
+						<p:column>
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{product.quantidade}" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+
+						<p:column>
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{product.price}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</f:facet>
+								<f:facet name="input">
+									<p:inputNumber value="#{product.price}" style="width:100%" symbol="$" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						
+						<p:commandButton value="Lançar" />
+					</p:dataTable>
+	    	    	
+	        
+	
+	        
+	        
+	        		<div class="btns-area">
+	
+							<div class="card">
+	
+								<p:growl id="message" showDetail="true" />
+	
+							
+	
+								<p:commandButton value="Enviar"
+									action="#{confirmView.confirm}" update="message"
+									styleClass="p-mr-2" icon="pi pi-check">
+									<p:confirm header="Atenção" message="Deseja enviar essa Solicitação de compra ?"
+										icon="pi pi-exclamation-triangle" />
+								</p:commandButton>
+	
+								<p:confirmDialog global="true" showEffect="fade"
+									hideEffect="fade" responsive="true" width="350">
+									<p:commandButton value="Não" type="button"
+										styleClass="ui-confirmdialog-no ui-button-flat" />
+									<p:commandButton value="Sim" type="button"
+										styleClass="ui-confirmdialog-yes" />
+								</p:confirmDialog>
+	
+							</div>
+	
 						</div>
-
-					</div>
-        </h:form>
-        
+	        </h:form>
+	        
         </div>
 	</section>
 	

@@ -24,6 +24,10 @@ public class Item implements Serializable {
 	@Column(name = "CODIGO")
 	private long codigo;
 	
+	@Column(name = "QUANTIDADE")
+	private int quantidade;
+	
+	
 	@ManyToOne
 	private FiscalItem fiscalItem;
 
@@ -33,7 +37,7 @@ public class Item implements Serializable {
 		this.fiscalItem = new FiscalItem();
 	}
 	
-	public Item(int id, String nome, String marca, double valor, long codigo, FiscalItem fiscal_Item) {
+	public Item(int id, String nome, String marca,int quantidade , double valor, long codigo, FiscalItem fiscal_Item ) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -41,7 +45,8 @@ public class Item implements Serializable {
 		this.valor = valor;
 		this.codigo = codigo;
 		this.fiscalItem = fiscal_Item;
-	}
+		this.quantidade = quantidade;
+		}
 
 	public int getId() {
 		return id;
@@ -90,18 +95,22 @@ public class Item implements Serializable {
 	public void setFiscalItem(FiscalItem fiscalItem) {
 		this.fiscalItem = fiscalItem;
 	}
-
-	@Override
-	public String toString() {
-		return "Item [id=" + id + ", nome=" + nome + ", marca=" + marca + ", valor=" + valor + ", codigo=" + codigo
-				+ ", fiscalItem=" + fiscalItem + "]";
+	
+	public int getQuantidade() {
+		return quantidade;
 	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo, fiscalItem, id, marca, nome, valor);
+		return Objects.hash(codigo, fiscalItem, id, marca, nome, quantidade, valor);
 	}
 
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -113,8 +122,11 @@ public class Item implements Serializable {
 		Item other = (Item) obj;
 		return codigo == other.codigo && Objects.equals(fiscalItem, other.fiscalItem) && id == other.id
 				&& Objects.equals(marca, other.marca) && Objects.equals(nome, other.nome)
+				&& quantidade == other.quantidade
 				&& Double.doubleToLongBits(valor) == Double.doubleToLongBits(other.valor);
 	}
+
+	
 	
 	
 }

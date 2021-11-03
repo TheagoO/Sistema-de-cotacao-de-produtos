@@ -10,6 +10,7 @@ import br.edu.unifacear.model.bo.FiscalItemBo;
 import br.edu.unifacear.model.bo.FornecedorBo;
 import br.edu.unifacear.model.bo.GestorBo;
 import br.edu.unifacear.model.bo.ItemBo;
+import br.edu.unifacear.model.bo.PedidoCompraBo;
 import br.edu.unifacear.model.entity.Almoxarifado;
 import br.edu.unifacear.model.entity.Cidade;
 import br.edu.unifacear.model.entity.Endereco;
@@ -18,6 +19,7 @@ import br.edu.unifacear.model.entity.FiscalItem;
 import br.edu.unifacear.model.entity.Fornecedor;
 import br.edu.unifacear.model.entity.Gestor;
 import br.edu.unifacear.model.entity.Item;
+import br.edu.unifacear.model.entity.PedidoCompra;
 
 public class GestaoFacade {
 
@@ -29,6 +31,7 @@ public class GestaoFacade {
 	private CidadeBo cidadeBo;
 	private EstadoBo estadoBo;
 	private EnderecoBo enderecoBo;
+	private PedidoCompraBo pedidocompraBo;
 
 	public GestaoFacade() {
 		this.fiscoItemBo = new FiscalItemBo();
@@ -39,6 +42,7 @@ public class GestaoFacade {
 		this.cidadeBo = new CidadeBo();
 		this.estadoBo = new EstadoBo();
 		this.enderecoBo = new EnderecoBo();
+		this.pedidocompraBo = new PedidoCompraBo();
 	}
 
 	public void salvarItem(Item i) throws Exception {
@@ -151,5 +155,20 @@ public class GestaoFacade {
 	
 	public List<Endereco> listarEndereco(Endereco e) throws Exception {
 		return this.enderecoBo.listar("");
+	}
+	public String salvarPedidoCompra(PedidoCompra e) throws Exception {
+		return this.pedidocompraBo.salvar(e);
+	}
+	
+	public String editarPedidoCompra(PedidoCompra e) throws Exception {
+		return this.pedidocompraBo.alterar(e);
+	}
+	
+	public String excluirPedidoCompra(PedidoCompra e) throws Exception {
+		return this.pedidocompraBo.deletar(e);
+	}
+	
+	public List<PedidoCompra> listarPedidoCompra(PedidoCompra e) throws Exception {
+		return this.pedidocompraBo.listar("");
 	}
 }
