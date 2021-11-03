@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -11,7 +12,6 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 
 import br.edu.unifacear.model.entity.Gestor;
-import br.edu.unifacear.model.entity.Item;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
 @ManagedBean(name = "gestorBean")
@@ -20,6 +20,7 @@ public class GestorController {
 	
 	private Gestor gestor;
 	private String senha;
+	private Gestor gestorSelecionado;
 	private List<Gestor> lista;
 	
 	public String salvar() {
@@ -29,14 +30,14 @@ public class GestorController {
 		try {
 			if (gestor.getSenha().equals(senha)) {
 				String retorno = facade.salvarGestor(gestor);
-				if(retorno.contains("E-mail já cadastrado")) {
-					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail já cadastrado!"));
+				if(retorno.contains("E-mail jï¿½ cadastrado")) {
+					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail jï¿½ cadastrado!"));
 				}else {
 					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador salvo!"));
 				}
 				this.gestor = new Gestor();
 			} else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha inválida!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha invï¿½lida!"));
 			}
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar colaborador!"));
@@ -51,9 +52,7 @@ public class GestorController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		this.lista.removeAll(lista);
 		try {
-			for (Gestor g : facade.listarGestor()) {
-				this.lista.add(g);
-			}
+			this.lista = facade.listarGestor("");
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar colaboradores"));
 			e.printStackTrace();
@@ -70,12 +69,27 @@ public class GestorController {
 			if(retorno.contains("Dados em branco")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			}else {
-				listar();
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador editado!"));
+				listar();
 			}
 			this.gestor = new Gestor();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar colaborador"));
+			e.printStackTrace();
+		}
+	}
+	
+	public void excluir() {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+
+		try {
+			facade.excluirGestor(this.gestorSelecionado);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador deletado"));
+			this.gestorSelecionado = new Gestor();
+			listar();
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir colaborador"));
 			e.printStackTrace();
 		}
 	}
@@ -102,12 +116,13 @@ public class GestorController {
 
 	public void onRowCancel(RowEditEvent<Gestor> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Ediï¿½ï¿½o cancelada!"));
 	}
 	
 	public GestorController() {
 		this.gestor = new Gestor();
 		this.lista = new ArrayList<Gestor>();
+		this.gestorSelecionado = new Gestor();
 		listar();
 	}
 
@@ -133,6 +148,14 @@ public class GestorController {
 
 	public void setLista(List<Gestor> lista) {
 		this.lista = lista;
+	}
+
+	public Gestor getGestorSelecionado() {
+		return gestorSelecionado;
+	}
+
+	public void setGestorSelecionado(Gestor gestorSelecionado) {
+		this.gestorSelecionado = gestorSelecionado;
 	}
 	
 }

@@ -18,6 +18,7 @@ import br.edu.unifacear.model.facade.GestaoFacade;
 public class AlmoxarifadoController {
 	
 	private Almoxarifado almoxarifado;
+	private Almoxarifado selecionado;
 	private String senha;
 	private List<Almoxarifado> lista;
 	
@@ -28,14 +29,14 @@ public class AlmoxarifadoController {
 
 			if (almoxarifado.getSenha().equals(senha)) {
 				String retorno = facade.salvarAlmoxarifado(almoxarifado);
-				if(retorno.contains("E-mail já cadastrado")) {
-					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail já cadastrado!"));
+				if(retorno.contains("E-mail jï¿½ cadastrado")) {
+					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail jï¿½ cadastrado!"));
 				}else {
 					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador salvo!"));
 				}
 				this.almoxarifado = new Almoxarifado();
 			} else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha inválida!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha invï¿½lida!"));
 			}
 
 		} catch (Exception e) {
@@ -45,14 +46,12 @@ public class AlmoxarifadoController {
 
 	}
 	
-	public void listar(){
+	public void listar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
 		this.lista.removeAll(lista);
 		try {
-			for (Almoxarifado a : facade.listarAlmoxarifado()) {
-				this.lista.add(a);
-			}
+			this.lista = facade.listarAlmoxarifado("");
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar colaboradores"));
 			e.printStackTrace();
@@ -79,6 +78,21 @@ public class AlmoxarifadoController {
 		}
 	}
 	
+	public void excluir() {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+
+		try {
+			facade.excluirAlmoxarifado(this.selecionado);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador deletado"));
+			listar();
+			this.selecionado = new Almoxarifado();
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir colaborador"));
+			e.printStackTrace();
+		}
+	}
+	
 	public void onRowEdit(RowEditEvent<Almoxarifado> event) {
 		Almoxarifado novo = new Almoxarifado();
 
@@ -101,12 +115,13 @@ public class AlmoxarifadoController {
 
 	public void onRowCancel(RowEditEvent<Almoxarifado> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Ediï¿½ï¿½o cancelada!"));
 	}
 	
 	public AlmoxarifadoController() {
 		this.almoxarifado = new Almoxarifado();
 		this.lista = new ArrayList<Almoxarifado>();
+		this.selecionado = new Almoxarifado();
 		listar();
 	}
 
@@ -116,6 +131,14 @@ public class AlmoxarifadoController {
 
 	public void setAlmoxarifado(Almoxarifado almoxarifado) {
 		this.almoxarifado = almoxarifado;
+	}
+
+	public Almoxarifado getSelecionado() {
+		return selecionado;
+	}
+
+	public void setSelecionado(Almoxarifado selecionado) {
+		this.selecionado = selecionado;
 	}
 
 	public String getSenha() {
@@ -133,6 +156,6 @@ public class AlmoxarifadoController {
 	public void setLista(List<Almoxarifado> lista) {
 		this.lista = lista;
 	}
-	
+
 	
 }

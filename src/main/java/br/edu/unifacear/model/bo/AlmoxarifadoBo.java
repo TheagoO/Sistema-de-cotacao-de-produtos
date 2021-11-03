@@ -31,7 +31,7 @@ public class AlmoxarifadoBo {
 	
 	public String deletar(Almoxarifado almoxarifado) 
 			throws Exception {
-		validarDadosAlmoxarifado(almoxarifado);
+
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
 			return new AlmoxarifadoDao().deletar(almoxarifado);

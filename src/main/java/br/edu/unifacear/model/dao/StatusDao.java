@@ -56,7 +56,7 @@ public class StatusDao {
 			Status e = em.find(Status.class, status.getId());
 			em.getTransaction().begin();
 			em.remove(e);
-			
+			em.getTransaction().commit();
 			retorno = "Status Deletado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();

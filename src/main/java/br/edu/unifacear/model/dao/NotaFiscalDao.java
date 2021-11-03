@@ -60,7 +60,7 @@ public class NotaFiscalDao {
 			NotaFiscal e = em.find(NotaFiscal.class, notafiscal.getId());
 			em.getTransaction().begin();
 			em.remove(e);
-			
+			em.getTransaction().commit();
 			retorno = "NotaFiscal Deletado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();

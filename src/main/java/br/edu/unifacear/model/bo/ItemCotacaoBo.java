@@ -51,12 +51,6 @@ public class ItemCotacaoBo {
 
 
 	private void validarDadosCotacaoItem(ItemCotacao cotacaoItem) throws Exception {
-//		if (cotacaoItem.getId() < 0) {
-//			throw new Exception("Id do cotacaoItem não pode ser negativo!");
-//		}
-		if (cotacaoItem.getDisponibilidade().equals("")) {
-			throw new Exception("Nome do cotacaoItem não pode ficar em branco!");
-		}
 	}	
 	
 }

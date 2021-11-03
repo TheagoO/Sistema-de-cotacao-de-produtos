@@ -68,10 +68,17 @@ section{
 
 .content-area{
 	width:60%;
-	margin-top:20px;
+	margin-top:0px;
 	margin-left:auto;
 	margin-right:auto;
 
+}
+
+.content-area-login{
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 .btns-area{
@@ -114,10 +121,17 @@ p{
 	margin-bottom:10px;
 }
 
+.cls_right{
+	width: 100%;
+	display: flex;
+}
+
 .search-area{
-	width:100%;
+	width: 250px;
 	display: flex; 
 	justify-content: space-between;
+	margin-left: auto;
+	margin-right: 0px;	
 }
 
 .ui-inputgroup{

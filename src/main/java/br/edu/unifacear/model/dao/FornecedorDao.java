@@ -60,7 +60,7 @@ public class FornecedorDao {
 			Fornecedor e = em.find(Fornecedor.class, fornecedor.getId());
 			em.getTransaction().begin();
 			em.remove(e);
-			
+			em.getTransaction().commit();
 			retorno = "Fornecedor Deletado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();

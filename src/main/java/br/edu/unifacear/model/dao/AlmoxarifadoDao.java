@@ -65,7 +65,7 @@ public class AlmoxarifadoDao {
 			Almoxarifado e = em.find(Almoxarifado.class, almoxarifado.getId());
 			em.getTransaction().begin();
 			em.remove(e);
-			
+			em.getTransaction().commit();
 			retorno = "Almoxarifado Deletado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();

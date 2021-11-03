@@ -3,8 +3,13 @@ package br.edu.unifacear.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 import br.edu.unifacear.model.entity.Endereco;
 
+@ManagedBean(name = "enderecoBean")
+@SessionScoped
 public class EnderecoController {
 	
 	private Endereco endereco;

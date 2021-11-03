@@ -80,85 +80,94 @@
 		<!-- Container do conteúdo da página  -->
 		<div class="content-area">
 
-			<!-- Cabeçalho -->
-			<div class="heade-area">
-				<h3>Pedidos de compra</h3>
-			</div>
-
-
 			<!-- Conteúdo -->
 
-			<div class="card">
-				<h:form id="pedido">
-					<p:dataTable var="customer" value="#{dtRowGroupView.customers}"
-						sortBy="#{customer.representative.name}">
-						<p:headerRow field="representative.name" expandable="true"
-							expanded="#{customer.representative.name != 'Stephen Shaw'}">
+			<h:form id="form">
 
-							<p:column colspan="6">
-								<div class="p-d-inline-flex p-ai-center"
-									style="vertical-align: middle">
-									<p:graphicImage
-										name="images/avatar/#{customer.representative.image}"
-										library="demo" width="32" style="vertical-align: middle" />
-									<h:outputText styleClass="p-ml-2"
-										value="#{customer.representative.name}" />
-								</div>
-							</p:column>
-						</p:headerRow>
+				<div class="card">
+					<!-- Listagem dos Colaboradores -->
 
-						<p:column headerText="Remetente">
-							<h:outputText value="#{customer.representative.name}" />
-						</p:column>
+					<p:growl id="msgs" showDetail="true" />
 
-						<p:column headerText="Produto">
-							<h:outputText value="#{customer.produto}" />
-						</p:column>
+					<p:panel header="Pedidos de compra">
 
-						<p:column headerText="Quantidade">
-							<span class="flag flag-#{customer.country.code}"
-								style="width: 30px; height: 20px" />
-							<h:outputText style="vertical-align: middle; margin-left: .5rem"
-								value="#{customer.quantidade}" />
-						</p:column>
+						<div class="card">
+							<h:form id="pedido">
+								<p:dataTable var="customer" value="#{dtRowGroupView.customers}"
+									sortBy="#{customer.representative.name}">
+									<p:headerRow field="representative.name" expandable="true"
+										expanded="#{customer.representative.name != 'Stephen Shaw'}">
 
-						<p:column headerText="Preço">
-							<span class="flag flag-#{customer.country.code}"
-								style="width: 30px; height: 20px" />
-							<h:outputText style="vertical-align: middle; margin-left: .5rem"
-								value="#{customer.preco}" />
-						</p:column>
-						
-						<!-- Total de produtos -->
-						<p:summaryRow>
-							<p:column colspan="5" style="text-align:right">
-								<h:outputText value="Total de produtos:" />
-							</p:column>
-							<p:column>
-								<h:outputText
-									value="#{dtRowGroupView.getTotalCount(customer.representative.name)}" />
-							</p:column>
-						</p:summaryRow>
-						
-						<!-- Total a pagar -->
-						<p:summaryRow>
-							<p:column colspan="5" style="text-align:right">
-								<h:outputText value="Valor total:" />
-							</p:column>
-							<p:column>
-								<h:outputText
-									value="#{dtRowGroupView.getTotalCount(customer.representative.name)}">
-									<f:convertNumber type="currency" currencySymbol="$" />
-								</h:outputText>
-							</p:column>
-						</p:summaryRow>
-						
-						<p:commandButton value="Cancelar" />
-						<p:commandButton value="Aprovar" />
-					</p:dataTable>
-					
-				</h:form>
-			</div>
+										<p:column colspan="6">
+											<div class="p-d-inline-flex p-ai-center"
+												style="vertical-align: middle">
+												<p:graphicImage
+													name="images/avatar/#{customer.representative.image}"
+													library="demo" width="32" style="vertical-align: middle" />
+												<h:outputText styleClass="p-ml-2"
+													value="#{customer.representative.name}" />
+											</div>
+										</p:column>
+									</p:headerRow>
+
+									<p:column headerText="Remetente">
+										<h:outputText value="#{customer.representative.name}" />
+									</p:column>
+
+									<p:column headerText="Produto">
+										<h:outputText value="#{customer.produto}" />
+									</p:column>
+
+									<p:column headerText="Quantidade">
+										<span class="flag flag-#{customer.country.code}"
+											style="width: 30px; height: 20px" />
+										<h:outputText
+											style="vertical-align: middle; margin-left: .5rem"
+											value="#{customer.quantidade}" />
+									</p:column>
+
+									<p:column headerText="Preço">
+										<span class="flag flag-#{customer.country.code}"
+											style="width: 30px; height: 20px" />
+										<h:outputText
+											style="vertical-align: middle; margin-left: .5rem"
+											value="#{customer.preco}" />
+									</p:column>
+
+									<!-- Total de produtos -->
+									<p:summaryRow>
+										<p:column colspan="5" style="text-align:right">
+											<h:outputText value="Total de produtos:" />
+										</p:column>
+										<p:column>
+											<h:outputText
+												value="#{dtRowGroupView.getTotalCount(customer.representative.name)}" />
+										</p:column>
+									</p:summaryRow>
+
+									<!-- Total a pagar -->
+									<p:summaryRow>
+										<p:column colspan="5" style="text-align:right">
+											<h:outputText value="Valor total:" />
+										</p:column>
+										<p:column>
+											<h:outputText
+												value="#{dtRowGroupView.getTotalCount(customer.representative.name)}">
+												<f:convertNumber type="currency" currencySymbol="$" />
+											</h:outputText>
+										</p:column>
+									</p:summaryRow>
+
+									<p:commandButton value="Cancelar" />
+									<p:commandButton value="Aprovar" />
+								</p:dataTable>
+
+							</h:form>
+						</div>
+
+					</p:panel>
+				</div>
+			</h:form>
 
 
 		</div>
@@ -197,8 +206,7 @@
 							<p:commandButton type="button" value="Cancelar"
 								styleClass="ui-button-flat p-mr-2" style="width: 6rem" />
 							<p:commandButton type="button" value="Confirmar"
-								style="width: 7rem" 
-								/>
+								style="width: 7rem" />
 						</f:facet>
 					</p:dialog>
 				</p:overlayPanel>

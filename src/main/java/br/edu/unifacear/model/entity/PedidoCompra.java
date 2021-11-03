@@ -15,9 +15,6 @@ public class PedidoCompra implements Serializable {
 	@Column(name = "CODIGO")
 	private int codigo;
 	
-	@Column(name = "QTD")
-	private float quantidade;
-	
 	@ManyToOne
 	private Item item;
 	
@@ -30,11 +27,10 @@ public class PedidoCompra implements Serializable {
 		this.almoxarifado = new Almoxarifado();
 	}
 
-	public PedidoCompra(int id, int codigo, float quantidade, Item item, Almoxarifado almoxarifado) {
+	public PedidoCompra(int id, int codigo, Item item, Almoxarifado almoxarifado) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
-		this.quantidade = quantidade;
 		this.item = item;
 		this.almoxarifado = almoxarifado;
 	}
@@ -55,13 +51,6 @@ public class PedidoCompra implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public float getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(float quantidade) {
-		this.quantidade = quantidade;
-	}
 
 	public Item getItem() {
 		return item;
@@ -81,13 +70,13 @@ public class PedidoCompra implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PedidoItem [id=" + id + ", codigo=" + codigo + ", quantidade=" + quantidade + ", item=" + item
+		return "PedidoItem [id=" + id + ", codigo=" + codigo + " item=" + item
 				+ ", almoxarifado=" + almoxarifado + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(almoxarifado, codigo, id, item, quantidade);
+		return Objects.hash(almoxarifado, codigo, id, item);
 	}
 
 	@Override
@@ -100,8 +89,7 @@ public class PedidoCompra implements Serializable {
 			return false;
 		PedidoCompra other = (PedidoCompra) obj;
 		return Objects.equals(almoxarifado, other.almoxarifado) && codigo == other.codigo && id == other.id
-				&& Objects.equals(item, other.item)
-				&& Float.floatToIntBits(quantidade) == Float.floatToIntBits(other.quantidade);
+				&& Objects.equals(item, other.item);
 	}
 	
 	

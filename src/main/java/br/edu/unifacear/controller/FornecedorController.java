@@ -18,12 +18,13 @@ import br.edu.unifacear.model.facade.GestaoFacade;
 public class FornecedorController {
 
 	private Fornecedor fornecedor;
+	private Fornecedor selecionado;
 	private List<Fornecedor> lista;
 
 	public String salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		
+				
 		try {	
 
 			String retorno = facade.salvarFornecedor(fornecedor);
@@ -47,9 +48,7 @@ public class FornecedorController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		this.lista.removeAll(lista);
 		try {
-			for (Fornecedor f : facade.listarFornecedor()) {
-				this.lista.add(f);
-			}
+			this.lista = facade.listarFornecedor();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar colaboradores"));
 			e.printStackTrace();
@@ -75,7 +74,22 @@ public class FornecedorController {
 			e.printStackTrace();
 		}
 	}
+	
+	public void excluir() {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
 
+		try {
+			facade.excluirFornecedor(this.selecionado);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador deletado"));
+			listar();
+			this.selecionado = new Fornecedor();
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir colaborador"));
+			e.printStackTrace();
+		}
+	}
+	
 	public void onRowEdit(RowEditEvent<Fornecedor> event) {
 		Fornecedor novo = new Fornecedor();
 
@@ -104,6 +118,7 @@ public class FornecedorController {
 	public FornecedorController() {
 		this.fornecedor = new Fornecedor();
 		this.lista = new ArrayList<Fornecedor>();
+		this.selecionado = new Fornecedor();
 		listar();
 	}
 
@@ -121,6 +136,14 @@ public class FornecedorController {
 
 	public void setLista(List<Fornecedor> lista) {
 		this.lista = lista;
+	}
+
+	public Fornecedor getSelecionado() {
+		return selecionado;
+	}
+
+	public void setSelecionado(Fornecedor selecionado) {
+		this.selecionado = selecionado;
 	}
 
 }

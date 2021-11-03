@@ -63,7 +63,7 @@ public class CotacaoDao {
 			Cotacao e = em.find(Cotacao.class, cotacao.getId());
 			em.getTransaction().begin();
 			em.remove(e);
-			
+			em.getTransaction().commit();
 			retorno = "Cotacao Deletado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();

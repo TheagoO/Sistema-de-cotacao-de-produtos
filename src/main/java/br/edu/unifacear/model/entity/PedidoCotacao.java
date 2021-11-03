@@ -17,13 +17,17 @@ public class PedidoCotacao implements Serializable {
 	@Column(name = "CODIGO")
 	private int codigo;
 	
-	@Column(name = "STATUS")
-	private Status status;
+	@Column(name = "FASE")
+	private String fase;
 	
-	@OneToMany
+	@ElementCollection
+	@CollectionTable(name = "fornecedores_cotacao",
+		joinColumns = @JoinColumn(name = "cotacaoF_id"))
 	private List<FornecedorPedidoCotacao> fornecedor;
 	
-	@OneToMany
+	@ElementCollection
+	@CollectionTable(name = "itens_cotacao",
+		joinColumns = @JoinColumn(name = "cotacaoI_id"))
 	private List<ItemCotacao> item;
 	
 	@ManyToOne
@@ -34,15 +38,15 @@ public class PedidoCotacao implements Serializable {
 		this.fornecedor = new ArrayList<FornecedorPedidoCotacao>();
 		this.item = new ArrayList<ItemCotacao>();
 		this.solicitante = new Gestor();
-		this.status = new Status();
+		this.fase = new String();
 	}
 
 	
-	public PedidoCotacao(int id, Status status, List<FornecedorPedidoCotacao> fornecedor, List<ItemCotacao> item,
+	public PedidoCotacao(int id, String fase, List<FornecedorPedidoCotacao> fornecedor, List<ItemCotacao> item,
 			Gestor solicitante) {
 		super();
 		this.id = id;
-		this.status = status;
+		this.fase = fase;
 		this.fornecedor = fornecedor;
 		this.item = item;
 		this.solicitante = solicitante;
@@ -58,12 +62,12 @@ public class PedidoCotacao implements Serializable {
 		this.id = id;
 	}
 
-	public Status getStatus() {
-		return status;
+	public String getFase() {
+		return fase;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setFase(String fase) {
+		this.fase = fase;
 	}
 
 	public List<FornecedorPedidoCotacao> getFornecedor() {
@@ -98,14 +102,14 @@ public class PedidoCotacao implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PedidoCotacao [id=" + id + ", status=" + status + ", fornecedor=" + fornecedor + ", item=" + item
+		return "PedidoCotacao [id=" + id + ", fase=" + fase + ", fornecedor=" + fornecedor + ", item=" + item
 				+ ", solicitante=" + solicitante + "]";
 	}
 
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(fornecedor, id, item, solicitante, status);
+		return Objects.hash(fornecedor, id, item, solicitante, fase);
 	}
 
 
@@ -119,7 +123,7 @@ public class PedidoCotacao implements Serializable {
 			return false;
 		PedidoCotacao other = (PedidoCotacao) obj;
 		return Objects.equals(fornecedor, other.fornecedor) && id == other.id && Objects.equals(item, other.item)
-				&& Objects.equals(solicitante, other.solicitante) && status == other.status;
+				&& Objects.equals(solicitante, other.solicitante) && fase == other.fase;
 	}
 	
 	

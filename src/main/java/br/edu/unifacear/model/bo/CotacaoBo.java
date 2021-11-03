@@ -51,9 +51,7 @@ public class CotacaoBo {
 
 
 	private void validarDadosCotacao(Cotacao cotacao) throws Exception {
-		if (cotacao.getItem().getItem().getNome().equals("")) {
-			throw new Exception("Nome da cotação não pode ficar em branco!");
-		}
+		
 	}	
 	
 }

@@ -26,7 +26,7 @@
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
-					<h:link href="#" class="a">Saír</h:link>
+					<h:link href="index.xhtml" class="a">Saír</h:link>
 					<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
 				</div>
 			</div>
@@ -44,20 +44,20 @@
 					<p:tieredMenu style="width:100%; height:100%;">
 						<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
-								action="cadastroFornecedor" />
+								action="Cadastro" />
 							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
 								action="Colaboradores" />
 						</p:submenu>
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
-							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" />
-							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" />
+							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" action="Cotacao" />
+							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" action="Compra" />
+							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" action="Pedidos" />
 						</p:submenu>
 
 						<p:submenu label="Produtos" icon="pi pi-fw pi-table">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-user-plus"
-								action="CadastroProduto" />
+								action="NovoProduto" />
 							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
 								action="Produtos" />
 						</p:submenu>
@@ -126,71 +126,76 @@
 								<p:growl id="msgs" showDetail="true" />
 
 								<span class="ui-float-label" style="width: 100%;"> <p:inputText
-										id="nome" value="#{fornecedorBean.fornecedor.nome}" required="true" /> <p:outputLabel
-										for="@previous" value="Nome" />
+										id="nome" value="#{fornecedorBean.fornecedor.nome}"
+										required="true" /> <p:outputLabel for="@previous"
+										value="Nome" />
 								</span> <br />
 
 
 								<!-- Input Email Fornecedor-->
 
 								<span class="ui-float-label"> <p:inputText id="email"
-										value="#{fornecedorBean.fornecedor.email}" required="true" /> <p:outputLabel
-										for="@previous" value="Email" />
+										value="#{fornecedorBean.fornecedor.email}" required="true" />
+									<p:outputLabel for="@previous" value="Email" />
 								</span> <br />
 								<!-- Input Empresa Fornecedor -->
 
 								<span class="ui-float-label"> <p:inputText id="empresa"
-										value="#{fornecedorBean.fornecedor.empresa}" required="true" /> <p:outputLabel
-										for="@previous" value="Empresa" />
+										value="#{fornecedorBean.fornecedor.empresa}" required="true" />
+									<p:outputLabel for="@previous" value="Empresa" />
+								</span> <br /> <span class="ui-float-label"> <p:inputMask
+										id="contato" value="#{fornecedorBean.fornecedor.contato}"
+										mask="(99) 9999-9999" validateMask="true" /> <p:outputLabel
+										for="@previous" value="Contato" required="true" />
 								</span> <br />
+
 								<!-- Input CNPJ Fornecedor-->
 
-								<span class="ui-float-label">
-									<p:inputMask id="cnpj"
+								<span class="ui-float-label"> <p:inputMask id="cnpj"
 										value="#{fornecedorBean.fornecedor.cnpj}"
-										mask="999.999.999/9999-99" validateMask="true" required="true" /><p:outputLabel
-										for="@previous" value="CNPJ" />
-								</span>
-								<br />
+										mask="999.999.999/9999-99" validateMask="true" required="true" />
+									<p:outputLabel for="@previous" value="CNPJ" />
+								</span> <br />
 								<!-- Input CEP Fornecedor-->
 
-								<span class="ui-float-label">
-									
-									<p:inputMask id="cep"
+								<span class="ui-float-label"> <p:inputMask id="cep"
 										value="#{fornecedorBean.fornecedor.endereco.cep}"
-										mask="99999-999" validateMask="true" required="true" /><p:outputLabel
+										mask="99999-999" validateMask="true" required="true" /> <p:outputLabel
 										for="@previous" value="CEP" />
-								</span>
-								<br />
+								</span> <br />
 								<!-- Estado Fornecedor -->
 								<p:outputLabel for="@next" value="Estado" />
 								<br />
 								<p:selectOneMenu id="estado"
 									value="#{fornecedorBean.fornecedor.endereco.cidade.estado.id}"
-									effect="fold" editable="true"  required="true">
-									<f:selectItem itemLabel="Selecione" itemValue="" />
-									<f:selectItems value="#{fornecedorBean}" />
+									effect="fold" required="true">
+									<f:selectItem itemLabel="Selecione" />
+									<f:selectItems value="#{estadoBean.lista}" var="e"
+										itemValue="#{e.id}" />
 								</p:selectOneMenu>
 								<br /> <br />
-								<!-- Municipio Fornecedor -->
+								<!-- Cidade Fornecedor -->
 
 								<p:outputLabel for="@next" value="Cidade" />
 								<br />
-								<p:selectOneMenu id="cidade" value="#{fornecedorBean.fornecedor.endereco.cidade.id}"
-									effect="fold" editable="true"  required="true">
-									<f:selectItem itemLabel="Selecione" itemValue="" />
-									<f:selectItems value="#{selectOneMenuView.cities}" />
+								<p:selectOneMenu id="cidade"
+									value="#{fornecedorBean.fornecedor.endereco.cidade.id}"
+									effect="fold" required="true">
+									<f:selectItem itemLabel="Selecione" />
+									<f:selectItems value="#{cidadeBean.lista}" var="c"
+										itemValue="#{c.id}" />
 								</p:selectOneMenu>
 								<br /> <br />
 								<!-- Input lugradouro Fornecedor -->
 
 								<span class="ui-float-label"> <p:inputText
 										id="logradouro"
-										value="#{fornecedorBean.fornecedor.endereco.logradouro}"  required="true"/> <p:outputLabel
-										for="@previous" value="Logradouro" />
+										value="#{fornecedorBean.fornecedor.endereco.logradouro}"
+										required="true" /> <p:outputLabel for="@previous"
+										value="Logradouro" />
 								</span> <br /> <span class="ui-float-label"> <p:inputText
 										id="numero"
-										value="#{fornecedorBean.fornecedor.endereco.numero}" /> <p:outputLabel
+										value="#{fornecedorBean.fornecedor.endereco}" /> <p:outputLabel
 										for="@previous" value="Número" />
 								</span> <br /> <span class="ui-float-label"> <p:inputText
 										id="complemento"
@@ -198,8 +203,9 @@
 									<p:outputLabel for="@previous" value="Complemento" />
 								</span> <br />
 								<p:commandButton value="Salvar" update="fornecedor"
-									action="#{fornecedorBean.salvar}" icon="pi pi-check" style="width:auto;" />
-									<br /><br />
+									action="#{fornecedorBean.salvar}" icon="pi pi-check"
+									style="width:auto;" />
+								<br /> <br />
 							</div>
 
 
@@ -214,35 +220,35 @@
 								<p:growl id="msgs" showDetail="true" />
 
 								<span class="ui-float-label"> <p:inputText id="nome"
-										required="true" value="#{colaboradorBean.gestor.nome}" /> <p:outputLabel
+										required="true" value="#{gestorBean.gestor.nome}" /> <p:outputLabel
 										for="@previous" value="Nome" />
 								</span> <br /> <span class="ui-float-label"> <p:inputMask
-										id="taxId" value="#{colaboradorBean.gestor.cpf}"
+										id="taxId" value="#{gestorBean.gestor.cpf}"
 										mask="999.999.999-99" validateMask="true" required="true" />
 									<p:outputLabel for="@previous" value="CPF" />
 								</span> <br /> <span class="ui-float-label"> <p:inputText
 										id="email" required="true"
 										requiredMessage="Insira seu endereço de E-mail."
 										validatorMessage="Email inválido."
-										value="#{colaboradorBean.gestor.email}">
+										value="#{gestorBean.gestor.email}">
 
 										<f:validateRegex
 											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 
 									</p:inputText> <p:outputLabel for="@previous" value="E-mail" />
 								</span> <br /> <span class="ui-float-label"> <p:password
-										id="senha" value="#{colaboradorBean.gestor.senha}"
+										id="senha" value="#{gestorBean.gestor.senha}"
 										toggleMask="true" redisplay="true" style="width:100%;" /> <p:outputLabel
 										for="@previous" value="Senha" />
 								</span> <br /> <span class="ui-float-label"> <p:password
-										id="cnf_senha" value="#{colaboradorBean.senha}"
+										id="cnf_senha" value="#{gestorBean.senha}"
 										toggleMask="true" redisplay="true" style="width:100%;" /> <p:outputLabel
 										for="@previous" value="Confirmar senha" />
 								</span> <br />
 							</div>
 
 							<p:commandButton value="Salvar" update="gestor"
-								action="#{colaboradorBean.salvar}" icon="pi pi-check" />
+								action="#{gestorBean.salvar}" icon="pi pi-check" />
 						</h:form>
 
 					</p:tab>
@@ -284,7 +290,7 @@
 							<f:facet name="footer">
 								<p:commandButton value="Cancelar"
 									styleClass="ui-button-flat p-mr-2" style="width: 6rem"
-									onclick="PF('dlg3').close()" />
+									onclick="PF('dlg3').hide()" />
 								<p:commandButton value="Confirmar" style="width: 7rem"
 									action="#{origemBean.salvar}" update="messages" />
 							</f:facet>

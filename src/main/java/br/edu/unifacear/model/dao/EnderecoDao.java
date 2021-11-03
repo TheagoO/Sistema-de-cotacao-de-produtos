@@ -63,7 +63,7 @@ public class EnderecoDao {
 			Endereco e = em.find(Endereco.class, endereco.getId());
 			em.getTransaction().begin();
 			em.remove(e);
-			
+			em.getTransaction().commit();
 			retorno = "Endereco Deletado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();

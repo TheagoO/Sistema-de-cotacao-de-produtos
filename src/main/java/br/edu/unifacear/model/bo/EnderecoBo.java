@@ -54,7 +54,7 @@ public class EnderecoBo {
 //		if (endereco.getId() < 0) {
 //			throw new Exception("Id do endereco não pode ser negativo!");
 //		}
-		if (endereco.getCidade().getNome().equals("")) {
+		if (endereco.getCidade().getCidade().equals("")) {
 			throw new Exception("Nome do endereco não pode ficar em branco!");
 		}
 	}	

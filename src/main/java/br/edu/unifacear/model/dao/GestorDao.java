@@ -1,8 +1,5 @@
 package br.edu.unifacear.model.dao;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 
 import javax.persistence.*;
@@ -65,12 +62,10 @@ public class GestorDao {
 		String retorno;
 		// Gravar o Gestor no BD		
 		try {
-
-		
 			Gestor e = em.find(Gestor.class, gestor.getId());
 			em.getTransaction().begin();
 			em.remove(e);
-			
+			em.getTransaction().commit();
 			retorno = "Gestor Deletado com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();

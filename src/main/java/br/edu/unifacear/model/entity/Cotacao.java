@@ -27,6 +27,7 @@ public class Cotacao implements Serializable {
 	
 	public Cotacao() {
 		this.id = 0;
+		this.dataEmissao = new Date();
 		this.fornecedor = new Fornecedor();
 		this.item = new ItemCotacao();
 	}

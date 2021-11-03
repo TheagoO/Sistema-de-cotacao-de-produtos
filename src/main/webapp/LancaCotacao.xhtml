@@ -32,7 +32,7 @@
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
-					<h:link href="#" class="a">Saír</h:link>
+					<h:link href="index.xhtml" class="a">Saír</h:link>
 					<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
 				</div>
 			</div>
@@ -51,20 +51,22 @@
 					<p:tieredMenu style="width:100%; height:100%;">
 						<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
-								action="cadastroFornecedor" />
+								action="Cadastro" />
 							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
 								action="Colaboradores" />
 						</p:submenu>
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
-							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" />
-							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" action="PedidoCompra"/>
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" />
+							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage"
+								action="Cotacao" />
+							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
+								action="Compra" />
+							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" action="Pedidos" />
 						</p:submenu>
 
 						<p:submenu label="Produtos" icon="pi pi-fw pi-table">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-user-plus"
-								action="CadastroProduto" />
+								action="NovoProduto" />
 							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
 								action="Produtos" />
 						</p:submenu>
@@ -80,14 +82,7 @@
 		<!-- Container do conteúdo da página  -->
 		<div class="content-area">
 
-			<!-- Cabeçalho -->
-			<div class="heade-area">
-				<h3>Lançar cotação</h3>
-			</div>
-
-
 			<!-- Conteúdo -->
-
 			<h:form id="form">
 				<div class="card">
 
@@ -95,63 +90,60 @@
 
 					<p:growl id="msgs" showDetail="true" />
 
-					<h5>*Clique com botão esquerdo para editar os campos</h5>
-					<p:dataTable id="products2" var="product" editable="true"
-						editMode="cell" value="#{dtGroupView.sales}"
-						widgetVar="cellProducts" scrollable="true" scrollWidth="100%">
+					<p:panel header="Lançar cotação">
+						<p:dataTable id="cotacao" var="item" editable="true"
+							value="#{pedidoCotacaoBean.itens}" scrollable="true"
+							scrollHeight="300px;">
 
-						<p:ajax event="cellEdit" listener="#{dtEditView.onCellEdit}"
-							update=":form:msgs" />
+							<p:ajax event="rowEdit" listener="#{pedidoCotacaoBean.onRowEdit}"
+								update=":form:msgs" />
+							<p:ajax event="rowEditCancel"
+								listener="#{pedidoCotacaoBean.onRowCancel}" update=":form:msgs" />
 
-						<!-- Cabeçalho das colunas -->
+							<!-- Cabeçalho das colunas -->
 
-						<p:columnGroup type="header">
-							<p:row>
-								<p:column rowspan="2" headerText="Item" />
+							<p:column headerText="Fornecedor">
+								<p:dataTable id="fornecedores"
+									value="#{pedidoCotacaoBean.fornecedores}" var="forn">
 
-								<!-- Nome do fornecedor -->
-								<p:column colspan="2" headerText="#{Fornecedor}" />
-							</p:row>
-							<p:row>
-								<p:column headerText="Qtd." />
-								<p:column headerText="Valor uni." />
-							</p:row>
-						</p:columnGroup>
+									<h:outputText value="#{forn.nome}" />
 
-						<!-- Linhas -->
+								</p:dataTable>
+							</p:column>
 
-						<p:column>
-							<f:facet name="output">
-								<h:outputText value="#{product.name}" />
-							</f:facet>
-						</p:column>
+							<p:column headerText="Item">
 
-						<p:column>
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.quantidade}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{product.quantidade}" style="width:100%" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
+								<h:outputText value="#{item.nome}" />
 
-						<p:column>
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{product.price}">
-										<f:convertNumber type="currency" currencySymbol="$" />
-									</h:outputText>
-								</f:facet>
-								<f:facet name="input">
-									<p:inputNumber value="#{product.price}" style="width:100%" symbol="$" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-						
-						<p:commandButton value="Lançar" />
-					</p:dataTable>
+							</p:column>
+
+							<p:column headerText="Preço">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{item.valor}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:inputNumber value="#{item.valor}" style="width:100%"
+											label="Price" symbol="$" required="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column style="width:6rem" headerText="Editar">
+								<p:rowEditor editTitle="Editar" cancelTitle="Cancelar"
+									saveTitle="Salvar" />
+							</p:column>
+
+
+						</p:dataTable>
+						<br />
+						<p:commandButton value="Lançar" icon="pi pi-check"
+							styleClass="ui-button-success"
+							action="#{pedidoCotacaoBean.lancarCotacao}" />
+						<br />
+					</p:panel>
 				</div>
 			</h:form>
 
