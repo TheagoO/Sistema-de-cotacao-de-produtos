@@ -13,11 +13,13 @@ import br.edu.unifacear.model.entity.Cotacao;
 public class CotacaoController {
 	
 	private Cotacao cotacao;
+	private Cotacao selecionado;
 	private List<Cotacao> lista;
 		
 	public CotacaoController() {
 		this.cotacao = new Cotacao();
 		this.lista = new ArrayList<Cotacao>();
+		this.selecionado = new Cotacao();
 	}
 	public Cotacao getCotacao() {
 		return cotacao;
@@ -30,6 +32,12 @@ public class CotacaoController {
 	}
 	public void setLista(List<Cotacao> lista) {
 		this.lista = lista;
+	}
+	public Cotacao getSelecionado() {
+		return selecionado;
+	}
+	public void setSelecionado(Cotacao selecionado) {
+		this.selecionado = selecionado;
 	}
 	
 	

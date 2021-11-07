@@ -26,7 +26,7 @@ public class OrdemCompra implements Serializable {
 	private LocalDateTime dataEmissao;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ordem")
-	private List<RequisicaoItem> ordemCompraItem;
+	private List<OrdemCompraItem> ordemCompraItem;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cotacao")
 	private List<Cotacao> cotacao;
@@ -43,13 +43,13 @@ public class OrdemCompra implements Serializable {
 	public OrdemCompra() {
 		this.id = 0;
 		this.cotacao = new ArrayList<Cotacao>();
-		this.ordemCompraItem = new ArrayList<RequisicaoItem>();
+		this.ordemCompraItem = new ArrayList<OrdemCompraItem>();
 		this.fornecedor = new Fornecedor();
 		this.fase = new Fase();
 		this.solicitante = new Gestor();
 	}
 
-	public OrdemCompra(int id, LocalDateTime dataEmissao, List<RequisicaoItem> ordemCompraItem, List<Cotacao> cotacao,
+	public OrdemCompra(int id, LocalDateTime dataEmissao, List<OrdemCompraItem> ordemCompraItem, List<Cotacao> cotacao,
 			Fornecedor fornecedor, Fase fase, Gestor solicitante) {
 		super();
 		this.id = id;
@@ -77,11 +77,11 @@ public class OrdemCompra implements Serializable {
 		this.dataEmissao = dataEmissao;
 	}
 
-	public List<RequisicaoItem> getOrdemCompraItem() {
+	public List<OrdemCompraItem> getOrdemCompraItem() {
 		return ordemCompraItem;
 	}
 
-	public void setOrdemCompraItem(List<RequisicaoItem> ordemCompraItem) {
+	public void setOrdemCompraItem(List<OrdemCompraItem> ordemCompraItem) {
 		this.ordemCompraItem = ordemCompraItem;
 	}
 

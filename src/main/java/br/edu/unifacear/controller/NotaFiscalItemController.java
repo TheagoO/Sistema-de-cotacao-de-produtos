@@ -33,17 +33,6 @@ public class NotaFiscalItemController {
 
 	}
 	
-	public void listar() {
-
-		for(RequisicaoItem o : ordem.getItem()) {
-			this.nfItem.setCodigo(1231231);
-			this.nfItem.getItem().setNome(o.getNome());
-			this.nfItem.getItem().setMarca(o.getMarca());
-			this.nfItem.setQuantidade(o.getQuantidade());
-			this.nfItem.setValorUnitario(25);
-		}
-		
-	}
 	
 	public NotaFiscalItemController() {
 		this.nfItem = new NotaFiscalItem();

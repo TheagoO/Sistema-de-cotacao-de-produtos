@@ -10,30 +10,34 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.edu.unifacear.model.entity.Produto;
-import br.edu.unifacear.model.entity.Requisicao;
+import br.edu.unifacear.model.entity.Almoxarifado;
+import br.edu.unifacear.model.entity.Cotacao;
+import br.edu.unifacear.model.entity.Fornecedor;
+import br.edu.unifacear.model.entity.CotacaoFornecedorPreco;
+import br.edu.unifacear.model.entity.Gestor;
 import br.edu.unifacear.model.entity.RequisicaoItem;
+import br.edu.unifacear.model.entity.OrdemCompra;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
 @ManagedBean(name = "ordemCompraBean")
 @ApplicationScoped
 public class OrdemCompraController {
-	
-	private Requisicao ordem;
-	private List<Requisicao> lista;
-	private Produto selecionado;
-	private List<RequisicaoItem> selectItens;
-	
+
+	private OrdemCompra ordemCompra;
+	private OrdemCompra ordemSelecionada;
+	private List<OrdemCompra> listaPedidos;
+
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-				
+
 		try {
-			facade.salvarOrdemCompra(ordem);
-			this.ordem = new Requisicao();
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de compra enviada!"));
+			facade.salvarOrdemCompra(ordemCompra);
+			this.ordemCompra = new OrdemCompra();
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido salvo!"));
+
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao enviar ordem de compra"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar ordemCompra"));
 			e.printStackTrace();
 		}
 
@@ -42,11 +46,13 @@ public class OrdemCompraController {
 	public void listar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		this.lista.removeAll(lista);
+		this.listaPedidos.removeAll(listaPedidos);
+
 		try {
-			this.lista = facade.listarOrdemCompra("");
+			this.listaPedidos = facade.listarOrdemCompra();
+
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar ordens"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar ordemCompras"));
 			e.printStackTrace();
 		}
 	}
@@ -56,18 +62,33 @@ public class OrdemCompraController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			String retorno = facade.editarOrdemCompra(ordem);
-			if(retorno.contains("Dados em branco") || retorno.contains("Código inválido")) {
+			String retorno = facade.editarOrdemCompra(ordemCompra);
+			if (retorno.contains("Dados em branco") || retorno.contains("Código inválido")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
-			}else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de compra editada!"));
+			} else {
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido editado!"));
 				listar();
 			}
-			this.ordem = new Requisicao();
+			this.ordemCompra = new OrdemCompra();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar ordem de compra"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar ordemCompra"));
 			e.printStackTrace();
 		}
+	}
+
+	public void editarCotacao(int i) {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		
+		try {
+			this.listaCotacao.remove(i);
+			this.listaCotacao.add(i, novaCotacao);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cotacão editada!"));
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar cotação!"));
+			e.printStackTrace();
+		}
+
 	}
 
 	public void excluir() {
@@ -75,98 +96,52 @@ public class OrdemCompraController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			facade.excluirOrdemCompra(this.ordem);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de compra deletada"));
-			this.ordem = new Requisicao();
+			facade.excluirOrdemCompra(this.ordemSelecionada);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido deletado"));
+			this.ordemSelecionada = new OrdemCompra();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir ordem de compra"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir produto"));
 			e.printStackTrace();
 		}
 	}
-	
-	public void listarItens() {
-		GestaoFacade facade = new GestaoFacade();
-		FacesContext fc = FacesContext.getCurrentInstance();
-		
-		try {
-			this.selectItens = facade.listarOrdemCompraItem(this.ordem.getId());
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Itens listados!"));
-		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens da compra"));
-			e.printStackTrace();
-		}
-	}
-	
+
 	public void addItem() {
-		RequisicaoItem p = new RequisicaoItem();
-		p.setNome(selecionado.getNome());
-		p.setMarca(selecionado.getMarca());
-		this.ordem.getItem().add(p);
-	}
-	
-	public void onRowEdit(RowEditEvent<Requisicao> event) {
-		Requisicao novo = new Requisicao();
-
-		for (Requisicao i : this.lista) {
-			if (i.getId() == event.getObject().getId()) {
-				novo = i;
-			}
-		}
-
-		if (event.getObject() != null) {
-			try {
-				this.ordem = novo;
-				editar();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 
 	}
 
-	public void onRowCancel(RowEditEvent<Requisicao> event) {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
+	public void addFornecedor() {
+
 	}
 	
 	public OrdemCompraController() {
-		this.ordem = new Requisicao();
-		this.lista = new ArrayList<Requisicao>();
-		this.selecionado = new Produto();
-		this.selectItens = new ArrayList<RequisicaoItem>();
+		this.ordemCompra = new OrdemCompra();
+		this.ordemSelecionada = new OrdemCompra();
+		this.listaPedidos = new ArrayList<OrdemCompra>();
 		listar();
 	}
-	public Requisicao getOrdem() {
-		return ordem;
-	}
-	public void setOrdem(Requisicao ordem) {
-		this.ordem = ordem;
-	}
-	public List<Requisicao> getLista() {
-		return lista;
-	}
-	public void setLista(List<Requisicao> lista) {
-		this.lista = lista;
+
+	public OrdemCompra getOrdemCompra() {
+		return ordemCompra;
 	}
 
-	public Produto getSelecionado() {
-		return selecionado;
+	public void setOrdemCompra(OrdemCompra ordemCompra) {
+		this.ordemCompra = ordemCompra;
 	}
 
-	public void setSelecionado(Produto selecionado) {
-		this.selecionado = selecionado;
+	public OrdemCompra getOrdemSelecionada() {
+		return ordemSelecionada;
 	}
 
-	public List<RequisicaoItem> getSelectItens() {
-		return selectItens;
+	public void setOrdemSelecionada(OrdemCompra ordemSelecionada) {
+		this.ordemSelecionada = ordemSelecionada;
 	}
 
-	public void setSelectItens(List<RequisicaoItem> selectItens) {
-		this.selectItens = selectItens;
+	public List<OrdemCompra> getListaPedidos() {
+		return listaPedidos;
 	}
 
+	public void setListaPedidos(List<OrdemCompra> listaPedidos) {
+		this.listaPedidos = listaPedidos;
+	}
 
-	
-	
-	
 }
