@@ -1,7 +1,9 @@
 package br.edu.unifacear.model.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -13,31 +15,27 @@ public class Cotacao implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "DATA_EMISSAO")
-	private Date dataEmissao;
-	
-	@Column(name = "PRECO")
-	private double preco;
-	
+	@Column(name = "CODIGO")
+	private long codigo;
+			
 	@ManyToOne
-	private Fornecedor fornecedor;
+	private CotacaoFornecedorPreco cotacaoFornecedor;
 	
-	@ManyToOne
-	private ItemCotacao item;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cotacao")
+	private List<CotacaoItem> cotacaoItem;
 	
 	public Cotacao() {
 		this.id = 0;
-		this.dataEmissao = new Date();
-		this.fornecedor = new Fornecedor();
-		this.item = new ItemCotacao();
+		this.cotacaoFornecedor = new CotacaoFornecedorPreco();
+		this.cotacaoItem = new ArrayList<CotacaoItem>();
 	}
 
-	public Cotacao(int id, Date dataEmissao, Fornecedor fornecedor, ItemCotacao item, double preco) {
+	public Cotacao(int id, long codigo, CotacaoFornecedorPreco cotacaoFornecedor, List<CotacaoItem> cotacaoItem) {
+		super();
 		this.id = id;
-		this.dataEmissao = dataEmissao;
-		this.fornecedor = fornecedor;
-		this.item = item;
-		this.preco = preco;
+		this.codigo = codigo;
+		this.cotacaoFornecedor = cotacaoFornecedor;
+		this.cotacaoItem = cotacaoItem;
 	}
 
 	public int getId() {
@@ -48,47 +46,39 @@ public class Cotacao implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDataEmissao() {
-		return dataEmissao;
+	public long getCodigo() {
+		return codigo;
 	}
 
-	public void setDataEmissao(Date dataEmissao) {
-		this.dataEmissao = dataEmissao;
+	public void setCodigo(long codigo) {
+		this.codigo = codigo;
 	}
 
-	public Fornecedor getFornecedor() {
-		return fornecedor;
+	public CotacaoFornecedorPreco getCotacaoFornecedor() {
+		return cotacaoFornecedor;
 	}
 
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
+	public void setCotacaoFornecedor(CotacaoFornecedorPreco cotacaoFornecedor) {
+		this.cotacaoFornecedor = cotacaoFornecedor;
 	}
 
-	public ItemCotacao getItem() {
-		return item;
+	public List<CotacaoItem> getCotacaoItem() {
+		return cotacaoItem;
 	}
 
-	public void setItem(ItemCotacao item) {
-		this.item = item;
-	}
-	
-	public double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(double preco) {
-		this.preco = preco;
+	public void setCotacaoItem(List<CotacaoItem> cotacaoItem) {
+		this.cotacaoItem = cotacaoItem;
 	}
 
 	@Override
 	public String toString() {
-		return "Cotacao [id=" + id + ", dataEmissao=" + dataEmissao + ", preco=" + preco + ", fornecedor=" + fornecedor
-				+ ", item=" + item + "]";
+		return "Cotacao [id=" + id + ", codigo=" + codigo + ", cotacaoFornecedor=" + cotacaoFornecedor
+				+ ", cotacaoItem=" + cotacaoItem + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dataEmissao, fornecedor, id, item, preco);
+		return Objects.hash(codigo, cotacaoFornecedor, cotacaoItem, id);
 	}
 
 	@Override
@@ -100,10 +90,8 @@ public class Cotacao implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cotacao other = (Cotacao) obj;
-		return Objects.equals(dataEmissao, other.dataEmissao) && Objects.equals(fornecedor, other.fornecedor)
-				&& id == other.id && Objects.equals(item, other.item)
-				&& Double.doubleToLongBits(preco) == Double.doubleToLongBits(other.preco);
+		return codigo == other.codigo && Objects.equals(cotacaoFornecedor, other.cotacaoFornecedor)
+				&& Objects.equals(cotacaoItem, other.cotacaoItem) && id == other.id;
 	}
 
-	
 }

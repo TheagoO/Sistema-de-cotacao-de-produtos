@@ -1,5 +1,6 @@
 package br.edu.unifacear.model.facade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.unifacear.model.bo.*;
@@ -8,7 +9,7 @@ import br.edu.unifacear.model.entity.*;
 public class GestaoFacade {
 
 	private ItemBo itemBo;
-	private FiscalItemBo fiscoItemBo;
+	private FiscalItemBo fiscalItemBo;
 	private AlmoxarifadoBo almoxarifadoBo;
 	private GestorBo gestorBo;
 	private FornecedorBo fornecedorBo;
@@ -17,13 +18,15 @@ public class GestaoFacade {
 	private EnderecoBo enderecoBo;
 	private PedidoCotacaoBo pedidoCotacaoBo;
 	private ItemCotacaoBo itemCotacaoBo;
-	private FornecedorPedidoCotacaoBo fornecedorPedidoCotacaoBo;
+	private CotacaoFornecedorBo cotacaoFornecedorBo;
 	private CotacaoBo cotacaoBo;
 	private OrdemCompraBo ordemCompraBo;
-	private PedidoCompraBo pedidoCompraBo;
+	private OrdemCompraItemBo pedidoCompraItemBo;
+	private NotaFiscalBo notaFiscalBo;
+	private NotafFiscalItemBo notaFiscalItemBo;
 
 	public GestaoFacade() {
-		this.fiscoItemBo = new FiscalItemBo();
+		this.fiscalItemBo = new FiscalItemBo();
 		this.itemBo = new ItemBo();
 		this.almoxarifadoBo = new AlmoxarifadoBo();
 		this.gestorBo = new GestorBo();
@@ -33,25 +36,27 @@ public class GestaoFacade {
 		this.enderecoBo = new EnderecoBo();
 		this.pedidoCotacaoBo = new PedidoCotacaoBo();
 		this.itemCotacaoBo = new ItemCotacaoBo();
-		this.fornecedorPedidoCotacaoBo = new FornecedorPedidoCotacaoBo();
+		this.cotacaoFornecedorBo = new CotacaoFornecedorBo();
 		this.cotacaoBo = new CotacaoBo();
 		this.ordemCompraBo =new OrdemCompraBo();
-		this.pedidoCompraBo = new PedidoCompraBo();
+		this.pedidoCompraItemBo = new OrdemCompraItemBo();
+		this.notaFiscalBo = new NotaFiscalBo();
+		this.notaFiscalItemBo = new NotafFiscalItemBo();
 	}
 
-	public void salvarItem(Item i) throws Exception {
+	public void salvarItem(Produto i) throws Exception {
 		this.itemBo.salvar(i);
 	}
 
-	public List<Item> listarItens() throws Exception {
+	public List<Produto> listarItens() throws Exception {
 		return itemBo.listar("");
 	}
 
-	public String editarItem(Item i) throws Exception {
+	public String editarItem(Produto i) throws Exception {
 		return this.itemBo.alterar(i);
 	}
 
-	public String excluirItem(Item i) throws Exception {
+	public String excluirItem(Produto i) throws Exception {
 		return this.itemBo.deletar(i);
 	}
 
@@ -153,69 +158,25 @@ public class GestaoFacade {
 		return this.enderecoBo.listar("");
 	}
 
-	public String salvarPedidoCotacao(PedidoCotacao p) throws Exception {
-		return this.pedidoCotacaoBo.salvar(p);
+	public String salvarCotacaoFornecedor(CotacaoFornecedorPreco i) throws Exception {
+		return this.cotacaoFornecedorBo.salvar(i);
 	}
 
-	public String editarPedidoCotacao(PedidoCotacao p) throws Exception {
-		return this.pedidoCotacaoBo.alterar(p);
+	public String editarCotacaoFornecedor(CotacaoFornecedorPreco i) throws Exception {
+		return this.cotacaoFornecedorBo.alterar(i);
 	}
 
-	public String excluirPedidoCotacao(PedidoCotacao p) throws Exception {
-		return this.pedidoCotacaoBo.deletar(p);
+	public String excluirCotacaoFornecedor(CotacaoFornecedorPreco i) throws Exception {
+		return this.cotacaoFornecedorBo.deletar(i);
 	}
 
-	public List<PedidoCotacao> listarPedidoCotacao() throws Exception {
-		return this.pedidoCotacaoBo.listar("");
+	public List<CotacaoFornecedorPreco> listarCotacaoFornecedor(int id) throws Exception {				
+		return this.cotacaoFornecedorBo.listar("");
 	}
 
-	public String salvarItemCotacao(ItemCotacao i) throws Exception {
-		return this.itemCotacaoBo.salvar(i);
-	}
-
-	public String editarItemCotacao(ItemCotacao i) throws Exception {
-		return this.itemCotacaoBo.alterar(i);
-	}
-
-	public String excluirItemCotacao(ItemCotacao i) throws Exception {
-		return this.itemCotacaoBo.deletar(i);
-	}
-
-	public List<ItemCotacao> listarItemCotacao() throws Exception {
-		return this.itemCotacaoBo.listar("");
-	}
-
-	public String salvarFornecedorPedidoCotacao(FornecedorPedidoCotacao i) throws Exception {
-		return this.fornecedorPedidoCotacaoBo.salvar(i);
-	}
-
-	public String editarFornecedorPedidoCotacao(FornecedorPedidoCotacao i) throws Exception {
-		return this.fornecedorPedidoCotacaoBo.alterar(i);
-	}
-
-	public String excluirFornecedorPedidoCotacao(FornecedorPedidoCotacao i) throws Exception {
-		return this.fornecedorPedidoCotacaoBo.deletar(i);
-	}
-
-	public List<FornecedorPedidoCotacao> listarFornecedorPedidoCotacao() throws Exception {
-		return this.fornecedorPedidoCotacaoBo.listar("");
-	}
-
-	public String salvarCotacao(Cotacao cotacao, List<ItemCotacao> itens) throws Exception {
-		if (itens != null && cotacao == null) {
-
-			for (ItemCotacao i : itens) {
-				Cotacao c = new Cotacao();
-				c.setItem(i);
-				c.setPreco(i.getValor());
-				c.setFornecedor(new Fornecedor(i.getId(), null, null, null, null, null));
-				this.cotacaoBo.salvar(c);
-			}
-		} else {
-			return this.cotacaoBo.salvar(cotacao);
-		}
-
-		return "";
+	public String salvarCotacao(Cotacao cotacao) throws Exception {
+		
+		return null;
 	}
 
 	public String editarCotacao(Cotacao c) throws Exception {
@@ -231,36 +192,63 @@ public class GestaoFacade {
 	}
 
 
-	public String salvarOrdemCompra(OrdemCompra e) throws Exception {
+	public String salvarOrdemCompra(Requisicao e) throws Exception {
 		return this.ordemCompraBo.salvar(e);
 	}
 	
-	public String editarOrdemCompra(OrdemCompra e) throws Exception {
+	public String editarOrdemCompra(Requisicao e) throws Exception {
 		return this.ordemCompraBo.alterar(e);
 	}
 	
-	public String excluirOrdemCompra(OrdemCompra e) throws Exception {
+	public String excluirOrdemCompra(Requisicao e) throws Exception {
 		return this.ordemCompraBo.deletar(e);
 	}
 	
-	public List<OrdemCompra> listarOrdemCompra(String e) throws Exception {
+	public List<Requisicao> listarOrdemCompra(String e) throws Exception {		
 		return this.ordemCompraBo.listar("");
 	}
 	
-	public String salvarPedidoCompra(PedidoCompra e) throws Exception {
-		return this.pedidoCompraBo.salvar(e);
+	public List<RequisicaoItem> listarOrdemCompraItem(int id) throws Exception {		
+		
+		
+		return null;
 	}
 	
-	public String editarPedidoCompra(PedidoCompra e) throws Exception {
-		return this.pedidoCompraBo.alterar(e);
+	
+	public String salvarPedidoCompra(RequisicaoItem e) throws Exception {
+		return this.pedidoCompraItemBo.salvar(e);
 	}
 	
-	public String excluirPedidoCompra(PedidoCompra e) throws Exception {
-		return this.pedidoCompraBo.deletar(e);
+	public String editarPedidoCompra(RequisicaoItem e) throws Exception {
+		return this.pedidoCompraItemBo.alterar(e);
 	}
 	
-	public List<PedidoCompra> listarPedidoCompra(String e) throws Exception {
-		return this.pedidoCompraBo.listar("");
+	public String excluirPedidoCompra(RequisicaoItem e) throws Exception {
+		return this.pedidoCompraItemBo.deletar(e);
+	}
+	
+	public List<RequisicaoItem> listarPedidoCompra(String e) throws Exception {
+		return this.pedidoCompraItemBo.listar("");
+	}
+	
+	public String salvarNotaFiscal(NotaFiscal e) throws Exception {
+		return this.notaFiscalBo.salvar(e);
+	}
+	
+	public String editarNotaFiscal(NotaFiscal e) throws Exception {
+		return this.notaFiscalBo.alterar(e);
+	}
+	
+	public String excluirNotaFiscal(NotaFiscal e) throws Exception {
+		return this.notaFiscalBo.deletar(e);
+	}
+	
+	public List<NotaFiscal> listarNotaFiscal(String e) throws Exception {
+		return this.notaFiscalBo.listar("");
+	}
+	
+	public String salvarNotaFiscalItem(NotaFiscalItem e) throws Exception {
+		return this.notaFiscalItemBo.salvar(e);
 	}
 	
 }

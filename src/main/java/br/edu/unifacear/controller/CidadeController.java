@@ -10,7 +10,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import br.edu.unifacear.model.entity.Cidade;
-import br.edu.unifacear.model.entity.Item;
+import br.edu.unifacear.model.entity.Produto;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
 @ManagedBean(name = "cidadeBean")

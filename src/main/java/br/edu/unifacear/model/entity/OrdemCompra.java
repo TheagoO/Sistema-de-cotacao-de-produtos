@@ -1,11 +1,19 @@
 package br.edu.unifacear.model.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class OrdemCompra implements Serializable {
@@ -14,31 +22,42 @@ public class OrdemCompra implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "STATUS")
-	private Status status;
+	@Column(name = "DATA_EMISSAO")
+	private LocalDateTime dataEmissao;
 	
-	@OneToMany
-	private List<PedidoCompra> item;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ordem")
+	private List<RequisicaoItem> ordemCompraItem;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cotacao")
+	private List<Cotacao> cotacao;
 	
 	@ManyToOne
 	private Fornecedor fornecedor;
 	
 	@ManyToOne
-	private Gestor solicitante;
+	private Fase fase;
 	
+	@ManyToOne
+	private Gestor solicitante;
+
 	public OrdemCompra() {
 		this.id = 0;
-		this.item = new ArrayList<PedidoCompra>();
+		this.cotacao = new ArrayList<Cotacao>();
+		this.ordemCompraItem = new ArrayList<RequisicaoItem>();
 		this.fornecedor = new Fornecedor();
+		this.fase = new Fase();
 		this.solicitante = new Gestor();
-		this.status = new Status();
 	}
 
-	public OrdemCompra(int id, Status status, List<PedidoCompra> item, Fornecedor fornecedor, Gestor solicitante) {
+	public OrdemCompra(int id, LocalDateTime dataEmissao, List<RequisicaoItem> ordemCompraItem, List<Cotacao> cotacao,
+			Fornecedor fornecedor, Fase fase, Gestor solicitante) {
+		super();
 		this.id = id;
-		this.status = status;
-		this.item = item;
+		this.dataEmissao = dataEmissao;
+		this.ordemCompraItem = ordemCompraItem;
+		this.cotacao = cotacao;
 		this.fornecedor = fornecedor;
+		this.fase = fase;
 		this.solicitante = solicitante;
 	}
 
@@ -49,21 +68,29 @@ public class OrdemCompra implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public Status getStatus() {
-		return status;
+
+	public LocalDateTime getDataEmissao() {
+		return dataEmissao;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setDataEmissao(LocalDateTime dataEmissao) {
+		this.dataEmissao = dataEmissao;
 	}
 
-	public List<PedidoCompra> getItem() {
-		return item;
+	public List<RequisicaoItem> getOrdemCompraItem() {
+		return ordemCompraItem;
 	}
 
-	public void setItem(List<PedidoCompra> item) {
-		this.item = item;
+	public void setOrdemCompraItem(List<RequisicaoItem> ordemCompraItem) {
+		this.ordemCompraItem = ordemCompraItem;
+	}
+
+	public List<Cotacao> getCotacao() {
+		return cotacao;
+	}
+
+	public void setCotacao(List<Cotacao> cotacao) {
+		this.cotacao = cotacao;
 	}
 
 	public Fornecedor getFornecedor() {
@@ -72,6 +99,14 @@ public class OrdemCompra implements Serializable {
 
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
+	}
+
+	public Fase getFase() {
+		return fase;
+	}
+
+	public void setFase(Fase fase) {
+		this.fase = fase;
 	}
 
 	public Gestor getSolicitante() {
@@ -83,8 +118,15 @@ public class OrdemCompra implements Serializable {
 	}
 
 	@Override
+	public String toString() {
+		return "OrdemCompra [id=" + id + ", dataEmissao=" + dataEmissao + ", ordemCompraItem=" + ordemCompraItem
+				+ ", cotacao=" + cotacao + ", fornecedor=" + fornecedor + ", fase=" + fase + ", solicitante="
+				+ solicitante + "]";
+	}
+
+	@Override
 	public int hashCode() {
-		return Objects.hash(fornecedor, id, item, solicitante, status);
+		return Objects.hash(cotacao, dataEmissao, fase, fornecedor, id, ordemCompraItem, solicitante);
 	}
 
 	@Override
@@ -96,9 +138,12 @@ public class OrdemCompra implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		OrdemCompra other = (OrdemCompra) obj;
-		return Objects.equals(fornecedor, other.fornecedor) && id == other.id && Objects.equals(item, other.item)
-				&& Objects.equals(solicitante, other.solicitante) && status == other.status;
+		return Objects.equals(cotacao, other.cotacao) && Objects.equals(dataEmissao, other.dataEmissao)
+				&& Objects.equals(fase, other.fase) && Objects.equals(fornecedor, other.fornecedor) && id == other.id
+				&& Objects.equals(ordemCompraItem, other.ordemCompraItem)
+				&& Objects.equals(solicitante, other.solicitante);
 	}
+
 	
 	
 }

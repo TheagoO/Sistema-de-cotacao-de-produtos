@@ -26,8 +26,11 @@
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
-					<h:link href="index.xhtml" class="a">Saír</h:link>
-					<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
+					<h:form id="form-sair">
+						<p:splitButton icon="pi pi-user" styleClass="ui-button-info">
+							<p:menuitem value="Sair" action="sair" icon="pi pi-times" />
+						</p:splitButton>
+					</h:form>
 				</div>
 			</div>
 		</div>
@@ -137,18 +140,9 @@
 						<div class="card">
 							<p:growl id="message" showDetail="true" />
 
-							<!-- Botão "Cancelar" -->
-							<p:commandButton value="Cancelar" action="Cancelar"
-								update="message" styleClass="ui-button-danger"
-								icon="pi pi-times">
-								<p:confirm header="Atenção"
-									message="Deseja mesmo cancelar esse cadastro?"
-									icon="pi pi-info-circle" />
-							</p:commandButton>
-
 							<!-- Botão "Confirmar" -->
 							<p:commandButton value="Confirmar" action="#{itemBean.salvar}"
-								update="message" styleClass="p-mr-2" icon="pi pi-check">
+								update="message" styleClass="p-mr-2 ui-button-success" icon="pi pi-check">
 								<p:confirm header="Atenção" message="Deseja mesmo continuar?"
 									icon="pi pi-exclamation-triangle" />
 							</p:commandButton>

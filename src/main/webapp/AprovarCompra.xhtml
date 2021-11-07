@@ -32,8 +32,11 @@
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
-					<h:link href="index.xhtml" class="a">Saír</h:link>
-					<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
+					<h:form id="form-sair">
+						<p:splitButton icon="pi pi-user" styleClass="ui-button-info">
+							<p:menuitem value="Sair" action="sair" icon="pi pi-times" />
+						</p:splitButton>
+					</h:form>
 				</div>
 			</div>
 		</div>
@@ -51,20 +54,23 @@
 					<p:tieredMenu style="width:100%; height:100%;">
 						<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
-								action="cadastroFornecedor" />
+								action="Cadastro" />
 							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
 								action="Colaboradores" />
 						</p:submenu>
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
-							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" />
-							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" />
+							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage"
+								action="Cotacao" />
+							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
+								action="Compra" />
+							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square"
+								action="Pedidos" />
 						</p:submenu>
 
 						<p:submenu label="Produtos" icon="pi pi-fw pi-table">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-user-plus"
-								action="CadastroProduto" />
+								action="NovoProduto" />
 							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
 								action="Produtos" />
 						</p:submenu>
@@ -92,42 +98,35 @@
 					<p:panel header="Pedidos de compra">
 
 						<div class="card">
-							<h:form id="pedido">
-								<p:dataTable var="pedido" value="#{PedidoCompraBean.pedidos}"
-									sortBy="#{pedido.almoxarifado.name}">
-									<p:headerRow field="almoxarifado.nome" expandable="true"
-										expanded="#{pedido.almoxarifado.nome}">
+							<h:form id="pedidos">
+								<p:dataTable var="pedido" value="#{ordemCompraBean.lista}"
+									sortBy="#{pedido.solicitante.nome}" style="width: 100%">
 
-										<p:column colspan="6">
+									<p:headerRow field="solicitante.nome" expandable="true"
+										expanded="#{pedido.solicitante.nome == 'null'}">
+
+										<p:column>
 											<div class="p-d-inline-flex p-ai-center"
 												style="vertical-align: middle">
 
 												<h:outputText styleClass="p-ml-2"
-													value="#{pedido.almoxarifado.nome}" />
+													value="#{pedido.solicitante.nome}" />
 											</div>
 										</p:column>
 									</p:headerRow>
 
 									<p:column headerText="Remetente">
-										<h:outputText value="#{pedido.almoxarifado.nome}" />
+										<h:outputText value="#{pedido.solicitante.nome}" />
 									</p:column>
 
-									<p:column headerText="Produto">
-										<h:outputText value="#{pedido.item.nome}" />
-									</p:column>
-
-									<p:column headerText="Quantidade">
-										<h:outputText value="#{pedido.item.quantidade}" />
-									</p:column>
-
-									<p:column headerText="Preço">
-										<h:outputText value="#{pedido.item.valor}">
-											<f:convertNumber type="currency" currencySymbol="$" />
-										</h:outputText>
-									</p:column>
 									
+
+									<p:column headerText="Quantidade de itens">
+										<h:outputText value="#{pedido.item.size()}" />
+									</p:column>
+
 									<p:column headerText="Fornecedor">
-										<h:outputText value="#{pedido.item.quantidade}" />
+										<h:outputText value="#{pedido.fornecedor.nome}" />
 									</p:column>
 
 									<!-- Botões -->
@@ -139,7 +138,7 @@
 													oncomplete="PF('deletePedidoDialog').show()"
 													process="@this">
 													<f:setPropertyActionListener value="#{pedido}"
-														target="#{PedidoCompraBean.pedidodecompra}" />
+														target="#{ordemCompraBean.ordem}" />
 												</p:commandButton>
 												<p:commandButton value="Aprovar"
 													styleClass="ui-button-success"
@@ -147,7 +146,7 @@
 													process="@this">
 
 													<f:setPropertyActionListener value="#{pedido}"
-														target="#{PedidoCompraBean.pedidodecompra}" />
+														target="#{notaItemBean.ordem}" />
 												</p:commandButton>
 											</div>
 										</p:column>
@@ -158,7 +157,7 @@
 									showEffect="fade" width="300" message="Negar este pedido?"
 									header="Confirmar" severity="warn">
 									<p:commandButton value="Sim" icon="pi pi-check"
-										actionListener="#{PedidoCompraBean.excluir}" process="@this"
+										actionListener="#{ordemCompraBean.excluir}" process="@this"
 										oncomplete="PF('deletePedidoDialog').hide()" />
 									<p:commandButton value="Não" type="button"
 										styleClass="ui-button-secondary" icon="pi pi-times"

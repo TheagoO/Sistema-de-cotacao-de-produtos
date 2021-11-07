@@ -226,6 +226,148 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!-- TELA DE APROVAR COTAÇÃO -->
+	<navigation-rule>
+	<from-view-id>/AprovarCotacao.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Cadastro</from-outcome>
+			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Colaboradores</from-outcome>
+			<to-view-id>/Colaboradores.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>Cotacao</from-outcome>
+			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Compra</from-outcome>
+			<to-view-id>/AprovarCompra.xhtml</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>Pedidos</from-outcome>
+			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>NovoProduto</from-outcome>
+			<to-view-id>/CadastroProduto.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Produtos</from-outcome>
+			<to-view-id>/Produtos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- TELA DE APROVAR COMPRA -->
+	<navigation-rule>
+	<from-view-id>/AprovarCompra.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Cadastro</from-outcome>
+			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Colaboradores</from-outcome>
+			<to-view-id>/Colaboradores.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>Cotacao</from-outcome>
+			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Compra</from-outcome>
+			<to-view-id>/AprovarCompra.xhtml</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>Pedidos</from-outcome>
+			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
+		</navigation-case>	
+		
+		<navigation-case>
+			<from-outcome>NovoProduto</from-outcome>
+			<to-view-id>/CadastroProduto.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Produtos</from-outcome>
+			<to-view-id>/Produtos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Aprovado</from-outcome>
+			<to-view-id>/NotaFiscal.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- TELA DO ALMOXARIFADO -->
+	<navigation-rule>
+	<from-view-id>/Almoxarifado.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Estoque</from-outcome>
+			<to-view-id>/Estoque.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Solicitacao</from-outcome>
+			<to-view-id>/SolicitarProduto.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- TELA DA NOTA FISCAL -->
+	<navigation-rule>
+	<from-view-id>/NotaFiscal.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Cadastro</from-outcome>
+			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Colaboradores</from-outcome>
+			<to-view-id>/Colaboradores.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>Cotacao</from-outcome>
+			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Compra</from-outcome>
+			<to-view-id>/AprovarCompra.xhtml</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>Pedidos</from-outcome>
+			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>NovoProduto</from-outcome>
+			<to-view-id>/CadastroProduto.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Produtos</from-outcome>
+			<to-view-id>/Produtos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Lancado</from-outcome>
+			<to-view-id>/AprovarCompra.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>
 
 

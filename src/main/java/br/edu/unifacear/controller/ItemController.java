@@ -10,16 +10,16 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
 
-import br.edu.unifacear.model.entity.Item;
+import br.edu.unifacear.model.entity.Produto;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
 @ManagedBean(name = "itemBean")
 @SessionScoped
 public class ItemController {
 
-	private Item item;
-	private Item selecionado;
-	private List<Item> itens;
+	private Produto item;
+	private Produto selecionado;
+	private List<Produto> itens;
 
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
@@ -27,7 +27,7 @@ public class ItemController {
 
 		try {
 			facade.salvarItem(item);
-			this.item = new Item();
+			this.item = new Produto();
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto salvo!"));
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar produto"));
@@ -41,7 +41,7 @@ public class ItemController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		this.itens.removeAll(itens);
 		try {
-			for (Item i : facade.listarItens()) {
+			for (Produto i : facade.listarItens()) {
 				this.itens.add(i);
 			}
 		} catch (Exception e) {
@@ -62,7 +62,7 @@ public class ItemController {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto editado!"));
 				listar();
 			}
-			this.item = new Item();
+			this.item = new Produto();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar produto"));
 			e.printStackTrace();
@@ -76,17 +76,17 @@ public class ItemController {
 		try {
 			facade.excluirItem(this.selecionado);
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto deletado"));
-			this.selecionado = new Item();
+			this.selecionado = new Produto();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir produto"));
 			e.printStackTrace();
 		}
 	}
 	
-	public void onRowEdit(RowEditEvent<Item> event) {
-		Item novo = new Item();
+	public void onRowEdit(RowEditEvent<Produto> event) {
+		Produto novo = new Produto();
 
-		for (Item i : this.itens) {
+		for (Produto i : this.itens) {
 			if (i.getId() == event.getObject().getId()) {
 				novo = i;
 			}
@@ -103,39 +103,39 @@ public class ItemController {
 
 	}
 
-	public void onRowCancel(RowEditEvent<Item> event) {
+	public void onRowCancel(RowEditEvent<Produto> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
 	}
 
 	public ItemController() {
-		this.item = new Item();
-		this.itens = new ArrayList<Item>();
-		this.selecionado = new Item();
+		this.item = new Produto();
+		this.itens = new ArrayList<Produto>();
+		this.selecionado = new Produto();
 		listar();
 	}
 
-	public Item getItem() {
+	public Produto getItem() {
 		return item;
 	}
 
-	public void setItem(Item item) {
+	public void setItem(Produto item) {
 		this.item = item;
 	}
 
-	public List<Item> getItens() {
+	public List<Produto> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<Item> itens) {
+	public void setItens(List<Produto> itens) {
 		this.itens = itens;
 	}
 
-	public Item getSelecionado() {
+	public Produto getSelecionado() {
 		return selecionado;
 	}
 
-	public void setSelecionado(Item selecionado) {
+	public void setSelecionado(Produto selecionado) {
 		this.selecionado = selecionado;
 	}
 

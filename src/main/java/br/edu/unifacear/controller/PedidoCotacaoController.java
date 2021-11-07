@@ -10,9 +10,13 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.edu.unifacear.model.entity.Almoxarifado;
+import br.edu.unifacear.model.entity.Cotacao;
 import br.edu.unifacear.model.entity.Fornecedor;
-import br.edu.unifacear.model.entity.FornecedorPedidoCotacao;
+import br.edu.unifacear.model.entity.CotacaoFornecedorPreco;
+import br.edu.unifacear.model.entity.Gestor;
 import br.edu.unifacear.model.entity.ItemCotacao;
+import br.edu.unifacear.model.entity.RequisicaoItem;
 import br.edu.unifacear.model.entity.PedidoCotacao;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
@@ -21,20 +25,22 @@ import br.edu.unifacear.model.facade.GestaoFacade;
 public class PedidoCotacaoController {
 
 	private PedidoCotacao pedido;
-	private PedidoCotacao selecionado;
-	private List<PedidoCotacao> lista;
-	private List<ItemCotacao> itens;
-	private List<Fornecedor> fornecedores;
+	private PedidoCotacao pedidoSelecionado;
+	private List<PedidoCotacao> listaPedidos;
+	private List<CotacaoFornecedorPreco> listaCotacao;
+	private CotacaoFornecedorPreco novaCotacao;
 
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
+
 		try {
 			facade.salvarPedidoCotacao(pedido);
 			this.pedido = new PedidoCotacao();
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto salvo!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido salvo!"));
+
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar produto"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar pedido"));
 			e.printStackTrace();
 		}
 
@@ -43,19 +49,13 @@ public class PedidoCotacaoController {
 	public void listar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		this.lista.removeAll(lista);
+		this.listaPedidos.removeAll(listaPedidos);
+
 		try {
-			this.lista = facade.listarPedidoCotacao();
-			List<FornecedorPedidoCotacao> pc = facade.listarFornecedorPedidoCotacao();
-			this.fornecedores.removeAll(fornecedores);
-			for (FornecedorPedidoCotacao f : pc) {
-				this.fornecedores.add(f.getFornecedor());
-			}
-			this.itens.removeAll(itens);
-			this.itens = facade.listarItemCotacao();
-			
+			this.listaPedidos = facade.listarPedidoCotacao();
+
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar produtos"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar pedidos"));
 			e.printStackTrace();
 		}
 	}
@@ -66,17 +66,32 @@ public class PedidoCotacaoController {
 
 		try {
 			String retorno = facade.editarPedidoCotacao(pedido);
-			if (retorno.contains("Dados em branco") || retorno.contains("Cï¿½digo invï¿½lido")) {
+			if (retorno.contains("Dados em branco") || retorno.contains("Código inválido")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			} else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto editado!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido editado!"));
 				listar();
 			}
 			this.pedido = new PedidoCotacao();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar produto"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar pedido"));
 			e.printStackTrace();
 		}
+	}
+
+	public void editarCotacao(int i) {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		
+		try {
+			this.listaCotacao.remove(i);
+			this.listaCotacao.add(i, novaCotacao);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cotacão editada!"));
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar cotação!"));
+			e.printStackTrace();
+		}
+
 	}
 
 	public void excluir() {
@@ -84,47 +99,70 @@ public class PedidoCotacaoController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			facade.excluirPedidoCotacao(this.selecionado);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto deletado"));
-			this.selecionado = new PedidoCotacao();
+			facade.excluirPedidoCotacao(this.pedidoSelecionado);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido deletado"));
+			this.pedidoSelecionado = new PedidoCotacao();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir produto"));
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String lancarCotacao() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		
+
 		try {
-			facade.salvarCotacao(null, itens);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cotaï¿½ï¿½o lanï¿½ada!"));
+			
+			for(CotacaoFornecedorPreco cf : this.listaCotacao) {
+				cf.setId(0);
+				facade.salvarCotacaoFornecedor(cf);
+			}
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cotação lançada!"));
+			excluir();
 			return "SUCESSO";
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao lanï¿½ar cotaï¿½ï¿½o"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao lançar cotação"));
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	public void onRowEdit(RowEditEvent<ItemCotacao> event) {
-		ItemCotacao novo = new ItemCotacao();
+
+	public void listarCotacoes() {
+		GestaoFacade facade = new GestaoFacade();
+
+		try {
+			this.listaCotacao = facade.listarCotacaoFornecedor(this.pedidoSelecionado.getId());
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public void addItem() {
+
+	}
+
+	public void addFornecedor() {
+
+	}
+
+	public void onRowEdit(RowEditEvent<CotacaoFornecedorPreco> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		
-		for (ItemCotacao i : this.itens) {
-			if (i.getId() == event.getObject().getId()) {
-				novo = i;
-				this.itens.remove(i);
+		int i=0;
+		for (CotacaoFornecedorPreco cf : listaCotacao) {
+			if (cf.getId() == event.getObject().getId()) {
+				this.novaCotacao = cf;
+				
 				break;
 			}
+			i++;
 		}
 
 		if (event.getObject() != null) {
 			try {
-				
-				this.itens.add(novo);
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Valor alterado!"));
+				editarCotacao(i);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -134,15 +172,15 @@ public class PedidoCotacaoController {
 
 	public void onRowCancel(RowEditEvent<PedidoCotacao> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Ediï¿½ï¿½o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
 	}
 
 	public PedidoCotacaoController() {
 		this.pedido = new PedidoCotacao();
-		this.selecionado = new PedidoCotacao();
-		this.lista = new ArrayList<PedidoCotacao>();
-		this.itens = new ArrayList<ItemCotacao>();
-		this.fornecedores = new ArrayList<Fornecedor>();
+		this.pedidoSelecionado = new PedidoCotacao();
+		this.listaPedidos = new ArrayList<PedidoCotacao>();
+		this.listaCotacao = new ArrayList<CotacaoFornecedorPreco>();
+		this.novaCotacao = new CotacaoFornecedorPreco();
 		listar();
 	}
 
@@ -154,36 +192,36 @@ public class PedidoCotacaoController {
 		this.pedido = pedido;
 	}
 
-	public PedidoCotacao getSelecionado() {
-		return selecionado;
+	public PedidoCotacao getPedidoSelecionado() {
+		return pedidoSelecionado;
 	}
 
-	public void setSelecionado(PedidoCotacao selecionado) {
-		this.selecionado = selecionado;
+	public void setPedidoSelecionado(PedidoCotacao pedidoSelecionado) {
+		this.pedidoSelecionado = pedidoSelecionado;
 	}
 
-	public List<PedidoCotacao> getLista() {
-		return lista;
+	public List<PedidoCotacao> getListaPedidos() {
+		return listaPedidos;
 	}
 
-	public void setLista(List<PedidoCotacao> lista) {
-		this.lista = lista;
+	public void setListaPedidos(List<PedidoCotacao> listaPedidos) {
+		this.listaPedidos = listaPedidos;
 	}
 
-	public List<ItemCotacao> getItens() {
-		return itens;
+	public List<CotacaoFornecedorPreco> getListaCotacao() {
+		return listaCotacao;
 	}
 
-	public void setItens(List<ItemCotacao> itens) {
-		this.itens = itens;
+	public void setListaCotacao(List<CotacaoFornecedorPreco> listaCotacao) {
+		this.listaCotacao = listaCotacao;
 	}
 
-	public List<Fornecedor> getFornecedores() {
-		return fornecedores;
+	public CotacaoFornecedorPreco getNovaCotacao() {
+		return novaCotacao;
 	}
 
-	public void setFornecedores(List<Fornecedor> fornecedores) {
-		this.fornecedores = fornecedores;
+	public void setNovaCotacao(CotacaoFornecedorPreco novaCotacao) {
+		this.novaCotacao = novaCotacao;
 	}
-	
+
 }

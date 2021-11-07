@@ -25,14 +25,14 @@ public class NotaFiscalItem implements Serializable {
 	private double total;
 	
 	@ManyToOne
-	private Item item;
+	private Produto item;
 
 	public NotaFiscalItem() {
 		this.id = 0;
-		this.item = new Item();
+		this.item = new Produto();
 	}
 	
-	public NotaFiscalItem(int id, int codigo, float quantidade, double valorUnitario, double total, Item item) {
+	public NotaFiscalItem(int id, int codigo, float quantidade, double valorUnitario, double total, Produto item) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
@@ -82,11 +82,11 @@ public class NotaFiscalItem implements Serializable {
 		this.total = total;
 	}
 
-	public Item getItem() {
+	public Produto getItem() {
 		return item;
 	}
 
-	public void setItem(Item item) {
+	public void setItem(Produto item) {
 		this.item = item;
 	}
 

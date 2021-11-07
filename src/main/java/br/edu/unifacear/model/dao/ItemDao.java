@@ -19,7 +19,7 @@ public class ItemDao {
 
 	EntityManager em = Connect.connection();
 
-	public String salvar(Item item) throws Exception {
+	public String salvar(Produto item) throws Exception {
 		String retorno;
 		// Gravar o Item no BD
 
@@ -38,7 +38,7 @@ public class ItemDao {
 		return retorno;
 	} // salvar
 
-	public String alterar(Item item) throws Exception {
+	public String alterar(Produto item) throws Exception {
 		String retorno;
 		// Gravar o Item no BD
 		try {
@@ -55,12 +55,12 @@ public class ItemDao {
 		return retorno;
 	} // alterar
 
-	public String deletar(Item item) throws Exception {
+	public String deletar(Produto item) throws Exception {
 		String retorno;
 		// Gravar o Item no BD
 		try {
 
-			Item e = em.find(Item.class, item.getId());
+			Produto e = em.find(Produto.class, item.getId());
 			em.getTransaction().begin();
 			em.remove(e);
 			em.getTransaction().commit();
@@ -72,7 +72,7 @@ public class ItemDao {
 		return retorno;
 	} // deletar
 
-	public List<Item> listar(String paramNome) throws Exception {
+	public List<Produto> listar(String paramNome) throws Exception {
 
 		String cWhere = "";
 		Query q = null;
@@ -87,7 +87,7 @@ public class ItemDao {
 		return q.getResultList();
 	} // listar
 
-	public Item getObjectByName(String nome) {
-		return em.find(Item.class, nome);
+	public Produto getObjectByName(String nome) {
+		return em.find(Produto.class, nome);
 	}
 } // final da classe ItemDao

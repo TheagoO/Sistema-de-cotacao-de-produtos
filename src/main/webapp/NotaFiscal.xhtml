@@ -17,7 +17,7 @@
 
 	<header>
 		<div class="d-logo">
-			<img src="imagens/logo.png" alt="Logo.png" style="width: 220px;"/>
+			<img src="imagens/logo.png" alt="Logo.png" style="width: 220px;" />
 			<div class="d-logo-center">
 				<h1>Administrador</h1>
 			</div>
@@ -26,8 +26,11 @@
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
-					<h:link href="index.xhtml" class="a">Saír</h:link>
-					<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
+					<h:form id="form-sair">
+						<p:splitButton icon="pi pi-user" styleClass="ui-button-info">
+							<p:menuitem value="Sair" action="sair" icon="pi pi-times" />
+						</p:splitButton>
+					</h:form>
 				</div>
 			</div>
 		</div>
@@ -41,19 +44,23 @@
 					<p:tieredMenu style="width:100%; height:100%;">
 						<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
-								action="cadastroFornecedor" />
-							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog" action="Colaboradores" />
+								action="Cadastro" />
+							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
+								action="Colaboradores" />
 						</p:submenu>
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
-							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage"/>
-							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" />
+							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage"
+								action="Cotacao" />
+							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
+								action="Compra" />
+							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square"
+								action="Pedidos" />
 						</p:submenu>
 
 						<p:submenu label="Produtos" icon="pi pi-fw pi-table">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-user-plus"
-								action="CadastroProduto" />
+								action="NovoProduto" />
 							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-cog"
 								action="Produtos" />
 						</p:submenu>
@@ -64,36 +71,103 @@
 			</p:panel>
 
 		</div>
-	     
+
 		<div class="content-area">
 
 			<p:panel header="Nota Fiscal">
 				<h:form id="NotaFiscal">
 					<p:messages />
-					
-					<p:dataTable>
-					
-					<p:column headerText="Produto">#{p.Nome}</p:column>
-					<p:column headerText="Item">#{p.Item}</p:column>
-					<p:column headerText="Codigo">#{p.Codigo}</p:column>
-					<p:column headerText="Quantidade">#{p.Quantidade}</p:column>
-					<p:column headerText="Fornecedor">#{p.Fornecedor}</p:column>
-					
-					
+
+					<div class="search-area">
+						<div></div>
+						<p:commandButton update="nf" action="#{notaItemBean.listar}"
+							value="Atualizar" process="@parent" icon="pi pi-refresh" />
+
+					</div>
+
+					<p:dataTable id="nf" var="item" value="#{ordemCompraBean.ordem}"
+						sortBy="#{item.fornecedor.nome}" style="width: 100%">
+
+						<p:headerRow field="fornecedor.nome" expandable="true"
+							expanded="#{item.fornecedor.nome == 'null'}">
+
+							<p:column>
+								<div class="p-d-inline-flex p-ai-center"
+									style="vertical-align: middle">
+
+									<h:outputText styleClass="p-ml-2"
+										value="#{item.fornecedor.nome}" />
+								</div>
+							</p:column>
+						</p:headerRow>
+
+
+						<p:column headerText="Código Nf.">
+							<h:outputText value="#{notaFiscalBean.notaFiscal.codigo}" />
+						</p:column>
+
+						<p:column headerText="Data Emissão">
+							<h:outputText value="#{notaFiscalBean.notaFiscal.dataEmissao}" />
+						</p:column>
+
+						<p:column headerText="Item">
+							<h:outputText value="#{notaFiscalItemBean.notaFiscal.item.item}" />
+						</p:column>
+
+						<p:column headerText="Marca">
+							<h:outputText value="#{notaFiscalItemBean.notaFiscal.item.item}" />
+						</p:column>
+
+						<p:column headerText="Código Item">
+							<h:outputText value="#{notaFiscalItemBean.notaFiscal.item.item}" />
+						</p:column>
+
+						<p:column headerText="Quantidade">
+							<h:outputText
+								value="#{notaFiscalItemBean.notaFiscal.item.quantidade}" />
+						</p:column>
+
+						<p:column headerText="Valor uni.">
+							<h:outputText
+								value="#{notaFiscalItemBean.notaFiscal.item.valorUnitario}" />
+						</p:column>
+
+						<p:column headerText="Valor total">
+							<h:outputText value="#{notaFiscalItemBean.notaFiscal.item.total}" />
+						</p:column>
+
+						<!-- Botões -->
+						<p:summaryRow>
+							<p:column>
+								<div class="search-area" style="width: 200px; margin-left: 0px;">
+									<p:commandButton value="Negar" styleClass="ui-button-danger"
+										oncomplete="PF('deletePedidoDialog').show()" process="@this">
+										<f:setPropertyActionListener value="#{pedido}"
+											target="#{ordemCompraBean.ordem}" />
+									</p:commandButton>
+									<p:commandButton value="Aprovar" styleClass="ui-button-success"
+										oncomplete="PF('confirmPedidoDialog').show()" process="@this">
+
+										<f:setPropertyActionListener value="#{pedido}"
+											target="#{ordemCompraBean.ordem}" />
+									</p:commandButton>
+								</div>
+							</p:column>
+						</p:summaryRow>
 					</p:dataTable>
-					
+
 					<div class="btns-area">
 
 						<div class="card">
 
 							<p:growl id="message" showDetail="true" />
 
-						
 
-							<p:commandButton value="Finalizar"
-								action="#{confirmView.confirm}" update="message"
-								styleClass="p-mr-2" icon="pi pi-check">
-								<p:confirm header="Atenção" message="Deseja dar baixa nessa nota fiscal?"
+
+							<p:commandButton value="Finalizar" action="Lancado"
+								update="message" styleClass="p-mr-2" icon="pi pi-check">
+								<p:confirm header="Atenção"
+									message="Deseja dar baixa nessa nota fiscal?"
 									icon="pi pi-exclamation-triangle" />
 							</p:commandButton>
 

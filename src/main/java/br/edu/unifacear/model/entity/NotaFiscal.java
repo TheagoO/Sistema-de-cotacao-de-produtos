@@ -1,6 +1,7 @@
 package br.edu.unifacear.model.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,22 +24,24 @@ public class NotaFiscal implements Serializable {
 	@ManyToOne
 	private Fornecedor fornecedor;
 	
+	@Column(name = "DATA_EMISSAO")
+	private LocalDateTime dataEmissao;
+	
 	public NotaFiscal() {
 		this.id = 0;
 		this.item = new ArrayList<NotaFiscalItem>();
 		this.fornecedor = new Fornecedor();
+		this.dataEmissao = LocalDateTime.now();
 	}
-	
 
-	public NotaFiscal(int id, int codigo, List<NotaFiscalItem> item, Fornecedor fornecedor) {
+	public NotaFiscal(int id, int codigo, List<NotaFiscalItem> item, Fornecedor fornecedor, LocalDateTime dataEmissao) {
 		super();
-		this.item = item;
 		this.id = id;
 		this.codigo = codigo;
 		this.item = item;
 		this.fornecedor = fornecedor;
+		this.dataEmissao = dataEmissao;
 	}
-
 
 	public int getId() {
 		return id;
@@ -56,17 +59,13 @@ public class NotaFiscal implements Serializable {
 		this.codigo = codigo;
 	}
 
-	
-
-	public NotaFiscalItem getItem(int i) {
-		return item.get(i);
+	public List<NotaFiscalItem> getItem() {
+		return item;
 	}
 
-
-	public void setItem(NotaFiscalItem item) {
-		this.item.add(item);
+	public void setItem(List<NotaFiscalItem> item) {
+		this.item = item;
 	}
-
 
 	public Fornecedor getFornecedor() {
 		return fornecedor;
@@ -76,18 +75,24 @@ public class NotaFiscal implements Serializable {
 		this.fornecedor = fornecedor;
 	}
 
+	public LocalDateTime getDataEmissao() {
+		return dataEmissao;
+	}
+
+	public void setDataEmissao(LocalDateTime dataEmissao) {
+		this.dataEmissao = dataEmissao;
+	}
 
 	@Override
 	public String toString() {
-		return "NotaFiscal [id=" + id + ", codigo=" + codigo + ", item=" + item + ", fornecedor=" + fornecedor + "]";
+		return "NotaFiscal [id=" + id + ", codigo=" + codigo + ", item=" + item + ", fornecedor=" + fornecedor
+				+ ", dataEmissao=" + dataEmissao + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo, fornecedor, id, item);
+		return Objects.hash(codigo, dataEmissao, fornecedor, id, item);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -98,10 +103,9 @@ public class NotaFiscal implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		NotaFiscal other = (NotaFiscal) obj;
-		return codigo == other.codigo && Objects.equals(fornecedor, other.fornecedor) && id == other.id
-				&& Objects.equals(item, other.item);
+		return codigo == other.codigo && Objects.equals(dataEmissao, other.dataEmissao)
+				&& Objects.equals(fornecedor, other.fornecedor) && id == other.id && Objects.equals(item, other.item);
 	}
-	
-	
+
 	
 }

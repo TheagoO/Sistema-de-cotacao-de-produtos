@@ -32,8 +32,11 @@
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
-					<h:link href="index.xhtml" class="a">Saír</h:link>
-					<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
+					<h:form id="form-sair">
+						<p:splitButton icon="pi pi-user" styleClass="ui-button-info">
+							<p:menuitem value="Sair" action="sair" icon="pi pi-times" />
+						</p:splitButton>
+					</h:form>
 				</div>
 			</div>
 		</div>
@@ -87,13 +90,21 @@
 			<h:form id="form">
 				<div class="card">
 
-					<!-- Listagem dos produtos -->
-
 					<p:growl id="msgs" showDetail="true" />
 
 					<p:panel header="Lançar cotação">
-						<p:dataTable id="cotacao" var="item" editable="true"
-							value="#{pedidoCotacaoBean.pedido}" scrollable="true"
+
+						<div class="search-area">
+							<div></div>
+
+							<p:commandButton update="cotacaoItens"
+								action="#{pedidoCotacaoBean.listarCotacoes}" value="Atualizar"
+								process="@parent" icon="pi pi-refresh" />
+						</div>
+						<br />
+						<!-- Listagem dos produtos -->
+						<p:dataTable id="cotacaoItens" var="cotacao" editable="true"
+							value="#{pedidoCotacaoBean.listaCotacao}" scrollable="true"
 							scrollHeight="300px;">
 
 							<p:ajax event="rowEdit" listener="#{pedidoCotacaoBean.onRowEdit}"
@@ -102,27 +113,29 @@
 								listener="#{pedidoCotacaoBean.onRowCancel}" update=":form:msgs" />
 
 							<!-- Cabeçalho das colunas -->
+							<p:column headerText="Código">
+								<h:outputText
+									value="#{pedidoCotacaoBean.pedidoSelecionado.codigo}" />
+							</p:column>
 
 							<p:column headerText="Fornecedor">
-								<h:outputText value="#{item.fornecedor}" />
+								<h:outputText value="#{cotacao.fornecedor.nome}" />
 							</p:column>
 
 							<p:column headerText="Item">
-
-								<h:outputText value="#{item.item}" />
-
+								<h:outputText value="#{cotacao.cotacao.item.nome}" />
 							</p:column>
 
 							<p:column headerText="Preço">
 								<p:cellEditor>
 									<f:facet name="output">
-										<h:outputText value="#{cotacaoBean.cotacao.preco}">
+										<h:outputText value="#{cotacao.preco}">
 											<f:convertNumber type="currency" currencySymbol="$" />
 										</h:outputText>
 									</f:facet>
 									<f:facet name="input">
-										<p:inputNumber value="#{cotacaoBean.cotacao.preco}"
-											style="width:100%" label="Price" symbol="$" required="true" />
+										<p:inputNumber value="#{cotacao.preco}" style="width:100%"
+											label="Price" symbol="$" />
 									</f:facet>
 								</p:cellEditor>
 							</p:column>

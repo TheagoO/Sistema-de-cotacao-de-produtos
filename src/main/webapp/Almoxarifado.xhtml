@@ -26,8 +26,11 @@
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
-					<h:link href="index.xhtml" class="a">Saír</h:link>
-					<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
+					<h:form id="form-sair">
+						<p:splitButton icon="pi pi-user" styleClass="ui-button-info">
+							<p:menuitem value="Sair" action="sair" icon="pi pi-times" />
+						</p:splitButton>
+					</h:form>
 				</div>
 			</div>
 		</div>
@@ -65,7 +68,7 @@
 				<h:form id="form-itens">
 
 					<div>
-						<p:selectOneMenu id="item" value="#{pedidoCompraBean.selecionado}"
+						<p:selectOneMenu id="item" value="#{pedidoCompraBean}"
 							filter="true">
 							<f:selectItem
 								itemLabel="Selecione o produto para adicionar a solicitação de compra" />

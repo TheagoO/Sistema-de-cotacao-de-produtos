@@ -32,8 +32,11 @@
 		<div class="d-user">
 			<div class="user-r-md">
 				<div class="mid">
-					<h:link action="sair" class="a">Saír</h:link>
-					<p:avatar icon="pi pi-user" styleClass="p-mr-2" size="large" />
+					<h:form id="form-sair">
+						<p:splitButton icon="pi pi-user" styleClass="ui-button-info">
+							<p:menuitem value="Sair" action="sair" icon="pi pi-times" />
+						</p:splitButton>
+					</h:form>
 				</div>
 			</div>
 		</div>
@@ -154,20 +157,6 @@
 									<f:facet name="input">
 										<p:inputText value="#{produto.fiscalItem.origem.origem}"
 											style="width:100%" required="true" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-							<p:column headerText="Preço">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{produto.valor}">
-											<f:convertNumber type="currency" currencySymbol="$" />
-										</h:outputText>
-									</f:facet>
-									<f:facet name="input">
-										<p:inputNumber value="#{produto.valor}" style="width:100%"
-											label="Price" symbol="$" required="true" />
 									</f:facet>
 								</p:cellEditor>
 							</p:column>
