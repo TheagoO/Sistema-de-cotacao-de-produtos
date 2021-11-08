@@ -40,7 +40,7 @@ public class EstadoController {
 		this.lista.removeAll(lista);
 		
 		try {
-			for (Estado e : facade.listarEstado()) {
+			for (Estado e : facade.listarEstado("")) {
 				this.lista.add(e);
 			}
 		} catch (Exception e) {

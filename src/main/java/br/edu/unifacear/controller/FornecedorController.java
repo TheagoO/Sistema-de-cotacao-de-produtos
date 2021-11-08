@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.edu.unifacear.model.entity.Endereco;
 import br.edu.unifacear.model.entity.Fornecedor;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
@@ -20,19 +21,35 @@ public class FornecedorController {
 	private Fornecedor fornecedor;
 	private Fornecedor selecionado;
 	private List<Fornecedor> lista;
+	private Endereco endereco;
 
 	public String salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
 				
 		try {	
-
-			String retorno = facade.salvarFornecedor(fornecedor);
-			if (retorno.contains("CNPJ já cadastrado")) {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "CNPJ já cadastrado!"));
-			} else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador salvo!"));
+			
+			try {
+				facade.salvarEndereco(endereco);
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Endereço salvo!"));
+			} catch (Exception e) {
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar endereço!"));
+				e.printStackTrace();
 			}
+			
+			if(!facade.listarEndereco(this.endereco.getLogradouro()).isEmpty()) {
+				this.endereco = (Endereco) facade.listarEndereco(this.endereco.getLogradouro());
+				this.fornecedor.getEndereco().setId(endereco.getId());
+				
+				String retorno = facade.salvarFornecedor(fornecedor);
+				if (retorno.contains("CNPJ já cadastrado")) {
+					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "CNPJ já cadastrado!"));
+				} else {
+					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador salvo!"));
+				}
+			}
+			
+			this.endereco = new Endereco();
 			this.fornecedor = new Fornecedor();
 
 		} catch (Exception e) {
@@ -48,7 +65,7 @@ public class FornecedorController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		this.lista.removeAll(lista);
 		try {
-			this.lista = facade.listarFornecedor();
+			this.lista = facade.listarFornecedor("");
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar colaboradores"));
 			e.printStackTrace();
@@ -119,6 +136,7 @@ public class FornecedorController {
 		this.fornecedor = new Fornecedor();
 		this.lista = new ArrayList<Fornecedor>();
 		this.selecionado = new Fornecedor();
+		this.endereco = new Endereco();
 		listar();
 	}
 
@@ -145,5 +163,14 @@ public class FornecedorController {
 	public void setSelecionado(Fornecedor selecionado) {
 		this.selecionado = selecionado;
 	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+	
 
 }

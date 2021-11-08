@@ -42,7 +42,7 @@ public class Origem implements Serializable {
 
 	@Override
 	public String toString() {
-		return id +"-"+origem;
+		return origem;
 	}
 
 	@Override

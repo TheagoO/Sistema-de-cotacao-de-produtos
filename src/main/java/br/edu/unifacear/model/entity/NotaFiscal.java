@@ -18,7 +18,7 @@ public class NotaFiscal implements Serializable {
 	@Column(name = "CODIGO")
 	private int codigo;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<NotaFiscalItem> item;
 	
 	@ManyToOne

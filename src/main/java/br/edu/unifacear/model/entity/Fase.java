@@ -7,16 +7,17 @@ import javax.persistence.*;
 
 @Entity
 public class Fase implements Serializable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "STATUS")
 	private int status;
-	
+
 	public Fase() {
 		this.id = 0;
+		this.status = 0;
 	}
 
 	public Fase(int id, int status) {
@@ -39,10 +40,21 @@ public class Fase implements Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Status [id=" + id + ", status=" + status + "]";
+		switch (this.status) {
+		case 1:
+			return "Pendente";
+		case 2:
+			return "Aguardando aprovação";
+		case 3:
+			return "Aprovado";
+		case 4:
+			return "Finalizado";
+		default:
+			return "Negado";
+		}
 	}
 
 	@Override

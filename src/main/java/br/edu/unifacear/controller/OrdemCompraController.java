@@ -25,12 +25,11 @@ public class OrdemCompraController {
 
 	private OrdemCompra ordemCompra;
 	private OrdemCompra ordemSelecionada;
-	private List<OrdemCompra> listaPedidos;
+	private List<OrdemCompra> lista;
 
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-
 		try {
 			facade.salvarOrdemCompra(ordemCompra);
 			this.ordemCompra = new OrdemCompra();
@@ -46,10 +45,10 @@ public class OrdemCompraController {
 	public void listar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		this.listaPedidos.removeAll(listaPedidos);
+		this.lista.removeAll(lista);
 
 		try {
-			this.listaPedidos = facade.listarOrdemCompra();
+			this.lista = facade.listarOrdemCompra("");
 
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar ordemCompras"));
@@ -76,20 +75,6 @@ public class OrdemCompraController {
 		}
 	}
 
-	public void editarCotacao(int i) {
-		GestaoFacade facade = new GestaoFacade();
-		FacesContext fc = FacesContext.getCurrentInstance();
-		
-		try {
-			this.listaCotacao.remove(i);
-			this.listaCotacao.add(i, novaCotacao);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cotacão editada!"));
-		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar cotação!"));
-			e.printStackTrace();
-		}
-
-	}
 
 	public void excluir() {
 		GestaoFacade facade = new GestaoFacade();
@@ -104,19 +89,26 @@ public class OrdemCompraController {
 			e.printStackTrace();
 		}
 	}
+	
+	public void negar() {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
 
-	public void addItem() {
-
-	}
-
-	public void addFornecedor() {
-
+		try {
+			this.ordemSelecionada.getFase().setStatus(0);
+			facade.salvarOrdemCompra(ordemSelecionada);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de compra negada!"));
+			this.ordemSelecionada = new OrdemCompra();
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao negar ordem de compra"));
+			e.printStackTrace();
+		}
 	}
 	
 	public OrdemCompraController() {
 		this.ordemCompra = new OrdemCompra();
 		this.ordemSelecionada = new OrdemCompra();
-		this.listaPedidos = new ArrayList<OrdemCompra>();
+		this.lista = new ArrayList<OrdemCompra>();
 		listar();
 	}
 
@@ -136,12 +128,12 @@ public class OrdemCompraController {
 		this.ordemSelecionada = ordemSelecionada;
 	}
 
-	public List<OrdemCompra> getListaPedidos() {
-		return listaPedidos;
+	public List<OrdemCompra> getLista() {
+		return lista;
 	}
 
-	public void setListaPedidos(List<OrdemCompra> listaPedidos) {
-		this.listaPedidos = listaPedidos;
+	public void setLista(List<OrdemCompra> lista) {
+		this.lista = lista;
 	}
 
 }

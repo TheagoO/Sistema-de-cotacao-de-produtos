@@ -37,6 +37,7 @@ public class NotaFiscalController {
 
 	}
 	
+	
 	public NotaFiscalController() {
 		this.notaFiscal = new NotaFiscal();
 		this.notas = new ArrayList<NotaFiscal>();

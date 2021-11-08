@@ -53,9 +53,12 @@
 						</p:submenu>
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
-							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" action="Cotacao" />
-							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" action="Compra" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" action="Pedidos" />
+							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage"
+								action="Cotacao" />
+							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
+								action="Compra" />
+							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square"
+								action="Pedidos" />
 						</p:submenu>
 
 						<p:submenu label="Produtos" icon="pi pi-fw pi-table">
@@ -83,19 +86,19 @@
 
 						<!-- Input "Nome" -->
 						<span class="ui-float-label"> <p:inputText id="nome"
-								value="#{itemBean.item.nome}" required="true" /> <p:outputLabel
+								value="#{produtoBean.produto.nome}" required="true" /> <p:outputLabel
 								for="@previous" value="Nome" />
 						</span> <br />
 
 						<!-- Input "Marca" -->
 						<span class="ui-float-label"> <p:inputText id="marca"
-								value="#{itemBean.item.marca}" required="true" /> <p:outputLabel
+								value="#{produtoBean.produto.marca}" required="true" /> <p:outputLabel
 								for="@previous" value="Marca" />
 						</span> <br />
 
 						<!-- Input "Código" -->
 						<span class="ui-float-label"> <p:inputText id="codigo"
-								value="#{itemBean.item.codigo}" maxlength="13">
+								value="#{produtoBean.produto.codigo}" maxlength="13">
 								<p:keyFilter mask="num" />
 							</p:inputText> <p:outputLabel for="@previous" value="Código" />
 						</span> <br />
@@ -104,11 +107,12 @@
 						<div class="p-field p-col-12 p-md-4">
 							<p:outputLabel for="@next" value="NCM:" />
 
-							<p:selectOneMenu id="ncm" value="#{itemBean.item.fiscalItem.id}"
+							<p:selectOneMenu id="ncm"
+								value="#{produtoBean.produto.fiscalItem.id}"
 								panelStyle="width:180px" effect="fade" var="fi" filter="true"
 								filterMatchMode="startsWith">
 								<f:selectItem itemLabel="Selecione" />
-								<f:selectItems value="#{fiscalItemBean.ncm}" var="fisco"
+								<f:selectItems value="#{fiscalItemBean.lista}" var="fisco"
 									itemValue="#{fisco.id}" />
 
 								<p:column style="width:10%">
@@ -127,9 +131,9 @@
 						<!-- Select option "Origem" -->
 						<p:outputLabel for="@previous" value="Origem:" />
 						<span class="ui-float-label"> <p:selectOneMenu id="origem"
-								value="#{itemBean.item.fiscalItem.origem.id}">
+								value="#{produtoBean.produto.fiscalItem.origem.id}">
 								<f:selectItem itemLabel="Selecione" />
-								<f:selectItems value="#{origemBean.origens}" var="p"
+								<f:selectItems value="#{origemBean.lista}" var="p"
 									itemValue="#{p.id}" />
 							</p:selectOneMenu>
 						</span> <br />
@@ -141,8 +145,9 @@
 							<p:growl id="message" showDetail="true" />
 
 							<!-- Botão "Confirmar" -->
-							<p:commandButton value="Confirmar" action="#{itemBean.salvar}"
-								update="message" styleClass="p-mr-2 ui-button-success" icon="pi pi-check">
+							<p:commandButton value="Confirmar" action="#{produtoBean.salvar}"
+								update="message" styleClass="p-mr-2 ui-button-success"
+								icon="pi pi-check">
 								<p:confirm header="Atenção" message="Deseja mesmo continuar?"
 									icon="pi pi-exclamation-triangle" />
 							</p:commandButton>

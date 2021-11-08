@@ -17,7 +17,7 @@ public class Requisicao implements Serializable {
 	@Column(name = "STATUS")
 	private Fase fase;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "requisicao")
+	@OneToMany
 	private List<RequisicaoItem> item;
 		
 	@ManyToOne

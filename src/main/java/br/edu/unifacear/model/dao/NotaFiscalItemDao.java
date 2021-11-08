@@ -72,18 +72,18 @@ public class NotaFiscalItemDao {
 	} // deletar
 
 	
-	public List<NotaFiscalItem> listar(String paramNome) throws Exception{		
+	public List<NotaFiscalItem> listar(long paramNome) throws Exception{		
 
 		String cWhere = "";
 		Query q = null;
 
-		if(paramNome.equals("")) {
+		if(paramNome==0) {
 			q = em.createQuery("select g from NotaFiscalItem g");
 		}
 		else {
 			q = em.createQuery("select g from NotaFiscalItem g"
-					+" where nome like :nome");
-			q.setParameter("nome", "%"+paramNome+"%");
+					+" where codigo like :codigo");
+			q.setParameter("codigo", "%"+paramNome+"%");
 		}
 		
 		return q.getResultList();		

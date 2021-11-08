@@ -43,7 +43,6 @@
 	</header>
 
 	<section>
-		<p:growl id="messages" showDetail="true" />
 
 		<!-- Container do menu esquerdo -->
 		<div class="menu-area">
@@ -86,62 +85,84 @@
 		<!-- Container do conteúdo da página  -->
 		<div class="content-area">
 
-			<!-- Conteúdo -->
-			<h:form id="form">
-				<div class="card">
+			<p:panel header="Produtos">
 
-					<p:growl id="msgs" showDetail="true" />
+				<h:form id="form">
+					<div class="card">
+						<div class="cls_right">
 
-					<p:panel header="Lançar cotação">
+							<!-- Área de pesquisa e novo produto -->
 
-						<div class="search-area">
-							<div></div>
+							<div class="search-area">
 
-							<p:commandButton update="cotacaoItens"
-								action="#{cotacaoBean.lista}" value="Atualizar"
-								process="@parent" icon="pi pi-refresh" />
+								<p:commandButton update="produtos"
+									action="#{produtoBean.listar}" value="Atualizar"
+									process="@parent" icon="pi pi-refresh" />
+
+								<p:commandButton value="Novo" styleClass="ui-button-success"
+									action="NovoProduto" />
+							</div>
+
 						</div>
-						<br />
+
 						<!-- Listagem dos produtos -->
-						<p:dataTable id="cotacaoItens" var="cotacao" editable="true"
-							value="#{cotacaoBean.lista}" scrollable="true"
-							scrollHeight="300px;">
 
-							<p:ajax event="rowEdit" listener="#{cotacaoBean.onRowEdit}"
+						<p:growl id="msgs" showDetail="true" />
+
+						<p:dataTable id="pedidos" var="pedido"
+							value="#{ordemCompraBean}" editable="true"
+							style="margin-bottom:20px; margin-top:20px;" scrollable="true"
+							scrollHeight="100%">
+
+							<p:ajax event="rowEdit" listener="#{produtoBean.onRowEdit}"
 								update=":form:msgs" />
-							<p:ajax event="rowEditCancel"
-								listener="#{cotacaoBean.onRowCancel}" update=":form:msgs" />
+							<p:ajax event="rowEditCancel" listener="#{produtoBean.onRowCancel}"
+								update=":form:msgs" />
 
-							<!-- Cabeçalho das colunas -->
 							<p:column headerText="Código">
-								<h:outputText value="#{cotacao.codigo}" />
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{produto.codigo}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText id="modelInput" value="#{produto.codigo}"
+											style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
 							</p:column>
 
-							<p:column headerText="Fornecedor">
-								<h:outputText
-									value="#{cotacao.cotacaoFornecedor.fornecedor.nome}" />
-							</p:column>
-
-							<p:column headerText="Item">
-								<h:outputText
-									value="#{cotacao.cotacaoFornecedor.cotacaoItem.produto.nome}" />
+							<p:column headerText="Nome">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{produto.nome}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{produto.nome}" style="width:100%"
+											required="true" />
+									</f:facet>
+								</p:cellEditor>
 							</p:column>
 
 							<p:column headerText="Marca">
-								<h:outputText
-									value="#{cotacao.cotacaoFornecedor.cotacaoItem.produto.marca}" />
-							</p:column>
-
-							<p:column headerText="Preço">
 								<p:cellEditor>
 									<f:facet name="output">
-										<h:outputText value="#{cotacao.cotacaoFornecedor.preco}">
-											<f:convertNumber type="currency" currencySymbol="$" />
-										</h:outputText>
+										<h:outputText value="#{produto.marca}" />
 									</f:facet>
 									<f:facet name="input">
-										<p:inputNumber value="#{cotacao.cotacaoFornecedor.preco}"
-											style="width:100%" label="Price" symbol="$" />
+										<p:inputText value="#{produto.marca}" style="width:100%"
+											required="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Origem">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{produto.fiscalItem.origem.origem}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{produto.fiscalItem.origem.origem}"
+											style="width:100%" required="true" />
 									</f:facet>
 								</p:cellEditor>
 							</p:column>
@@ -151,16 +172,35 @@
 									saveTitle="Salvar" />
 							</p:column>
 
-							<br />
-							<p:commandButton value="Lançar" icon="pi pi-check"
-								styleClass="ui-button-success"
-								action="#{cotacaoBean.lancaCotacao(cotacao)}" />
-							<br />
+							<p:column headerText="Excluir">
+								<p:commandButton
+									styleClass="rounded-button ui-button-danger ui-button-outlined"
+									icon="pi pi-trash" process="@this"
+									oncomplete="PF('deleteProdutoDialog').show()">
+									<f:setPropertyActionListener value="#{produto}"
+										target="#{produtoBean.selecionado}" />
+								</p:commandButton>
+							</p:column>
 						</p:dataTable>
 
-					</p:panel>
-				</div>
-			</h:form>
+						<p:confirmDialog widgetVar="deleteProdutoDialog"
+							showEffect="fade" width="300" message="Deletar este produto?"
+							header="Confirmar" severity="warn">
+							<p:commandButton value="Sim" icon="pi pi-check"
+								action="#{produtoBean.excluir}" process="@this"
+								oncomplete="PF('deleteProdutoDialog').hide()" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-button-secondary" icon="pi pi-times"
+								onclick="PF('deleteProdutoDialog').hide()" />
+						</p:confirmDialog>
+
+					</div>
+				</h:form>
+
+			</p:panel>
+			<!-- Conteúdo -->
+
+
 
 
 		</div>
@@ -170,39 +210,7 @@
 	<footer>
 		<div class="rdp">
 			<div class="mid">
-				<p:commandButton id="ajuda" value="Ajuda" type="button" />
-				<p:overlayPanel for="ajuda" style="width:350px">
-					<p class="p-m-0">
-						<strong>Nome</strong>: Nome do produto.
-					</p>
-					<p class="p-m-0">
-						<strong>Marca</strong>: Marca do produto.
-					</p>
-					<p>
-						<strong>Código</strong>: Código de barras do produto.
-					</p>
-					<p class="p-m-0">
-						<strong>NCM</strong>: Código de oito digitos e descrição do
-						produto.
-					</p>
-					<p class="p-m-0">
-						<strong>Origem</strong>: Produto nacional ou estrangeiro.
-					</p>
-
-					<p:button value="Nova Origem" action="" onclick="PF('dlg3').show()" />
-
-					<p:dialog header="Cadastrar origem" widgetVar="dlg3" minHeight="40"
-						width="350" showEffect="fade">
-						<p class="p-m-0">Origem:</p>
-						<p:inputText name="origem" />
-						<f:facet name="footer">
-							<p:commandButton type="button" value="Cancelar"
-								styleClass="ui-button-flat p-mr-2" style="width: 6rem" />
-							<p:commandButton type="button" value="Confirmar"
-								style="width: 7rem" />
-						</f:facet>
-					</p:dialog>
-				</p:overlayPanel>
+				
 			</div>
 		</div>
 	</footer>

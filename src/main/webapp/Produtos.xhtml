@@ -59,9 +59,12 @@
 						</p:submenu>
 
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
-							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" action="Cotacao" />
-							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" action="Compra" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" action="Pedidos" />
+							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage"
+								action="Cotacao" />
+							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
+								action="Compra" />
+							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square"
+								action="Pedidos" />
 						</p:submenu>
 
 						<p:submenu label="Produtos" icon="pi pi-fw pi-table">
@@ -92,10 +95,12 @@
 
 							<div class="search-area">
 
-								<p:commandButton update="produtos" action="#{itemBean.listar}"
-									value="Atualizar" process="@parent" icon="pi pi-refresh" />
+								<p:commandButton update="produtos"
+									action="#{produtoBean.listar}" value="Atualizar"
+									process="@parent" icon="pi pi-refresh" />
 
-								<p:commandButton value="Novo" styleClass="ui-button-success"  action="NovoProduto" />
+								<p:commandButton value="Novo" styleClass="ui-button-success"
+									action="NovoProduto" />
 							</div>
 
 						</div>
@@ -104,13 +109,14 @@
 
 						<p:growl id="msgs" showDetail="true" />
 
-						<p:dataTable id="produtos" var="produto" value="#{itemBean.itens}"
-							editable="true" style="margin-bottom:20px; margin-top:20px;"
-							scrollable="true" scrollHeight="100%">
+						<p:dataTable id="produtos" var="produto"
+							value="#{produtoBean.produtos}" editable="true"
+							style="margin-bottom:20px; margin-top:20px;" scrollable="true"
+							scrollHeight="100%">
 
-							<p:ajax event="rowEdit" listener="#{itemBean.onRowEdit}"
+							<p:ajax event="rowEdit" listener="#{produtoBean.onRowEdit}"
 								update=":form:msgs" />
-							<p:ajax event="rowEditCancel" listener="#{itemBean.onRowCancel}"
+							<p:ajax event="rowEditCancel" listener="#{produtoBean.onRowCancel}"
 								update=":form:msgs" />
 
 							<p:column headerText="Código">
@@ -165,7 +171,29 @@
 								<p:rowEditor editTitle="Editar" cancelTitle="Cancelar"
 									saveTitle="Salvar" />
 							</p:column>
+
+							<p:column headerText="Excluir">
+								<p:commandButton
+									styleClass="rounded-button ui-button-danger ui-button-outlined"
+									icon="pi pi-trash" process="@this"
+									oncomplete="PF('deleteProdutoDialog').show()">
+									<f:setPropertyActionListener value="#{produto}"
+										target="#{produtoBean.selecionado}" />
+								</p:commandButton>
+							</p:column>
 						</p:dataTable>
+
+						<p:confirmDialog widgetVar="deleteProdutoDialog"
+							showEffect="fade" width="300" message="Deletar este produto?"
+							header="Confirmar" severity="warn">
+							<p:commandButton value="Sim" icon="pi pi-check"
+								action="#{produtoBean.excluir}" process="@this"
+								oncomplete="PF('deleteProdutoDialog').hide()" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-button-secondary" icon="pi pi-times"
+								onclick="PF('deleteProdutoDialog').hide()" />
+						</p:confirmDialog>
+
 					</div>
 				</h:form>
 
@@ -201,19 +229,6 @@
 						<strong>Origem</strong>: Produto nacional ou estrangeiro.
 					</p>
 
-					<p:button value="Nova Origem" action="" onclick="PF('dlg3').show()" />
-
-					<p:dialog header="Cadastrar origem" widgetVar="dlg3" minHeight="40"
-						width="350" showEffect="fade">
-						<p class="p-m-0">Origem:</p>
-						<p:inputText name="origem" />
-						<f:facet name="footer">
-							<p:commandButton type="button" value="Cancelar"
-								styleClass="ui-button-flat p-mr-2" style="width: 6rem" />
-							<p:commandButton type="button" value="Confirmar"
-								style="width: 7rem" />
-						</f:facet>
-					</p:dialog>
 				</p:overlayPanel>
 			</div>
 		</div>

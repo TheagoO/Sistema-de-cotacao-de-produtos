@@ -17,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
 
 public class OrdemCompraItemDao {
 	EntityManager em = Connect.connection();
-	public String salvar(RequisicaoItem pedidoitem) throws Exception {
+	public String salvar(OrdemCompraItem pedidoitem) throws Exception {
 		String retorno;
 		// Gravar o PedidoItem no BD
 
@@ -36,7 +36,7 @@ public class OrdemCompraItemDao {
 		return retorno;		
 	} // salvar
 	
-	public String alterar(RequisicaoItem pedidoitem) throws Exception {
+	public String alterar(OrdemCompraItem pedidoitem) throws Exception {
 		String retorno;
 		// Gravar o PedidoItem no BD		
 		try {
@@ -54,13 +54,13 @@ public class OrdemCompraItemDao {
 		return retorno;		
 	} // alterar
 
-	public String deletar(RequisicaoItem pedidoitem) throws Exception {
+	public String deletar(OrdemCompraItem pedidoitem) throws Exception {
 		String retorno;
 		// Gravar o PedidoItem no BD		
 		try {
 
 		
-			RequisicaoItem e = em.find(RequisicaoItem.class, pedidoitem.getId());
+			OrdemCompraItem e = em.find(OrdemCompraItem.class, pedidoitem.getId());
 			em.getTransaction().begin();
 			em.remove(e);
 			em.getTransaction().commit();
@@ -73,26 +73,26 @@ public class OrdemCompraItemDao {
 	} // deletar
 
 	
-	public List<RequisicaoItem> listar(String paramNome) throws Exception{		
+	public List<OrdemCompraItem> listar(long paramNome) throws Exception{		
 
 		String cWhere = "";
 		Query q = null;
 
-		if(paramNome.equals("")) {
+		if(paramNome==0) {
 			q = em.createQuery("select g from OrdemCompraItem g");
 		}
 		else {
 			q = em.createQuery("select g from OrdemCompraItem g"
-					+" where nome like :nome");
-			q.setParameter("nome", "%"+paramNome+"%");
+					+" where codigo like :codigo");
+			q.setParameter("codigo", "%"+paramNome+"%");
 		}
 		
 		return q.getResultList();		
 	} //listar
 	
 	
-	public RequisicaoItem getObjectById(Long id) {
+	public OrdemCompraItem getObjectById(Long id) {
 
-		return em.find(RequisicaoItem.class, id);
+		return em.find(OrdemCompraItem.class, id);
 	}
 } // final da classe PedidoItemDao

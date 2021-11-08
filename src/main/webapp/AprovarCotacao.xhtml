@@ -95,31 +95,35 @@
 				<div class="card">
 
 					<h:form id="formCotacao">
-						<p:dataTable var="pedido" value="#{pedidoCotacaoBean.listaPedidos}"
-							sortBy="#{pedido.solicitante.nome}" style="width: 100%;">
+						<p:dataTable var="ordem" value="#{ordemCompraBean.lista}"
+							sortBy="#{ordem.solicitante.nome}" style="width: 100%;">
 							
-							<p:headerRow field="solicitante.nome" expandable="true" expanded="#{pedido.solicitante.nome == 'null'}">
+							<p:headerRow field="solicitante.nome" expandable="true" expanded="#{ordem.solicitante.nome == 'null'}">
 
 								<p:column>
 									<div class="p-d-inline-flex p-ai-center"
 										style="vertical-align: middle;">
 
 										<h:outputText styleClass="p-ml-2"
-											value="#{pedido.solicitante.nome}" />
+											value="#{ordem.solicitante.nome}" />
 									</div>
 								</p:column>
 							</p:headerRow>
 
 							<p:column headerText="Solicitante">
-								<h:outputText value="#{pedido.solicitante.nome}" />
+								<h:outputText value="#{ordem.solicitante.nome}" />
 							</p:column>
 							
-							<p:column headerText="Código">
-								<h:outputText value="#{pedido.codigo}" />
+							<p:column headerText="Data de emissão">
+								<h:outputText value="#{ordem.dataEmissao}" />
 							</p:column>
 							
-							<p:column headerText="Qtd. Produtos">
-								<h:outputText value="#{pedido.cotacao.size()}" />
+							<p:column headerText="Status">
+								<h:outputText value="#{ordem.fase}" />
+							</p:column>
+							
+							<p:column headerText="Quantidade a ser cotado">
+								<h:outputText value="#{ordem.cotacao.size()}" />
 							</p:column>
 
 							
@@ -129,15 +133,15 @@
 										style="width: 200px; margin-left: 0px;">
 										<p:commandButton value="Negar" styleClass="ui-button-danger"
 											oncomplete="PF('deletePedidoDialog').show()" process="@this">
-											<f:setPropertyActionListener value="#{pedido}"
-												target="#{pedidoCotacaoBean.pedidoSelecionado}" />
+											<f:setPropertyActionListener value="#{ordem}"
+												target="#{ordemCompraBean.ordemSelecionada}" />
 										</p:commandButton>
 										<p:commandButton value="Aprovar"
 											styleClass="ui-button-success"
 											oncomplete="PF('confirmPedidoDialog').show()" process="@this">
 
-											<f:setPropertyActionListener value="#{pedido}"
-												target="#{pedidoCotacaoBean.pedidoSelecionado}" />
+											<f:setPropertyActionListener value="#{ordem.cotacao}"
+												target="#{cotacaoBean.lista}" />
 										</p:commandButton>
 									</div>
 								</p:column>
@@ -147,10 +151,10 @@
 
 
 						<p:confirmDialog widgetVar="deletePedidoDialog" showEffect="fade"
-							width="300" message="Negar este pedido?" header="Confirmar"
+							width="300" message="Negar esta ordem?" header="Confirmar"
 							severity="warn">
 							<p:commandButton value="Sim" icon="pi pi-check"
-								actionListener="#{pedidoCotacaoBean.excluir}" process="@this"
+								actionListener="#{ordemCompraBean.negar}" process="@this"
 								oncomplete="PF('deletePedidoDialog').hide()" />
 							<p:commandButton value="Não" type="button"
 								styleClass="ui-button-secondary" icon="pi pi-times"
@@ -158,10 +162,10 @@
 						</p:confirmDialog>
 
 						<p:confirmDialog widgetVar="confirmPedidoDialog" showEffect="fade"
-							width="300" message="Aprova este pedido?" header="Confirmar"
+							width="300" message="Aprova esta ordem?" header="Confirmar"
 							severity="warn">
 							<p:commandButton value="Sim" icon="pi pi-check"
-								action="LancaCotacao.xhtml" process="@this"
+								action="Aprovado" process="@this"
 								oncomplete="PF('confirmPedidoDialog').hide()" />
 							<p:commandButton value="Não" type="button"
 								styleClass="ui-button-secondary" icon="pi pi-times"

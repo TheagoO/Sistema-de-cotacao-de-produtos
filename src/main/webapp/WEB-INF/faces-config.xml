@@ -260,6 +260,10 @@
 			<to-view-id>/Produtos.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>Aprovado</from-outcome>
+			<to-view-id>/LancaCotacao.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
 			<from-outcome>sair</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
@@ -299,13 +303,14 @@
 			<to-view-id>/Produtos.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>sair</from-outcome>
-			<to-view-id>/index.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>Aprovado</from-outcome>
 			<to-view-id>/NotaFiscal.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		
 	</navigation-rule>
 	
 	<!-- TELA DO ALMOXARIFADO -->

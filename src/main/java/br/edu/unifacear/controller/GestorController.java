@@ -30,14 +30,14 @@ public class GestorController {
 		try {
 			if (gestor.getSenha().equals(senha)) {
 				String retorno = facade.salvarGestor(gestor);
-				if(retorno.contains("E-mail jï¿½ cadastrado")) {
-					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail jï¿½ cadastrado!"));
+				if(retorno.contains("E-mail já cadastrado")) {
+					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail já cadastrado!"));
 				}else {
 					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador salvo!"));
 				}
 				this.gestor = new Gestor();
 			} else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha invï¿½lida!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha inválida!"));
 			}
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar colaborador!"));
@@ -116,7 +116,7 @@ public class GestorController {
 
 	public void onRowCancel(RowEditEvent<Gestor> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Ediï¿½ï¿½o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
 	}
 	
 	public GestorController() {

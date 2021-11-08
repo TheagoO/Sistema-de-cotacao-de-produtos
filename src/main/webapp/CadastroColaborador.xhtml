@@ -168,7 +168,7 @@
 									<!-- Input CEP Fornecedor-->
 
 									<span class="ui-float-label"> <p:inputMask id="cep"
-											value="#{fornecedorBean.fornecedor.endereco.cep}"
+											value="#{fornecedorBean.endereco.cep}"
 											mask="99999-999" validateMask="true" required="true" /> <p:outputLabel
 											for="@previous" value="CEP" />
 									</span> <br />
@@ -177,10 +177,19 @@
 									<br />
 									<p:selectOneMenu id="estado"
 										value="#{fornecedorBean.fornecedor.endereco.cidade.estado.id}"
-										effect="fold" required="true">
+										effect="fold" required="true" var="e">
 										<f:selectItem itemLabel="Selecione" />
 										<f:selectItems value="#{estadoBean.lista}" var="e"
 											itemValue="#{e.id}" />
+
+										<p:column style="width:10%">
+											<span class="flag flag-#{c.code}"
+												style="width: 30px; height: 20px" />
+										</p:column>
+
+										<p:column>
+											<h:outputText value="#{e.name}" />
+										</p:column>
 									</p:selectOneMenu>
 									<br /> <br />
 									<!-- Cidade Fornecedor -->
@@ -189,25 +198,34 @@
 									<br />
 									<p:selectOneMenu id="cidade"
 										value="#{fornecedorBean.fornecedor.endereco.cidade.id}"
-										effect="fold" required="true">
+										effect="fold" required="true" var="cid">
 										<f:selectItem itemLabel="Selecione" />
 										<f:selectItems value="#{cidadeBean.lista}" var="c"
 											itemValue="#{c.id}" />
+
+										<p:column style="width:10%">
+											<span class="flag flag-#{c.code}"
+												style="width: 30px; height: 20px" />
+										</p:column>
+
+										<p:column>
+											<h:outputText value="#{cid.name}" />
+										</p:column>
 									</p:selectOneMenu>
 									<br /> <br />
+									
 									<!-- Input lugradouro Fornecedor -->
-
 									<span class="ui-float-label"> <p:inputText
 											id="logradouro"
-											value="#{fornecedorBean.fornecedor.endereco.logradouro}"
+											value="#{fornecedorBean.endereco.logradouro}"
 											required="true" /> <p:outputLabel for="@previous"
 											value="Logradouro" />
 									</span> <br /> <span class="ui-float-label"> <p:inputText
-											id="numero" value="#{fornecedorBean.fornecedor.endereco}" />
+											id="numero" value="#{fornecedorBean.endereco.numero}" />
 										<p:outputLabel for="@previous" value="Número" />
 									</span> <br /> <span class="ui-float-label"> <p:inputText
 											id="complemento"
-											value="#{fornecedorBean.fornecedor.endereco.complemento}" />
+											value="#{fornecedorBean.endereco.complemento}" />
 										<p:outputLabel for="@previous" value="Complemento" />
 									</span> <br />
 									<p:commandButton value="Cadastrar" update="fornecedor"
@@ -290,22 +308,6 @@
 						<strong>Origem</strong>: Produto nacional ou estrangeiro.
 					</p>
 
-					<p:button value="Nova Origem" onclick="PF('dlg3').show()" />
-
-					<h:form id="New-Origem">
-						<p:dialog header="Cadastrar origem" widgetVar="dlg3"
-							minHeight="40" width="350" showEffect="fade">
-							<p class="p-m-0">Origem:</p>
-							<p:inputText id="origem" value="#{origemBean.origem.origem}" />
-							<f:facet name="footer">
-								<p:commandButton value="Cancelar"
-									styleClass="ui-button-flat p-mr-2" style="width: 6rem"
-									onclick="PF('dlg3').hide()" />
-								<p:commandButton value="Confirmar" style="width: 7rem"
-									action="#{origemBean.salvar}" update="messages" />
-							</f:facet>
-						</p:dialog>
-					</h:form>
 				</p:overlayPanel>
 			</div>
 		</div>

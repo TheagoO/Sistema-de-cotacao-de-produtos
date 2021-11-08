@@ -40,7 +40,7 @@ public class NotaFiscalBo {
 		}
 	}
 	
-	public List<NotaFiscal> listar(String paramNome) throws Exception {
+	public List<NotaFiscal> listar(long paramNome) throws Exception {
 		try {
 			return new NotaFiscalDao().listar(paramNome);
 		} catch (Exception e) {

@@ -66,18 +66,18 @@ public class FaseDao {
 	} // deletar
 
 	
-	public List<Fase> listar(String paramNome) throws Exception{		
+	public List<Fase> listar(int paramNome) throws Exception{		
 
 		String cWhere = "";
 		Query q = null;
 
-		if(paramNome.equals("")) {
-			q = em.createQuery("select g from Status g");
+		if(paramNome == 0) {
+			q = em.createQuery("select g from Fase g");
 		}
 		else {
-			q = em.createQuery("select g from Status g"
-					+" where nome like :nome");
-			q.setParameter("nome", "%"+paramNome+"%");
+			q = em.createQuery("select g from Fase g"
+					+" where status like :status");
+			q.setParameter("status", "%"+paramNome+"%");
 		}
 		
 		return q.getResultList();		

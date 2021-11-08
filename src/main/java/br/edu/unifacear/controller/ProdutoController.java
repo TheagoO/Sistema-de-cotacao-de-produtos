@@ -13,21 +13,21 @@ import org.primefaces.event.RowEditEvent;
 import br.edu.unifacear.model.entity.Produto;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
-@ManagedBean(name = "itemBean")
+@ManagedBean(name = "produtoBean")
 @SessionScoped
 public class ProdutoController {
 
-	private Produto item;
+	private Produto produto;
 	private Produto selecionado;
-	private List<Produto> itens;
+	private List<Produto> produtos;
 
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			facade.salvarItem(item);
-			this.item = new Produto();
+			facade.salvarProduto(produto);
+			this.produto = new Produto();
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto salvo!"));
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar produto"));
@@ -39,10 +39,10 @@ public class ProdutoController {
 	public void listar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		this.itens.removeAll(itens);
+		this.produtos.removeAll(produtos);
 		try {
-			for (Produto i : facade.listarItens()) {
-				this.itens.add(i);
+			for (Produto i : facade.listarProduto("")) {
+				this.produtos.add(i);
 			}
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar produtos"));
@@ -55,14 +55,14 @@ public class ProdutoController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			String retorno = facade.editarItem(item);
+			String retorno = facade.editarProduto(produto);
 			if(retorno.contains("Dados em branco") || retorno.contains("Código inválido")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			}else {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto editado!"));
 				listar();
 			}
-			this.item = new Produto();
+			this.produto = new Produto();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar produto"));
 			e.printStackTrace();
@@ -74,7 +74,7 @@ public class ProdutoController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			facade.excluirItem(this.selecionado);
+			facade.excluirProduto(this.selecionado);
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto deletado"));
 			this.selecionado = new Produto();
 		} catch (Exception e) {
@@ -86,7 +86,7 @@ public class ProdutoController {
 	public void onRowEdit(RowEditEvent<Produto> event) {
 		Produto novo = new Produto();
 
-		for (Produto i : this.itens) {
+		for (Produto i : this.produtos) {
 			if (i.getId() == event.getObject().getId()) {
 				novo = i;
 			}
@@ -94,7 +94,7 @@ public class ProdutoController {
 
 		if (event.getObject() != null) {
 			try {
-				this.item = novo;
+				this.produto = novo;
 				editar();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -109,26 +109,26 @@ public class ProdutoController {
 	}
 
 	public ProdutoController() {
-		this.item = new Produto();
-		this.itens = new ArrayList<Produto>();
+		this.produto = new Produto();
+		this.produtos = new ArrayList<Produto>();
 		this.selecionado = new Produto();
 		listar();
 	}
 
-	public Produto getItem() {
-		return item;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setItem(Produto item) {
-		this.item = item;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
-	public List<Produto> getItens() {
-		return itens;
+	public List<Produto> getProdutos() {
+		return produtos;
 	}
 
-	public void setItens(List<Produto> itens) {
-		this.itens = itens;
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	public Produto getSelecionado() {

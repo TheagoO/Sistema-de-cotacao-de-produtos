@@ -73,18 +73,18 @@ public class RequisicaoDao {
 
 	
 	
-	public List<Requisicao> listar(String paramNome) throws Exception{		
+	public List<Requisicao> listar(long paramNome) throws Exception{		
 
 		String cWhere = "";
 		Query q = null;
 
-		if(paramNome.equals("")) {
-			q = em.createQuery("select g from OrdemCompra g");
+		if(paramNome==0) {
+			q = em.createQuery("select g from Requisicao g");
 		}
 		else {
-			q = em.createQuery("select g from OrdemCompra g"
-					+" where nome like :nome");
-			q.setParameter("nome", "%"+paramNome+"%");
+			q = em.createQuery("select g from Requisicao g"
+					+" where codigo like :codigo");
+			q.setParameter("codigo", "%"+paramNome+"%");
 		}
 		
 		return q.getResultList();		

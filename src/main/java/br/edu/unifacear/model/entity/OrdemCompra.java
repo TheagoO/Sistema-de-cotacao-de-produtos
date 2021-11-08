@@ -25,10 +25,10 @@ public class OrdemCompra implements Serializable {
 	@Column(name = "DATA_EMISSAO")
 	private LocalDateTime dataEmissao;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ordem")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<OrdemCompraItem> ordemCompraItem;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cotacao")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Cotacao> cotacao;
 	
 	@ManyToOne
@@ -116,7 +116,16 @@ public class OrdemCompra implements Serializable {
 	public void setSolicitante(Gestor solicitante) {
 		this.solicitante = solicitante;
 	}
-
+	
+	public double getTotal() {
+		double total = 0.0;
+		for(OrdemCompraItem oci : this.ordemCompraItem) {
+			total += oci.getValorTotal();
+		}
+		
+		return total;
+	}
+	
 	@Override
 	public String toString() {
 		return "OrdemCompra [id=" + id + ", dataEmissao=" + dataEmissao + ", ordemCompraItem=" + ordemCompraItem

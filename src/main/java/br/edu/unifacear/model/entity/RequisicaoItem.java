@@ -32,7 +32,6 @@ public class RequisicaoItem implements Serializable {
 		this.produto = produto;
 	}
 
-
 	public int getId() {
 		return id;
 	}

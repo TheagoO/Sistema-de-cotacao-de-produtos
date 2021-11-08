@@ -40,7 +40,7 @@ public class CotacaoBo {
 		}
 	}
 	
-	public List<Cotacao> listar(String paramNome) throws Exception {
+	public List<Cotacao> listar(long paramNome) throws Exception {
 		try {
 			return new CotacaoDao().listar(paramNome);
 		} catch (Exception e) {

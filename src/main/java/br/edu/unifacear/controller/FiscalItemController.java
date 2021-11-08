@@ -17,16 +17,16 @@ import br.edu.unifacear.model.entity.FiscalItem;
 public class FiscalItemController {
 
 	private FiscalItem fisco;
-	private List<FiscalItem> ncm;
+	private List<FiscalItem> lista;
 
-	public void listarNcm() {
+	public void listar() {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		this.ncm.removeAll(ncm);
+		this.lista.removeAll(lista);
 		try {
 			FiscalItemBo fib = new FiscalItemBo();
 
 			for (FiscalItem f : fib.listar("")) {
-				ncm.add(f);
+				lista.add(f);
 			}
 
 		} catch (Exception e) {
@@ -38,8 +38,8 @@ public class FiscalItemController {
 
 	public FiscalItemController() {
 		this.fisco = new FiscalItem();
-		this.ncm = new ArrayList<FiscalItem>();
-		listarNcm();
+		this.lista = new ArrayList<FiscalItem>();
+		listar();
 	}
 
 	public FiscalItem getFisco() {
@@ -50,12 +50,12 @@ public class FiscalItemController {
 		this.fisco = fisco;
 	}
 
-	public List<FiscalItem> getNcm() {
-		return ncm;
+	public List<FiscalItem> getLista() {
+		return lista;
 	}
 
-	public void setNcm(List<FiscalItem> ncm) {
-		this.ncm = ncm;
+	public void setLista(List<FiscalItem> lista) {
+		this.lista = lista;
 	}
 
 }

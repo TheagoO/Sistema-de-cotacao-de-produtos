@@ -17,7 +17,7 @@ import br.edu.unifacear.model.entity.Origem;
 public class OrigemController {
 
 	private Origem origem;
-	private List<Origem> origens;
+	private List<Origem> lista;
 	
 	public String salvar() {
 		OrigemBo ob = new OrigemBo();
@@ -26,7 +26,7 @@ public class OrigemController {
 		try {
 			ob.salvar(origem);
 			this.origem = new Origem();
-			listarOrigem();
+			listar();
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Origem salva com sucesso!", "SUCESSO"));
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar origem", "ERRO"));
@@ -36,13 +36,13 @@ public class OrigemController {
 		return "Sucesso!";
 	}
 
-	public void listarOrigem() {
+	public void listar() {
 		OrigemBo ob = new OrigemBo();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		this.origens.removeAll(origens);
+		this.lista.removeAll(lista);
 		try {
 			for (Origem p : ob.listar("")) {
-				this.origens.add(p);
+				this.lista.add(p);
 			}
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao listar origem", "ERRO"));
@@ -53,8 +53,8 @@ public class OrigemController {
 	
 	public OrigemController() {
 		this.origem = new Origem();
-		this.origens = new ArrayList<Origem>();
-		listarOrigem();
+		this.lista = new ArrayList<Origem>();
+		listar();
 	}
 
 	public Origem getOrigem() {
@@ -65,12 +65,12 @@ public class OrigemController {
 		this.origem = origem;
 	}
 	
-	public List<Origem> getOrigens() {
-		return origens;
+	public List<Origem> getLista() {
+		return lista;
 	}
 
-	public void setOrigens(List<Origem> origem) {
-		this.origens = origem;
+	public void setLista(List<Origem> origem) {
+		this.lista = origem;
 	}
 
 }

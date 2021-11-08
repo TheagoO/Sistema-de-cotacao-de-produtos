@@ -41,7 +41,7 @@ public class CotacaoItemController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		this.lista.removeAll(lista);
 		try {
-			this.lista = facade.listarCotacaoItem();
+			this.lista = facade.listarCotacaoItem("");
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar cotação dos itens"));
 			e.printStackTrace();

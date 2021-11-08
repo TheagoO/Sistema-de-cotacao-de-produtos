@@ -26,6 +26,7 @@ public class NotaFiscalItem implements Serializable {
 	
 	@ManyToOne
 	private Produto item;
+	
 
 	public NotaFiscalItem() {
 		this.id = 0;
@@ -41,6 +42,7 @@ public class NotaFiscalItem implements Serializable {
 		this.total = total;
 		this.item = item;
 	}
+
 
 	public int getId() {
 		return id;

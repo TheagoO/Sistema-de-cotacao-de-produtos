@@ -83,8 +83,8 @@ public class OrdemCompraDao {
 		}
 		else {
 			q = em.createQuery("select g from OrdemCompra g"
-					+" where nome like :nome");
-			q.setParameter("nome", "%"+paramNome+"%");
+					+" where codigo like :codigo");
+			q.setParameter("codigo", "%"+paramNome+"%");
 		}
 		
 		return q.getResultList();		

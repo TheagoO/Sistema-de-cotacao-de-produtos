@@ -21,7 +21,7 @@ public class Cotacao implements Serializable {
 	@ManyToOne
 	private CotacaoFornecedorPreco cotacaoFornecedor;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cotacao")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<CotacaoItem> cotacaoItem;
 	
 	public Cotacao() {

@@ -82,8 +82,8 @@ public class EnderecoDao {
 		}
 		else {
 			q = em.createQuery("select g from Endereco g"
-					+" where nome like :nome");
-			q.setParameter("nome", "%"+paramNome+"%");
+					+" where logradouro like :logradouro");
+			q.setParameter("logradouro", "%"+paramNome+"%");
 		}
 		
 		return q.getResultList();		

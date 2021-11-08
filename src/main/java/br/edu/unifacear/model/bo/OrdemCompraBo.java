@@ -2,47 +2,53 @@ package br.edu.unifacear.model.bo;
 
 import java.util.List;
 
-import br.edu.unifacear.model.dao.RequisicaoDao;
-import br.edu.unifacear.model.entity.Requisicao;
+import br.edu.unifacear.model.dao.OrdemCompraDao;
+import br.edu.unifacear.model.entity.OrdemCompra;
+import br.edu.unifacear.model.entity.OrdemCompra;
 
 public class OrdemCompraBo {
 	
-	public String salvar(Requisicao pedidocompra) 
+	OrdemCompraDao ordemCompraDao;
+	
+	public String salvar(OrdemCompra pedidocompra) 
 			throws Exception {
-		validarDadosPedidoCompra(pedidocompra);
-		RequisicaoDao pedidocompraDao = new RequisicaoDao();
+		validarDadosOrdemCompra(pedidocompra);
+		ordemCompraDao = new OrdemCompraDao();
 		try {
-			return pedidocompraDao.salvar(pedidocompra);
+			return ordemCompraDao.salvar(pedidocompra);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 	}
 	
-	public String alterar(Requisicao pedidocompra) 
+	public String alterar(OrdemCompra pedidocompra) 
 			throws Exception {
-		validarDadosPedidoCompra(pedidocompra);
+		validarDadosOrdemCompra(pedidocompra);
+		ordemCompraDao = new OrdemCompraDao();
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
-			return new RequisicaoDao().alterar(pedidocompra);
+			return ordemCompraDao.alterar(pedidocompra);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 	}
 	
-	public String deletar(Requisicao pedidocompra) 
+	public String deletar(OrdemCompra pedidocompra) 
 			throws Exception {
-		validarDadosPedidoCompra(pedidocompra);
+		validarDadosOrdemCompra(pedidocompra);
+		ordemCompraDao = new OrdemCompraDao();
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
-			return new RequisicaoDao().deletar(pedidocompra);
+			return ordemCompraDao.deletar(pedidocompra);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 	}
 	
-	public List<Requisicao> listar(String paramNome) throws Exception {
+	public List<OrdemCompra> listar(String paramNome) throws Exception {
+		ordemCompraDao = new OrdemCompraDao();
 		try {
-			return new RequisicaoDao().listar(paramNome);
+			return ordemCompraDao.listar(paramNome);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -50,7 +56,7 @@ public class OrdemCompraBo {
 	
 		
 
-	private void validarDadosPedidoCompra(Requisicao pedidocompra) throws Exception {
+	private void validarDadosOrdemCompra(OrdemCompra pedidocompra) throws Exception {
 //		if (pedidocompra.getId() < 0) {
 //			throw new Exception("Id do pedidocompra não pode ser negativo!");
 //		}

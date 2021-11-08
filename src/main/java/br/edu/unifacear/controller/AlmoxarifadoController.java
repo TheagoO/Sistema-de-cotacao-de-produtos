@@ -30,14 +30,14 @@ public class AlmoxarifadoController {
 
 			if (almoxarifado.getSenha().equals(senha)) {
 				String retorno = facade.salvarAlmoxarifado(almoxarifado);
-				if(retorno.contains("E-mail jï¿½ cadastrado")) {
-					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail jï¿½ cadastrado!"));
+				if(retorno.contains("E-mail já cadastrado")) {
+					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail já cadastrado!"));
 				}else {
 					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador salvo!"));
 				}
 				this.almoxarifado = new Almoxarifado();
 			} else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha invï¿½lida!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha inválida!"));
 			}
 
 		} catch (Exception e) {
@@ -116,7 +116,7 @@ public class AlmoxarifadoController {
 
 	public void onRowCancel(RowEditEvent<Almoxarifado> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Ediï¿½ï¿½o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
 	}
 	
 	public AlmoxarifadoController() {

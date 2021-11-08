@@ -80,16 +80,19 @@
 
 					<div class="search-area">
 						<div></div>
-						<p:commandButton update="nf" action="#{notaItemBean.listar}"
+						<p:commandButton update="nf"
+							action="#{notaFiscalItemBean.ordem.ordemCompraItem}"
 							value="Atualizar" process="@parent" icon="pi pi-refresh" />
 
 					</div>
 
-					<p:dataTable id="nf" var="item" value="#{ordemCompraBean.ordem}"
-						sortBy="#{item.fornecedor.nome}" style="width: 100%">
+					<p:dataTable id="nf" var="item"
+						value="#{notaFiscalItemBean.ordem.ordemCompraItem}"
+						sortBy="#{notaFiscalItemBean.ordem.fornecedor.nome}"
+						style="width: 100%">
 
 						<p:headerRow field="fornecedor.nome" expandable="true"
-							expanded="#{item.fornecedor.nome == 'null'}">
+							expanded="#{notaFiscalItemBean.ordem.fornecedor.nome == 'null'}">
 
 							<p:column>
 								<div class="p-d-inline-flex p-ai-center"
@@ -111,45 +114,49 @@
 						</p:column>
 
 						<p:column headerText="Item">
-							<h:outputText value="#{notaFiscalItemBean.notaFiscal.item.item}" />
+							<h:outputText value="#{item.produto.nome}" />
 						</p:column>
 
 						<p:column headerText="Marca">
-							<h:outputText value="#{notaFiscalItemBean.notaFiscal.item.item}" />
+							<h:outputText value="#{item.produto.marca}" />
 						</p:column>
 
 						<p:column headerText="Código Item">
-							<h:outputText value="#{notaFiscalItemBean.notaFiscal.item.item}" />
+							<h:outputText value="#{item.produto.codigo}" />
 						</p:column>
 
 						<p:column headerText="Quantidade">
-							<h:outputText
-								value="#{notaFiscalItemBean.notaFiscal.item.quantidade}" />
+							<h:outputText value="#{item.quantidade}" />
 						</p:column>
 
 						<p:column headerText="Valor uni.">
-							<h:outputText
-								value="#{notaFiscalItemBean.notaFiscal.item.valorUnitario}" />
+							<h:outputText value="#{item.valorUnitario}" />
+						</p:column>
+						
+						<p:column headerText="Valor total">
+							<h:outputText value="#{item.valorUnitario}" />
 						</p:column>
 
-						<p:column headerText="Valor total">
-							<h:outputText value="#{notaFiscalItemBean.notaFiscal.item.total}" />
-						</p:column>
 
 						<!-- Botões -->
 						<p:summaryRow>
+
+							<p:column headerText="Total pago">
+								<h:outputText value="#{notaFiscalItemBean.ordem.total}" />
+							</p:column>
+
 							<p:column>
 								<div class="search-area" style="width: 200px; margin-left: 0px;">
 									<p:commandButton value="Negar" styleClass="ui-button-danger"
 										oncomplete="PF('deletePedidoDialog').show()" process="@this">
 										<f:setPropertyActionListener value="#{pedido}"
-											target="#{ordemCompraBean.ordem}" />
+											target="#{ordemCompraBean}" />
 									</p:commandButton>
 									<p:commandButton value="Aprovar" styleClass="ui-button-success"
 										oncomplete="PF('confirmPedidoDialog').show()" process="@this">
 
 										<f:setPropertyActionListener value="#{pedido}"
-											target="#{ordemCompraBean.ordem}" />
+											target="#{ordemCompraBean}" />
 									</p:commandButton>
 								</div>
 							</p:column>
