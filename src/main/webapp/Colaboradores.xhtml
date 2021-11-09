@@ -62,7 +62,7 @@
 						<p:submenu label="Pedidos" icon="pi pi-fw pi-ticket">
 							<p:menuitem value="Cotação" icon="pi pi-fw pi-percentage" action="Cotacao" />
 							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart" action="Compra" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square" action="Pedidos" />
+							<p:menuitem value="Finalizados" icon="pi pi-fw pi-check-square" action="Pedidos" />
 						</p:submenu>
 
 						<p:submenu label="Produtos" icon="pi pi-fw pi-table">
@@ -115,7 +115,7 @@
 									<p:dataTable id="listAlmo" value="#{almoxarifadoBean.lista}"
 										var="almox" editable="true"
 										style="margin-bottom:20px; margin-top:20px;" scrollable="true"
-										scrollHeight="100%">
+										scrollHeight="30%">
 
 										<p:ajax event="rowEdit"
 											listener="#{almoxarifadoBean.onRowEdit}" update=":form:msgs" />
@@ -180,7 +180,7 @@
 										severity="warn">
 										<p:commandButton value="Sim" icon="pi pi-check"
 											action="#{almoxarifadoBean.excluir}" process="@this"
-											oncomplete="PF('deleteAlmoxarifDialog').hide()" />
+											oncomplete="PF('deleteAlmoxarifDialog').hide()" update=":form:msgs" />
 										<p:commandButton value="Não" type="button"
 											styleClass="ui-button-secondary" icon="pi pi-times"
 											onclick="PF('deleteAlmoxarifDialog').hide()" />
@@ -212,7 +212,7 @@
 									<p:dataTable id="listForn" value="#{fornecedorBean.lista}"
 										var="forne" editable="true"
 										style="margin-bottom:20px; margin-top:20px;" scrollable="true"
-										scrollHeight="100%">
+										scrollHeight="30%">
 
 										<p:ajax event="rowEdit" listener="#{fornecedorBean.onRowEdit}"
 											update=":form:msgs" />
@@ -311,7 +311,7 @@
 										severity="warn">
 										<p:commandButton value="Sim" icon="pi pi-check"
 											action="#{fornecedorBean.excluir}" process="@this"
-											oncomplete="PF('deleteFonecedorDialog').hide()" />
+											oncomplete="PF('deleteFonecedorDialog').hide()" update=":form:msgs" />
 										<p:commandButton value="Não" type="button"
 											styleClass="ui-button-secondary" icon="pi pi-times"
 											onclick="PF('deleteFonecedorDialog').hide()" />
@@ -343,7 +343,7 @@
 									<p:dataTable id="listGestor" value="#{gestorBean.lista}"
 										var="gestor" editable="true"
 										style="margin-bottom:20px; margin-top:20px;" scrollable="true"
-										scrollHeight="100%">
+										scrollHeight="30%">
 
 										<p:ajax event="rowEdit" listener="#{gestorBean.onRowEdit}"
 											update=":form:msgs" />
@@ -418,7 +418,7 @@
 										severity="warn">
 										<p:commandButton value="Sim" icon="pi pi-check"
 											action="#{gestorBean.excluir}" process="@this"
-											oncomplete="PF('deleteGestorDialog').hide()" />
+											oncomplete="PF('deleteGestorDialog').hide()" update=":form:msgs" />
 										<p:commandButton value="Não" type="button"
 											styleClass="ui-button-secondary" icon="pi pi-times"
 											onclick="PF('deleteGestorDialog').hide()" />

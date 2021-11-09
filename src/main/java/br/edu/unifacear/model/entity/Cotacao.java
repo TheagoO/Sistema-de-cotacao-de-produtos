@@ -22,7 +22,12 @@ public class Cotacao implements Serializable {
 	private CotacaoFornecedorPreco cotacaoFornecedor;
 	
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cotacao_id")
 	private List<CotacaoItem> cotacaoItem;
+	
+	@ManyToOne
+	@JoinColumn(name = "cotacao_id_id")
+	private OrdemCompra ordemCompra;
 	
 	public Cotacao() {
 		this.id = 0;
@@ -68,6 +73,14 @@ public class Cotacao implements Serializable {
 
 	public void setCotacaoItem(List<CotacaoItem> cotacaoItem) {
 		this.cotacaoItem = cotacaoItem;
+	}
+
+	public OrdemCompra getOrdemCompra() {
+		return ordemCompra;
+	}
+
+	public void setOrdemCompra(OrdemCompra ordemCompra) {
+		this.ordemCompra = ordemCompra;
 	}
 
 	@Override

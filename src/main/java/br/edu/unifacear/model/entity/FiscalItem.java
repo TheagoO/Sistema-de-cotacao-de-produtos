@@ -55,7 +55,7 @@ public class FiscalItem implements Serializable {
 
 	@Override
 	public String toString() {
-		return ncm;
+		return ncm + " - " + origem;
 	}
 
 	@Override

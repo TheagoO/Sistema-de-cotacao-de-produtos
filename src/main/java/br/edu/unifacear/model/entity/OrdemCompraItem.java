@@ -31,7 +31,11 @@ public class OrdemCompraItem {
 	
 	@ManyToOne
 	private Produto produto;
-		
+	
+	@ManyToOne
+	@JoinColumn(name = "compra_id")
+	private OrdemCompra ordem;
+	
 	public OrdemCompraItem() {
 		this.id = 0;
 		this.produto = new Produto();
@@ -94,6 +98,14 @@ public class OrdemCompraItem {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public OrdemCompra getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(OrdemCompra ordem) {
+		this.ordem = ordem;
 	}
 
 	@Override

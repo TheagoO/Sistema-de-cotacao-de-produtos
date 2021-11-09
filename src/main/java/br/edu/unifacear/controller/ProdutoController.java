@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -14,7 +15,7 @@ import br.edu.unifacear.model.entity.Produto;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
 @ManagedBean(name = "produtoBean")
-@SessionScoped
+@ApplicationScoped
 public class ProdutoController {
 
 	private Produto produto;
@@ -27,8 +28,8 @@ public class ProdutoController {
 
 		try {
 			facade.salvarProduto(produto);
-			this.produto = new Produto();
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto salvo!"));
+			this.produto = new Produto();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar produto"));
 			e.printStackTrace();
@@ -41,9 +42,7 @@ public class ProdutoController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		this.produtos.removeAll(produtos);
 		try {
-			for (Produto i : facade.listarProduto("")) {
-				this.produtos.add(i);
-			}
+			this.produtos = facade.listarProduto("");
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar produtos"));
 			e.printStackTrace();
@@ -55,14 +54,14 @@ public class ProdutoController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			String retorno = facade.editarProduto(produto);
+			String retorno = facade.editarProduto(this.selecionado);
 			if(retorno.contains("Dados em branco") || retorno.contains("Código inválido")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			}else {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto editado!"));
 				listar();
 			}
-			this.produto = new Produto();
+			this.selecionado = new Produto();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar produto"));
 			e.printStackTrace();
@@ -75,7 +74,8 @@ public class ProdutoController {
 
 		try {
 			facade.excluirProduto(this.selecionado);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto deletado"));
+			listar();
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto deletado!"));
 			this.selecionado = new Produto();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir produto"));
@@ -94,7 +94,7 @@ public class ProdutoController {
 
 		if (event.getObject() != null) {
 			try {
-				this.produto = novo;
+				this.selecionado = novo;
 				editar();
 			} catch (Exception e) {
 				e.printStackTrace();

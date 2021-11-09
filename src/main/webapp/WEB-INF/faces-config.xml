@@ -373,6 +373,43 @@
 			<to-view-id>/AprovarCompra.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	<!-- TELA DE PEDIDOS APROVADOS -->
+	<navigation-rule>
+	<from-view-id>/PedidosAprovados.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Cadastro</from-outcome>
+			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Colaboradores</from-outcome>
+			<to-view-id>/Colaboradores.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>Cotacao</from-outcome>
+			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Compra</from-outcome>
+			<to-view-id>/AprovarCompra.xhtml</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>Pedidos</from-outcome>
+			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>NovoProduto</from-outcome>
+			<to-view-id>/CadastroProduto.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Produtos</from-outcome>
+			<to-view-id>/Produtos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>
-
-

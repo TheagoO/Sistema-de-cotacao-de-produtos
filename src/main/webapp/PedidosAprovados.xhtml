@@ -63,7 +63,7 @@
 								action="Cotacao" />
 							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
 								action="Compra" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square"
+							<p:menuitem value="Finalizados" icon="pi pi-fw pi-check-square"
 								action="Pedidos" />
 						</p:submenu>
 
@@ -85,7 +85,7 @@
 		<!-- Container do conteúdo da página  -->
 		<div class="content-area">
 
-			<p:panel header="Produtos">
+			<p:panel header="Pedidos finalizados">
 
 				<h:form id="form">
 					<div class="card">
@@ -94,13 +94,11 @@
 							<!-- Área de pesquisa e novo produto -->
 
 							<div class="search-area">
-
-								<p:commandButton update="produtos"
-									action="#{produtoBean.listar}" value="Atualizar"
+								<div></div>
+								<p:commandButton update="pedidos"
+									action="#{ordemCompraBean.listarAprovados}" value="Atualizar"
 									process="@parent" icon="pi pi-refresh" />
 
-								<p:commandButton value="Novo" styleClass="ui-button-success"
-									action="NovoProduto" />
 							</div>
 
 						</div>
@@ -110,97 +108,86 @@
 						<p:growl id="msgs" showDetail="true" />
 
 						<p:dataTable id="pedidos" var="pedido"
-							value="#{ordemCompraBean}" editable="true"
+							value="#{ordemCompraBean.aprovados}" editable="true"
 							style="margin-bottom:20px; margin-top:20px;" scrollable="true"
-							scrollHeight="100%">
+							scrollHeight="30%">
 
-							<p:ajax event="rowEdit" listener="#{produtoBean.onRowEdit}"
-								update=":form:msgs" />
-							<p:ajax event="rowEditCancel" listener="#{produtoBean.onRowCancel}"
-								update=":form:msgs" />
+							<p:column headerText="Solicitante">
 
-							<p:column headerText="Código">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{produto.codigo}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText id="modelInput" value="#{produto.codigo}"
-											style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
+								<h:outputText value="#{pedido.solicitante.nome}" />
+
 							</p:column>
 
-							<p:column headerText="Nome">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{produto.nome}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{produto.nome}" style="width:100%"
-											required="true" />
-									</f:facet>
-								</p:cellEditor>
+							<p:column headerText="Status">
+
+								<h:outputText value="#{pedido.fase}" />
+
 							</p:column>
 
-							<p:column headerText="Marca">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{produto.marca}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{produto.marca}" style="width:100%"
-											required="true" />
-									</f:facet>
-								</p:cellEditor>
+							<p:column headerText="Data emissão">
+
+								<h:outputText value="#{pedido.dataEmissao}" />
+
 							</p:column>
 
-							<p:column headerText="Origem">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{produto.fiscalItem.origem.origem}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{produto.fiscalItem.origem.origem}"
-											style="width:100%" required="true" />
-									</f:facet>
-								</p:cellEditor>
+							<p:column headerText="Tipo">
+
+								<h:outputText
+									value="#{empty pedido.cotacao ? 'Compra' : 'Cotação'}" />
+
 							</p:column>
 
-							<p:column style="width:6rem" headerText="Editar">
-								<p:rowEditor editTitle="Editar" cancelTitle="Cancelar"
-									saveTitle="Salvar" />
+							<p:column headerText="Fornecedor">
+
+								<h:outputText value="#{pedido.fornecedor.nome}" />
+
 							</p:column>
 
-							<p:column headerText="Excluir">
-								<p:commandButton
-									styleClass="rounded-button ui-button-danger ui-button-outlined"
-									icon="pi pi-trash" process="@this"
-									oncomplete="PF('deleteProdutoDialog').show()">
-									<f:setPropertyActionListener value="#{produto}"
-										target="#{produtoBean.selecionado}" />
-								</p:commandButton>
+							<p:column headerText="Visualizar produtos">
+
+								<p:commandButton type="button"
+									 icon="pi pi-search" styleClass="rounded-button ui-button-secondary ui-button-outlined" onclick="PF('dlg2').show()" action="#{ordemCompraBean.listarItens(pedido)}" />
+
 							</p:column>
+
 						</p:dataTable>
 
-						<p:confirmDialog widgetVar="deleteProdutoDialog"
-							showEffect="fade" width="300" message="Deletar este produto?"
-							header="Confirmar" severity="warn">
-							<p:commandButton value="Sim" icon="pi pi-check"
-								action="#{produtoBean.excluir}" process="@this"
-								oncomplete="PF('deleteProdutoDialog').hide()" />
-							<p:commandButton value="Não" type="button"
-								styleClass="ui-button-secondary" icon="pi pi-times"
-								onclick="PF('deleteProdutoDialog').hide()" />
-						</p:confirmDialog>
+						<p:dialog header="Produtos" widgetVar="dlg2" minHeight="300"
+							width="1000" showEffect="fade" modal="true">
+							
+							<p:dataTable id="itens" value="#{ordemCompraBean.itens}" var="item" scrollable="true" scrollHeight="300">
+								<p:column headerText="Codigo">
+									<h:outputText value="#{item.produto.codigo}" />
+								</p:column>
+								
+								<p:column headerText="Produto">
+									<h:outputText value="#{item.produto.nome}" />
+								</p:column>
+								
+								<p:column headerText="Marca">
+									<h:outputText value="#{item.produto.marca}" />
+								</p:column>
+								
+								<p:column headerText="Valor uni.">
+									<h:outputText value="#{item.valorUnitario}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+								
+								<p:column headerText="Total">
+									<h:outputText value="#{item.valorTotal}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+							
+							</p:dataTable>
+							
+						</p:dialog>
 
 					</div>
 				</h:form>
 
 			</p:panel>
-			<!-- Conteúdo -->
-
-
 
 
 		</div>
@@ -209,9 +196,7 @@
 	<!-- Rodapé -->
 	<footer>
 		<div class="rdp">
-			<div class="mid">
-				
-			</div>
+			<div class="mid"></div>
 		</div>
 	</footer>
 

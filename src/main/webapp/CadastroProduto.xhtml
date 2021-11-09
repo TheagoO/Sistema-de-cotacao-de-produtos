@@ -57,7 +57,7 @@
 								action="Cotacao" />
 							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
 								action="Compra" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square"
+							<p:menuitem value="Finalizados" icon="pi pi-fw pi-check-square"
 								action="Pedidos" />
 						</p:submenu>
 
@@ -81,7 +81,7 @@
 
 			<!-- Painel do formulario de cadastro -->
 			<p:panel header="Novo produto">
-				<h:form id="New-Produto">
+				<h:form id="produto">
 					<div class="ui-fluid">
 
 						<!-- Input "Nome" -->
@@ -128,15 +128,6 @@
 						</div>
 						<br />
 
-						<!-- Select option "Origem" -->
-						<p:outputLabel for="@previous" value="Origem:" />
-						<span class="ui-float-label"> <p:selectOneMenu id="origem"
-								value="#{produtoBean.produto.fiscalItem.origem.id}">
-								<f:selectItem itemLabel="Selecione" />
-								<f:selectItems value="#{origemBean.lista}" var="p"
-									itemValue="#{p.id}" />
-							</p:selectOneMenu>
-						</span> <br />
 					</div>
 
 					<!-- Container dos botões -->
@@ -158,7 +149,7 @@
 								<p:commandButton value="Não" type="button"
 									styleClass="ui-confirmdialog-no ui-button-flat" />
 								<p:commandButton value="Sim" type="button"
-									styleClass="ui-confirmdialog-yes" />
+									styleClass="ui-confirmdialog-yes" update="produto" />
 							</p:confirmDialog>
 
 						</div>

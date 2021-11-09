@@ -27,7 +27,10 @@ public class CotacaoItem implements Serializable {
 	@ManyToOne
 	private Produto produto;
 	
-
+	@ManyToOne
+	@JoinColumn(name = "cotacao_id")
+	private Cotacao cotacao;
+	
 	public CotacaoItem() {
 		this.id = 0;
 		this.produto = new Produto();

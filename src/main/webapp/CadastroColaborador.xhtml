@@ -57,7 +57,7 @@
 								action="Cotacao" />
 							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
 								action="Compra" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square"
+							<p:menuitem value="Finalizados" icon="pi pi-fw pi-check-square"
 								action="Pedidos" />
 						</p:submenu>
 
@@ -176,8 +176,8 @@
 									<p:outputLabel for="@next" value="Estado" />
 									<br />
 									<p:selectOneMenu id="estado"
-										value="#{fornecedorBean.fornecedor.endereco.cidade.estado.id}"
-										effect="fold" required="true" var="e">
+										value="#{fornecedorBean.endereco.cidade.estado.id}"
+										effect="fade" required="true" var="e" filter="true" filterMatchMode="startsWith">
 										<f:selectItem itemLabel="Selecione" />
 										<f:selectItems value="#{estadoBean.lista}" var="e"
 											itemValue="#{e.id}" />
@@ -197,8 +197,8 @@
 									<p:outputLabel for="@next" value="Cidade" />
 									<br />
 									<p:selectOneMenu id="cidade"
-										value="#{fornecedorBean.fornecedor.endereco.cidade.id}"
-										effect="fold" required="true" var="cid">
+										value="#{fornecedorBean.endereco.cidade.id}"
+										effect="fade" required="true" var="cid"  filter="true" filterMatchMode="startsWith">
 										<f:selectItem itemLabel="Selecione" />
 										<f:selectItems value="#{cidadeBean.lista}" var="c"
 											itemValue="#{c.id}" />

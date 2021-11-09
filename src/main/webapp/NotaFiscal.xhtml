@@ -54,7 +54,7 @@
 								action="Cotacao" />
 							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
 								action="Compra" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square"
+							<p:menuitem value="Finalizados" icon="pi pi-fw pi-check-square"
 								action="Pedidos" />
 						</p:submenu>
 
@@ -145,21 +145,7 @@
 								<h:outputText value="#{notaFiscalItemBean.ordem.total}" />
 							</p:column>
 
-							<p:column>
-								<div class="search-area" style="width: 200px; margin-left: 0px;">
-									<p:commandButton value="Negar" styleClass="ui-button-danger"
-										oncomplete="PF('deletePedidoDialog').show()" process="@this">
-										<f:setPropertyActionListener value="#{pedido}"
-											target="#{ordemCompraBean}" />
-									</p:commandButton>
-									<p:commandButton value="Aprovar" styleClass="ui-button-success"
-										oncomplete="PF('confirmPedidoDialog').show()" process="@this">
-
-										<f:setPropertyActionListener value="#{pedido}"
-											target="#{ordemCompraBean}" />
-									</p:commandButton>
-								</div>
-							</p:column>
+			
 						</p:summaryRow>
 					</p:dataTable>
 

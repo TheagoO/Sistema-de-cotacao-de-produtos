@@ -17,7 +17,10 @@ public class RequisicaoItem implements Serializable {
 
 	@ManyToOne
 	private Produto produto;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "requisicao_id")
+	private Requisicao requisicao;
 	
 	public RequisicaoItem() {
 		this.id = 0;
@@ -59,6 +62,16 @@ public class RequisicaoItem implements Serializable {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+
+	public Requisicao getRequisicao() {
+		return requisicao;
+	}
+
+
+	public void setRequisicao(Requisicao requisicao) {
+		this.requisicao = requisicao;
 	}
 
 

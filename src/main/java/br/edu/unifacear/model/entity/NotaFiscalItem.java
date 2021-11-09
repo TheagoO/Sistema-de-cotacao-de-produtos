@@ -27,7 +27,10 @@ public class NotaFiscalItem implements Serializable {
 	@ManyToOne
 	private Produto item;
 	
-
+	@ManyToOne
+	@JoinColumn(name = "nota_id")
+	private NotaFiscal nota;
+	
 	public NotaFiscalItem() {
 		this.id = 0;
 		this.item = new Produto();
@@ -90,6 +93,14 @@ public class NotaFiscalItem implements Serializable {
 
 	public void setItem(Produto item) {
 		this.item = item;
+	}
+
+	public NotaFiscal getNota() {
+		return nota;
+	}
+
+	public void setNota(NotaFiscal nota) {
+		this.nota = nota;
 	}
 
 	@Override

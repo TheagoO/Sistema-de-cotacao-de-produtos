@@ -81,10 +81,11 @@ public class OrdemCompraDao {
 		if(paramNome.equals("")) {
 			q = em.createQuery("select g from OrdemCompra g");
 		}
-		else {
+		else if(paramNome.contains("Aprovados")){
+			int i = 3;
 			q = em.createQuery("select g from OrdemCompra g"
-					+" where codigo like :codigo");
-			q.setParameter("codigo", "%"+paramNome+"%");
+					+" where fase_id like :fase_id");
+			q.setParameter("fase_id", "%"+i+"%");
 		}
 		
 		return q.getResultList();		

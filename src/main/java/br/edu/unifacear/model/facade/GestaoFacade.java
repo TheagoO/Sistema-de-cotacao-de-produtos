@@ -3,6 +3,8 @@ package br.edu.unifacear.model.facade;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+
 import br.edu.unifacear.model.bo.*;
 import br.edu.unifacear.model.entity.*;
 
@@ -102,7 +104,19 @@ public class GestaoFacade {
 	}
 
 	// FORNECEDOR
-	public String salvarFornecedor(Fornecedor f) throws Exception {
+	public String salvarFornecedor(Fornecedor f, Endereco e) throws Exception {
+		try {
+			this.enderecoBo.salvar(e);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		List<Endereco> lst = enderecoBo.listar(e.getLogradouro());
+
+		if (!lst.isEmpty()) {
+			e = lst.get(0);
+			f.getEndereco().setId(e.getId());
+		}
+
 		return this.fornecedorBo.salvar(f);
 	}
 
@@ -115,6 +129,7 @@ public class GestaoFacade {
 	}
 
 	public String excluirFornecedor(Fornecedor f) throws Exception {
+		this.fornecedorBo.deletar(f);
 
 		for (Endereco e : this.enderecoBo.listar("")) {
 			if (e.getId() == f.getEndereco().getId()) {
@@ -123,7 +138,7 @@ public class GestaoFacade {
 			}
 		}
 
-		return this.fornecedorBo.deletar(f);
+		return null;
 	}
 
 	// CIDADE
@@ -239,6 +254,18 @@ public class GestaoFacade {
 
 	public List<OrdemCompra> listarOrdemCompra(String e) throws Exception {
 		return this.ordemCompraBo.listar(e);
+	}
+
+	public List<OrdemCompraItem> listarItens(OrdemCompra oc) throws Exception {
+		List<OrdemCompraItem> lista = new ArrayList<OrdemCompraItem>();
+
+		for (OrdemCompraItem oci : this.ordemCompraItemBo.listar(0)) {
+			if (oc.getId() == oci.getOrdem().getId()) {
+				lista.add(oci);
+			}
+		}
+
+		return lista;
 	}
 
 	// ORDEM-COMPRA-ITEM

@@ -13,7 +13,7 @@ import br.edu.unifacear.model.bo.OrigemBo;
 import br.edu.unifacear.model.entity.Origem;
 
 @ManagedBean(name = "origemBean")
-@SessionScoped
+@ApplicationScoped
 public class OrigemController {
 
 	private Origem origem;

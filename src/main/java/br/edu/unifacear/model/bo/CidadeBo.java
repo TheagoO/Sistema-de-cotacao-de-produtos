@@ -9,7 +9,6 @@ public class CidadeBo {
 	
 	public String salvar(Cidade cidade) 
 			throws Exception {
-		validarDadosCidade(cidade);
 		CidadeDao cidadeDao = new CidadeDao();
 		try {
 			return cidadeDao.salvar(cidade);
@@ -20,7 +19,6 @@ public class CidadeBo {
 	
 	public String alterar(Cidade cidade) 
 			throws Exception {
-		validarDadosCidade(cidade);
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
 			return new CidadeDao().alterar(cidade);
@@ -31,7 +29,6 @@ public class CidadeBo {
 	
 	public String deletar(Cidade cidade) 
 			throws Exception {
-		validarDadosCidade(cidade);
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
 			return new CidadeDao().deletar(cidade);
@@ -47,16 +44,5 @@ public class CidadeBo {
 			throw new Exception(e.getMessage());
 		}
 	}		
-	
-	
-
-	private void validarDadosCidade(Cidade cidade) throws Exception {
-//		if (cidade.getId() < 0) {
-//			throw new Exception("Id do cidade não pode ser negativo!");
-//		}
-		if (cidade.getCidade().equals("")) {
-			throw new Exception("Nome do cidade não pode ficar em branco!");
-		}
-	}	
-	
+		
 }

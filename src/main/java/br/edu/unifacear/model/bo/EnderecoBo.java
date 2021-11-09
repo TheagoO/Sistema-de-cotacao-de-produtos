@@ -9,7 +9,6 @@ public class EnderecoBo {
 	
 	public String salvar(Endereco endereco) 
 			throws Exception {
-		validarDadosEndereco(endereco);
 		EnderecoDao enderecoDao = new EnderecoDao();
 		try {
 			return enderecoDao.salvar(endereco);
@@ -20,8 +19,7 @@ public class EnderecoBo {
 	
 	public String alterar(Endereco endereco) 
 			throws Exception {
-		validarDadosEndereco(endereco);
-		// exemplo chamando a DAO com a instancia direta do obj
+
 		try {
 			return new EnderecoDao().alterar(endereco);
 		} catch (Exception e) {
@@ -31,8 +29,6 @@ public class EnderecoBo {
 	
 	public String deletar(Endereco endereco) 
 			throws Exception {
-		validarDadosEndereco(endereco);
-		// exemplo chamando a DAO com a instancia direta do obj
 		try {
 			return new EnderecoDao().deletar(endereco);
 		} catch (Exception e) {
@@ -47,16 +43,5 @@ public class EnderecoBo {
 			throw new Exception(e.getMessage());
 		}
 	}		
-	
-
-
-	private void validarDadosEndereco(Endereco endereco) throws Exception {
-//		if (endereco.getId() < 0) {
-//			throw new Exception("Id do endereco não pode ser negativo!");
-//		}
-		if (endereco.getCidade().getCidade().equals("")) {
-			throw new Exception("Nome do endereco não pode ficar em branco!");
-		}
-	}	
 	
 }

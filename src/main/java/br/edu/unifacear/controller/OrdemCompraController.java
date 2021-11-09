@@ -17,6 +17,7 @@ import br.edu.unifacear.model.entity.CotacaoFornecedorPreco;
 import br.edu.unifacear.model.entity.Gestor;
 import br.edu.unifacear.model.entity.RequisicaoItem;
 import br.edu.unifacear.model.entity.OrdemCompra;
+import br.edu.unifacear.model.entity.OrdemCompraItem;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
 @ManagedBean(name = "ordemCompraBean")
@@ -26,6 +27,8 @@ public class OrdemCompraController {
 	private OrdemCompra ordemCompra;
 	private OrdemCompra ordemSelecionada;
 	private List<OrdemCompra> lista;
+	private List<OrdemCompra> aprovados;
+	private List<OrdemCompraItem> itens;
 
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
@@ -96,7 +99,7 @@ public class OrdemCompraController {
 
 		try {
 			this.ordemSelecionada.getFase().setStatus(0);
-			facade.salvarOrdemCompra(ordemSelecionada);
+			facade.editarOrdemCompra(ordemSelecionada);
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de compra negada!"));
 			this.ordemSelecionada = new OrdemCompra();
 		} catch (Exception e) {
@@ -105,11 +108,41 @@ public class OrdemCompraController {
 		}
 	}
 	
+	
+	public void listarAprovados() {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		this.aprovados.removeAll(aprovados);
+		try {
+			this.aprovados = facade.listarOrdemCompra("Aprovados");
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar aprovados"));
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public void listarItens(OrdemCompra oc) {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		try {
+			this.itens = facade.listarItens(oc);
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens"));
+			e.printStackTrace();
+		}	
+	}
+	
+	
 	public OrdemCompraController() {
 		this.ordemCompra = new OrdemCompra();
 		this.ordemSelecionada = new OrdemCompra();
 		this.lista = new ArrayList<OrdemCompra>();
+		this.aprovados = new ArrayList<OrdemCompra>();
+		this.itens = new ArrayList<OrdemCompraItem>();
 		listar();
+		listarAprovados();
 	}
 
 	public OrdemCompra getOrdemCompra() {
@@ -134,6 +167,22 @@ public class OrdemCompraController {
 
 	public void setLista(List<OrdemCompra> lista) {
 		this.lista = lista;
+	}
+
+	public List<OrdemCompra> getAprovados() {
+		return aprovados;
+	}
+
+	public void setAprovados(List<OrdemCompra> aprovados) {
+		this.aprovados = aprovados;
+	}
+
+	public List<OrdemCompraItem> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<OrdemCompraItem> itens) {
+		this.itens = itens;
 	}
 
 }

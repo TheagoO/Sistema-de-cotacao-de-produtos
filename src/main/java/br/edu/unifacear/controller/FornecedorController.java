@@ -26,29 +26,16 @@ public class FornecedorController {
 	public String salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-				
-		try {	
-			
-			try {
-				facade.salvarEndereco(endereco);
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Endereço salvo!"));
-			} catch (Exception e) {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar endereço!"));
-				e.printStackTrace();
+
+		try {
+
+			String retorno = facade.salvarFornecedor(fornecedor, endereco);
+			if (retorno.contains("CNPJ já cadastrado")) {
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "CNPJ já cadastrado!"));
+			} else {
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador salvo!"));
 			}
-			
-			if(!facade.listarEndereco(this.endereco.getLogradouro()).isEmpty()) {
-				this.endereco = (Endereco) facade.listarEndereco(this.endereco.getLogradouro());
-				this.fornecedor.getEndereco().setId(endereco.getId());
-				
-				String retorno = facade.salvarFornecedor(fornecedor);
-				if (retorno.contains("CNPJ já cadastrado")) {
-					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "CNPJ já cadastrado!"));
-				} else {
-					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador salvo!"));
-				}
-			}
-			
+
 			this.endereco = new Endereco();
 			this.fornecedor = new Fornecedor();
 
@@ -91,7 +78,7 @@ public class FornecedorController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void excluir() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -106,7 +93,7 @@ public class FornecedorController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void onRowEdit(RowEditEvent<Fornecedor> event) {
 		Fornecedor novo = new Fornecedor();
 
@@ -171,6 +158,5 @@ public class FornecedorController {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
 
 }

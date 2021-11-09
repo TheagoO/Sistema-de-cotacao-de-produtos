@@ -63,7 +63,7 @@
 								action="Cotacao" />
 							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
 								action="Compra" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square"
+							<p:menuitem value="Finalizados" icon="pi pi-fw pi-check-square"
 								action="Pedidos" />
 						</p:submenu>
 
@@ -112,12 +112,12 @@
 						<p:dataTable id="produtos" var="produto"
 							value="#{produtoBean.produtos}" editable="true"
 							style="margin-bottom:20px; margin-top:20px;" scrollable="true"
-							scrollHeight="100%">
+							scrollHeight="20%">
 
 							<p:ajax event="rowEdit" listener="#{produtoBean.onRowEdit}"
 								update=":form:msgs" />
-							<p:ajax event="rowEditCancel" listener="#{produtoBean.onRowCancel}"
-								update=":form:msgs" />
+							<p:ajax event="rowEditCancel"
+								listener="#{produtoBean.onRowCancel}" update=":form:msgs" />
 
 							<p:column headerText="Código">
 								<p:cellEditor>
@@ -155,14 +155,17 @@
 								</p:cellEditor>
 							</p:column>
 
-							<p:column headerText="Origem">
+							<p:column headerText="NCM">
 								<p:cellEditor>
 									<f:facet name="output">
-										<h:outputText value="#{produto.fiscalItem.origem.origem}" />
+										<h:outputText value="#{produto.fiscalItem}" />
 									</f:facet>
 									<f:facet name="input">
-										<p:inputText value="#{produto.fiscalItem.origem.origem}"
-											style="width:100%" required="true" />
+										<h:selectOneMenu id="ncm" value="#{produto.fiscalItem.id}"
+											style="width:100%">
+											<f:selectItems value="#{fiscalItemBean.lista}" var="fisco"
+												itemValue="#{fisco.id}" />
+										</h:selectOneMenu>
 									</f:facet>
 								</p:cellEditor>
 							</p:column>
@@ -183,12 +186,12 @@
 							</p:column>
 						</p:dataTable>
 
-						<p:confirmDialog widgetVar="deleteProdutoDialog"
-							showEffect="fade" width="300" message="Deletar este produto?"
-							header="Confirmar" severity="warn">
+						<p:confirmDialog widgetVar="deleteProdutoDialog" showEffect="fade"
+							width="300" message="Deletar este produto?" header="Confirmar"
+							severity="warn">
 							<p:commandButton value="Sim" icon="pi pi-check"
 								action="#{produtoBean.excluir}" process="@this"
-								oncomplete="PF('deleteProdutoDialog').hide()" />
+								oncomplete="PF('deleteProdutoDialog').hide()" update="msgs" />
 							<p:commandButton value="Não" type="button"
 								styleClass="ui-button-secondary" icon="pi pi-times"
 								onclick="PF('deleteProdutoDialog').hide()" />

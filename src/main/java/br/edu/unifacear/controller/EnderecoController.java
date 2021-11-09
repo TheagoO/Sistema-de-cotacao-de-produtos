@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -12,7 +13,7 @@ import br.edu.unifacear.model.entity.Endereco;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
 @ManagedBean(name = "enderecoBean")
-@SessionScoped
+@ApplicationScoped
 public class EnderecoController {
 
 	private Endereco endereco;

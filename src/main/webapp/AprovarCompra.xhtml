@@ -64,7 +64,7 @@
 								action="Cotacao" />
 							<p:menuitem value="Compra" icon="pi pi-fw pi-shopping-cart"
 								action="Compra" />
-							<p:menuitem value="Aprovados" icon="pi pi-fw pi-check-square"
+							<p:menuitem value="Finalizados" icon="pi pi-fw pi-check-square"
 								action="Pedidos" />
 						</p:submenu>
 
@@ -127,8 +127,12 @@
 										<h:outputText value="#{ordem.fase}" />
 									</p:column>
 
-									<p:column headerText="Quantidade de itens">
-										<h:outputText value="#{ordem.ordemCompraItem.size()}" />
+									<p:column headerText="Visualizar produtos">
+										<p:commandButton type="button" icon="pi pi-search"
+											styleClass="rounded-button ui-button-secondary ui-button-outlined"
+											onclick="PF('dlg2').show()"
+											action="#{ordemCompraBean.listarItens(pedido)}" />
+
 									</p:column>
 
 									<p:column headerText="Fornecedor">
@@ -180,6 +184,43 @@
 										styleClass="ui-button-secondary" icon="pi pi-times"
 										onclick="PF('confirmPedidoDialog').hide()" />
 								</p:confirmDialog>
+
+								<p:dialog header="Produtos" widgetVar="dlg2" minHeight="300"
+									width="1000" showEffect="fade" modal="true">
+
+									<p:dataTable id="itens" value="#{ordemCompraBean.itens}"
+										var="item" scrollable="true" scrollHeight="300">
+										<p:column headerText="Codigo">
+											<h:outputText value="#{item.produto.codigo}" />
+										</p:column>
+
+										<p:column headerText="Produto">
+											<h:outputText value="#{item.produto.nome}" />
+										</p:column>
+
+										<p:column headerText="Marca">
+											<h:outputText value="#{item.produto.marca}" />
+										</p:column>
+										
+										<p:column headerText="Quantidade">
+											<h:outputText value="#{item.quantiade}" />
+										</p:column>
+
+										<p:column headerText="Valor uni.">
+											<h:outputText value="#{item.valorUnitario}">
+												<f:convertNumber type="currency" currencySymbol="$" />
+											</h:outputText>
+										</p:column>
+
+										<p:column headerText="Total">
+											<h:outputText value="#{item.valorTotal}">
+												<f:convertNumber type="currency" currencySymbol="$" />
+											</h:outputText>
+										</p:column>
+
+									</p:dataTable>
+
+								</p:dialog>
 
 							</h:form>
 						</div>
