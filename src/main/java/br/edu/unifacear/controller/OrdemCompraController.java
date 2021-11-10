@@ -8,14 +8,6 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.event.RowEditEvent;
-
-import br.edu.unifacear.model.entity.Almoxarifado;
-import br.edu.unifacear.model.entity.Cotacao;
-import br.edu.unifacear.model.entity.Fornecedor;
-import br.edu.unifacear.model.entity.CotacaoFornecedorPreco;
-import br.edu.unifacear.model.entity.Gestor;
-import br.edu.unifacear.model.entity.RequisicaoItem;
 import br.edu.unifacear.model.entity.OrdemCompra;
 import br.edu.unifacear.model.entity.OrdemCompraItem;
 import br.edu.unifacear.model.facade.GestaoFacade;

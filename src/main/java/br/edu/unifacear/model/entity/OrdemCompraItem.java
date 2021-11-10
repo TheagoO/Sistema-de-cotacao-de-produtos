@@ -33,7 +33,7 @@ public class OrdemCompraItem {
 	private Produto produto;
 	
 	@ManyToOne
-	@JoinColumn(name = "compra_id")
+	@JoinColumn(name = "item_id")
 	private OrdemCompra ordem;
 	
 	public OrdemCompraItem() {

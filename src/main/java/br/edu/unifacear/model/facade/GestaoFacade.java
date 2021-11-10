@@ -238,7 +238,7 @@ public class GestaoFacade {
 	public List<Cotacao> listarCotacao(long s) throws Exception {
 		return this.cotacaoBo.listar(s);
 	}
-
+	
 	// ORDEM-COMPRA
 	public String salvarOrdemCompra(OrdemCompra e) throws Exception {
 		return this.ordemCompraBo.salvar(e);

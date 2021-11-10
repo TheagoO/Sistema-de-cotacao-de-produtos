@@ -27,11 +27,11 @@ public class OrdemCompra implements Serializable {
 	private LocalDateTime dataEmissao;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "compra_id")
+	@JoinColumn(name = "ordem_id")
 	private List<OrdemCompraItem> ordemCompraItem;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cotacao_id")
+	@JoinColumn(name = "ordem_id")
 	private List<Cotacao> cotacao;
 	
 	@ManyToOne

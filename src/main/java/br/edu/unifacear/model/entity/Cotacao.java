@@ -22,11 +22,11 @@ public class Cotacao implements Serializable {
 	private CotacaoFornecedorPreco cotacaoFornecedor;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cotacao_id")
+	@JoinColumn(name = "item_id")
 	private List<CotacaoItem> cotacaoItem;
 	
 	@ManyToOne
-	@JoinColumn(name = "cotacao_id_id")
+	@JoinColumn(name = "ordem_id")
 	private OrdemCompra ordemCompra;
 	
 	public Cotacao() {

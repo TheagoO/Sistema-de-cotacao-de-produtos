@@ -145,8 +145,10 @@
 
 							<p:column headerText="Visualizar produtos">
 
-								<p:commandButton type="button"
-									 icon="pi pi-search" styleClass="rounded-button ui-button-secondary ui-button-outlined" onclick="PF('dlg2').show()" action="#{ordemCompraBean.listarItens(pedido)}" />
+								<p:commandButton type="button" icon="pi pi-search"
+									styleClass="rounded-button ui-button-secondary ui-button-outlined"
+									onclick="PF('dlg2').show()"
+									action="#{ordemCompraBean.listarItens(pedido)}" />
 
 							</p:column>
 
@@ -154,34 +156,35 @@
 
 						<p:dialog header="Produtos" widgetVar="dlg2" minHeight="300"
 							width="1000" showEffect="fade" modal="true">
-							
-							<p:dataTable id="itens" value="#{ordemCompraBean.itens}" var="item" scrollable="true" scrollHeight="300">
+
+							<p:dataTable id="itens" value="#{ordemCompraBean.itens}"
+								var="item" scrollable="true" scrollHeight="300">
 								<p:column headerText="Codigo">
 									<h:outputText value="#{item.produto.codigo}" />
 								</p:column>
-								
+
 								<p:column headerText="Produto">
 									<h:outputText value="#{item.produto.nome}" />
 								</p:column>
-								
+
 								<p:column headerText="Marca">
 									<h:outputText value="#{item.produto.marca}" />
 								</p:column>
-								
+
 								<p:column headerText="Valor uni.">
 									<h:outputText value="#{item.valorUnitario}">
 										<f:convertNumber type="currency" currencySymbol="$" />
 									</h:outputText>
 								</p:column>
-								
+
 								<p:column headerText="Total">
 									<h:outputText value="#{item.valorTotal}">
 										<f:convertNumber type="currency" currencySymbol="$" />
 									</h:outputText>
 								</p:column>
-							
+
 							</p:dataTable>
-							
+
 						</p:dialog>
 
 					</div>
