@@ -1,5 +1,6 @@
 package br.edu.unifacear.model.dao;
 
+import java.math.BigInteger;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -73,8 +74,8 @@ public class RequisicaoDao {
 
 	
 	
-	public List<Requisicao> listar(long paramNome) throws Exception{		
-
+	public List<Requisicao> listar(int paramNome) throws Exception{		
+		
 		String cWhere = "";
 		Query q = null;
 
@@ -82,9 +83,10 @@ public class RequisicaoDao {
 			q = em.createQuery("select g from Requisicao g");
 		}
 		else {
+			
 			q = em.createQuery("select g from Requisicao g"
-					+" where codigo like :codigo");
-			q.setParameter("codigo", "%"+paramNome+"%");
+					+" where codigo = :codigo");
+			q.setParameter("codigo", paramNome);
 		}
 		
 		return q.getResultList();		

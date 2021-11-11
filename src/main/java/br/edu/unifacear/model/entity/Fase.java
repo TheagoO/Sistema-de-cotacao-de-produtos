@@ -1,6 +1,8 @@
 package br.edu.unifacear.model.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -14,10 +16,20 @@ public class Fase implements Serializable {
 
 	@Column(name = "STATUS")
 	private int status;
-
+	
+	@OneToMany
+	@JoinColumn(name = "fase_id")
+	private List<Requisicao> requisicao;
+	
+	@OneToMany
+	@JoinColumn(name = "fase_id")
+	private List<OrdemCompra> ordem;
+	
 	public Fase() {
 		this.id = 0;
 		this.status = 0;
+		this.requisicao = new ArrayList<Requisicao>();
+		this.ordem = new ArrayList<OrdemCompra>();
 	}
 
 	public Fase(int id, int status) {
@@ -39,6 +51,22 @@ public class Fase implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public List<Requisicao> getRequisicao() {
+		return requisicao;
+	}
+
+	public void setRequisicao(List<Requisicao> requisicao) {
+		this.requisicao = requisicao;
+	}
+
+	public List<OrdemCompra> getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(List<OrdemCompra> ordem) {
+		this.ordem = ordem;
 	}
 
 	@Override
@@ -74,4 +102,5 @@ public class Fase implements Serializable {
 		return id == other.id && Objects.equals(status, other.status);
 	}
 
+	
 }

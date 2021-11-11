@@ -1,20 +1,27 @@
 package br.edu.unifacear.model.bo;
 
+import java.math.BigInteger;
 import java.util.List;
+import java.util.Random;
 
 import br.edu.unifacear.model.dao.RequisicaoDao;
 import br.edu.unifacear.model.entity.Requisicao;
 
 public class RequisicaoBo {
 	
-	public String salvar(Requisicao requisicao) 
+	public int salvar(Requisicao requisicao) 
 			throws Exception {
 		RequisicaoDao requisicaoDao = new RequisicaoDao();
+		Random r = new Random();
+		int cod =  r.nextInt(99999);
 		try {
-			return requisicaoDao.salvar(requisicao);
+			
+			requisicao.setCodigo(cod);
+			requisicaoDao.salvar(requisicao);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
+		return cod;
 	}
 	
 	public String alterar(Requisicao requisicao) 
@@ -35,7 +42,7 @@ public class RequisicaoBo {
 		}
 	}
 	
-	public List<Requisicao> listar(long paramNome) throws Exception {
+	public List<Requisicao> listar(int paramNome) throws Exception {
 		try {
 			return new RequisicaoDao().listar(paramNome);
 		} catch (Exception e) {

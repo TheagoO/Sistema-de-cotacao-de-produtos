@@ -111,8 +111,8 @@
 
 						<p:dataTable id="produtos" var="produto"
 							value="#{produtoBean.produtos}" editable="true"
-							style="margin-bottom:20px; margin-top:20px;" scrollable="true"
-							scrollHeight="20%">
+							style="margin-bottom:20px; margin-top:20px; height: 75%" scrollable="true"
+							scrollHeight="90%">
 
 							<p:ajax event="rowEdit" listener="#{produtoBean.onRowEdit}"
 								update=":form:msgs" />
@@ -191,7 +191,7 @@
 							severity="warn">
 							<p:commandButton value="Sim" icon="pi pi-check"
 								action="#{produtoBean.excluir}" process="@this"
-								oncomplete="PF('deleteProdutoDialog').hide()" update="msgs" />
+								oncomplete="PF('deleteProdutoDialog').hide()" update=":form:msgs, :form:produtos" />
 							<p:commandButton value="Não" type="button"
 								styleClass="ui-button-secondary" icon="pi pi-times"
 								onclick="PF('deleteProdutoDialog').hide()" />

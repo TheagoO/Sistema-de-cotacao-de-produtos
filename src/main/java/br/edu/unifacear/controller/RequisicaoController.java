@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.edu.unifacear.model.entity.Almoxarifado;
 import br.edu.unifacear.model.entity.Produto;
 import br.edu.unifacear.model.entity.Requisicao;
 import br.edu.unifacear.model.entity.RequisicaoItem;
@@ -23,16 +24,17 @@ public class RequisicaoController {
 	private Requisicao selecionado;
 	private List<Requisicao> lista;
 	
-	public void salvar() {
+	public void salvar(Almoxarifado a) {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-				
+		
+		this.requisicao.setSolicitante(a);
 		try {
-			facade.salvarRequisicao(requisicao);
+			facade.salvarRequisicao(requisicao, null);
 			this.requisicao = new Requisicao();
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Requisicao de compra enviada!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido enviado!"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao enviar requisicao de compra"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao enviar pedido"));
 			e.printStackTrace();
 		}
 
@@ -83,11 +85,6 @@ public class RequisicaoController {
 		}
 	}
 		
-	public void addItem() {
-		RequisicaoItem p = new RequisicaoItem();
-		this.requisicao.getItem().add(p);
-	}
-	
 	public void onRowEdit(RowEditEvent<Requisicao> event) {
 		Requisicao novo = new Requisicao();
 

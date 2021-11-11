@@ -37,15 +37,14 @@
 	</header>
 
 	<section>
-		<p:growl id="messages" showDetail="true" />
 		<div class="menu-area">
 
 			<p:panel id="fold" header="Menu">
 				<h:form>
 					<p:tieredMenu style="width:100%; height:100%;">
-						<p:submenu label="Estoque" icon="pi pi-bars">
-							<p:menuitem value="Itens em Estoque" icon="pi pi-fw pi-list" />
-							<p:menuitem value="Nova solicitação" icon="pi pi-fw pi-plus" />
+						<p:submenu label="Pedido" icon="pi pi-bars">
+							<p:menuitem value="Novo" icon="pi pi-fw pi-plus" />
+							<p:menuitem value="Pedidos" icon="pi pi-fw pi-list" />
 						</p:submenu>
 
 					</p:tieredMenu>
@@ -61,108 +60,133 @@
 
 
 			<h:form id="form">
-				<BR />
-				<BR />
-				<BR />
-				<h1 class="titulos">SELECIONE OS ITEM PRA SOLICITAÇÃO</h1>
-				<h:form id="form-itens">
-
-					<div>
-						<p:selectOneMenu id="item" value="#{pedidoCompraBean}"
-							filter="true">
-							<f:selectItem
-								itemLabel="Selecione o produto para adicionar a solicitação de compra" />
-							<f:selectItems value="#{itemBean.itens}" var="p" itemValue="#{p}" />
-						</p:selectOneMenu>
-						<BR /> <BR />
-						<p:commandButton value="Adicionar a solicitação"
-							update=":form:products2" action="#{pedidoCompraBean.addItem(null)}" />
-						<BR /> <BR /> <BR />
-					</div>
-
-				</h:form>
-				<H1 class="titulos">SOLICIÇÃO DE COMPRA</H1>
-
 				<p:growl id="msgs" showDetail="true" />
-				<p:dataTable id="products2" var="item" editable="true"
-					editMode="cell" value="#{pedidoCompraBean.pedidos}"
-					widgetVar="cellProducts" scrollable="true" scrollWidth="100%">
+				<p:panel id="compra" header="Solicitação de compra">
+				
+					<p:panel header="Produto">
+					
+					<div class="ui-fluid">
+						
+						<div class="p-field p-col-12 p-md-4">
+								<p:outputLabel for="@next" value="Produto" />
+	
+								<p:selectOneMenu id="produto"
+									value="#{requisicaoItemBean.selecionado.produto.id}"
+									panelStyle="width:180px" effect="fade" var="fi" filter="true"
+									filterMatchMode="startsWith">
+									<f:selectItem itemLabel="Selecione" />
+									<f:selectItems value="#{produtoBean.produtos}" var="p"
+										itemValue="#{p.id}" itemLabel="#{p.nome}" />
+	
+									<p:column style="width:10%">
+										<span class="flag flag-#{c.code}"
+											style="width: 30px; height: 20px" />
+									</p:column>
+	
+									<p:column>
+										<h:outputText value="#{fi.nome}" />
+									</p:column>
+								</p:selectOneMenu>
+							</div>
+							 <br />
+							<div class="p-field p-col-12 p-md-4">
+							<p:outputLabel for="@next" value="Quantidade" />
+							
+							<p:inputNumber id="quantidade"
+									value="#{requisicaoItemBean.selecionado.quantidade}" modifyValueOnWheel="false" />
+								 
+							</div>
+						</div>
+					
+					</p:panel>			 
+						
+						<br />
+						
 
-					<p:ajax event="cellEdit" listener="#{dtEditView.onCellEdit}"
-						update=":form:msgs" />
+				
+				<div class="cls_right">
 
-					<!-- Cabeçalho das colunas -->
+							<div></div>
 
-					<p:columnGroup type="header">
+							<div class="search-area" style="width:100%">
+							<p:commandButton value="Adicionar" icon="pi pi-check" styleClass="ui-button-info"
+						 action="#{requisicaoItemBean.addItem(requisicaoItemBean.selecionado)}" update=":form:itens"/>
 
-						<p:column headerText="Qtd." width="100px" />
-						<p:column headerText="Produto" />
-						<p:column headerText="Código" />
-						<p:column headerText="Marca" />
+							</div>
 
-					</p:columnGroup>
+						</div>
+				<br />
+				
+		
 
-					<!-- Linhas -->
-
-					<p:column>
+				<p:panel header="Produtos adicionados">
+								
+					<p:dataTable id="itens"  var="item"
+							value="#{requisicaoItemBean.itens}" editable="true"
+							style="height: 255px;" scrollable="true"
+							scrollHeight="75%">
+							
+					<p:ajax event="rowEdit" listener="#{requisicaoItemBean.onRowEdit}"
+								update=":form:msgs" />
+							<p:ajax event="rowEditCancel"
+								listener="#{requisicaoItemBean.onRowCancel}" update=":form:msgs" />
+							
+					<p:column headerText="Código">
+					
+						<h:outputText value="#{item.produto.codigo}" />
+					
+					</p:column>
+					
+					<p:column headerText="Produto">
+					
+						<h:outputText value="#{item.produto.nome}" />
+					
+					</p:column>
+					
+					<p:column headerText="Quantidade">
+					
 						<p:cellEditor>
-							<f:facet name="output">
-								<h:outputText
-									value="#{pedidoCompraBean.pedidodecompra.quantidade}" />
-							</f:facet>
-							<f:facet name="input">
-								<p:inputNumber
-									value="#{pedidoCompraBean.pedidodecompra.quantidade}" />
-							</f:facet>
-						</p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{item.quantidade}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputNumber value="#{item.quantidade}" style="width:100%"
+											required="true" />
+									</f:facet>
+								</p:cellEditor>
+					
 					</p:column>
+					
+					<p:column style="width:6rem" headerText="Editar">
+								<p:rowEditor editTitle="Editar" cancelTitle="Cancelar"
+									saveTitle="Salvar" />
+							</p:column>
+							
+					<p:column headerText="Remover">
+								<p:commandButton
+									styleClass="rounded-button ui-button-danger ui-button-outlined"
+									icon="pi pi-trash" process="@this"
+									action="#{requisicaoItemBean.remover(item)}" update=":form:msgs, :form:itens" />
 
-					<p:column>
+							</p:column>
+				
+				</p:dataTable>				
+				<br />
+				
+				<div class="cls_right">
+							<div></div>
+							<div class="search-area" style="width:100%">
+							<p:commandButton value="Enviar pedido" icon="pi pi-check" styleClass="ui-button-success"
+						 action="#{requisicaoItemBean.salvar(requisicaoBean.requisicao, loginBean.almoxarifado)}" update=":form:msgs, :form:itens" />
 
-						<h:outputText value="#{item.nome}" />
+							</div>
 
-					</p:column>
-
-					<p:column>
-						<h:outputText value="#{item.codigo}" />
-					</p:column>
-
-					<p:column>
-						<h:outputText value="#{item.marca}" />
-					</p:column>
-
-					<p:commandButton value="Lançar" update="products2"
-						action="#{pedidoCompraBean.salvar}" />
-				</p:dataTable>
-
-				<div class="btns-area">
-
-					<div class="card">
-
-						<p:growl id="message" showDetail="true" />
-
-
-
-						<p:commandButton value="Enviar" action="#{confirmView.confirm}"
-							update="message" styleClass="p-mr-2" icon="pi pi-check">
-							<p:confirm header="Atenção"
-								message="Deseja enviar essa Solicitação de compra ?"
-								icon="pi pi-exclamation-triangle" />
-						</p:commandButton>
-
-						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
-							responsive="true" width="350">
-							<p:commandButton value="Não" type="button"
-								styleClass="ui-confirmdialog-no ui-button-flat" />
-							<p:commandButton value="Sim" type="button"
-								styleClass="ui-confirmdialog-yes" />
-						</p:confirmDialog>
-
-					</div>
-
-				</div>
+						</div>
+				</p:panel>
+				
+			</p:panel>
+				
 			</h:form>
-
 		</div>
 	</section>
 

@@ -25,6 +25,7 @@ public class RequisicaoItem implements Serializable {
 	public RequisicaoItem() {
 		this.id = 0;
 		this.produto = new Produto();
+		this.requisicao = new Requisicao();
 	}
 
 

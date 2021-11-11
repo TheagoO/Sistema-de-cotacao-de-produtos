@@ -14,8 +14,12 @@ public class Requisicao implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "STATUS")
+	@ManyToOne
+	@JoinColumn(name = "fase_id")
 	private Fase fase;
+	
+	@Column(name = "CODIGO")
+	private int codigo;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "requisicao_id")
@@ -31,12 +35,13 @@ public class Requisicao implements Serializable {
 		this.solicitante = new Almoxarifado();
 	}
 
-	public Requisicao(int id, Fase fase, List<RequisicaoItem> item, Almoxarifado solicitante) {
+	public Requisicao(int id, Fase fase, List<RequisicaoItem> item, Almoxarifado solicitante, int codigo) {
 		super();
 		this.id = id;
 		this.fase = fase;
 		this.item = item;
 		this.solicitante = solicitante;
+		this.codigo = codigo;
 	}
 
 	public int getId() {
@@ -71,14 +76,23 @@ public class Requisicao implements Serializable {
 		this.solicitante = solicitante;
 	}
 
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
 	@Override
 	public String toString() {
-		return "Requisicao [id=" + id + ", fase=" + fase + ", item=" + item + ", solicitante=" + solicitante + "]";
+		return "Requisicao [id=" + id + ", fase=" + fase + ", codigo=" + codigo + ", item=" + item + ", solicitante="
+				+ solicitante + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(fase, id, item, solicitante);
+		return Objects.hash(codigo, fase, id, item, solicitante);
 	}
 
 	@Override
@@ -90,8 +104,8 @@ public class Requisicao implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Requisicao other = (Requisicao) obj;
-		return Objects.equals(fase, other.fase) && id == other.id && Objects.equals(item, other.item)
-				&& Objects.equals(solicitante, other.solicitante);
+		return codigo == other.codigo && Objects.equals(fase, other.fase) && id == other.id
+				&& Objects.equals(item, other.item) && Objects.equals(solicitante, other.solicitante);
 	}
-	
+
 }

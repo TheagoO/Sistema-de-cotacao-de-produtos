@@ -13,28 +13,32 @@ import org.primefaces.event.RowEditEvent;
 
 import br.edu.unifacear.model.entity.Almoxarifado;
 import br.edu.unifacear.model.entity.Produto;
+import br.edu.unifacear.model.entity.Requisicao;
 import br.edu.unifacear.model.entity.RequisicaoItem;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
 @ManagedBean(name = "requisicaoItemBean")
-@ApplicationScoped
+@SessionScoped
 public class RequisicaoItemController {
 
 	private RequisicaoItem item;
 	private RequisicaoItem selecionado;
-	private List<RequisicaoItem> pedidos;
+	private List<RequisicaoItem> lista;
+	private List<RequisicaoItem> itens;
 
-	public void salvar() {
+	public void salvar(Requisicao r, Almoxarifado a) {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
 
+		r.setSolicitante(a);
 		try {
-			facade.salvarRequisicaoItem(item);
+			facade.salvarRequisicao(r, this.itens);
 			fc.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Solicitação de Compra Enviada!"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido enviado!"));
+			this.itens.clear();
 		} catch (Exception e) {
 			fc.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao Enviar Solicitação de Compra!"));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao Enviar pedido!"));
 			e.printStackTrace();
 		}
 
@@ -43,9 +47,9 @@ public class RequisicaoItemController {
 	public void listar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		this.pedidos.removeAll(pedidos);
+		this.lista.clear();
 		try {
-			this.pedidos = facade.listarRequisicaoItem("");
+			this.lista = facade.listarRequisicaoItem("");
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar Itens"));
 			e.printStackTrace();
@@ -85,28 +89,26 @@ public class RequisicaoItemController {
 		}
 	}
 
-	public void addItem(Almoxarifado a) {
-
-		this.pedidos.add(item);
+	public void addItem(RequisicaoItem ri) {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		
+		try {
+			this.selecionado = facade.pegarProduto(ri);
+			this.itens.add(selecionado);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", ri.getProduto().getNome() + " adicionado"));
+			this.selecionado = new RequisicaoItem();
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao adicionar produto"));
+			e.printStackTrace();
+		}
+		
+		
 	}
-
+		
 	public void onRowEdit(RowEditEvent<RequisicaoItem> event) {
-		RequisicaoItem novo = new RequisicaoItem();
-
-		for (RequisicaoItem i : this.pedidos) {
-			if (i.getId() == event.getObject().getId()) {
-				novo = i;
-			}
-		}
-
-		if (event.getObject() != null) {
-			try {
-				this.item = novo;
-				editar();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Quantidade editada!"));
 
 	}
 
@@ -114,11 +116,19 @@ public class RequisicaoItemController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
 	}
+	
+	public void remover(RequisicaoItem ri) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		this.itens.remove(ri);
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto removido!"));
 
+	}
+	
 	public RequisicaoItemController() {
 		this.item = new RequisicaoItem();
 		this.selecionado = new RequisicaoItem();
-		this.pedidos = new ArrayList<RequisicaoItem>();
+		this.lista = new ArrayList<RequisicaoItem>();
+		this.itens = new ArrayList<RequisicaoItem>();
 		listar();
 	}
 
@@ -138,12 +148,21 @@ public class RequisicaoItemController {
 		this.selecionado = selecionado;
 	}
 
-	public List<RequisicaoItem> getPedidos() {
-		return pedidos;
+	public List<RequisicaoItem> getItens() {
+		return itens;
 	}
 
-	public void setPedidos(List<RequisicaoItem> pedidos) {
-		this.pedidos = pedidos;
+	public void setItens(List<RequisicaoItem> itens) {
+		this.itens = itens;
 	}
+
+	public List<RequisicaoItem> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<RequisicaoItem> lista) {
+		this.lista = lista;
+	}
+
 
 }

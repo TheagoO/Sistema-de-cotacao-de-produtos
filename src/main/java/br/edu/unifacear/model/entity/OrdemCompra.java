@@ -38,6 +38,7 @@ public class OrdemCompra implements Serializable {
 	private Fornecedor fornecedor;
 	
 	@ManyToOne
+	@JoinColumn(name = "fase_id")
 	private Fase fase;
 	
 	@ManyToOne

@@ -354,8 +354,26 @@ public class GestaoFacade {
 	}
 
 	// REQUISIÇÃO
-	public String salvarRequisicao(Requisicao e) throws Exception {
-		return this.requisicaoBo.salvar(e);
+	public String salvarRequisicao(Requisicao e, List<RequisicaoItem> i) throws Exception {
+		
+		e.getFase().setId(1);
+		
+		int codigo = this.requisicaoBo.salvar(e);
+		int id=0;
+		
+		for(Requisicao r : this.requisicaoBo.listar(codigo)) {
+			if(r.getCodigo() == codigo) {
+				id = r.getId();
+				break;
+			}
+		}
+		
+		for(RequisicaoItem ri : i) {
+			ri.getRequisicao().setId(id);
+			this.requisicaoItemBo.salvar(ri);
+		}
+		
+		return "";
 	}
 
 	public String editarRequisicao(Requisicao e) throws Exception {
@@ -366,7 +384,7 @@ public class GestaoFacade {
 		return this.requisicaoBo.deletar(e);
 	}
 
-	public List<Requisicao> listarRequisicao(long s) throws Exception {
+	public List<Requisicao> listarRequisicao(int s) throws Exception {
 		return this.requisicaoBo.listar(s);
 	}
 
@@ -385,6 +403,17 @@ public class GestaoFacade {
 
 	public List<RequisicaoItem> listarRequisicaoItem(String s) throws Exception {
 		return this.requisicaoItemBo.listar(s);
+	}
+	
+	public RequisicaoItem pegarProduto(RequisicaoItem r) throws Exception {
+		
+		for(Produto p : this.produtoBo.listar("")) {
+			if(p.getId() == r.getProduto().getId()) {
+				r.setProduto(p);
+			}
+		}
+		
+		return r;
 	}
 
 	// FISCAL-ITEM
