@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 
 import br.edu.unifacear.model.bo.*;
 import br.edu.unifacear.model.entity.*;
@@ -128,6 +130,18 @@ public class GestaoFacade {
 		return this.fornecedorBo.listar(s);
 	}
 
+	public Fornecedor pegarFornecedor(String s) throws Exception {
+		Fornecedor f = new Fornecedor();
+
+		for (Fornecedor fo : this.fornecedorBo.listar(s)) {
+			if (Integer.parseInt(s) == fo.getId()) {
+				f = fo;
+			}
+		}
+
+		return f;
+	}
+
 	public String excluirFornecedor(Fornecedor f) throws Exception {
 		this.fornecedorBo.deletar(f);
 
@@ -238,7 +252,7 @@ public class GestaoFacade {
 	public List<Cotacao> listarCotacao(long s) throws Exception {
 		return this.cotacaoBo.listar(s);
 	}
-	
+
 	// ORDEM-COMPRA
 	public String salvarOrdemCompra(OrdemCompra e) throws Exception {
 		return this.ordemCompraBo.salvar(e);
@@ -266,6 +280,79 @@ public class GestaoFacade {
 		}
 
 		return lista;
+	}
+
+	public OrdemCompra novoPedido(List<String> requisicao, int id) throws Exception {
+		OrdemCompra oc = new OrdemCompra();
+
+		for (String r : requisicao) {
+			OrdemCompraItem oci = new OrdemCompraItem();
+
+			for (RequisicaoItem reqItem : this.requisicaoItemBo.listar("")) {
+				if (Integer.parseInt(r) == reqItem.getId()) {
+				
+					for (Produto p : this.produtoBo.listar("")) {
+						if (reqItem.getProduto().getId() == p.getId()) {
+							long l = reqItem.getRequisicao().getCodigo();
+							oci.setCodigo(l);
+							oci.setProduto(p);
+							oci.setQuantidade(reqItem.getQuantidade());
+						}
+					}
+
+				}
+			}
+
+			oci.setValorUnitario(0);
+			oci.setValorTotal(0);
+			oc.getOrdemCompraItem().add(oci);
+			oc.setId(id);
+		}
+
+		return oc;
+	}
+
+	public List<OrdemCompraItem> buscarProdutosPedido(int id) throws Exception {
+		List<OrdemCompraItem> itens = new ArrayList<OrdemCompraItem>();
+		for (OrdemCompraItem oci : this.ordemCompraItemBo.listar(0)) {
+			if (oci.getOrdem().getId() == id) {
+				itens.add(oci);
+			}
+		}
+
+		return itens;
+	}
+	
+	public void solicitarCompra(List<OrdemCompra> pedidos) throws Exception {
+		
+		for(OrdemCompra oc : pedidos) {
+			int i=0;
+			
+			oc.setId(0);
+			oc.getFase().setId(2);
+			oc.getFase().setStatus(2);
+			oc.setCotacao(null);
+
+			this.ordemCompraBo.salvar(oc);
+			
+			
+			for(OrdemCompra list : this.ordemCompraBo.listar("")) {
+				i = list.getId();
+			}
+
+			for(OrdemCompraItem oci : oc.getOrdemCompraItem()) {
+				
+				List<Produto> lista = this.produtoBo.listar(oci.getProduto().getNome());
+				
+				Produto p = lista.get(0);
+				
+				oci.setProduto(p);
+				
+				oci.getOrdem().setId(i);
+				this.ordemCompraItemBo.salvar(oci);
+			}
+		}
+		
 	}
 
 	// ORDEM-COMPRA-ITEM
@@ -355,24 +442,25 @@ public class GestaoFacade {
 
 	// REQUISIÇÃO
 	public String salvarRequisicao(Requisicao e, List<RequisicaoItem> i) throws Exception {
-		
+
 		e.getFase().setId(1);
-		
+		e.getFase().setStatus(1);
+
 		int codigo = this.requisicaoBo.salvar(e);
-		int id=0;
-		
-		for(Requisicao r : this.requisicaoBo.listar(codigo)) {
-			if(r.getCodigo() == codigo) {
+		int id = 0;
+
+		for (Requisicao r : this.requisicaoBo.listar(codigo)) {
+			if (r.getCodigo() == codigo) {
 				id = r.getId();
 				break;
 			}
 		}
-		
-		for(RequisicaoItem ri : i) {
+
+		for (RequisicaoItem ri : i) {
 			ri.getRequisicao().setId(id);
 			this.requisicaoItemBo.salvar(ri);
 		}
-		
+
 		return "";
 	}
 
@@ -404,16 +492,33 @@ public class GestaoFacade {
 	public List<RequisicaoItem> listarRequisicaoItem(String s) throws Exception {
 		return this.requisicaoItemBo.listar(s);
 	}
-	
+
 	public RequisicaoItem pegarProduto(RequisicaoItem r) throws Exception {
-		
-		for(Produto p : this.produtoBo.listar("")) {
-			if(p.getId() == r.getProduto().getId()) {
+
+		for (Produto p : this.produtoBo.listar("")) {
+			if (p.getId() == r.getProduto().getId()) {
 				r.setProduto(p);
 			}
 		}
-		
+
 		return r;
+	}
+
+	public List<RequisicaoItem> listarItens(Requisicao r) throws Exception {
+		List<RequisicaoItem> itens = new ArrayList<RequisicaoItem>();
+
+		for (RequisicaoItem ri : this.requisicaoItemBo.listar("")) {
+			if (ri.getRequisicao().getId() == r.getId()) {
+				for (Produto p : this.produtoBo.listar("")) {
+					if (ri.getProduto().getId() == p.getId()) {
+						ri.setProduto(p);
+					}
+				}
+				itens.add(ri);
+			}
+		}
+
+		return itens;
 	}
 
 	// FISCAL-ITEM

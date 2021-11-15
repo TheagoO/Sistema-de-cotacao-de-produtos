@@ -1,6 +1,7 @@
 package br.edu.unifacear.model.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,16 +27,16 @@ public class NotaFiscal implements Serializable {
 	private Fornecedor fornecedor;
 	
 	@Column(name = "DATA_EMISSAO")
-	private LocalDateTime dataEmissao;
+	private LocalDate dataEmissao;
 	
 	public NotaFiscal() {
 		this.id = 0;
 		this.item = new ArrayList<NotaFiscalItem>();
 		this.fornecedor = new Fornecedor();
-		this.dataEmissao = LocalDateTime.now();
+		this.dataEmissao = LocalDate.now();
 	}
 
-	public NotaFiscal(int id, int codigo, List<NotaFiscalItem> item, Fornecedor fornecedor, LocalDateTime dataEmissao) {
+	public NotaFiscal(int id, int codigo, List<NotaFiscalItem> item, Fornecedor fornecedor, LocalDate dataEmissao) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
@@ -76,11 +77,11 @@ public class NotaFiscal implements Serializable {
 		this.fornecedor = fornecedor;
 	}
 
-	public LocalDateTime getDataEmissao() {
+	public LocalDate getDataEmissao() {
 		return dataEmissao;
 	}
 
-	public void setDataEmissao(LocalDateTime dataEmissao) {
+	public void setDataEmissao(LocalDate dataEmissao) {
 		this.dataEmissao = dataEmissao;
 	}
 

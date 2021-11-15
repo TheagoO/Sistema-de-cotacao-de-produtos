@@ -17,10 +17,10 @@ import org.hibernate.criterion.Restrictions;
 
 public class OrdemCompraDao {
 	EntityManager em = Connect.connection();
+	
+	
 	public String salvar(OrdemCompra pedidocompra) throws Exception {
 		String retorno;
-		// Gravar o PedidoCompra no BD
-		
 		try {			
 			em.getTransaction().begin();
 			em.persist(pedidocompra);

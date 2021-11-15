@@ -56,6 +56,7 @@ public class LoginController {
 						for(Gestor g : gest) {
 							if(g.getSenha().contains(senha)) {
 								fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Login efetuado"));
+								this.gestor = g;
 								return "Gestor";
 							}
 						}

@@ -23,6 +23,7 @@ public class RequisicaoController {
 	private Requisicao requisicao;
 	private Requisicao selecionado;
 	private List<Requisicao> lista;
+	private List<RequisicaoItem> itens;
 	
 	public void salvar(Almoxarifado a) {
 		GestaoFacade facade = new GestaoFacade();
@@ -46,6 +47,7 @@ public class RequisicaoController {
 		this.lista.removeAll(lista);
 		try {
 			this.lista = facade.listarRequisicao(0);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Lista atualizada!"));
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar requisições"));
 			e.printStackTrace();
@@ -84,6 +86,18 @@ public class RequisicaoController {
 			e.printStackTrace();
 		}
 	}
+	
+	public void listarItens(Requisicao r) {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		try {
+			this.itens = facade.listarItens(r);
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens"));
+			e.printStackTrace();
+		}
+		
+	}
 		
 	public void onRowEdit(RowEditEvent<Requisicao> event) {
 		Requisicao novo = new Requisicao();
@@ -114,6 +128,7 @@ public class RequisicaoController {
 		this.requisicao = new Requisicao();
 		this.lista = new ArrayList<Requisicao>();
 		this.selecionado = new Requisicao();
+		this.itens = new ArrayList<RequisicaoItem>();
 		listar();
 	}
 
@@ -140,5 +155,13 @@ public class RequisicaoController {
 	public void setLista(List<Requisicao> lista) {
 		this.lista = lista;
 	}
-		
+
+	public List<RequisicaoItem> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<RequisicaoItem> itens) {
+		this.itens = itens;
+	}
+
 }

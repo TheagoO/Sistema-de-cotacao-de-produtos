@@ -33,6 +33,7 @@ public class Cotacao implements Serializable {
 		this.id = 0;
 		this.cotacaoFornecedor = new CotacaoFornecedorPreco();
 		this.cotacaoItem = new ArrayList<CotacaoItem>();
+		this.ordemCompra = new OrdemCompra();
 	}
 
 	public Cotacao(int id, long codigo, CotacaoFornecedorPreco cotacaoFornecedor, List<CotacaoItem> cotacaoItem) {

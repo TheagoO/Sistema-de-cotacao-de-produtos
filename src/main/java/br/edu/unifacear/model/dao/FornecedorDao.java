@@ -80,9 +80,10 @@ public class FornecedorDao {
 			q = em.createQuery("select g from Fornecedor g");
 		}
 		else {
+			int i = Integer.parseInt(paramNome);
 			q = em.createQuery("select g from Fornecedor g"
-					+" where cnpj like :cnpj");
-			q.setParameter("cnpj", "%"+paramNome+"%");
+					+" where id = :id");
+			q.setParameter("id", i);
 		}
 		
 		return q.getResultList();		

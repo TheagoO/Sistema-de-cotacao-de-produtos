@@ -1,10 +1,13 @@
 package br.edu.unifacear.model.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,7 +27,7 @@ public class OrdemCompra implements Serializable {
 	private int id;
 	
 	@Column(name = "DATA_EMISSAO")
-	private LocalDateTime dataEmissao;
+	private LocalDate dataEmissao;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ordem_id")
@@ -46,6 +49,7 @@ public class OrdemCompra implements Serializable {
 
 	public OrdemCompra() {
 		this.id = 0;
+		this.dataEmissao = LocalDate.now();
 		this.cotacao = new ArrayList<Cotacao>();
 		this.ordemCompraItem = new ArrayList<OrdemCompraItem>();
 		this.fornecedor = new Fornecedor();
@@ -53,7 +57,7 @@ public class OrdemCompra implements Serializable {
 		this.solicitante = new Gestor();
 	}
 
-	public OrdemCompra(int id, LocalDateTime dataEmissao, List<OrdemCompraItem> ordemCompraItem, List<Cotacao> cotacao,
+	public OrdemCompra(int id, LocalDate dataEmissao, List<OrdemCompraItem> ordemCompraItem, List<Cotacao> cotacao,
 			Fornecedor fornecedor, Fase fase, Gestor solicitante) {
 		super();
 		this.id = id;
@@ -73,11 +77,11 @@ public class OrdemCompra implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDateTime getDataEmissao() {
+	public LocalDate getDataEmissao() {
 		return dataEmissao;
 	}
 
-	public void setDataEmissao(LocalDateTime dataEmissao) {
+	public void setDataEmissao(LocalDate dataEmissao) {
 		this.dataEmissao = dataEmissao;
 	}
 

@@ -52,6 +52,7 @@
 			<p:panel id="fold" header="Menu">
 				<h:form>
 					<p:tieredMenu style="width:100%; height:100%;">
+					<p:menuitem value="Início" icon="pi pi-home" action="Home" />
 						<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
 								action="Cadastro" />
@@ -124,14 +125,14 @@
 									</p:column>
 
 									<p:column headerText="Status">
-										<h:outputText value="#{ordem.fase}" />
+										<h:outputText value="#{ordem.fase.toString().toUpperCase()}" />
 									</p:column>
 
 									<p:column headerText="Visualizar produtos">
-										<p:commandButton type="button" icon="pi pi-search"
+										<p:commandButton icon="pi pi-search"
 											styleClass="rounded-button ui-button-secondary ui-button-outlined"
 											onclick="PF('dlg2').show()"
-											action="#{ordemCompraBean.listarItens(pedido)}" />
+											action="#{ordemCompraBean.listarItens(pedido)}" update=":form:pedidos:itens, :form:msgs" />
 
 									</p:column>
 
@@ -203,7 +204,7 @@
 										</p:column>
 										
 										<p:column headerText="Quantidade">
-											<h:outputText value="#{item.quantiade}" />
+											<h:outputText value="#{item.quantidade}" />
 										</p:column>
 
 										<p:column headerText="Valor uni.">

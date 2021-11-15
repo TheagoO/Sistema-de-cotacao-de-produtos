@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -12,7 +11,6 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 
 import br.edu.unifacear.model.entity.Almoxarifado;
-import br.edu.unifacear.model.entity.Produto;
 import br.edu.unifacear.model.entity.Requisicao;
 import br.edu.unifacear.model.entity.RequisicaoItem;
 import br.edu.unifacear.model.facade.GestaoFacade;
@@ -50,6 +48,7 @@ public class RequisicaoItemController {
 		this.lista.clear();
 		try {
 			this.lista = facade.listarRequisicaoItem("");
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Lista atualizada!"));
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar Itens"));
 			e.printStackTrace();
@@ -105,7 +104,7 @@ public class RequisicaoItemController {
 		
 		
 	}
-		
+			
 	public void onRowEdit(RowEditEvent<RequisicaoItem> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Quantidade editada!"));

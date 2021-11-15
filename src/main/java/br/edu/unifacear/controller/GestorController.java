@@ -8,10 +8,13 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.edu.unifacear.model.entity.Fornecedor;
 import br.edu.unifacear.model.entity.Gestor;
+import br.edu.unifacear.model.entity.RequisicaoItem;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
 @ManagedBean(name = "gestorBean")
@@ -22,6 +25,8 @@ public class GestorController {
 	private String senha;
 	private Gestor gestorSelecionado;
 	private List<Gestor> lista;
+	private List<String> itens;
+	private Fornecedor fornecedor;
 	
 	public String salvar() {
 		GestaoFacade facade = new GestaoFacade();
@@ -94,6 +99,10 @@ public class GestorController {
 		}
 	}
 	
+	public void addItem(String i) {
+		this.itens.add(i);
+	}
+		
 	public void onRowEdit(RowEditEvent<Gestor> event) {
 		Gestor novo = new Gestor();
 
@@ -123,6 +132,8 @@ public class GestorController {
 		this.gestor = new Gestor();
 		this.lista = new ArrayList<Gestor>();
 		this.gestorSelecionado = new Gestor();
+		this.fornecedor = new Fornecedor();
+		this.itens = new ArrayList<String>();
 		listar();
 	}
 
@@ -157,5 +168,22 @@ public class GestorController {
 	public void setGestorSelecionado(Gestor gestorSelecionado) {
 		this.gestorSelecionado = gestorSelecionado;
 	}
-	
+
+	public List<String> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<String> itens) {
+		this.itens = itens;
+	}
+
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+
 }

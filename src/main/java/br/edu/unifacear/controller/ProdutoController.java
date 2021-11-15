@@ -43,6 +43,7 @@ public class ProdutoController {
 		this.produtos.removeAll(produtos);
 		try {
 			this.produtos = facade.listarProduto("");
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Lista atualizada!"));
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar produtos"));
 			e.printStackTrace();

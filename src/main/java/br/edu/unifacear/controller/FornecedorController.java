@@ -50,7 +50,7 @@ public class FornecedorController {
 	public void listar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		this.lista.removeAll(lista);
+		this.lista.clear();
 		try {
 			this.lista = facade.listarFornecedor("");
 		} catch (Exception e) {

@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
-    version="2.3">
-	
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+	version="2.3">
+
 	<!-- TELA DE LOGIN -->
 	<navigation-rule>
 		<from-view-id>/index.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>Almoxarifado</from-outcome>
-			<to-view-id>/Almoxarifado.xhtml</to-view-id>
+			<to-view-id>/MestreAlmoxarifado.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>Gestor</from-outcome>
-			<to-view-id>/Gestor.xhtml</to-view-id>
+			<to-view-id>/MestreGestor.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>Admin</from-outcome>
-			<to-view-id>/Produtos.xhtml</to-view-id>
+			<to-view-id>/MestreAdministrador.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
-	<!-- TELA DA LISTAGEM DE COLABORADORES -->
+	<!-- TELA MESTRE ADMIN -->
 	<navigation-rule>
-	<from-view-id>/Colaboradores.xhtml</from-view-id>
+		<from-view-id>/MestreAdministrador.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAdministrador.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Cadastro</from-outcome>
 			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
@@ -33,7 +36,7 @@
 			<from-outcome>Colaboradores</from-outcome>
 			<to-view-id>/Colaboradores.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
 			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
@@ -41,12 +44,12 @@
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
 			<to-view-id>/AprovarCompra.xhtml</to-view-id>
-		</navigation-case>	
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
 			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
-		</navigation-case>	
-		
+		</navigation-case>
+
 		<navigation-case>
 			<from-outcome>NovoProduto</from-outcome>
 			<to-view-id>/CadastroProduto.xhtml</to-view-id>
@@ -54,16 +57,21 @@
 		<navigation-case>
 			<from-outcome>Produtos</from-outcome>
 			<to-view-id>/Produtos.xhtml</to-view-id>
-		</navigation-case>	
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>sair</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
-	<!-- TELA DE CADASTRO DE PRODUTOS -->
+	
+	<!-- TELA DA LISTAGEM DE COLABORADORES -->
 	<navigation-rule>
-	<from-view-id>/CadastroProduto.xhtml</from-view-id>
+		<from-view-id>/Colaboradores.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAdministrador.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Cadastro</from-outcome>
 			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
@@ -72,7 +80,7 @@
 			<from-outcome>Colaboradores</from-outcome>
 			<to-view-id>/Colaboradores.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
 			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
@@ -80,12 +88,12 @@
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
 			<to-view-id>/AprovarCompra.xhtml</to-view-id>
-		</navigation-case>	
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
 			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
-		</navigation-case>	
-		
+		</navigation-case>
+
 		<navigation-case>
 			<from-outcome>NovoProduto</from-outcome>
 			<to-view-id>/CadastroProduto.xhtml</to-view-id>
@@ -94,7 +102,50 @@
 			<from-outcome>Produtos</from-outcome>
 			<to-view-id>/Produtos.xhtml</to-view-id>
 		</navigation-case>
-		
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- TELA DE CADASTRO DE PRODUTOS -->
+	<navigation-rule>
+		<from-view-id>/CadastroProduto.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAdministrador.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Cadastro</from-outcome>
+			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Colaboradores</from-outcome>
+			<to-view-id>/Colaboradores.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>Cotacao</from-outcome>
+			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Compra</from-outcome>
+			<to-view-id>/AprovarCompra.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Pedidos</from-outcome>
+			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>NovoProduto</from-outcome>
+			<to-view-id>/CadastroProduto.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Produtos</from-outcome>
+			<to-view-id>/Produtos.xhtml</to-view-id>
+		</navigation-case>
+
 		<navigation-case>
 			<from-outcome>Cancelar</from-outcome>
 			<to-view-id>/Produtos.xhtml</to-view-id>
@@ -104,10 +155,14 @@
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<!-- TELA DE CADASTRO DE COLABORADORES -->
 	<navigation-rule>
-	<from-view-id>/CadastroColaborador.xhtml</from-view-id>
+		<from-view-id>/CadastroColaborador.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAdministrador.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Cadastro</from-outcome>
 			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
@@ -116,7 +171,7 @@
 			<from-outcome>Colaboradores</from-outcome>
 			<to-view-id>/Colaboradores.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
 			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
@@ -124,12 +179,12 @@
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
 			<to-view-id>/AprovarCompra.xhtml</to-view-id>
-		</navigation-case>	
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
 			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
-		</navigation-case>	
-		
+		</navigation-case>
+
 		<navigation-case>
 			<from-outcome>NovoProduto</from-outcome>
 			<to-view-id>/CadastroProduto.xhtml</to-view-id>
@@ -143,10 +198,14 @@
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<!-- TELA DE LANÇAR COTAÇÃO -->
 	<navigation-rule>
-	<from-view-id>/LancaCotacao.xhtml</from-view-id>
+		<from-view-id>/LancaCotacao.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAdministrador.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Cadastro</from-outcome>
 			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
@@ -155,7 +214,7 @@
 			<from-outcome>Colaboradores</from-outcome>
 			<to-view-id>/Colaboradores.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
 			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
@@ -163,12 +222,12 @@
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
 			<to-view-id>/AprovarCompra.xhtml</to-view-id>
-		</navigation-case>	
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
 			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
-		</navigation-case>	
-		
+		</navigation-case>
+
 		<navigation-case>
 			<from-outcome>NovoProduto</from-outcome>
 			<to-view-id>/CadastroProduto.xhtml</to-view-id>
@@ -186,10 +245,14 @@
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<!-- TELA DE PRODUTOS -->
 	<navigation-rule>
-	<from-view-id>/Produtos.xhtml</from-view-id>
+		<from-view-id>/Produtos.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAdministrador.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Cadastro</from-outcome>
 			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
@@ -198,7 +261,7 @@
 			<from-outcome>Colaboradores</from-outcome>
 			<to-view-id>/Colaboradores.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
 			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
@@ -206,12 +269,12 @@
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
 			<to-view-id>/AprovarCompra.xhtml</to-view-id>
-		</navigation-case>	
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
 			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
-		</navigation-case>	
-		
+		</navigation-case>
+
 		<navigation-case>
 			<from-outcome>NovoProduto</from-outcome>
 			<to-view-id>/CadastroProduto.xhtml</to-view-id>
@@ -225,10 +288,14 @@
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<!-- TELA DE APROVAR COTAÇÃO -->
 	<navigation-rule>
-	<from-view-id>/AprovarCotacao.xhtml</from-view-id>
+		<from-view-id>/AprovarCotacao.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAdministrador.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Cadastro</from-outcome>
 			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
@@ -237,7 +304,7 @@
 			<from-outcome>Colaboradores</from-outcome>
 			<to-view-id>/Colaboradores.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
 			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
@@ -245,12 +312,12 @@
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
 			<to-view-id>/AprovarCompra.xhtml</to-view-id>
-		</navigation-case>	
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
 			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>NovoProduto</from-outcome>
 			<to-view-id>/CadastroProduto.xhtml</to-view-id>
@@ -268,10 +335,14 @@
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<!-- TELA DE APROVAR COMPRA -->
 	<navigation-rule>
-	<from-view-id>/AprovarCompra.xhtml</from-view-id>
+		<from-view-id>/AprovarCompra.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAdministrador.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Cadastro</from-outcome>
 			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
@@ -280,7 +351,7 @@
 			<from-outcome>Colaboradores</from-outcome>
 			<to-view-id>/Colaboradores.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
 			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
@@ -288,12 +359,12 @@
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
 			<to-view-id>/AprovarCompra.xhtml</to-view-id>
-		</navigation-case>	
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
 			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
-		</navigation-case>	
-		
+		</navigation-case>
+
 		<navigation-case>
 			<from-outcome>NovoProduto</from-outcome>
 			<to-view-id>/CadastroProduto.xhtml</to-view-id>
@@ -310,30 +381,38 @@
 			<from-outcome>sair</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
-		
+
 	</navigation-rule>
-	
-	<!-- TELA DO ALMOXARIFADO -->
+
+	<!-- TELA MESTRE ALMOXARIFADO -->
 	<navigation-rule>
-	<from-view-id>/Almoxarifado.xhtml</from-view-id>
+		<from-view-id>/MestreAlmoxarifado.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>Estoque</from-outcome>
-			<to-view-id>/Estoque.xhtml</to-view-id>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAlmoxarifado.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>Solicitacao</from-outcome>
-			<to-view-id>/SolicitarProduto.xhtml</to-view-id>
+			<from-outcome>Pedidos</from-outcome>
+			<to-view-id>/Pedidos.xhtml</to-view-id>
 		</navigation-case>
-		
+		<navigation-case>
+			<from-outcome>NovaReq</from-outcome>
+			<to-view-id>/RequisicaoCompra.xhtml</to-view-id>
+		</navigation-case>
+
 		<navigation-case>
 			<from-outcome>sair</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<!-- TELA DA NOTA FISCAL -->
 	<navigation-rule>
-	<from-view-id>/NotaFiscal.xhtml</from-view-id>
+		<from-view-id>/NotaFiscal.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAdministrador.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Cadastro</from-outcome>
 			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
@@ -342,7 +421,7 @@
 			<from-outcome>Colaboradores</from-outcome>
 			<to-view-id>/Colaboradores.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
 			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
@@ -350,12 +429,12 @@
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
 			<to-view-id>/AprovarCompra.xhtml</to-view-id>
-		</navigation-case>	
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
 			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>NovoProduto</from-outcome>
 			<to-view-id>/CadastroProduto.xhtml</to-view-id>
@@ -373,10 +452,14 @@
 			<to-view-id>/AprovarCompra.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<!-- TELA DE PEDIDOS APROVADOS -->
 	<navigation-rule>
-	<from-view-id>/PedidosAprovados.xhtml</from-view-id>
+		<from-view-id>/PedidosAprovados.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAdministrador.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Cadastro</from-outcome>
 			<to-view-id>/CadastroColaborador.xhtml</to-view-id>
@@ -385,7 +468,7 @@
 			<from-outcome>Colaboradores</from-outcome>
 			<to-view-id>/Colaboradores.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>Cotacao</from-outcome>
 			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
@@ -393,12 +476,12 @@
 		<navigation-case>
 			<from-outcome>Compra</from-outcome>
 			<to-view-id>/AprovarCompra.xhtml</to-view-id>
-		</navigation-case>	
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>Pedidos</from-outcome>
 			<to-view-id>/PedidosAprovados.xhtml</to-view-id>
 		</navigation-case>
-		
+
 		<navigation-case>
 			<from-outcome>NovoProduto</from-outcome>
 			<to-view-id>/CadastroProduto.xhtml</to-view-id>
@@ -412,4 +495,81 @@
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+
+	<!-- TELA REQUISICAO COMPRA -->
+	<navigation-rule>
+		<from-view-id>/RequisicaoCompra.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAlmoxarifado.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>NovaReq</from-outcome>
+			<to-view-id>/RequisicaoCompra.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Pedidos</from-outcome>
+			<to-view-id>/Pedidos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- TELA LISTA DE REQUISICOES -->
+	<navigation-rule>
+		<from-view-id>/Pedidos.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreAlmoxarifado.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>NovaReq</from-outcome>
+			<to-view-id>/RequisicaoCompra.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Pedidos</from-outcome>
+			<to-view-id>/Pedidos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- TELA Mestre GESTOR -->
+	<navigation-rule>
+		<from-view-id>/MestreGestor.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreGestor.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Gerenciar</from-outcome>
+			<to-view-id>/GerenciarPedidos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- TELA GESTAO DE PEDIDOS -->
+	<navigation-rule>
+		<from-view-id>/GerenciarPedidos.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreGestor.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Gerenciar</from-outcome>
+			<to-view-id>/GerenciarPedidos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
 </faces-config>

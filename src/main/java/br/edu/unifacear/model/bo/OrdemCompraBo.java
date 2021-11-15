@@ -12,7 +12,6 @@ public class OrdemCompraBo {
 	
 	public String salvar(OrdemCompra pedidocompra) 
 			throws Exception {
-		validarDadosOrdemCompra(pedidocompra);
 		ordemCompraDao = new OrdemCompraDao();
 		try {
 			return ordemCompraDao.salvar(pedidocompra);
@@ -23,7 +22,6 @@ public class OrdemCompraBo {
 	
 	public String alterar(OrdemCompra pedidocompra) 
 			throws Exception {
-		validarDadosOrdemCompra(pedidocompra);
 		ordemCompraDao = new OrdemCompraDao();
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
@@ -35,7 +33,6 @@ public class OrdemCompraBo {
 	
 	public String deletar(OrdemCompra pedidocompra) 
 			throws Exception {
-		validarDadosOrdemCompra(pedidocompra);
 		ordemCompraDao = new OrdemCompraDao();
 		// exemplo chamando a DAO com a instancia direta do obj
 		try {
@@ -56,13 +53,4 @@ public class OrdemCompraBo {
 	
 		
 
-	private void validarDadosOrdemCompra(OrdemCompra pedidocompra) throws Exception {
-//		if (pedidocompra.getId() < 0) {
-//			throw new Exception("Id do pedidocompra não pode ser negativo!");
-//		}
-		if (pedidocompra.toString().equals("")) {
-			throw new Exception("Nome do pedido compra não pode ficar em branco!");
-		}
-	}	
-	
 }

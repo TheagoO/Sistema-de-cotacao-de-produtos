@@ -33,12 +33,13 @@ public class OrdemCompraItem {
 	private Produto produto;
 	
 	@ManyToOne
-	@JoinColumn(name = "item_id")
+	@JoinColumn(name = "ordem_id")
 	private OrdemCompra ordem;
 	
 	public OrdemCompraItem() {
 		this.id = 0;
 		this.produto = new Produto();
+		this.ordem = new OrdemCompra();
 	}
 
 	public OrdemCompraItem(int id, float quantidade, long codigo, double valorUnitario, double valorTotal,
@@ -50,6 +51,7 @@ public class OrdemCompraItem {
 		this.valorUnitario = valorUnitario;
 		this.valorTotal = valorTotal;
 		this.produto = produto;
+		this.ordem = new OrdemCompra();
 	}
 
 	public int getId() {

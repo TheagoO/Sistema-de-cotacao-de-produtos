@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" lang="pt-br">
+<h:head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="js/script.js" />
+	<title>InovaTech2021</title>
+</h:head>
+<h:body>
+
+	<header>
+
+		<!-- Área da logo -->
+		<div class="d-logo">
+			<img src="imagens/logo.png" alt="Logo.png" style="width: 220px;" />
+			<div class="d-logo-center">
+				<h2>Administrador</h2>
+			</div>
+		</div>
+
+
+		<div class="d-center"></div>
+
+		<!-- Área do usuário -->
+		<div class="d-user">
+			<div class="user-r-md">
+				<div class="mid">
+					<h:form id="form-sair">
+						<p:splitButton icon="pi pi-user" styleClass="ui-button-info">
+							<p:menuitem value="Sair" action="sair" icon="pi pi-times" />
+						</p:splitButton>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<section style="height: 100%;">
+
+		<!-- Container do menu esquerdo -->
+		<div class="menu-area">
+
+			<!-- Menu -->
+			<p:panel id="fold" header="Menu">
+				<h:form>
+					<p:tieredMenu style="width:100%; height:100%;">
+					<p:menuitem value="Início" icon="pi pi-home" action="Home" />
+						<p:menuitem value="Início" icon="pi pi-home" action="Home" />
+						<p:submenu label="Pedidos" icon="pi pi-bars">
+							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-plus" action="Gerenciar" />
+						</p:submenu>
+					</p:tieredMenu>
+				</h:form>
+			</p:panel>
+
+		</div>
+
+
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+			<!-- Container do conteúdo da página  -->
+			<div class="content-area" style="width: 70%;">
+
+				<p:panel header="SOLICITAÇÕES DE COMPRA">
+					<div class="select-area">
+						<p:panel header="Pedidos" style="width: 49%;">
+							<p:panel style="overflow: scroll; height: 75%;">
+								<div class="ui-fluid">
+									<p:selectManyButton value="#{gestorBean.itens}">
+
+										<f:selectItems value="#{requisicaoItemBean.lista}" var="item"
+											itemLabel="#{item}" itemValue="#{item.id}" />
+									</p:selectManyButton>
+								</div>
+							</p:panel>
+
+
+						</p:panel>
+
+						<p:panel header="Fornecedores" style="width: 49%; ">
+							<p:panel style="overflow: scroll; height: 75%;">
+								<p:selectOneRadio id="forne" value="#{gestorBean.fornecedor.id}"
+									layout="pageDirection" columns="1" styleClass="grid-checkbox"
+									unselectable="true">
+									<f:selectItems value="#{fornecedorBean.lista}" var="forn"
+										itemLabel="#{forn.empresa}" itemValue="#{forn.id}" />
+								</p:selectOneRadio>
+							</p:panel>
+						</p:panel>
+					</div>
+
+					<div class="cls_right">
+
+						<div class="select-area" style="width: 20%;">
+							<div style="margin-right: auto; margin-left: auto;">
+								<p:commandButton value="Adicionar ao pedido"
+									styleClass="ui-button-info"
+									action="#{ordemCompraBean.adicionarPedido(gestorBean.itens, gestorBean.fornecedor, loginBean.gestor)}"
+									update=":form:msgs, :form:ordem" />
+							</div>
+
+						</div>
+
+					</div>
+
+					<br />
+					<p:panel header="Novo pedido"
+						style="width: 98%; margin-left:auto; margin-right:auto;">
+
+						<p:dataTable id="ordem" var="pedido"
+							value="#{ordemCompraBean.pedido}" style="height: 255px;"
+							scrollable="true" scrollHeight="75%">
+
+							<p:column headerText="Solicitante">
+								<h:outputText value="#{pedido.solicitante.nome}" />
+							</p:column>
+
+							<p:column headerText="Data">
+								<h:outputText value="#{pedido.dataEmissao}" />
+							</p:column>
+
+							<p:column headerText="Fornecedor">
+								<h:outputText value="#{pedido.fornecedor.empresa}" />
+							</p:column>
+
+							<p:column headerText="Visualizar produtos">
+								<p:commandButton icon="pi pi-search"
+									styleClass="rounded-button ui-button-secondary ui-button-outlined"
+									onclick="PF('dlg2').show()"
+									action="#{ordemCompraBean.addProdutos(pedido.id)}"
+									update=":form:prods, :form:msgs" />
+
+							</p:column>
+
+							<p:column headerText="Remover">
+								<p:commandButton
+									styleClass="rounded-button ui-button-danger ui-button-outlined"
+									icon="pi pi-trash" process="@this"
+									action="#{ordemCompraBean.removerPedido(pedido)}"
+									update=":form:msgs, :form:ordem" />
+
+							</p:column>
+						</p:dataTable>
+						
+						<p:dialog header="Produtos" widgetVar="dlg2" minHeight="300"
+						width="1000" showEffect="fade" modal="true">
+
+						<p:dataTable id="prods" value="#{ordemCompraBean.produtos}" var="item"
+							scrollable="true" scrollHeight="300">
+
+							<p:column headerText="Codigo">
+								<h:outputText value="#{item.produto.codigo}" />
+							</p:column>
+
+							<p:column headerText="Produto">
+								<h:outputText value="#{item.produto.nome}" />
+							</p:column>
+
+							<p:column headerText="Marca">
+								<h:outputText value="#{item.produto.marca}" />
+							</p:column>
+
+							<p:column headerText="Quantidade">
+								<h:outputText value="#{item.quantidade}" />
+							</p:column>
+
+						</p:dataTable>
+
+					</p:dialog>
+
+					</p:panel>
+
+					<br />
+					<div class="cls_right">
+
+						<div class="select-area">
+
+							<p:commandButton value="Solicitar cotação" icon="pi pi-check"
+								styleClass="ui-button-success" action="#{gestorBean}" update=":form:msgs, :form:ordem" />
+
+
+							<p:commandButton value="Solicitar compra" icon="pi pi-check"
+								styleClass="ui-button-success" action="#{ordemCompraBean.solicitarCompra}" update=":form:msgs, :form:ordem" />
+
+						</div>
+
+					</div>
+
+				</p:panel>
+
+
+
+			</div>
+		</h:form>
+
+	</section>
+
+	<!-- Rodapé -->
+	<footer style="position: relative">
+		<div class="rdp">
+			<div class="mid">
+				<p:commandButton id="ajuda" value="Ajuda" type="button" />
+				<p:overlayPanel for="ajuda" style="width:350px">
+					<p class="p-m-0">
+						<strong>Cotação</strong>: Selecione o fornecedor, em seguida, os
+						itens que serão cotados por ele e clique em adicionar pedido.
+					</p>
+
+					<p class="p-m-0">
+						<strong>Compra</strong>: Selecione o fornecedor, em seguida, os
+						itens que serão comprados com ele e clique em adicionar.
+					</p>
+
+				</p:overlayPanel>
+			</div>
+		</div>
+	</footer>
+
+
+</h:body>
+</html>
