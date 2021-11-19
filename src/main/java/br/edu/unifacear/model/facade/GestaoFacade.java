@@ -325,14 +325,19 @@ public class GestaoFacade {
 	
 	public void solicitarCompra(List<OrdemCompra> pedidos) throws Exception {
 		
-		for(OrdemCompra oc : pedidos) {
-			int i=0;
+		for(OrdemCompra pedido : pedidos) {
+			OrdemCompra oc = new OrdemCompra();
+			int i = 0;
 			
 			oc.setId(0);
 			oc.getFase().setId(2);
-			oc.getFase().setStatus(2);
+			oc.getSolicitante().setId(pedido.getSolicitante().getId());
+			oc.getFornecedor().setId(pedido.getFornecedor().getId());
+			oc.setDataEmissao(pedido.getDataEmissao());
 			oc.setCotacao(null);
-
+			
+			System.out.println("Antes de salvar OC: " + oc);
+			
 			this.ordemCompraBo.salvar(oc);
 			
 			
@@ -352,6 +357,11 @@ public class GestaoFacade {
 				this.ordemCompraItemBo.salvar(oci);
 			}
 		}
+		
+	}
+	
+	public void solicitarCotacao(List<OrdemCompra> pedidos) throws Exception {
+		
 		
 	}
 

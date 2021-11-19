@@ -155,14 +155,14 @@ public class OrdemCompraController {
 				i++;
 				oc = facade.novoPedido(ri, i);
 			} catch (Exception e) {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao adicionar pedido"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao adicionar solicitação"));
 				e.printStackTrace();
 			}
 			oc.setFornecedor(forn);
 			oc.setSolicitante(g);
 			
 			this.pedido.add(oc);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido adicionado!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Solicitação adicionada ao pedido "+i));
 		}
 
 	}
@@ -193,7 +193,18 @@ public class OrdemCompraController {
 	}
 
 	public void solicitarCotacao() {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
 		
+		try {
+			facade.solicitarCotacao(this.pedido);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de compra enviada"));
+			listar();
+			this.pedido.clear();
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao solicitar compra"));
+			e.printStackTrace();
+		}
 	}
 
 	public void solicitarCompra() {
@@ -201,12 +212,13 @@ public class OrdemCompraController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		
 		try {
-			facade.solicitarCompra(pedido);
+			facade.solicitarCompra(this.pedido);
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de compra enviada"));
+			listar();
 			this.pedido.clear();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao solicitar compra"));
-			e.getStackTrace();
+			e.printStackTrace();
 		}
 	}
 

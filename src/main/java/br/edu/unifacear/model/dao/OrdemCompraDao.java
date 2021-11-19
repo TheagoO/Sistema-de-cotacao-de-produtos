@@ -30,8 +30,6 @@ public class OrdemCompraDao {
 		} catch (Exception e) {
 			retorno = e.getMessage();
 			throw new Exception("Erro Gravando PedidoCompra\n"+e.getMessage());
-		} finally {
-			em.close();
 		}
 		return retorno;		
 	} // salvar

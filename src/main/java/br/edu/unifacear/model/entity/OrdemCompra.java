@@ -21,29 +21,29 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class OrdemCompra implements Serializable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "DATA_EMISSAO")
 	private LocalDate dataEmissao;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ordem_id")
 	private List<OrdemCompraItem> ordemCompraItem;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ordem_id")
 	private List<Cotacao> cotacao;
-	
+
 	@ManyToOne
 	private Fornecedor fornecedor;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "fase_id")
 	private Fase fase;
-	
+
 	@ManyToOne
 	private Gestor solicitante;
 
@@ -124,16 +124,16 @@ public class OrdemCompra implements Serializable {
 	public void setSolicitante(Gestor solicitante) {
 		this.solicitante = solicitante;
 	}
-	
+
 	public double getTotal() {
 		double total = 0.0;
-		for(OrdemCompraItem oci : this.ordemCompraItem) {
+		for (OrdemCompraItem oci : this.ordemCompraItem) {
 			total += oci.getValorTotal();
 		}
-		
+
 		return total;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "OrdemCompra [id=" + id + ", dataEmissao=" + dataEmissao + ", ordemCompraItem=" + ordemCompraItem
@@ -161,6 +161,4 @@ public class OrdemCompra implements Serializable {
 				&& Objects.equals(solicitante, other.solicitante);
 	}
 
-	
-	
 }
