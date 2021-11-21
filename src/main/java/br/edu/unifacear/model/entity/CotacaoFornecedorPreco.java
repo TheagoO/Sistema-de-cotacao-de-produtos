@@ -1,27 +1,29 @@
 package br.edu.unifacear.model.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
 
 @Entity
 public class CotacaoFornecedorPreco implements Serializable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@ManyToOne
 	private Fornecedor fornecedor;
-	
+
 	@ManyToOne
+	@JoinColumn(name = "cotacaoItem_id")
 	private CotacaoItem cotacaoItem;
-	
+
 	@Column(name = "PRECO")
 	private double preco;
-	
-	
+
 	public CotacaoFornecedorPreco() {
 		this.id = 0;
 		this.cotacaoItem = new CotacaoItem();
@@ -68,6 +70,7 @@ public class CotacaoFornecedorPreco implements Serializable {
 		this.preco = preco;
 	}
 
+
 	@Override
 	public String toString() {
 		return "CotacaoFornecedorPreco [id=" + id + ", fornecedor=" + fornecedor + ", cotacaoItem=" + cotacaoItem
@@ -91,5 +94,5 @@ public class CotacaoFornecedorPreco implements Serializable {
 		return Objects.equals(cotacaoItem, other.cotacaoItem) && Objects.equals(fornecedor, other.fornecedor)
 				&& id == other.id && Double.doubleToLongBits(preco) == Double.doubleToLongBits(other.preco);
 	}
-	
+
 }

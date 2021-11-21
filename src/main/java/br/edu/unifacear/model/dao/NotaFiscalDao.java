@@ -80,9 +80,10 @@ public class NotaFiscalDao {
 			q = em.createQuery("select g from NotaFiscal g");
 		}
 		else {
+			int i = (int) paramNome;
 			q = em.createQuery("select g from NotaFiscal g"
-					+" where codigo like :codigo");
-			q.setParameter("codigo", "%"+paramNome+"%");
+					+" where codigo = :codigo");
+			q.setParameter("codigo", i);
 		}
 		
 		return q.getResultList();		

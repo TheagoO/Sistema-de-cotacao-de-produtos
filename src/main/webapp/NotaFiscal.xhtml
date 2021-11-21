@@ -35,14 +35,14 @@
 			</div>
 		</div>
 	</header>
-	<section>
-		<p:growl id="messages" showDetail="true" />
+	<section style="overflow:scroll">
+		
 		<div class="menu-area">
 
 			<p:panel id="fold" header="Menu">
 				<h:form>
 					<p:tieredMenu style="width:100%; height:100%;">
-					<p:menuitem value="Início" icon="pi pi-home" action="Home" />
+						<p:menuitem value="Início" icon="pi pi-home" action="Home" />
 						<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
 								action="Cadastro" />
@@ -68,50 +68,61 @@
 
 					</p:tieredMenu>
 				</h:form>
-				<p:effect type="fold" event="dblclick" />
+				
 			</p:panel>
 
 		</div>
 
 		<div class="content-area">
+			<h:form id="NotaFiscal">
+			<p:growl id="msgs" showDetail="true" />
+				<p:panel header="Nota Fiscal">
 
-			<p:panel header="Nota Fiscal">
-				<h:form id="NotaFiscal">
-					<p:messages />
+					<p:dataTable id="nf" style="width: 100%"
+						value="#{notaFiscalBean.notaFiscal}" var="nota">
 
-					<div class="search-area">
-						<div></div>
-						<p:commandButton update="nf"
-							action="#{notaFiscalItemBean.ordem.ordemCompraItem}"
-							value="Atualizar" process="@parent" icon="pi pi-refresh" />
-
-					</div>
-
-					<p:dataTable id="nf" var="item"
-						value="#{notaFiscalItemBean.ordem.ordemCompraItem}"
-						sortBy="#{notaFiscalItemBean.ordem.fornecedor.nome}"
-						style="width: 100%">
-
-						<p:headerRow field="fornecedor.nome" expandable="true"
-							expanded="#{notaFiscalItemBean.ordem.fornecedor.nome == 'null'}">
-
-							<p:column>
-								<div class="p-d-inline-flex p-ai-center"
-									style="vertical-align: middle">
-
-									<h:outputText styleClass="p-ml-2"
-										value="#{item.fornecedor.nome}" />
-								</div>
-							</p:column>
-						</p:headerRow>
-
-
-						<p:column headerText="Código Nf.">
-							<h:outputText value="#{notaFiscalBean.notaFiscal.codigo}" />
+						<p:column headerText="NF-e">
+							<h:outputText value="Nº.#{nota.codigo}" />
 						</p:column>
 
 						<p:column headerText="Data Emissão">
-							<h:outputText value="#{notaFiscalBean.notaFiscal.dataEmissao}" />
+							<h:outputText value="#{nota.dataEmissao}" />
+						</p:column>
+
+					</p:dataTable>
+				</p:panel>
+
+
+				<p:panel header="Informações do emitente">
+
+					<p:dataTable id="forn" value="#{notaFiscalItemBean.ordem}"
+						style="width: 100%" var="ordem">
+
+						<p:column headerText="Empresa">
+							<h:outputText value="#{ordem.fornecedor.empresa}" />
+						</p:column>
+
+						<p:column headerText="CNPJ">
+							<h:outputText value="#{ordem.fornecedor.cnpj}" />
+						</p:column>
+
+						<p:column headerText="Endereço">
+							<h:outputText value="#{ordem.fornecedor.endereco}" />
+						</p:column>
+
+					</p:dataTable>
+
+				</p:panel>
+
+				<p:panel header="Dados dos produtos/Serviço">
+					<p:dataTable value="#{notaFiscalItemBean.ordem.ordemCompraItem}"
+						var="item">
+						<p:column headerText="Nº pedido">
+							<h:outputText value="#{notaFiscalItemBean.ordem.id}" />
+						</p:column>
+
+						<p:column headerText="Nº item">
+							<h:outputText value="#{item.id}" />
 						</p:column>
 
 						<p:column headerText="Item">
@@ -133,51 +144,42 @@
 						<p:column headerText="Valor uni.">
 							<h:outputText value="#{item.valorUnitario}" />
 						</p:column>
-						
+
 						<p:column headerText="Valor total">
-							<h:outputText value="#{item.valorUnitario}" />
+							<h:outputText value="#{item.valorTotal}" />
 						</p:column>
 
 
-						<!-- Botões -->
-						<p:summaryRow>
-
-							<p:column headerText="Total pago">
-								<h:outputText value="#{notaFiscalItemBean.ordem.total}" />
-							</p:column>
-
-			
-						</p:summaryRow>
+						<f:facet name="footer">
+							<h:outputText value="Total #{notaFiscalItemBean.ordem.total}" />
+						</f:facet>
 					</p:dataTable>
+				</p:panel>
+				<br />
+				<div class="btns-area">
 
-					<div class="btns-area">
+					<div class="card">
 
-						<div class="card">
+						<p:commandButton value="Lançar nota" action="#{notaFiscalBean.lancarNotaFiscal(notaFiscalItemBean.ordem)}"
+							update=":NotaFiscal:msgs" styleClass="p-mr-2" icon="pi pi-check">
+							<p:confirm header="Atenção"
+								message="Deseja mesmo lançar essa nota fiscal no sistema?"
+								icon="pi pi-exclamation-triangle" />
+						</p:commandButton>
 
-							<p:growl id="message" showDetail="true" />
-
-
-
-							<p:commandButton value="Finalizar" action="Lancado"
-								update="message" styleClass="p-mr-2" icon="pi pi-check">
-								<p:confirm header="Atenção"
-									message="Deseja dar baixa nessa nota fiscal?"
-									icon="pi pi-exclamation-triangle" />
-							</p:commandButton>
-
-							<p:confirmDialog global="true" showEffect="fade"
-								hideEffect="fade" responsive="true" width="350">
-								<p:commandButton value="Não" type="button"
-									styleClass="ui-confirmdialog-no ui-button-flat" />
-								<p:commandButton value="Sim" type="button"
-									styleClass="ui-confirmdialog-yes" />
-							</p:confirmDialog>
-
-						</div>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+							responsive="true" width="350">
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-confirmdialog-no ui-button-flat" />
+							<p:commandButton value="Sim" type="button"
+								styleClass="ui-confirmdialog-yes" />
+						</p:confirmDialog>
 
 					</div>
-				</h:form>
-			</p:panel>
+
+				</div>
+			</h:form>
+
 		</div>
 	</section>
 

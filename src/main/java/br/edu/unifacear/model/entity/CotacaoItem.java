@@ -1,6 +1,8 @@
 package br.edu.unifacear.model.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class CotacaoItem implements Serializable {
@@ -31,18 +34,28 @@ public class CotacaoItem implements Serializable {
 	@JoinColumn(name = "cotacao_id")
 	private Cotacao cotacao;
 	
+	@OneToMany
+	@JoinColumn(name = "cotacaoItem_id")
+	private List<CotacaoFornecedorPreco> cotacaoForncedor;
+	
 	public CotacaoItem() {
 		this.id = 0;
 		this.produto = new Produto();
+		this.cotacao = new Cotacao();
 	}
 
-	public CotacaoItem(int id, float quantidade, long codigo, Produto produto) {
+
+	public CotacaoItem(int id, float quantidade, long codigo, Produto produto, Cotacao cotacao,
+			List<CotacaoFornecedorPreco> cotacaoForncedor) {
 		super();
 		this.id = id;
 		this.quantidade = quantidade;
 		this.codigo = codigo;
 		this.produto = produto;
+		this.cotacao = cotacao;
+		this.cotacaoForncedor = cotacaoForncedor;
 	}
+
 
 	public int getId() {
 		return id;
@@ -75,6 +88,24 @@ public class CotacaoItem implements Serializable {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+
+	public Cotacao getCotacao() {
+		return cotacao;
+	}
+
+	public void setCotacao(Cotacao cotacao) {
+		this.cotacao = cotacao;
+	}
+
+	public List<CotacaoFornecedorPreco> getCotacaoForncedor() {
+		return cotacaoForncedor;
+	}
+
+
+	public void setCotacaoForncedor(List<CotacaoFornecedorPreco> cotacaoForncedor) {
+		this.cotacaoForncedor = cotacaoForncedor;
+	}
+
 
 	@Override
 	public String toString() {

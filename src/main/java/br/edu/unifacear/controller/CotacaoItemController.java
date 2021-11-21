@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
 
+import br.edu.unifacear.model.entity.CotacaoFornecedorPreco;
 import br.edu.unifacear.model.entity.CotacaoItem;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
@@ -20,6 +21,8 @@ public class CotacaoItemController {
 	private CotacaoItem item;
 	private CotacaoItem selecionado;
 	private List<CotacaoItem> lista;
+	private List<CotacaoItem> itens;
+	private List<CotacaoFornecedorPreco> cotacaoFornecedor;
 	
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
@@ -81,6 +84,38 @@ public class CotacaoItemController {
 		}
 	}
 	
+	public void listarItens(int id) {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		try {
+			this.itens = facade.listarItensCotacao(id);
+			
+			CotacaoItem ci = itens.get(0);
+			
+			listarCotacaoFornecedor(ci.getId());
+			
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Itens listados"));
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens"));
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public void listarCotacaoFornecedor(int id) {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		try {
+			this.cotacaoFornecedor = facade.listarCotacaoFornecedor(id);
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Itens listados"));
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens"));
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public void onRowEdit(RowEditEvent<CotacaoItem> event) {
 		CotacaoItem novo = new CotacaoItem();
 
@@ -101,6 +136,8 @@ public class CotacaoItemController {
 
 	}
 
+	
+	
 	public void onRowCancel(RowEditEvent<CotacaoItem> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
@@ -110,6 +147,8 @@ public class CotacaoItemController {
 		this.item = new CotacaoItem();
 		this.selecionado = new CotacaoItem();
 		this.lista = new ArrayList<CotacaoItem>();
+		this.itens = new ArrayList<CotacaoItem>();
+		this.cotacaoFornecedor = new ArrayList<CotacaoFornecedorPreco>();
 	}
 	public CotacaoItem getItem() {
 		return item;
@@ -122,6 +161,30 @@ public class CotacaoItemController {
 	}
 	public void setLista(List<CotacaoItem> lista) {
 		this.lista = lista;
+	}
+
+	public CotacaoItem getSelecionado() {
+		return selecionado;
+	}
+
+	public void setSelecionado(CotacaoItem selecionado) {
+		this.selecionado = selecionado;
+	}
+
+	public List<CotacaoItem> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<CotacaoItem> itens) {
+		this.itens = itens;
+	}
+
+	public List<CotacaoFornecedorPreco> getCotacaoFornecedor() {
+		return cotacaoFornecedor;
+	}
+
+	public void setCotacaoFornecedor(List<CotacaoFornecedorPreco> cotacaoFornecedor) {
+		this.cotacaoFornecedor = cotacaoFornecedor;
 	}
 	
 }

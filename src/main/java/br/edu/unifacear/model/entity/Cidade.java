@@ -55,7 +55,7 @@ public class Cidade implements Serializable {
 
 	@Override
 	public String toString() {
-		return cidade;
+		return cidade+"-"+estado;
 	}
 
 	@Override

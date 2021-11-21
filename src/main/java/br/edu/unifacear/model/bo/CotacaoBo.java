@@ -1,18 +1,22 @@
 package br.edu.unifacear.model.bo;
 
 import java.util.List;
+import java.util.Random;
 
 import br.edu.unifacear.model.dao.CotacaoDao;
 import br.edu.unifacear.model.entity.Cotacao;
 
 public class CotacaoBo {
 	
-	public String salvar(Cotacao cotacao) 
+	public int salvar(Cotacao cotacao) 
 			throws Exception {
-		validarDadosCotacao(cotacao);
 		CotacaoDao cotacaoDao = new CotacaoDao();
+		Random r = new Random();
+		int cod =  r.nextInt(99999);
 		try {
-			return cotacaoDao.salvar(cotacao);
+			cotacao.setCodigo(cod);
+			cotacaoDao.salvar(cotacao);
+			return cod;
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

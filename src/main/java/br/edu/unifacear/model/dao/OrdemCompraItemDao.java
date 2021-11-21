@@ -78,7 +78,7 @@ public class OrdemCompraItemDao {
 		String cWhere = "";
 		Query q = null;
 
-		if(paramNome==0) {
+		if(paramNome == 0) {
 			q = em.createQuery("select g from OrdemCompraItem g");
 		}
 		else {

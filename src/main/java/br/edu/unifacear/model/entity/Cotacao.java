@@ -10,38 +10,34 @@ import javax.persistence.*;
 
 @Entity
 public class Cotacao implements Serializable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "CODIGO")
 	private long codigo;
-			
-	@ManyToOne
-	private CotacaoFornecedorPreco cotacaoFornecedor;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "item_id")
+	@JoinColumn(name = "cotacao_id")
 	private List<CotacaoItem> cotacaoItem;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ordem_id")
 	private OrdemCompra ordemCompra;
-	
+
 	public Cotacao() {
 		this.id = 0;
-		this.cotacaoFornecedor = new CotacaoFornecedorPreco();
-		this.cotacaoItem = new ArrayList<CotacaoItem>();
 		this.ordemCompra = new OrdemCompra();
+		this.cotacaoItem = new ArrayList<CotacaoItem>();
 	}
 
-	public Cotacao(int id, long codigo, CotacaoFornecedorPreco cotacaoFornecedor, List<CotacaoItem> cotacaoItem) {
+	public Cotacao(int id, long codigo, List<CotacaoItem> cotacaoItem, OrdemCompra ordemCompra) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
-		this.cotacaoFornecedor = cotacaoFornecedor;
 		this.cotacaoItem = cotacaoItem;
+		this.ordemCompra = ordemCompra;
 	}
 
 	public int getId() {
@@ -58,14 +54,6 @@ public class Cotacao implements Serializable {
 
 	public void setCodigo(long codigo) {
 		this.codigo = codigo;
-	}
-
-	public CotacaoFornecedorPreco getCotacaoFornecedor() {
-		return cotacaoFornecedor;
-	}
-
-	public void setCotacaoFornecedor(CotacaoFornecedorPreco cotacaoFornecedor) {
-		this.cotacaoFornecedor = cotacaoFornecedor;
 	}
 
 	public List<CotacaoItem> getCotacaoItem() {
@@ -86,13 +74,13 @@ public class Cotacao implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Cotacao [id=" + id + ", codigo=" + codigo + ", cotacaoFornecedor=" + cotacaoFornecedor
-				+ ", cotacaoItem=" + cotacaoItem + "]";
+		return "Cotacao [id=" + id + ", codigo=" + codigo + ", cotacaoItem=" + cotacaoItem + ", ordemCompra="
+				+ ordemCompra + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo, cotacaoFornecedor, cotacaoItem, id);
+		return Objects.hash(codigo, cotacaoItem, id, ordemCompra);
 	}
 
 	@Override
@@ -104,8 +92,9 @@ public class Cotacao implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cotacao other = (Cotacao) obj;
-		return codigo == other.codigo && Objects.equals(cotacaoFornecedor, other.cotacaoFornecedor)
-				&& Objects.equals(cotacaoItem, other.cotacaoItem) && id == other.id;
+		return codigo == other.codigo && Objects.equals(cotacaoItem, other.cotacaoItem) && id == other.id
+				&& Objects.equals(ordemCompra, other.ordemCompra);
 	}
+
 
 }

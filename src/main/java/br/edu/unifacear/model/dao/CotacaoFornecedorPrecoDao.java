@@ -29,7 +29,7 @@ public class CotacaoFornecedorPrecoDao {
 			retorno = "CotacaoFornecedor Inserido com Sucesso!";			
 		} catch (Exception e) {
 			retorno = e.getMessage();
-			throw new Exception("Erro Gravando CotacaoFornecedor\n"+e.getMessage());
+			throw new Exception("Erro Gravando CotacaoFornecedorPreco\n"+e.getMessage());
 		} finally {
 			em.close();
 		}

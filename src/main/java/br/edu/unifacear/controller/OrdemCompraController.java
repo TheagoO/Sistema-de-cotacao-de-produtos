@@ -25,7 +25,6 @@ public class OrdemCompraController {
 	private OrdemCompra ordemSelecionada;
 	private List<OrdemCompra> lista;
 	private List<OrdemCompra> aprovados;
-	private List<OrdemCompraItem> itens;
 	private List<OrdemCompraItem> produtos;
 	private List<OrdemCompra> pedido;
 	private static int i;
@@ -51,7 +50,14 @@ public class OrdemCompraController {
 		this.lista.removeAll(lista);
 
 		try {
-			this.lista = facade.listarOrdemCompra("");
+			List<OrdemCompra> list = facade.listarOrdemCompra("");
+			
+			for(OrdemCompra oc : list) {
+				if(oc.getFase().getId() == 2) {
+					this.lista.add(oc);
+				}
+			}
+			
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Lista atualizada!"));
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar ordemCompras"));
@@ -121,16 +127,7 @@ public class OrdemCompraController {
 
 	}
 
-	public void listarItens(OrdemCompra oc) {
-		GestaoFacade facade = new GestaoFacade();
-		FacesContext fc = FacesContext.getCurrentInstance();
-		try {
-			this.itens = facade.listarItens(oc);
-		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens"));
-			e.printStackTrace();
-		}
-	}
+	
 
 	public void adicionarPedido(List<String> ri, Fornecedor f, Gestor g) {
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -221,13 +218,12 @@ public class OrdemCompraController {
 			e.printStackTrace();
 		}
 	}
-
+		
 	public OrdemCompraController() {
 		this.ordemCompra = new OrdemCompra();
 		this.ordemSelecionada = new OrdemCompra();
 		this.lista = new ArrayList<OrdemCompra>();
 		this.aprovados = new ArrayList<OrdemCompra>();
-		this.itens = new ArrayList<OrdemCompraItem>();
 		this.pedido = new ArrayList<OrdemCompra>();
 		i = 0;
 		listar();
@@ -264,14 +260,6 @@ public class OrdemCompraController {
 
 	public void setAprovados(List<OrdemCompra> aprovados) {
 		this.aprovados = aprovados;
-	}
-
-	public List<OrdemCompraItem> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<OrdemCompraItem> itens) {
-		this.itens = itens;
 	}
 
 	public List<OrdemCompra> getPedido() {

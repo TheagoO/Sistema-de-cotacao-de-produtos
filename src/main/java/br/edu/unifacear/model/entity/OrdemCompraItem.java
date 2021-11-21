@@ -87,6 +87,8 @@ public class OrdemCompraItem {
 	}
 
 	public double getValorTotal() {
+		this.valorTotal = this.quantidade*this.valorUnitario;
+		
 		return valorTotal;
 	}
 

@@ -18,6 +18,7 @@ public class OrdemCompraItemController {
 	private OrdemCompraItem item;
 	private OrdemCompraItem selecionado;
 	private List<OrdemCompraItem> lista;
+	private List<OrdemCompraItem> itens;
 
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
@@ -80,10 +81,23 @@ public class OrdemCompraItemController {
 		}
 	}
 	
+	public void listarItens(int oc) {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+
+		try {
+			this.itens = facade.listarItensCompra(oc);
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens"));
+			e.printStackTrace();
+		}
+	}
+	
 	public OrdemCompraItemController() {
 		this.item = new OrdemCompraItem();
 		this.selecionado = new OrdemCompraItem();
 		this.lista = new ArrayList<OrdemCompraItem>();
+		this.itens = new ArrayList<OrdemCompraItem>();
 		listar();
 	}
 
@@ -109,6 +123,14 @@ public class OrdemCompraItemController {
 
 	public void setLista(List<OrdemCompraItem> lista) {
 		this.lista = lista;
+	}
+
+	public List<OrdemCompraItem> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<OrdemCompraItem> itens) {
+		this.itens = itens;
 	}
 	
 	

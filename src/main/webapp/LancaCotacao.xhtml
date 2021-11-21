@@ -99,49 +99,49 @@
 							<div></div>
 
 							<p:commandButton update="cotacaoItens"
-								action="#{cotacaoBean.lista}" value="Atualizar"
+								action="#{cotacaoFornecedorPrecoBean.listarCotacaoFornecedor}" value="Atualizar"
 								process="@parent" icon="pi pi-refresh" />
 						</div>
 						<br />
 						<!-- Listagem dos produtos -->
 						<p:dataTable id="cotacaoItens" var="cotacao" editable="true"
-							value="#{cotacaoBean.lista}" scrollable="true"
+							value="#{cotacaoFornecedorPrecoBean.listCotacao}" scrollable="true"
 							scrollHeight="300px;">
 
-							<p:ajax event="rowEdit" listener="#{cotacaoBean.onRowEdit}"
+							<p:ajax event="rowEdit" listener="#{cotacaoFornecedorPrecoBean.onRowEdit}"
 								update=":form:msgs" />
 							<p:ajax event="rowEditCancel"
-								listener="#{cotacaoBean.onRowCancel}" update=":form:msgs" />
+								listener="#{cotacaoFornecedorPrecoBean.onRowCancel}" update=":form:msgs" />
 
 							<!-- Cabeçalho das colunas -->
 							<p:column headerText="Código">
-								<h:outputText value="#{cotacao.codigo}" />
+								<h:outputText value="#{cotacao.cotacaoItem.codigo}" />
 							</p:column>
 
 							<p:column headerText="Fornecedor">
 								<h:outputText
-									value="#{cotacao.cotacaoFornecedor.fornecedor.nome}" />
+									value="#{cotacao.fornecedor.empresa}" />
 							</p:column>
 
 							<p:column headerText="Item">
 								<h:outputText
-									value="#{cotacao.cotacaoFornecedor.cotacaoItem.produto.nome}" />
+									value="#{cotacao.cotacaoItem.produto.nome}" />
 							</p:column>
 
 							<p:column headerText="Marca">
 								<h:outputText
-									value="#{cotacao.cotacaoFornecedor.cotacaoItem.produto.marca}" />
+									value="#{cotacao.cotacaoItem.produto.marca}" />
 							</p:column>
 
 							<p:column headerText="Preço">
 								<p:cellEditor>
 									<f:facet name="output">
-										<h:outputText value="#{cotacao.cotacaoFornecedor.preco}">
+										<h:outputText value="#{cotacao.preco}">
 											<f:convertNumber type="currency" currencySymbol="$" />
 										</h:outputText>
 									</f:facet>
 									<f:facet name="input">
-										<p:inputNumber value="#{cotacao.cotacaoFornecedor.preco}"
+										<p:inputNumber value="#{cotacao.preco}"
 											style="width:100%" label="Price" symbol="$" />
 									</f:facet>
 								</p:cellEditor>

@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 
 import br.edu.unifacear.model.entity.Cotacao;
+import br.edu.unifacear.model.entity.Requisicao;
 import br.edu.unifacear.model.entity.Cotacao;
 import br.edu.unifacear.model.facade.GestaoFacade;
 
@@ -21,7 +22,7 @@ public class CotacaoController {
 	private Cotacao cotacao;
 	private Cotacao selecionado;
 	private List<Cotacao> lista;
-			
+	
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -30,6 +31,7 @@ public class CotacaoController {
 			facade.salvarCotacao(cotacao);
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cotacão salva!"));
 			this.cotacao = new Cotacao();
+			listar();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar cotação!"));
 			e.printStackTrace();
@@ -96,7 +98,7 @@ public class CotacaoController {
 			e.printStackTrace();
 		}
 	}
-	
+		
 	public void onRowEdit(RowEditEvent<Cotacao> event) {
 		Cotacao novo = new Cotacao();
 

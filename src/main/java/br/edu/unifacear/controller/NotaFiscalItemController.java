@@ -26,7 +26,6 @@ public class NotaFiscalItemController {
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-
 		try {
 			facade.salvarNotaFiscalItem(fiscalItem);
 			this.fiscalItem = new NotaFiscalItem();

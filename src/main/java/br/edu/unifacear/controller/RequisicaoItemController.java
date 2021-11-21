@@ -32,12 +32,12 @@ public class RequisicaoItemController {
 		try {
 			facade.salvarRequisicao(r, this.itens);
 			fc.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido enviado!"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Requisicao envida!"));
 			listar();
 			this.itens.clear();
 		} catch (Exception e) {
 			fc.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao Enviar pedido!"));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao Enviar requisicao!"));
 			e.printStackTrace();
 		}
 

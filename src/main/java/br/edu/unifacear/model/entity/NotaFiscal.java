@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import javax.persistence.*;
 
@@ -30,6 +31,8 @@ public class NotaFiscal implements Serializable {
 	private LocalDate dataEmissao;
 	
 	public NotaFiscal() {
+		Random r = new Random();
+		this.codigo =  r.nextInt(9999999);
 		this.id = 0;
 		this.item = new ArrayList<NotaFiscalItem>();
 		this.fornecedor = new Fornecedor();

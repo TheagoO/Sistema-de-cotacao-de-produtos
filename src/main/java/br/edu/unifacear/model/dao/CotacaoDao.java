@@ -83,9 +83,10 @@ public class CotacaoDao {
 			q = em.createQuery("select g from Cotacao g");
 		}
 		else {
+			
 			q = em.createQuery("select g from Cotacao g"
-					+" where codigo like :codigo");
-			q.setParameter("codigo", "%"+paramNome+"%");
+					+" where codigo = :codigo");
+			q.setParameter("codigo", paramNome);
 		}
 		
 		return q.getResultList();		

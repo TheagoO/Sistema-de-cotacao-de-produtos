@@ -33,7 +33,8 @@ public class RequisicaoController {
 		try {
 			facade.salvarRequisicao(requisicao, null);
 			this.requisicao = new Requisicao();
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido enviado!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Requisição enviada!"));
+			listar();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao enviar pedido"));
 			e.printStackTrace();
@@ -81,6 +82,7 @@ public class RequisicaoController {
 			facade.excluirRequisicao(this.requisicao);
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Requisicao de compra deletada"));
 			this.requisicao = new Requisicao();
+			listar();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir requisicao de compra"));
 			e.printStackTrace();

@@ -34,6 +34,7 @@ public class NotaFiscalItem implements Serializable {
 	public NotaFiscalItem() {
 		this.id = 0;
 		this.item = new Produto();
+		this.nota = new NotaFiscal();
 	}
 	
 	public NotaFiscalItem(int id, int codigo, float quantidade, double valorUnitario, double total, Produto item) {

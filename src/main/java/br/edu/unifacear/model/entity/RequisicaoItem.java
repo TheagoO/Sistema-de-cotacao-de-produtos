@@ -78,7 +78,7 @@ public class RequisicaoItem implements Serializable {
 
 	@Override
 	public String toString() {
-		return "#" + produto.getCodigo() + "Produto: " + produto.getNome() + "   -   Marca: " + produto.getMarca() + "   -   Quantidade: " + quantidade;
+		return "Produto: " + produto.getNome() + "   -   Marca: " + produto.getMarca() + "   -   Quantidade: " + quantidade;
 	}
 
 

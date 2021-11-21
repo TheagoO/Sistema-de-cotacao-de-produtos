@@ -72,9 +72,10 @@
 					<div class="select-area">
 						<p:panel header="Pedidos" style="width: 49%;">
 
-							<p:panel style="overflow-y: scroll; height: 75%; width: 80%">
+							<p:panel style="height: 75%;" layout="pageDirection"
+                              columns="1" styleClass="grid-checkbox">
 								<div class="ui-fluid">
-									<p:selectManyButton value="#{gestorBean.itens}">
+									<p:selectManyButton value="#{gestorBean.itens}" >
 										<f:selectItems value="#{requisicaoItemBean.lista}" var="item"
 											itemLabel="#{item}" itemValue="#{item.id}" />
 									</p:selectManyButton>
@@ -183,7 +184,7 @@
 						<div class="select-area">
 
 							<p:commandButton value="Solicitar cotação" icon="pi pi-check"
-								styleClass="ui-button-success" action="#{gestorBean}"
+								styleClass="ui-button-success" action="#{ordemCompraBean.solicitarCotacao}"
 								update=":form:msgs, :form:ordem" />
 
 
