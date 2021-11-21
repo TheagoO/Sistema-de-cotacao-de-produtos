@@ -52,7 +52,7 @@
 			<p:panel id="fold" header="Menu">
 				<h:form>
 					<p:tieredMenu style="width:100%; height:100%;">
-					<p:menuitem value="Início" icon="pi pi-home" action="Home" />
+						<p:menuitem value="Início" icon="pi pi-home" action="Home" />
 						<p:submenu label="Colaboradores" icon="pi pi-fw pi-users">
 							<p:menuitem value="Novo" icon="pi pi-fw pi-plus"
 								action="Cadastro" />
@@ -99,19 +99,21 @@
 							<div></div>
 
 							<p:commandButton update="cotacaoItens"
-								action="#{cotacaoFornecedorPrecoBean.listarCotacaoFornecedor}" value="Atualizar"
-								process="@parent" icon="pi pi-refresh" />
+								action="#{cotacaoFornecedorPrecoBean.listarCotacaoFornecedor}"
+								value="Atualizar" process="@parent" icon="pi pi-refresh" />
 						</div>
 						<br />
 						<!-- Listagem dos produtos -->
 						<p:dataTable id="cotacaoItens" var="cotacao" editable="true"
-							value="#{cotacaoFornecedorPrecoBean.listCotacao}" scrollable="true"
-							scrollHeight="300px;">
+							value="#{cotacaoFornecedorPrecoBean.listCotacao}"
+							scrollable="true" scrollHeight="500px;">
 
-							<p:ajax event="rowEdit" listener="#{cotacaoFornecedorPrecoBean.onRowEdit}"
+							<p:ajax event="rowEdit"
+								listener="#{cotacaoFornecedorPrecoBean.onRowEdit}"
 								update=":form:msgs" />
 							<p:ajax event="rowEditCancel"
-								listener="#{cotacaoFornecedorPrecoBean.onRowCancel}" update=":form:msgs" />
+								listener="#{cotacaoFornecedorPrecoBean.onRowCancel}"
+								update=":form:msgs" />
 
 							<!-- Cabeçalho das colunas -->
 							<p:column headerText="Código">
@@ -119,30 +121,29 @@
 							</p:column>
 
 							<p:column headerText="Fornecedor">
-								<h:outputText
-									value="#{cotacao.fornecedor.empresa}" />
+								<h:outputText value="#{cotacao.fornecedor.empresa}" />
 							</p:column>
 
 							<p:column headerText="Item">
-								<h:outputText
-									value="#{cotacao.cotacaoItem.produto.nome}" />
+								<h:outputText value="#{cotacao.cotacaoItem.produto.nome}" />
 							</p:column>
 
 							<p:column headerText="Marca">
-								<h:outputText
-									value="#{cotacao.cotacaoItem.produto.marca}" />
+								<h:outputText value="#{cotacao.cotacaoItem.produto.marca}" />
+							</p:column>
+
+							<p:column headerText="Quantidade">
+								<h:outputText value="#{cotacao.cotacaoItem.quantidade}" />
 							</p:column>
 
 							<p:column headerText="Preço">
 								<p:cellEditor>
 									<f:facet name="output">
-										<h:outputText value="#{cotacao.preco}">
-											<f:convertNumber type="currency" currencySymbol="$" />
-										</h:outputText>
+										<h:outputText value="#{cotacao.preco}" />
 									</f:facet>
 									<f:facet name="input">
-										<p:inputNumber value="#{cotacao.preco}"
-											style="width:100%" label="Price" symbol="$" />
+										<p:inputNumber value="#{cotacao.preco}" style="width:100%"
+											required="true" />
 									</f:facet>
 								</p:cellEditor>
 							</p:column>
@@ -153,12 +154,13 @@
 							</p:column>
 
 							<br />
-							<p:commandButton value="Lançar" icon="pi pi-check"
-								styleClass="ui-button-success"
-								action="#{cotacaoBean.lancaCotacao(cotacao)}" />
-							<br />
-						</p:dataTable>
 
+						</p:dataTable>
+						<br />
+						<p:commandButton value="Lançar cotação" icon="pi pi-check"
+							styleClass="ui-button-success"
+							action="#{cotacaoBean.lancaCotacao(cotacao)}" />
+						<br />
 					</p:panel>
 				</div>
 			</h:form>

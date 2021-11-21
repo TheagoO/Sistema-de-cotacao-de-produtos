@@ -33,7 +33,7 @@ public class OrdemCompraController {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
-			facade.salvarOrdemCompra(ordemCompra);
+			facade.salvarOrdemCompra(ordemCompra, 2);
 			this.ordemCompra = new OrdemCompra();
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido salvo!"));
 
@@ -103,7 +103,7 @@ public class OrdemCompraController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			this.ordemSelecionada.getFase().setStatus(0);
+			this.ordemSelecionada.getFase().setStatus(6);
 			facade.editarOrdemCompra(ordemSelecionada);
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de compra negada!"));
 			this.ordemSelecionada = new OrdemCompra();
@@ -167,6 +167,7 @@ public class OrdemCompraController {
 	public void removerPedido(OrdemCompra oc) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		this.pedido.remove(oc);
+		this.i--;
 		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido removido!"));
 	}
 
@@ -195,7 +196,7 @@ public class OrdemCompraController {
 		
 		try {
 			facade.solicitarCotacao(this.pedido);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de compra enviada"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de cotaçao enviada"));
 			listar();
 			this.pedido.clear();
 		} catch (Exception e) {

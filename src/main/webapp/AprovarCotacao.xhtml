@@ -88,12 +88,20 @@
 
 			<!-- Listagem dos Colaboradores -->
 			<p:panel header="Pedidos de cotação">
+				<div class="search-area">
+					<div></div>
+					<p:commandButton update=":form:cota, :form:msgs"
+						action="#{cotacaoBean.listar}" value="Atualizar"
+						process="@parent" icon="pi pi-refresh" />
+
+				</div>
+				<br />
 
 				<div class="card">
 
 					<h:form id="form">
 						<p:growl id="msgs" showDetail="true" />
-						<p:dataTable var="cotacao" value="#{cotacaoBean.lista}"
+						<p:dataTable id="cota" var="cotacao" value="#{cotacaoBean.lista}"
 							sortBy="#{cotacao.codigo}" style="width: 100%;">
 
 							<p:headerRow field="codigo" expandable="true"
@@ -166,7 +174,7 @@
 						</p:confirmDialog>
 
 						<p:dialog header="Detalhes" widgetVar="dlg2" minHeight="300"
-							width="1000" showEffect="fade" modal="true">
+							width="1000" showEffect="fade" modal="true" style="overflow: scroll">
 
 							<p:dataTable id="itens" var="itens"
 								value="#{cotacaoItemBean.itens}" style="width: 100%;">
@@ -187,7 +195,8 @@
 
 
 							<p:dataTable id="fornec" var="forn"
-								value="#{cotacaoItemBean.cotacaoFornecedor}" style="width: 100%;">
+								value="#{cotacaoItemBean.cotacaoFornecedor}"
+								style="width: 100%;">
 
 								<p:column headerText="Empresa">
 									<h:outputText value="#{forn.fornecedor.empresa}" />

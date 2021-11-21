@@ -42,10 +42,7 @@ public class CotacaoFornecedorPrecoController {
 	public void listarCotacaoFornecedor() {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		List<CotacaoFornecedorPreco> novaLista = new ArrayList<CotacaoFornecedorPreco>();
 		List<CotacaoItem> ci = new ArrayList<CotacaoItem>();
-		
-		
 		
 		try {
 			ci = facade.listarItensCotacao(this.cotacao);
@@ -53,19 +50,10 @@ public class CotacaoFornecedorPrecoController {
 			
 			this.listCotacao = facade.listarCotacaoFornecedor(id.getId());
 			
-			for(CotacaoFornecedorPreco cfp : this.listCotacao) {
-				for(CotacaoItem cotacao : ci) {
-					if(cfp.getCotacaoItem().getId() == cotacao.getId()) {
-						cfp.setCotacaoItem(cotacao);
-						novaLista.add(cfp);
-					}
-				}
-			}
-			
-			this.listCotacao = novaLista;
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "DEU BOA"));
 			
 		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "DEU ERRO"));
 			e.printStackTrace();
 		}
 		
@@ -73,22 +61,8 @@ public class CotacaoFornecedorPrecoController {
 	}
 	
 	public void onRowEdit(RowEditEvent<CotacaoFornecedorPreco> event) {
-		CotacaoFornecedorPreco novo = new CotacaoFornecedorPreco();
-
-		for (CotacaoFornecedorPreco a : this.lista) {
-			if (a.getId() == event.getObject().getId()) {
-				novo = a;
-			}
-		}
-
-		if (event.getObject() != null) {
-			try {
-				this.cotacaoPreco = novo;
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Valor alterado!"));
 
 	}
 
