@@ -35,17 +35,17 @@ public class GestorController {
 		try {
 			if (gestor.getSenha().equals(senha)) {
 				String retorno = facade.salvarGestor(gestor);
-				if(retorno.contains("E-mail j· cadastrado")) {
-					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail j· cadastrado!"));
+				if(retorno.contains("E-mail j√° cadastrado")) {
+					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail j√° cadastrado!"));
 				}else {
-					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador salvo!"));
+					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Gestor cadastrado!"));
 				}
 				this.gestor = new Gestor();
 			} else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha inv·lida!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha inv√°lida!"));
 			}
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar colaborador!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao cadastrar Gestor!"));
 			e.printStackTrace();
 		}
 
@@ -59,7 +59,7 @@ public class GestorController {
 		try {
 			this.lista = facade.listarGestor("");
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar colaboradores"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "N√£o foram encontrado registro de Gestor cadastrado!"));
 			e.printStackTrace();
 		}
 
@@ -74,12 +74,12 @@ public class GestorController {
 			if(retorno.contains("Dados em branco")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			}else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador editado!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Gestor alterado!"));
 				listar();
 			}
 			this.gestor = new Gestor();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar colaborador"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao alterar dados do Gestor"));
 			e.printStackTrace();
 		}
 	}
@@ -90,11 +90,11 @@ public class GestorController {
 
 		try {
 			facade.excluirGestor(this.gestorSelecionado);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador deletado"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Gestor excluido"));
 			this.gestorSelecionado = new Gestor();
 			listar();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir colaborador"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "N√£o foi poss√≠vel excluir o Gestor"));
 			e.printStackTrace();
 		}
 	}
@@ -125,7 +125,7 @@ public class GestorController {
 
 	public void onRowCancel(RowEditEvent<Gestor> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "EdiÁ„o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edi√ß√£o cancelada!"));
 	}
 	
 	public GestorController() {

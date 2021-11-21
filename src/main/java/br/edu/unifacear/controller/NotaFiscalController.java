@@ -43,7 +43,7 @@ public class NotaFiscalController {
 		try {
 			this.notas = facade.listarNotaFiscal(0);
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar notas fiscal"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "NÃ£o foi encontrado registro de notas fiscal"));
 			e.printStackTrace();
 		}
 
@@ -55,11 +55,11 @@ public class NotaFiscalController {
 		
 		try {
 			facade.lancarNota(oc, this.notaFiscal);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Nota fiscal lançada!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Nota fiscal lanÃ§ada!"));
 			notaLancada(oc);
 			this.notaFiscal = new NotaFiscal();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao lançar nota fiscal"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao lanÃ§ar nota fiscal"));
 			e.printStackTrace();
 		}
 
@@ -74,7 +74,7 @@ public class NotaFiscalController {
 			facade.editarOrdemCompra(oc);
 			return "Lancado";
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar ordem de compra"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao alterar ordem de compra"));
 			e.printStackTrace();
 		}
 		return null;

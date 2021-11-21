@@ -27,9 +27,9 @@ public class OrigemController {
 			ob.salvar(origem);
 			this.origem = new Origem();
 			listar();
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Origem salva com sucesso!", "SUCESSO"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Origem cadastrada com sucesso!", "SUCESSO"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar origem", "ERRO"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao cadastrar origem", "ERRO"));
 		}
 
 		
@@ -45,7 +45,7 @@ public class OrigemController {
 				this.lista.add(p);
 			}
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao listar origem", "ERRO"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não foi encontrado registro de Origem", "ERRO"));
 			e.printStackTrace();
 		}
 

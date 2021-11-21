@@ -38,7 +38,7 @@ public class OrdemCompraController {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido salvo!"));
 
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar ordemCompra"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar Ordem de Compra"));
 			e.printStackTrace();
 		}
 
@@ -60,7 +60,7 @@ public class OrdemCompraController {
 			
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Lista atualizada!"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar ordemCompras"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar Oredem de Compras"));
 			e.printStackTrace();
 		}
 	}
@@ -71,15 +71,15 @@ public class OrdemCompraController {
 
 		try {
 			String retorno = facade.editarOrdemCompra(ordemCompra);
-			if (retorno.contains("Dados em branco") || retorno.contains("CÛdigo inv·lido")) {
+			if (retorno.contains("Dados em branco") || retorno.contains("C√≥digo inv√°lido")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			} else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido editado!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido alterado!"));
 				listar();
 			}
 			this.ordemCompra = new OrdemCompra();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar ordemCompra"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao alterar Ordem de Compra"));
 			e.printStackTrace();
 		}
 	}
@@ -90,7 +90,7 @@ public class OrdemCompraController {
 
 		try {
 			facade.excluirOrdemCompra(this.ordemSelecionada);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido deletado"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Pedido Excluido"));
 			this.ordemSelecionada = new OrdemCompra();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir produto"));
@@ -121,7 +121,7 @@ public class OrdemCompraController {
 			this.aprovados = facade.listarOrdemCompra("Aprovados");
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Lista atualizada!"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar aprovados"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhuma Ordem de Compra aprovada encontrada"));
 			e.printStackTrace();
 		}
 
@@ -152,14 +152,14 @@ public class OrdemCompraController {
 				i++;
 				oc = facade.novoPedido(ri, i);
 			} catch (Exception e) {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao adicionar solicitaÁ„o"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao adicionar solicita√ß√£o"));
 				e.printStackTrace();
 			}
 			oc.setFornecedor(forn);
 			oc.setSolicitante(g);
 			
 			this.pedido.add(oc);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "SolicitaÁ„o adicionada ao pedido "+i));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Solicita√ß√£o adicionada ao pedido "+i));
 		}
 
 	}
@@ -185,7 +185,7 @@ public class OrdemCompraController {
 			}
 
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar produtos"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhum produto encontrado"));
 			e.printStackTrace();
 		}
 	}
@@ -196,7 +196,7 @@ public class OrdemCompraController {
 		
 		try {
 			facade.solicitarCotacao(this.pedido);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de cotaÁao enviada"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de cota√ß√£o enviada"));
 			listar();
 			this.pedido.clear();
 		} catch (Exception e) {

@@ -39,12 +39,12 @@ public class LoginController {
 								return "Almoxarifado";
 							}
 						}
-						fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Dados inválidos"));
+						fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Dados invÃ¡lidos"));
 					}else {
-						fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Dados inválidos"));
+						fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Dados invÃ¡lidos"));
 					}
 				} catch (Exception e) {
-					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao validar colaborador"));
+					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao validar Almoxarifado"));
 					e.printStackTrace();
 				}
 			}else {
@@ -60,17 +60,17 @@ public class LoginController {
 								return "Gestor";
 							}
 						}
-						fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Dados inválidos"));
+						fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Dados invÃ¡lidos"));
 					}else {
-						fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Dados inválidos"));
+						fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Dados invÃ¡lidos"));
 					}
 				} catch (Exception e) {
-					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao validar colaborador"));
+					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao validar Gestor"));
 					e.printStackTrace();
 				}
 			}
 		}else {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Selecione um tipo de colaborador"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Selecione um tipo de Colaborador"));
 		}
 		return null;
 	}
@@ -82,7 +82,7 @@ public class LoginController {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Login efetuado"));
 			return "Admin";
 		}else {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Dados inválidos"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Dados invÃ¡lidos"));
 		}
 		return null;
 	}

@@ -29,11 +29,11 @@ public class CotacaoController {
 		try {
 
 			facade.salvarCotacao(cotacao);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cotac„o salva!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Solicita√ß√£o  Enviada!"));
 			this.cotacao = new Cotacao();
 			listar();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar cotaÁ„o!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "N√£o foi poss√≠vel enviar Cota√ß√£o!"));
 			e.printStackTrace();
 		}
 
@@ -46,7 +46,7 @@ public class CotacaoController {
 		try {
 			this.lista = facade.listarCotacao(0);
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar cotaÁ„o"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhuma Cota√ß√£o encontrada!!"));
 			e.printStackTrace();
 		}
 
@@ -61,12 +61,12 @@ public class CotacaoController {
 			if(retorno.contains("Nome em branco") || retorno.contains("E-mail em branco")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			}else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "CotaÁ„o editada!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cota√ß√£o alterada!"));
 				listar();
 			}
 			this.cotacao = new Cotacao();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar cotaÁ„o"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro na altera√ß√£o da Cota√ß√£o!"));
 			e.printStackTrace();
 		}
 	}
@@ -77,11 +77,11 @@ public class CotacaoController {
 
 		try {
 			facade.excluirCotacao(this.selecionado);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "CotaÁ„o deletada"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cota√ß√£o Excluida"));
 			listar();
 			this.selecionado = new Cotacao();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir cotaÁ„o"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir Cota√ß√£o"));
 			e.printStackTrace();
 		}
 	}
@@ -92,9 +92,9 @@ public class CotacaoController {
 
 		try {
 			facade.salvarCotacao(c);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "CotaÁ„o lanÁada!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cota√ß√£o Lan√ßada!"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao lanÁar cotaÁ„o"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao ao Lan√ßar Cota√ß√£o"));
 			e.printStackTrace();
 		}
 	}
@@ -121,7 +121,7 @@ public class CotacaoController {
 
 	public void onRowCancel(RowEditEvent<Cotacao> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "EdiÁ„o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edi√ß√£o cancelada!"));
 	}
 	
 	

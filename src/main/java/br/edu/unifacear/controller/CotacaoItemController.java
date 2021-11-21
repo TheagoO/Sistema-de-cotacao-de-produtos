@@ -31,7 +31,7 @@ public class CotacaoItemController {
 		try {
 			facade.salvarCotacaoItem(item);
 			this.item = new CotacaoItem();
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "CotaÁ„o do item salvo!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cota√ß√£o do item salvo!"));
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar produto"));
 			e.printStackTrace();
@@ -46,7 +46,7 @@ public class CotacaoItemController {
 		try {
 			this.lista = facade.listarCotacaoItem("");
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar cotaÁ„o dos itens"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Cota√ß√£o dos item n√£o encontrado"));
 			e.printStackTrace();
 		}
 	}
@@ -57,15 +57,15 @@ public class CotacaoItemController {
 
 		try {
 			String retorno = facade.editarCotacaoItem(item);
-			if(retorno.contains("Dados em branco") || retorno.contains("CÛdigo inv·lido")) {
+			if(retorno.contains("Dados em branco") || retorno.contains("C√≥digo inv√°lido")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			}else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "CotaÁ„o do item editado!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cota√ß√£o do item alterado!"));
 				listar();
 			}
 			this.item = new CotacaoItem();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar cotaÁ„o"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao alterar cota√ß√£o"));
 			e.printStackTrace();
 		}
 	}
@@ -76,10 +76,10 @@ public class CotacaoItemController {
 
 		try {
 			facade.excluirCotacaoItem(this.selecionado);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "CotaÁ„o do item deletado"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cota√ß√£o do item Excluido"));
 			this.selecionado = new CotacaoItem();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir cotac„o"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir cota√ß√£o"));
 			e.printStackTrace();
 		}
 	}
@@ -94,9 +94,9 @@ public class CotacaoItemController {
 			
 			listarCotacaoFornecedor(ci.getId());
 			
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Itens listados"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Itens encontrados"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhum registro de itens encontrados"));
 			e.printStackTrace();
 		}
 		
@@ -108,9 +108,9 @@ public class CotacaoItemController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
 			this.cotacaoFornecedor = facade.listarCotacaoFornecedor(id);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Itens listados"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Itens encontrados"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "nenhum registro de itens encontrados"));
 			e.printStackTrace();
 		}
 		
@@ -140,7 +140,7 @@ public class CotacaoItemController {
 	
 	public void onRowCancel(RowEditEvent<CotacaoItem> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "EdiÁ„o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edi√ß√£o cancelada!"));
 	}
 	
 	public CotacaoItemController() {

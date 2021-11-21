@@ -35,6 +35,8 @@
 			</div>
 		</div>
 	</header>
+<br/>
+<br/>
 	<section>
 		<p:growl id="messages" showDetail="true" />
 
@@ -179,31 +181,10 @@
 						<strong>NCM</strong>: Código de oito digitos e descrição do
 						produto.
 					</p>
-					<p class="p-m-0">
-						<strong>Origem</strong>: Produto nacional ou estrangeiro.
-					</p>
-
-					<p:button value="Nova Origem" onclick="PF('dlg3').show()" />
-
-					<h:form id="New-Origem">
-						<p:dialog header="Cadastrar origem" widgetVar="dlg3"
-							minHeight="40" width="350" showEffect="fade">
-							<p class="p-m-0">Origem:</p>
-							<p:inputText id="origem" value="#{origemBean.origem.origem}" />
-							<f:facet name="footer">
-								<p:commandButton value="Cancelar"
-									styleClass="ui-button-flat p-mr-2" style="width: 6rem"
-									onclick="PF('dlg3').hide()" />
-								<p:commandButton value="Confirmar" style="width: 7rem"
-									action="#{origemBean.salvar}" update="messages" />
-							</f:facet>
-						</p:dialog>
-					</h:form>
 				</p:overlayPanel>
 			</div>
 		</div>
 	</footer>
-
 
 </h:body>
 </html>

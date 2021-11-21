@@ -28,10 +28,10 @@ public class ProdutoController {
 
 		try {
 			facade.salvarProduto(produto);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto salvo!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto Cadastrado!"));
 			this.produto = new Produto();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao salvar produto"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao cadastrar produto"));
 			e.printStackTrace();
 		}
 
@@ -43,9 +43,9 @@ public class ProdutoController {
 		this.produtos.removeAll(produtos);
 		try {
 			this.produtos = facade.listarProduto("");
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Lista atualizada!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Lista de produto atualizada!"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar produtos"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhum registro de produto encontrado!"));
 			e.printStackTrace();
 		}
 	}
@@ -56,15 +56,15 @@ public class ProdutoController {
 
 		try {
 			String retorno = facade.editarProduto(this.selecionado);
-			if(retorno.contains("Dados em branco") || retorno.contains("CÛdigo inv·lido")) {
+			if(retorno.contains("Dados em branco") || retorno.contains("C√≥digo inv√°lido")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			}else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto editado!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto alterado!"));
 				listar();
 			}
 			this.selecionado = new Produto();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar produto"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao alterar produto"));
 			e.printStackTrace();
 		}
 	}
@@ -76,7 +76,7 @@ public class ProdutoController {
 		try {
 			facade.excluirProduto(this.selecionado);
 			listar();
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto deletado!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Produto exluido!"));
 			this.selecionado = new Produto();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir produto"));
@@ -106,7 +106,7 @@ public class ProdutoController {
 
 	public void onRowCancel(RowEditEvent<Produto> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "EdiÁ„o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edi√ß√£o cancelada!"));
 	}
 
 	public ProdutoController() {

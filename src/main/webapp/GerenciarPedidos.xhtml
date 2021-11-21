@@ -41,7 +41,8 @@
 			</div>
 		</div>
 	</header>
-
+<br/>
+<br/>
 	<section style="height: 100%;">
 
 		<!-- Container do menu esquerdo -->
@@ -62,13 +63,13 @@
 
 		</div>
 
-
-		<h:form id="form">
+		<div class="content-area" style="width: 70%;">
+			<h:form id="form">
 			<p:growl id="msgs" showDetail="true" />
 			<!-- Container do conteúdo da página  -->
-			<div class="content-area" style="width: 70%;">
 
-				<p:panel header="SOLICITAÇÕES DE COMPRA">
+
+				<p:panel header="SOLICITAÇÕES DE COMPRA" 	>
 					<div class="select-area">
 						<p:panel header="Pedidos" style="width: 49%;">
 
@@ -101,6 +102,7 @@
 
 						<div class="select-area" style="width: 20%;">
 							<div style="margin-right: auto; margin-left: auto;">
+							<BR />
 								<p:commandButton value="Adicionar ao pedido"
 									styleClass="ui-button-info"
 									action="#{ordemCompraBean.adicionarPedido(gestorBean.itens, gestorBean.fornecedor, loginBean.gestor)}"
@@ -179,35 +181,35 @@
 					</p:panel>
 
 					<br />
-					<div class="cls_right">
+				
 
 						<div class="select-area">
 
 							<p:commandButton value="Solicitar cotação" icon="pi pi-check"
 								styleClass="ui-button-success" action="#{ordemCompraBean.solicitarCotacao}"
-								update=":form:msgs, :form:ordem" />
+								update=":form:msgs, :form:ordem" style="width: 200px; height: 60px "/>
 
 
 							<p:commandButton value="Solicitar compra" icon="pi pi-check"
 								styleClass="ui-button-success"
 								action="#{ordemCompraBean.solicitarCompra}"
-								update=":form:msgs, :form:ordem" />
+								update=":form:msgs, :form:ordem" style="width: 200px; height: 60px " />
 
 						</div>
 
-					</div>
+					
 
-				</p:panel>
+					</p:panel>
 
 
 
-			</div>
-		</h:form>
-
+		
+			</h:form>
+		</div>
 	</section>
 
 	<!-- Rodapé -->
-	<footer style="position: relative">
+	<footer>
 		<div class="rdp">
 			<div class="mid">
 				<p:commandButton id="ajuda" value="Ajuda" type="button" />

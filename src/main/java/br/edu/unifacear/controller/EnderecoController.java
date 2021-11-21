@@ -26,10 +26,10 @@ public class EnderecoController {
 		
 		try {
 			facade.salvarEndereco(endereco);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Endereço salvo!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "EndereÃ§o cadastrado!"));
 
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar endereço!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao cadastrar endereÃ§o!"));
 			e.printStackTrace();
 		}
 
@@ -42,7 +42,7 @@ public class EnderecoController {
 		try {
 			this.lista = facade.listarEndereco("");
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar endereço"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "NÃ£o foram encontrados registro de endereÃ§os cadastrados"));
 			e.printStackTrace();
 		}
 
@@ -53,11 +53,11 @@ public class EnderecoController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Endereço editado!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "EndereÃ§o alterado!"));
 			listar();
 			this.endereco = new Endereco();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar endereço"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao alterar endereÃ§o"));
 			e.printStackTrace();
 		}
 	}
@@ -68,11 +68,11 @@ public class EnderecoController {
 
 		try {
 			facade.excluirEndereco(this.selecionado);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Endereço deletado"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "EndereÃ§o excluido"));
 			listar();
 			this.selecionado = new Endereco();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir endereço"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir endereÃ§o"));
 			e.printStackTrace();
 		}
 	}

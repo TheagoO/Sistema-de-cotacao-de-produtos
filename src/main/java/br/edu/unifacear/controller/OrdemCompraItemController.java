@@ -25,10 +25,10 @@ public class OrdemCompraItemController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
 			facade.salvarOrdemCompraItem(item);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Item salvo!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Item adicionado!"));
 			this.item = new OrdemCompraItem();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar item!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao adicionar item!"));
 			e.printStackTrace();
 		}
 
@@ -41,7 +41,7 @@ public class OrdemCompraItemController {
 		try {
 			this.lista = facade.listarOrdemCompraItem(0);
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itemes"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhum registro de iten encontrado!"));
 			e.printStackTrace();
 		}
 
@@ -56,12 +56,12 @@ public class OrdemCompraItemController {
 			if (retorno.contains("Nome em branco") || retorno.contains("E-mail em branco")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			} else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Item editado!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Item alterado!"));
 				listar();
 			}
 			this.item = new OrdemCompraItem();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar item"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao alterar item!"));
 			e.printStackTrace();
 		}
 	}
@@ -72,11 +72,11 @@ public class OrdemCompraItemController {
 
 		try {
 			facade.excluirOrdemCompraItem(this.selecionado);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Item deletado"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Item excluido!"));
 			listar();
 			this.selecionado = new OrdemCompraItem();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir item"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir item!"));
 			e.printStackTrace();
 		}
 	}
@@ -88,7 +88,7 @@ public class OrdemCompraItemController {
 		try {
 			this.itens = facade.listarItensCompra(oc);
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhum registro de iten encontrado!"));
 			e.printStackTrace();
 		}
 	}

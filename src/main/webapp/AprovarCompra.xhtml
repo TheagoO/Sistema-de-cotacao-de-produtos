@@ -41,7 +41,8 @@
 			</div>
 		</div>
 	</header>
-
+<br/>
+<br/>
 	<section>
 		<p:growl id="messages" showDetail="true" />
 
@@ -96,7 +97,7 @@
 
 					<p:growl id="msgs" showDetail="true" />
 
-					<p:panel header="Pedidos de compra">
+					<p:panel header="Ordem de Compra para Aprovação">
 						<div class="search-area">
 							<div></div>
 							<p:commandButton update="dados, msgs"
@@ -237,35 +238,26 @@
 				<p:commandButton id="ajuda" value="Ajuda" type="button" />
 				<p:overlayPanel for="ajuda" style="width:350px">
 					<p class="p-m-0">
-						<strong>Nome</strong>: Nome do produto.
+						<strong>Remetente</strong>: Solicitante da Ordem de Compra.
 					</p>
 					<p class="p-m-0">
-						<strong>Marca</strong>: Marca do produto.
+						<strong>Data de Emição</strong>: Data em que foi enviado.
 					</p>
 					<p>
-						<strong>Código</strong>: Código de barras do produto.
+						<strong>Status</strong>: Estado em que se encontra a Ordem de Compra.
 					</p>
 					<p class="p-m-0">
-						<strong>NCM</strong>: Código de oito digitos e descrição do
-						produto.
+						<strong>Visualizar Produtos</strong>: Lista os produtos da Ordem de Compra.
 					</p>
 					<p class="p-m-0">
-						<strong>Origem</strong>: Produto nacional ou estrangeiro.
+						<strong>Fornecedor</strong>: Fornecedor destinado a Oredem de Compra.
+					</p>
+					
+					<p class="p-m-0">
+						<strong>Opção</strong>: Selecione a Ordem que deseja Deletar ou Aprovar.
 					</p>
 
-					<p:button value="Nova Origem" action="" onclick="PF('dlg3').show()" />
 
-					<p:dialog header="Cadastrar origem" widgetVar="dlg3" minHeight="40"
-						width="350" showEffect="fade">
-						<p class="p-m-0">Origem:</p>
-						<p:inputText name="origem" />
-						<f:facet name="footer">
-							<p:commandButton type="button" value="Cancelar"
-								styleClass="ui-button-flat p-mr-2" style="width: 6rem" />
-							<p:commandButton type="button" value="Confirmar"
-								style="width: 7rem" />
-						</f:facet>
-					</p:dialog>
 				</p:overlayPanel>
 			</div>
 		</div>

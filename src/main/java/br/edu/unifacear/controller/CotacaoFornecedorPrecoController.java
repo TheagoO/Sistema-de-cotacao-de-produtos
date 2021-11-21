@@ -33,7 +33,7 @@ public class CotacaoFornecedorPrecoController {
 			this.lista = facade.listarCotacaoFornecedorPreco("");
 			
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar cotação"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhuma CotaÃ§Ã£o encontrada"));
 			e.printStackTrace();
 		}
 
@@ -50,10 +50,10 @@ public class CotacaoFornecedorPrecoController {
 			
 			this.listCotacao = facade.listarCotacaoFornecedor(id.getId());
 			
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "DEU BOA"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Registros encontrados"));
 			
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "DEU ERRO"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhum Registro encontrado"));
 			e.printStackTrace();
 		}
 		
@@ -68,7 +68,7 @@ public class CotacaoFornecedorPrecoController {
 
 	public void onRowCancel(RowEditEvent<CotacaoFornecedorPreco> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "EdiÃ§Ã£o cancelada!"));
 	}
 	
 	

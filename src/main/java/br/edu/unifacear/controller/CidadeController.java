@@ -30,11 +30,11 @@ public class CidadeController {
 		try {
 			facade.salvarCidade(cidade);
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar cidade", "ERROR"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não foi possível cadastrar a  Cidade", "ERROR"));
 			e.printStackTrace();
 		}
 		
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cidade salva com sucesso!", "SUCESSO"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cidade cadastrada!", "SUCESSO"));
 		return "Sucesso!";
 	}
 	
@@ -47,7 +47,7 @@ public class CidadeController {
 				this.lista.add(c);
 			}
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar cidades"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Não foi encontrado nenhuma cidade nos registros!"));
 			e.printStackTrace();
 		}
 	}
@@ -59,14 +59,14 @@ public class CidadeController {
 		try {
 			String retorno = facade.editarCidade(cidade);
 			if(retorno.contains("Nome em branco")) {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos obrigatórios!"));
 			}else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cidade editada!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Dados da cidade Alterados!"));
 				listar();
 			}
 			this.cidade = new Cidade();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar cidade"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Não foi possível alterar dados da cidade"));
 			e.printStackTrace();
 		}
 	}
@@ -77,11 +77,11 @@ public class CidadeController {
 
 		try {
 			facade.excluirCidade(this.selecionado);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cidade deletada!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cidade excluída!"));
 			listar();
 			this.selecionado = new Cidade();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir cidade"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Não foi possível excluir a cidade"));
 			e.printStackTrace();
 		}
 	}
@@ -108,7 +108,7 @@ public class CidadeController {
 
 	public void onRowCancel(RowEditEvent<Cidade> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edi��o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
 	}
 	
 	public CidadeController() {

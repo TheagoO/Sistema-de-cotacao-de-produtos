@@ -26,11 +26,11 @@ public class EstadoController {
 		try {
 			facade.salvarEstado(estado);
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar estado", "ERROR"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não foi possivel cadastrar o estado", "ERROR"));
 			e.printStackTrace();
 		}
 		
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Estado salva com sucesso!", "SUCESSO"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Estado cadastrado com sucesso!", "SUCESSO"));
 		return "Sucesso!";
 	}
 	
@@ -44,7 +44,7 @@ public class EstadoController {
 				this.lista.add(e);
 			}
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar estados"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Não foram encontrados redistro de enderço salvos"));
 			e.printStackTrace();
 		}
 	}

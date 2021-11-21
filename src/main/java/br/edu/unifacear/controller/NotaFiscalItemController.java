@@ -44,7 +44,7 @@ public class NotaFiscalItemController {
 		try {
 			this.lista = facade.listarNotaFiscalItem(0);
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar fiscal item"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Não foi encontrado registro de item"));
 			e.printStackTrace();
 		}
 

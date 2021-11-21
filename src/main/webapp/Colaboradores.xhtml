@@ -41,7 +41,8 @@
 			</div>
 		</div>
 	</header>
-
+<br/>
+<br/>
 	<section>
 		<p:growl id="messages" showDetail="true" />
 
@@ -446,39 +447,26 @@
 				<p:commandButton id="ajuda" value="Ajuda" type="button" />
 				<p:overlayPanel for="ajuda" style="width:350px">
 					<p class="p-m-0">
-						<strong>Nome</strong>: Nome do produto.
+						<strong>Atualizar</strong>: Atualiza os colaboradores recem cadastrados.
 					</p>
 					<p class="p-m-0">
-						<strong>Marca</strong>: Marca do produto.
+						<strong>Novo</strong>: Abre a pagina para cadastrar um novo fornecedor.
 					</p>
 					<p>
-						<strong>Código</strong>: Código de barras do produto.
+						<strong>Editar</strong>: Edita os colaboradores (apenas: Código, Nome e Email).
 					</p>
 					<p class="p-m-0">
-						<strong>NCM</strong>: Código de oito digitos e descrição do
-						produto.
+						<strong>Excluir</strong>: Exclui o colaborador;
 					</p>
 					<p class="p-m-0">
-						<strong>Origem</strong>: Produto nacional ou estrangeiro.
+						<strong>Atençaõ</strong>: Após a exclusão do colaborador não será possivel desfazer.
 					</p>
 
-					<p:button value="Nova Origem" action="" onclick="PF('dlg3').show()" />
-
-					<p:dialog header="Cadastrar origem" widgetVar="dlg3" minHeight="40"
-						width="350" showEffect="fade">
-						<p class="p-m-0">Origem:</p>
-						<p:inputText name="origem" />
-						<f:facet name="footer">
-							<p:commandButton type="button" value="Cancelar"
-								styleClass="ui-button-flat p-mr-2" style="width: 6rem" />
-							<p:commandButton type="button" value="Confirmar"
-								style="width: 7rem" />
-						</f:facet>
-					</p:dialog>
 				</p:overlayPanel>
 			</div>
 		</div>
 	</footer>
+
 
 
 </h:body>

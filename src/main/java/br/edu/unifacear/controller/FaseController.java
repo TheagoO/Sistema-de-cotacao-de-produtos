@@ -27,7 +27,7 @@ public class FaseController {
 		try {
 			this.lista = facade.listarFase(0);
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar Status"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Sem registro de Status"));
 			e.printStackTrace();
 		}
 
@@ -40,9 +40,9 @@ public class FaseController {
 
 			facade.salvarFase(fase);
 			this.fase = new Fase();
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Status salvo!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Status Registrado!"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar colaborador!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao Registrar Status!"));
 			e.printStackTrace();
 		}
 

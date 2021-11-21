@@ -30,7 +30,7 @@ public class FiscalItemController {
 			}
 
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao listar NCM", "ERROR"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não foram encontrados nenhum registro de NCM", "ERROR"));
 			e.printStackTrace();
 		}
 

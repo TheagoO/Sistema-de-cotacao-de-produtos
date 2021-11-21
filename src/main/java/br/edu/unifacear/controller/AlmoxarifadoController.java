@@ -30,18 +30,18 @@ public class AlmoxarifadoController {
 
 			if (almoxarifado.getSenha().equals(senha)) {
 				String retorno = facade.salvarAlmoxarifado(almoxarifado);
-				if(retorno.contains("E-mail j· cadastrado")) {
-					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail j· cadastrado!"));
+				if(retorno.contains("E-mail j√° cadastrado")) {
+					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "E-mail j√° cadastrado!"));
 				}else {
-					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador salvo!"));
+					fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Almoxarifado cadastrado!"));
 				}
 				this.almoxarifado = new Almoxarifado();
 			} else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha inv·lida!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Senha n√£o conferem!"));
 			}
 
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar colaborador!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar Almoxarifado!"));
 			e.printStackTrace();
 		}
 
@@ -54,7 +54,7 @@ public class AlmoxarifadoController {
 		try {
 			this.lista = facade.listarAlmoxarifado("");
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar colaboradores"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "N√£o foi encontrado nenhum Almoxarifado nos registros"));
 			e.printStackTrace();
 		}
 
@@ -69,12 +69,12 @@ public class AlmoxarifadoController {
 			if(retorno.contains("Nome em branco") || retorno.contains("E-mail em branco")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			}else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador editado!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Dados do Almoxarifado atualizados!"));
 				listar();
 			}
 			this.almoxarifado = new Almoxarifado();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar colaborador"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao atualizar dados do Almoxarifado"));
 			e.printStackTrace();
 		}
 	}
@@ -85,11 +85,11 @@ public class AlmoxarifadoController {
 
 		try {
 			facade.excluirAlmoxarifado(this.selecionado);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador deletado"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Almoxarifado Excluido"));
 			listar();
 			this.selecionado = new Almoxarifado();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir colaborador"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "N√£o foi possivel excluir o Almoxarifado"));
 			e.printStackTrace();
 		}
 	}
@@ -116,7 +116,7 @@ public class AlmoxarifadoController {
 
 	public void onRowCancel(RowEditEvent<Almoxarifado> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "EdiÁ„o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edi√ß√£o cancelada!"));
 	}
 	
 	public AlmoxarifadoController() {

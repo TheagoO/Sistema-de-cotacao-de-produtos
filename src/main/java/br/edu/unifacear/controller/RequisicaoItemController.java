@@ -32,7 +32,7 @@ public class RequisicaoItemController {
 		try {
 			facade.salvarRequisicao(r, this.itens);
 			fc.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Requisicao envida!"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Solicitação de Compra envida!"));
 			listar();
 			this.itens.clear();
 		} catch (Exception e) {
@@ -51,7 +51,7 @@ public class RequisicaoItemController {
 			this.lista = facade.listarRequisicaoItem("");
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Lista atualizada!"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar Itens"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhum registro de item encontrado"));
 			e.printStackTrace();
 		}
 	}
@@ -62,15 +62,15 @@ public class RequisicaoItemController {
 
 		try {
 			String retorno = facade.editarRequisicaoItem(item);
-			if (retorno.contains("Dados em branco") || retorno.contains("C�digo inv�lido")) {
+			if (retorno.contains("Dados em branco") || retorno.contains("Código inválido")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			} else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "PedidoCompra editado!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Solicitação de compra alterada!"));
 				listar();
 			}
 			this.item = new RequisicaoItem();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar PedidoCompra"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao alterar Solicitação de Compra"));
 			e.printStackTrace();
 		}
 	}
@@ -114,7 +114,7 @@ public class RequisicaoItemController {
 
 	public void onRowCancel(RowEditEvent<RequisicaoItem> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edi��o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edição cancelada!"));
 	}
 	
 	public void remover(RequisicaoItem ri) {

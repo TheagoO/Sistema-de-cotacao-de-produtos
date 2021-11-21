@@ -33,10 +33,10 @@ public class RequisicaoController {
 		try {
 			facade.salvarRequisicao(requisicao, null);
 			this.requisicao = new Requisicao();
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "RequisiÁ„o enviada!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Solicita√ß√£o de Compra enviada!"));
 			listar();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao enviar pedido"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao enviar solicita√ß√£o"));
 			e.printStackTrace();
 		}
 
@@ -50,7 +50,7 @@ public class RequisicaoController {
 			this.lista = facade.listarRequisicao(0);
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Lista atualizada!"));
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar requisiÁıes"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhum registro de requisi√ß√£o encontrado!"));
 			e.printStackTrace();
 		}
 	}
@@ -61,15 +61,15 @@ public class RequisicaoController {
 
 		try {
 			String retorno = facade.editarRequisicao(requisicao);
-			if(retorno.contains("Dados em branco") || retorno.contains("CÛdigo inv·lido")) {
+			if(retorno.contains("Dados em branco") || retorno.contains("C√≥digo inv√°lido")) {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			}else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Requisicao de compra editada!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Requisicao de compra alterado!"));
 				listar();
 			}
 			this.requisicao = new Requisicao();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar requisicao de compra"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao alterar requisicao de compra"));
 			e.printStackTrace();
 		}
 	}
@@ -80,7 +80,7 @@ public class RequisicaoController {
 
 		try {
 			facade.excluirRequisicao(this.requisicao);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Requisicao de compra deletada"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Requisicao de compra excluida"));
 			this.requisicao = new Requisicao();
 			listar();
 		} catch (Exception e) {
@@ -95,7 +95,7 @@ public class RequisicaoController {
 		try {
 			this.itens = facade.listarItens(r);
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhum registro de item encontrado"));
 			e.printStackTrace();
 		}
 		
@@ -123,7 +123,7 @@ public class RequisicaoController {
 
 	public void onRowCancel(RowEditEvent<Requisicao> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "EdiÁ„o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edi√ß√£o cancelada!"));
 	}
 	
 	public RequisicaoController() {

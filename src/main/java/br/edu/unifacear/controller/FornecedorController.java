@@ -30,17 +30,17 @@ public class FornecedorController {
 		try {
 
 			String retorno = facade.salvarFornecedor(fornecedor, endereco);
-			if (retorno.contains("CNPJ j· cadastrado")) {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "CNPJ j· cadastrado!"));
+			if (retorno.contains("CNPJ j√° cadastrado")) {
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "CNPJ j√° cadastrado!"));
 			} else {
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador salvo!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Fornecedor cadastrado!"));
 			}
 
 			this.endereco = new Endereco();
 			this.fornecedor = new Fornecedor();
 
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao salvar colaborador!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Erro ao cadastrar Fornecedor!"));
 			e.printStackTrace();
 		}
 
@@ -54,7 +54,7 @@ public class FornecedorController {
 		try {
 			this.lista = facade.listarFornecedor("");
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar colaboradores"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Nenhum registro de Fornecedor encontrado!"));
 			e.printStackTrace();
 		}
 
@@ -70,11 +70,11 @@ public class FornecedorController {
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Preencha os campos!"));
 			} else {
 				listar();
-				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador editado!"));
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Dados do Fornecedor alterados!"));
 			}
 			this.fornecedor = new Fornecedor();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao editar colaborador"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao alterar dados do Fornecedor"));
 			e.printStackTrace();
 		}
 	}
@@ -85,11 +85,11 @@ public class FornecedorController {
 
 		try {
 			facade.excluirFornecedor(this.selecionado);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Colaborador deletado"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Fornecedor excluido"));
 			listar();
 			this.selecionado = new Fornecedor();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir colaborador"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao excluir Fornecedor"));
 			e.printStackTrace();
 		}
 	}
@@ -116,7 +116,7 @@ public class FornecedorController {
 
 	public void onRowCancel(RowEditEvent<Fornecedor> event) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "EdiÁ„o cancelada!"));
+		fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Edi√ß√£o cancelada!"));
 	}
 
 	public FornecedorController() {

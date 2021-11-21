@@ -35,7 +35,8 @@
 			</div>
 		</div>
 	</header>
-
+<br/>
+<br/>
 	<section>
 		<div class="menu-area">
 
@@ -43,9 +44,9 @@
 				<h:form>
 					<p:tieredMenu style="width:100%; height:100%;">
 						<p:menuitem value="Início" icon="pi pi-home" action="Home" />
-						<p:submenu label="Pedido" icon="pi pi-bars">
-							<p:menuitem value="Novo" icon="pi pi-fw pi-plus" action="NovaReq" />
-							<p:menuitem value="Pedidos" icon="pi pi-fw pi-list" action="Pedidos" />
+						<p:submenu label="Solicitação" icon="pi pi-bars">
+							<p:menuitem value="Abrir Solicitação" icon="pi pi-fw pi-plus" action="NovaReq" />
+							<p:menuitem value="Solicitações" icon="pi pi-fw pi-list" action="Pedidos" />
 						</p:submenu>
 
 					</p:tieredMenu>
@@ -62,7 +63,7 @@
 
 			<h:form id="form">
 				<p:growl id="msgs" showDetail="true" />
-				<p:panel id="compra" header="Solicitação de compra">
+				<p:panel id="compra" header="Adicione os produtos na Solicitação de Compra">
 
 					<p:panel header="Produto">
 
@@ -123,7 +124,7 @@
 
 
 
-					<p:panel header="Produtos adicionados">
+					<p:panel header="Solicitação de Compra">
 
 						<p:dataTable id="itens" var="item"
 							value="#{requisicaoItemBean.itens}" editable="true"
@@ -180,13 +181,13 @@
 						
 					</p:panel>
 					<br />
-					<div class="cls_right">
+					<div class="select-area">
 							<div></div>
 							<div class="search-area" style="width: 100%">
-								<p:commandButton value="Enviar pedido" icon="pi pi-check"
+								<p:commandButton value="Enviar Solictação" icon="pi pi-check"
 									styleClass="ui-button-success"
 									action="#{requisicaoItemBean.salvar(requisicaoBean.requisicao, loginBean.almoxarifado)}"
-									update=":form:msgs, :form:itens" />
+									update=":form:msgs, :form:itens"  style="width: 200px; height: 50px " />
 
 							</div>
 
@@ -206,12 +207,15 @@
 				<p:commandButton id="ajuda" value="Ajuda" type="button" />
 				<p:overlayPanel for="ajuda" style="width:350px">
 					<p class="p-m-0">
-						<strong>Adionar na solicitação</strong>:pesquise por nome ou
-						codigo do produto para adiciona-lo na solicitação de compra.
+						<strong>Adionar</strong>Selecione o nome e a quantidade 
+						do produto para adicionar a solicitação de compra.
 					</p>
 					<p class="p-m-0">
-						<strong>Solicitação de compra</strong>: clique com o botão direito
-						para excluir o item da solicitação de compra
+						<strong>Solicitação de compra</strong>: Edite ou remova o produto;
+					</p>
+					
+					<p class="p-m-0">
+						<strong>Enviar Solicitação</strong>: Envie sua solicitação de compra para ser aprovada;
 					</p>
 
 				</p:overlayPanel>
