@@ -146,11 +146,18 @@
 
 								</p:column>
 
-								<p:column headerText="Fornecedor">
-									<h:outputText value="#{ordem.fornecedor.nome}" />
+								<p:column headerText="Dados do fornecedor">
+									<p:commandButton icon="pi pi-search"
+										styleClass="rounded-button ui-button-secondary ui-button-outlined"
+										onclick="PF('dlg3').show()"
+										
+										update=":form:forn, :form:msgs">
+										<f:setPropertyActionListener value="#{ordem}"
+												target="#{ordemCompraBean.ordemCompra}" />
+										
+										</p:commandButton>
 								</p:column>
-
-
+								
 								<p:column headerText="Opções" style="width: 220px">
 									<div class="search-area"
 										style="width: 200px; margin-left: 0px;">
@@ -215,6 +222,31 @@
 
 								<p:column headerText="Quantidade">
 									<h:outputText value="#{item.quantidade}" />
+								</p:column>
+
+							</p:dataTable>
+
+						</p:dialog>
+						
+						<p:dialog header="Dados do fornecedor" widgetVar="dlg3" minHeight="300"
+							width="1000" showEffect="fade" modal="true">
+
+							<p:dataTable id="forn" value="#{ordemCompraBean.ordemCompra}"
+								var="forn" scrollable="true" scrollHeight="300">
+								<p:column headerText="CNPJ">
+									<h:outputText value="#{forn.fornecedor.cnpj}" />
+								</p:column>
+
+								<p:column headerText="Empresa">
+									<h:outputText value="#{forn.fornecedor.empresa}" />
+								</p:column>
+
+								<p:column headerText="E-mail">
+									<h:outputText value="#{forn.fornecedor.email}" />
+								</p:column>
+
+								<p:column headerText="Telefone">
+									<h:outputText value="#{forn.fornecedor.contato}" />
 								</p:column>
 
 

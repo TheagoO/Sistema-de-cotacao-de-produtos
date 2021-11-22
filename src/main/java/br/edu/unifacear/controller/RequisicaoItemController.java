@@ -32,7 +32,7 @@ public class RequisicaoItemController {
 		try {
 			facade.salvarRequisicao(r, this.itens);
 			fc.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "SolicitaÃ§Ã£o de Compra envida!"));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Solicitação de Compra envida!"));
 			listar();
 			this.itens.clear();
 		} catch (Exception e) {

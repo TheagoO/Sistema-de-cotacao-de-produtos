@@ -46,9 +46,8 @@ public class CotacaoFornecedorPrecoController {
 		
 		try {
 			ci = facade.listarItensCotacao(this.cotacao);
-			CotacaoItem id = ci.get(0);
 			
-			this.listCotacao = facade.listarCotacaoFornecedor(id.getId());
+			this.listCotacao = facade.listarCotacaoFornecedor(ci);
 			
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Registros encontrados"));
 			

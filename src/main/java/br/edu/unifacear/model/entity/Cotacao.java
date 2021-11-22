@@ -25,7 +25,7 @@ public class Cotacao implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "ordem_id")
 	private OrdemCompra ordemCompra;
-
+	
 	public Cotacao() {
 		this.id = 0;
 		this.ordemCompra = new OrdemCompra();

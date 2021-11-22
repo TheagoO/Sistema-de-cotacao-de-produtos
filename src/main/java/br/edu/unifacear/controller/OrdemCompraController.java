@@ -24,6 +24,7 @@ public class OrdemCompraController {
 	private OrdemCompra ordemCompra;
 	private OrdemCompra ordemSelecionada;
 	private List<OrdemCompra> lista;
+	private List<OrdemCompra> listaCotacao;
 	private List<OrdemCompra> aprovados;
 	private List<OrdemCompraItem> produtos;
 	private List<OrdemCompra> pedido;
@@ -55,6 +56,27 @@ public class OrdemCompraController {
 			for(OrdemCompra oc : list) {
 				if(oc.getFase().getId() == 2) {
 					this.lista.add(oc);
+				}
+			}
+			
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Lista atualizada!"));
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar Oredem de Compras"));
+			e.printStackTrace();
+		}
+	}
+	
+	public void listarCotacao() {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		this.listaCotacao.removeAll(listaCotacao);
+
+		try {
+			List<OrdemCompra> list = facade.listarOrdemCompra("");
+			
+			for(OrdemCompra oc : list) {
+				if(oc.getFase().getId() == 5) {
+					this.listaCotacao.add(oc);
 				}
 			}
 			
@@ -103,9 +125,11 @@ public class OrdemCompraController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		try {
-			this.ordemSelecionada.getFase().setStatus(6);
+			System.out.println(this.ordemSelecionada);
+			
+			this.ordemSelecionada.getFase().setId(6);
 			facade.editarOrdemCompra(ordemSelecionada);
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Ordem de compra negada!"));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Solicitação negada!"));
 			this.ordemSelecionada = new OrdemCompra();
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao negar ordem de compra"));
@@ -215,7 +239,11 @@ public class OrdemCompraController {
 			listar();
 			this.pedido.clear();
 		} catch (Exception e) {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao solicitar compra"));
+			if(e.getMessage().contains("Cotar")) {
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "AVISO", "Itens da ordem necessitam cotação"));
+			}else {
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao solicitar compra"));
+			}
 			e.printStackTrace();
 		}
 	}
@@ -226,9 +254,11 @@ public class OrdemCompraController {
 		this.lista = new ArrayList<OrdemCompra>();
 		this.aprovados = new ArrayList<OrdemCompra>();
 		this.pedido = new ArrayList<OrdemCompra>();
+		this.listaCotacao = new ArrayList<OrdemCompra>();
 		i = 0;
 		listar();
 		listarAprovados();
+		listarCotacao();
 	}
 
 	public OrdemCompra getOrdemCompra() {
@@ -277,6 +307,14 @@ public class OrdemCompraController {
 
 	public void setProdutos(List<OrdemCompraItem> produtos) {
 		this.produtos = produtos;
+	}
+
+	public List<OrdemCompra> getListaCotacao() {
+		return listaCotacao;
+	}
+
+	public void setListaCotacao(List<OrdemCompra> listaCotacao) {
+		this.listaCotacao = listaCotacao;
 	}
 
 }

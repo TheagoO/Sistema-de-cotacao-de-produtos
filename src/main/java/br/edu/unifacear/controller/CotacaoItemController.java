@@ -89,10 +89,8 @@ public class CotacaoItemController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
 			this.itens = facade.listarItensCotacao(id);
-			
-			CotacaoItem ci = itens.get(0);
-			
-			listarCotacaoFornecedor(ci.getId());
+						
+			listarCotacaoFornecedor(itens);
 			
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Itens encontrados"));
 		} catch (Exception e) {
@@ -103,11 +101,11 @@ public class CotacaoItemController {
 	}
 	
 	
-	public void listarCotacaoFornecedor(int id) {
+	public void listarCotacaoFornecedor(List<CotacaoItem> list) {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
 		try {
-			this.cotacaoFornecedor = facade.listarCotacaoFornecedor(id);
+			this.cotacaoFornecedor = facade.listarCotacaoFornecedor(list);
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Itens encontrados"));
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "nenhum registro de itens encontrados"));

@@ -41,8 +41,8 @@
 			</div>
 		</div>
 	</header>
-<br/>
-<br/>
+	<br />
+	<br />
 	<section>
 
 		<!-- Container do menu esquerdo -->
@@ -92,7 +92,7 @@
 				<div class="search-area">
 					<div></div>
 					<p:commandButton update=":form:cota, :form:msgs"
-						action="#{cotacaoBean.listar}" value="Atualizar"
+						action="#{ordemCompraBean.listarCotacao}" value="Atualizar"
 						process="@parent" icon="pi pi-refresh" />
 
 				</div>
@@ -102,53 +102,61 @@
 
 					<h:form id="form">
 						<p:growl id="msgs" showDetail="true" />
-						<p:dataTable id="cota" var="cotacao" value="#{cotacaoBean.lista}"
-							sortBy="#{cotacao.codigo}" style="width: 100%;">
+						<p:dataTable id="cota" var="ordem"
+							value="#{ordemCompraBean.listaCotacao}"
+							sortBy="#{ordem.solicitante.nome}" style="width: 100%;">
 
-							<p:headerRow field="codigo" expandable="true"
-								expanded="#{cotacao.codigo == '0'}">
+							<p:headerRow field="solicitante.nome" expandable="true"
+								expanded="#{ordem.solicitante.nome == 'null'}">
 
 								<p:column>
 									<div class="p-d-inline-flex p-ai-center"
 										style="vertical-align: middle">
 
-										<h:outputText styleClass="p-ml-2" value="#{cotacao.codigo}" />
+										<h:outputText styleClass="p-ml-2"
+											value="#{ordem.solicitante.nome}" />
 									</div>
 								</p:column>
 							</p:headerRow>
 
-							<p:column headerText="Código">
-								<h:outputText value="#{cotacao.codigo}" />
+							<p:column headerText="Solicitante">
+								<h:outputText value="#{ordem.solicitante.nome}" />
+							</p:column>
+
+							<p:column headerText="Data">
+								<h:outputText value="#{ordem.dataEmissao}" />
+							</p:column>
+
+							<p:column headerText="Status">
+								<h:outputText value="#{ordem.fase.toString().toUpperCase()}" />
 							</p:column>
 
 
-							<p:column headerText="Detalhes">
+							<p:column headerText="Detalhes" style="width:60px">
 								<p:commandButton icon="pi pi-search"
 									styleClass="rounded-button ui-button-secondary ui-button-outlined"
 									onclick="PF('dlg2').show()"
-									action="#{cotacaoItemBean.listarItens(cotacao.id)}"
+									action="#{cotacaoItemBean.listarItens(ordem.id)}"
 									update=":form:itens, :form:fornec" />
 							</p:column>
 
-							<p:summaryRow>
-								<p:column>
-									<div class="search-area"
-										style="width: 200px; margin-left: 0px;">
-										<p:commandButton value="Negar" styleClass="ui-button-danger"
-											oncomplete="PF('deletePedidoDialog').show()" process="@this">
-											<f:setPropertyActionListener value="#{cotacao}"
-												target="#{cotacaoBean.selecionado}" />
-										</p:commandButton>
-										<p:commandButton value="Aprovar"
-											styleClass="ui-button-success"
-											oncomplete="PF('confirmPedidoDialog').show()" process="@this">
 
-											<f:setPropertyActionListener value="#{cotacao.id}"
-												target="#{cotacaoFornecedorPrecoBean.cotacao}" />
-										</p:commandButton>
-									</div>
-								</p:column>
-							</p:summaryRow>
+							<p:column headerText="Opções">
+								<div class="search-area" style="width: 190px; margin-left: 0px;">
+									<p:commandButton value="Negar" styleClass="ui-button-danger"
+										oncomplete="PF('deletePedidoDialog').show()" process="@this">
+										<f:setPropertyActionListener value="#{ordem}"
+											target="#{ordemCompraBean.ordemSelecionada}" />
+									</p:commandButton>
+									<p:commandButton value="Aprovar" styleClass="ui-button-success"
+										oncomplete="PF('confirmPedidoDialog').show()" process="@this">
+
+										<f:setPropertyActionListener value="#{ordem.id}"
+											target="#{cotacaoFornecedorPrecoBean.cotacao}" />
+									</p:commandButton>
+								</div>
+							</p:column>
+
 
 						</p:dataTable>
 
@@ -175,7 +183,8 @@
 						</p:confirmDialog>
 
 						<p:dialog header="Detalhes" widgetVar="dlg2" minHeight="300"
-							width="1000" showEffect="fade" modal="true" style="overflow: scroll">
+							width="1000" showEffect="fade" modal="true"
+							style="overflow: scroll">
 
 							<p:dataTable id="itens" var="itens"
 								value="#{cotacaoItemBean.itens}" style="width: 100%;">
@@ -234,13 +243,15 @@
 						<strong>Remetente</strong>: Solicitante da Cotação de Compra.
 					</p>
 					<p class="p-m-0">
-							<strong>Data de Emição</strong>: Data em que foi enviado.
+						<strong>Data de Emição</strong>: Data em que foi enviado.
 					</p>
 					<p>
-							<strong>Status</strong>: Estado em que se encontra a Cotação de Compra.
+						<strong>Status</strong>: Estado em que se encontra a Cotação de
+						Compra.
 					</p>
 					<p class="p-m-0">
-						<strong>Quantidade a ser cotado</strong>: Quantidade de Produtos a seram cotados.
+						<strong>Quantidade a ser cotado</strong>: Quantidade de Produtos a
+						seram cotados.
 					</p>
 
 				</p:overlayPanel>

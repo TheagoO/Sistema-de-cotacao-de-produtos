@@ -41,8 +41,8 @@
 			</div>
 		</div>
 	</header>
-<br/>
-<br/>
+	<br />
+	<br />
 	<section>
 		<p:growl id="messages" showDetail="true" />
 
@@ -140,11 +140,13 @@
 							<p:column headerText="Preço">
 								<p:cellEditor>
 									<f:facet name="output">
-										<h:outputText value="#{cotacao.preco}" />
+										<h:outputText value="#{cotacao.preco}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
 									</f:facet>
 									<f:facet name="input">
 										<p:inputNumber value="#{cotacao.preco}" style="width:100%"
-											required="true" />
+											label="Price" symbol="$" />
 									</f:facet>
 								</p:cellEditor>
 							</p:column>
@@ -171,7 +173,7 @@
 	</section>
 
 	<!-- Rodapé -->
-		<footer>
+	<footer>
 		<div class="rdp">
 			<div class="mid">
 				<p:commandButton id="ajuda" value="Ajuda" type="button" />
@@ -188,11 +190,11 @@
 					<p class="p-m-0">
 						<strong>Marca</strong>: Marca do Item.
 					</p>
-					
+
 					<p class="p-m-0">
 						<strong>Preço</strong>: Preço do item.
 					</p>
-					
+
 					<p class="p-m-0">
 						<strong>Editar</strong>: selecione o item a serem editado.
 					</p>
