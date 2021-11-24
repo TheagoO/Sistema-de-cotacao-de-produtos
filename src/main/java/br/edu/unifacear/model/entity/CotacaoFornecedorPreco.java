@@ -73,8 +73,8 @@ public class CotacaoFornecedorPreco implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CotacaoFornecedorPreco [id=" + id + ", fornecedor=" + fornecedor + ", cotacaoItem=" + cotacaoItem
-				+ ", preco=" + preco + "]";
+		return "Fornecedor: " + fornecedor.getEmpresa() + " Produto: " + cotacaoItem.getProduto().getNome()
+				+ " Preco:" + preco;
 	}
 
 	@Override

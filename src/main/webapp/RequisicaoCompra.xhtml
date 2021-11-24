@@ -136,19 +136,14 @@
 								listener="#{requisicaoItemBean.onRowCancel}" update=":form:msgs" />
 
 							<p:column headerText="Código">
-
 								<h:outputText value="#{item.produto.codigo}" />
-
 							</p:column>
 
 							<p:column headerText="Produto">
-
 								<h:outputText value="#{item.produto.nome}" />
-
 							</p:column>
 
 							<p:column headerText="Quantidade">
-
 								<p:cellEditor>
 									<f:facet name="output">
 										<h:outputText value="#{item.quantidade}" />
@@ -158,7 +153,6 @@
 											required="true" />
 									</f:facet>
 								</p:cellEditor>
-
 							</p:column>
 
 							<p:column style="width:6rem" headerText="Editar">

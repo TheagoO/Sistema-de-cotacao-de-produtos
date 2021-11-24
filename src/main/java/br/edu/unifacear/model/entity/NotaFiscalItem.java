@@ -81,6 +81,7 @@ public class NotaFiscalItem implements Serializable {
 	}
 
 	public double getTotal() {
+		total = this.quantidade*this.valorUnitario;		
 		return total;
 	}
 

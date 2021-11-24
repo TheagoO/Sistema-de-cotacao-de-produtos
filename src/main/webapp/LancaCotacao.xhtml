@@ -146,7 +146,7 @@
 									</f:facet>
 									<f:facet name="input">
 										<p:inputNumber value="#{cotacao.preco}" style="width:100%"
-											label="Price" symbol="$" />
+											label="Price" symbol="$" required="true" />
 									</f:facet>
 								</p:cellEditor>
 							</p:column>
@@ -162,7 +162,7 @@
 						<br />
 						<p:commandButton value="Lançar cotação" icon="pi pi-check"
 							styleClass="ui-button-success"
-							action="#{cotacaoBean.lancaCotacao(cotacao)}" />
+							action="#{cotacaoBean.lancaCotacao(cotacaoFornecedorPrecoBean.listCotacao)}" update=":form:msgs, :form:cotacaoItens" />
 						<br />
 					</p:panel>
 				</div>

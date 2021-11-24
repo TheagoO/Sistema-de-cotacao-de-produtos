@@ -189,7 +189,7 @@ public class GestaoFacade {
 		return this.estadoBo.listar(s);
 	}
 
-	// ENDEREÇO
+	// ENDEREï¿½O
 	public String salvarEndereco(Endereco e) throws Exception {
 		return this.enderecoBo.salvar(e);
 	}
@@ -206,7 +206,7 @@ public class GestaoFacade {
 		return this.enderecoBo.listar(s);
 	}
 
-	// COTAÇÃO-FORNECEDOR-PREÇO
+	// COTAï¿½ï¿½O-FORNECEDOR-PREï¿½O
 	public String salvarCotacaoFornecedorPreco(CotacaoFornecedorPreco i) throws Exception {
 		return this.cotacaoFornecedorPrecoBo.salvar(i);
 	}
@@ -231,7 +231,7 @@ public class GestaoFacade {
 			for (CotacaoItem cota : id) {
 				if (cota.getId() == cfp.getCotacaoItem().getId()) {
 					cotacao = cfp;
-					
+
 					for (Fornecedor f : this.fornecedorBo.listar("")) {
 						if (cfp.getFornecedor().getId() == f.getId()) {
 							cotacao.setFornecedor(f);
@@ -256,7 +256,7 @@ public class GestaoFacade {
 		return lista;
 	}
 
-	// COTAÇÃO
+	// COTAï¿½ï¿½O
 	public int salvarCotacao(Cotacao cotacao) throws Exception {
 		return this.cotacaoBo.salvar(cotacao);
 	}
@@ -265,7 +265,24 @@ public class GestaoFacade {
 
 		return this.cotacaoBo.salvar(c);
 	}
+	
+	public String cotacaoLancada(int id) {
+		
+		try {
+			for(OrdemCompra c : this.ordemCompraBo.listar("")) {
+				if(c.getId() == id) {
+					c.getFase().setId(4);
+					this.ordemCompraBo.alterar(c);
+					break;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+		return "Lancada";
+	}
+	
 	public void solicitarCotacao(List<OrdemCompra> pedidos) throws Exception {
 
 		for (OrdemCompra pedido : pedidos) {
@@ -389,32 +406,19 @@ public class GestaoFacade {
 		return lista;
 	}
 
-	public OrdemCompra novoPedido(List<String> requisicao, int id) throws Exception {
+	public OrdemCompra novoPedido(CotacaoFornecedorPreco cfp, int id) throws Exception {
 		OrdemCompra oc = new OrdemCompra();
 
-		for (String r : requisicao) {
-			OrdemCompraItem oci = new OrdemCompraItem();
+		OrdemCompraItem oci = new OrdemCompraItem();
 
-			for (RequisicaoItem reqItem : this.requisicaoItemBo.listar("")) {
-				if (Integer.parseInt(r) == reqItem.getId()) {
+		oci.setCodigo(cfp.getCotacaoItem().getCodigo());
+		oci.setProduto(cfp.getCotacaoItem().getProduto());
+		oci.setQuantidade(cfp.getCotacaoItem().getQuantidade());
 
-					for (Produto p : this.produtoBo.listar("")) {
-						if (reqItem.getProduto().getId() == p.getId()) {
-							long l = reqItem.getRequisicao().getCodigo();
-							oci.setCodigo(l);
-							oci.setProduto(p);
-							oci.setQuantidade(reqItem.getQuantidade());
-						}
-					}
-
-				}
-			}
-
-			oci.setValorUnitario(0);
-			oci.setValorTotal(0);
-			oc.getOrdemCompraItem().add(oci);
-			oc.setId(id);
-		}
+		oci.setValorUnitario(cfp.getPreco());
+		oci.setValorTotal(0);
+		oc.getOrdemCompraItem().add(oci);
+		oc.setId(id);
 
 		return oc;
 	}
@@ -433,23 +437,38 @@ public class GestaoFacade {
 	public void solicitarCompra(List<OrdemCompra> pedidos) throws Exception {
 
 		for (OrdemCompra pedido : pedidos) {
-			
-			for(OrdemCompraItem oci : pedido.getOrdemCompraItem()) {
-				if(oci.getValorUnitario() == 0) {
-					throw new Exception("Cotar");
+
+			List<OrdemCompraItem> lista = new ArrayList<OrdemCompraItem>();
+
+			for (CotacaoFornecedorPreco cfp : this.cotacaoFornecedorPrecoBo.listar("")) {
+
+				if (pedido.getFornecedor().getId() == cfp.getFornecedor().getId()) {
+
+					for (OrdemCompraItem oci : pedido.getOrdemCompraItem()) {
+
+						if (cfp.getCotacaoItem().getProduto().getId() == oci.getProduto().getId()) {
+							OrdemCompraItem itemOrdem = new OrdemCompraItem();
+
+							itemOrdem.setProduto(oci.getProduto());
+							itemOrdem.setQuantidade(oci.getQuantidade());
+							itemOrdem.setValorUnitario(cfp.getPreco());
+							itemOrdem.setCodigo(oci.getCodigo());
+							lista.add(itemOrdem);
+						}
+					}
 				}
 			}
-			
+
+			for (OrdemCompraItem oci : lista) {
+				if (oci.getValorUnitario() == 0) {
+					throw new Exception("O item " + oci.getProduto().getNome() + " necessita cotaÃ§Ã£o com "
+							+ pedido.getFornecedor().getEmpresa());
+				}
+			}
+
 			int i = salvarOrdemCompra(pedido, 2);
 
-			for (OrdemCompraItem oci : pedido.getOrdemCompraItem()) {
-
-				List<Produto> lista = this.produtoBo.listar(oci.getProduto().getNome());
-
-				Produto p = lista.get(0);
-
-				oci.setProduto(p);
-
+			for (OrdemCompraItem oci : lista) {
 				oci.getOrdem().setId(i);
 				this.ordemCompraItemBo.salvar(oci);
 			}
@@ -530,7 +549,18 @@ public class GestaoFacade {
 	public List<NotaFiscalItem> listarNotaFiscalItem(long s) throws Exception {
 		return this.notaFiscalItemBo.listar(s);
 	}
-
+	
+	public List<NotaFiscalItem> listarItensNf(int id) throws Exception {
+		List<NotaFiscalItem> lista = new ArrayList<NotaFiscalItem>();
+		
+		for(NotaFiscalItem nfi : this.notaFiscalItemBo.listar(0)) {
+			if(nfi.getNota().getId() == id) {
+				lista.add(nfi);
+			}
+		}
+		return lista;
+	}
+	
 	// FASE
 	public String salvarFase(Fase e) throws Exception {
 		return this.faseBo.salvar(e);
@@ -565,7 +595,7 @@ public class GestaoFacade {
 		return this.origemBo.listar(s);
 	}
 
-	// REQUISIÇÃO
+	// REQUISIï¿½ï¿½O
 	public String salvarRequisicao(Requisicao e, List<RequisicaoItem> i) throws Exception {
 
 		e.getFase().setId(1);
@@ -601,7 +631,7 @@ public class GestaoFacade {
 		return this.requisicaoBo.listar(s);
 	}
 
-	// REQUISIÇÃO-ITEM
+	// REQUISIï¿½ï¿½O-ITEM
 	public String salvarRequisicaoItem(RequisicaoItem e) throws Exception {
 		return this.requisicaoItemBo.salvar(e);
 	}
@@ -663,7 +693,7 @@ public class GestaoFacade {
 		return this.fiscalItemBo.listar(s);
 	}
 
-	// COTAÇÃO-ITEM
+	// COTAï¿½ï¿½O-ITEM
 	public String salvarCotacaoItem(CotacaoItem e) throws Exception {
 		return this.cotacaoItemBo.salvar(e);
 	}

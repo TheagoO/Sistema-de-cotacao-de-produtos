@@ -75,13 +75,13 @@ public class Fase implements Serializable {
 		case 1:
 			return "Pendente";
 		case 2:
-			return "Aguardando aprovação";
+			return "Aguardando aprovaÃ§Ã£o";
 		case 3:
 			return "Aprovado";
 		case 4:
 			return "Finalizado";
 		case 5:
-			return "Aguardando cotação";
+			return "Aguardando cotaÃ§Ã£o";
 		default:
 			return "Negado";
 		}

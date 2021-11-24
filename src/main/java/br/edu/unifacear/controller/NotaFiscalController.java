@@ -8,6 +8,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import br.edu.unifacear.model.entity.Fornecedor;
 import br.edu.unifacear.model.entity.NotaFiscal;
 import br.edu.unifacear.model.entity.OrdemCompra;
 import br.edu.unifacear.model.entity.OrdemCompraItem;
@@ -20,6 +21,7 @@ public class NotaFiscalController {
 	
 	private NotaFiscal notaFiscal;
 	private List<NotaFiscal> notas;
+	private Fornecedor fornecedor;
 	
 	public void salvar() {
 		GestaoFacade facade = new GestaoFacade();
@@ -65,6 +67,11 @@ public class NotaFiscalController {
 
 	}
 	
+	public void pegaFornecedor(Fornecedor f) {
+		this.fornecedor = new Fornecedor();
+		this.fornecedor = f;
+	}
+	
 	public String notaLancada(OrdemCompra oc) {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -95,6 +102,14 @@ public class NotaFiscalController {
 	}
 	public void setNotas(List<NotaFiscal> notas) {
 		this.notas = notas;
+	}
+
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 	
 	

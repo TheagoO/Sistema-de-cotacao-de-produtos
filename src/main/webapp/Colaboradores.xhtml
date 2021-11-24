@@ -117,7 +117,7 @@
 									<p:dataTable id="listAlmo" value="#{almoxarifadoBean.lista}"
 										var="almox" editable="true"
 										style="margin-bottom:20px; margin-top:20px;" scrollable="true"
-										scrollHeight="50%">
+										scrollHeight="400px">
 
 										<p:ajax event="rowEdit"
 											listener="#{almoxarifadoBean.onRowEdit}" update=":form:msgs" />
@@ -214,7 +214,7 @@
 									<p:dataTable id="listForn" value="#{fornecedorBean.lista}"
 										var="forne" editable="true"
 										style="margin-bottom:20px; margin-top:20px;" scrollable="true"
-										scrollHeight="30%">
+										scrollHeight="400px">
 
 										<p:ajax event="rowEdit" listener="#{fornecedorBean.onRowEdit}"
 											update=":form:msgs" />
@@ -345,7 +345,7 @@
 									<p:dataTable id="listGestor" value="#{gestorBean.lista}"
 										var="gestor" editable="true"
 										style="margin-bottom:20px; margin-top:20px;" scrollable="true"
-										scrollHeight="30%">
+										scrollHeight="400px">
 
 										<p:ajax event="rowEdit" listener="#{gestorBean.onRowEdit}"
 											update=":form:msgs" />

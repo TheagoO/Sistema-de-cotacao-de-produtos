@@ -183,7 +183,7 @@
 								severity="warn">
 								<p:commandButton value="Sim" icon="pi pi-check"
 									actionListener="#{ordemCompraBean.negar}" process="@this"
-									oncomplete="PF('deletePedidoDialog').hide()" />
+									oncomplete="PF('deletePedidoDialog').hide()" update=":form:msgs, :form:dados" />
 								<p:commandButton value="Não" type="button"
 									styleClass="ui-button-secondary" icon="pi pi-times"
 									onclick="PF('deletePedidoDialog').hide()" />

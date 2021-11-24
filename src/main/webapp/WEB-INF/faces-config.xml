@@ -237,7 +237,7 @@
 			<to-view-id>/Produtos.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>SUCESSO</from-outcome>
+			<from-outcome>Lancada</from-outcome>
 			<to-view-id>/AprovarCotacao.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
@@ -550,6 +550,14 @@
 			<to-view-id>/GerenciarPedidos.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>Compra</from-outcome>
+			<to-view-id>/OrdemCompra.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Fiscal</from-outcome>
+			<to-view-id>/Notas.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
 			<from-outcome>sair</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
@@ -565,6 +573,64 @@
 		<navigation-case>
 			<from-outcome>Gerenciar</from-outcome>
 			<to-view-id>/GerenciarPedidos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Compra</from-outcome>
+			<to-view-id>/OrdemCompra.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Fiscal</from-outcome>
+			<to-view-id>/Notas.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- TELA ORDEM COMPRA -->
+	<navigation-rule>
+		<from-view-id>/OrdemCompra.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreGestor.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Gerenciar</from-outcome>
+			<to-view-id>/GerenciarPedidos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Compra</from-outcome>
+			<to-view-id>/OrdemCompra.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Fiscal</from-outcome>
+			<to-view-id>/Notas.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>sair</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- TELA NOTAS FISCAIS -->
+	<navigation-rule>
+		<from-view-id>/Notas.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>Home</from-outcome>
+			<to-view-id>/MestreGestor.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Gerenciar</from-outcome>
+			<to-view-id>/GerenciarPedidos.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Compra</from-outcome>
+			<to-view-id>/OrdemCompra.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Fiscal</from-outcome>
+			<to-view-id>/Notas.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>sair</from-outcome>

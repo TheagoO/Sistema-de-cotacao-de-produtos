@@ -20,6 +20,7 @@ public class NotaFiscalItemController {
 	
 	private NotaFiscalItem fiscalItem;
 	private List<NotaFiscalItem> lista;
+	private List<NotaFiscalItem> itens;
 	private OrdemCompra ordem;
 	
 	
@@ -50,10 +51,23 @@ public class NotaFiscalItemController {
 
 	}
 	
+	public void listarItens(int id) {
+		GestaoFacade facade = new GestaoFacade();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		
+		try {
+			facade.listarItensNf(id);
+		} catch (Exception e) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens da Nf"));
+			e.printStackTrace();
+		}
+	}
+	
 	public NotaFiscalItemController() {
 		this.fiscalItem = new NotaFiscalItem();
 		this.lista = new ArrayList<NotaFiscalItem>();
 		this.ordem = new OrdemCompra();
+		this.itens = new ArrayList<NotaFiscalItem>();
 		listar();
 	}
 
@@ -81,6 +95,14 @@ public class NotaFiscalItemController {
 
 	public void setOrdem(OrdemCompra ordem) {
 		this.ordem = ordem;
+	}
+
+	public List<NotaFiscalItem> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<NotaFiscalItem> itens) {
+		this.itens = itens;
 	}
 
 }

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" lang="pt-br">
+<h:head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="js/script.js" />
+	<title>InovaTech2021</title>
+</h:head>
+<h:body>
+
+	<header>
+
+		<!-- Área da logo -->
+		<div class="d-logo">
+			<img src="imagens/logo.png" alt="Logo.png" style="width: 220px;" />
+			<div class="d-logo-center">
+				<h2>Gestor</h2>
+			</div>
+		</div>
+
+
+		<div class="d-center"></div>
+
+		<!-- Área do usuário -->
+		<div class="d-user">
+			<div class="user-r-md">
+				<div class="mid">
+					<h:form id="form-sair">
+						<p:splitButton icon="pi pi-user" styleClass="ui-button-info">
+							<p:menuitem value="Sair" action="sair" icon="pi pi-times" />
+						</p:splitButton>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</header>
+	<br />
+	<br />
+	<section>
+		<p:growl id="messages" showDetail="true" />
+
+		<!-- Container do menu esquerdo -->
+		<div class="menu-area">
+
+			<!-- Menu -->
+			<p:panel id="fold" header="Menu">
+				<h:form>
+					<p:tieredMenu style="width:100%; height:100%;">
+						<p:menuitem value="Início" icon="pi pi-home" action="Home" />
+						<p:menuitem value="Pedidos" icon="pi pi-bars" action="Gerenciar" />
+						<p:menuitem value="Ordem compra" icon="pi pi-shopping-cart"
+							action="Compra" />
+						<p:menuitem value="Notas fiscais" icon="pi pi-file"
+							action="Fiscal" />
+					</p:tieredMenu>
+				</h:form>
+
+			</p:panel>
+
+		</div>
+
+
+		<!-- Container do conteúdo da página  -->
+		<div class="content-area">
+
+			<!-- Conteúdo -->
+			<h:form id="form">
+				<div class="card">
+
+					<p:growl id="msgs" showDetail="true" />
+
+					<p:panel header="Lançar cotação">
+
+						<!-- Listagem dos produtos -->
+						<p:dataTable id="nf" var="nf" editable="true"
+							value="#{notaFiscalBean.notas}" sortBy="#{nf.codigo}">
+
+							<p:headerRow field="codigo" expandable="true">
+
+								<p:column>
+									<div class="p-d-inline-flex p-ai-center"
+										style="vertical-align: middle">
+
+										<h:outputText styleClass="p-ml-2" value="#{nf.codigo}" />
+									</div>
+								</p:column>
+							</p:headerRow>
+
+							<!-- Cabeçalho das colunas -->
+							<p:column headerText="Código">
+								<h:outputText value="#{nf.codigo}" />
+							</p:column>
+
+							<p:column headerText="Data emissão">
+								<h:outputText value="#{nf.dataEmissao}" />
+							</p:column>
+
+							<p:column headerText="Detalhes do Fornecedor">
+								<p:commandButton value="Detalhes"
+									styleClass="rounded-button ui-button-secondary ui-button-outlined"
+									onclick="PF('dlg2').show()" action="#{notaFiscalBean.pegarFornecedor(fn.fornecedor)}" update=":form:fornec" />
+							</p:column>
+
+							<p:column headerText="Detalhes dos itens">
+								<p:commandButton value="Detalhes"
+									styleClass="rounded-button ui-button-secondary ui-button-outlined"
+									onclick="PF('dlg2').show()" action="#{notaFiscalItemBean.listarItens(nf.id)}" update=":form:itens" />
+							</p:column>
+
+
+						</p:dataTable>
+
+						<p:dialog header="Detalhes" widgetVar="dlg2" minHeight="300"
+							width="1000" showEffect="fade" modal="true"
+							style="overflow: scroll">
+
+							<p:dataTable id="itens" var="itens"
+								value="#{notaFiscalItemBean.itens}" style="width: 100%;">
+
+								<p:column headerText="Código">
+									<h:outputText value="#{itens.codigo}" />
+								</p:column>
+
+								<p:column headerText="Produto">
+									<h:outputText value="#{itens.produto.nome}" />
+								</p:column>
+
+								<p:column headerText="Marca">
+									<h:outputText value="#{itens.produto.marca}" />
+								</p:column>
+
+								<p:column headerText="Quantidade">
+									<h:outputText value="#{itens.quantidade}" />
+								</p:column>
+
+								<p:column headerText="Valor unitário">
+									<h:outputText value="#{itens.valorUnitario}" />
+								</p:column>
+
+								<p:summaryRow>
+									<p:column headerText="Total">
+										<h:outputText value="#{itens.total}" />
+									</p:column>
+								</p:summaryRow>
+
+							</p:dataTable>
+
+
+							<p:dataTable id="fornec" var="forn"
+								value="#{notaFiscalBean.fornecedor}" style="width: 100%;">
+
+								<p:column headerText="CNPJ">
+									<h:outputText value="#{forn.fornecedor.cnpj}" />
+								</p:column>
+
+								<p:column headerText="Empresa">
+									<h:outputText value="#{forn.fornecedor.empresa}" />
+								</p:column>
+
+								<p:column headerText="E-mail">
+									<h:outputText value="#{forn.fornecedor.email}" />
+								</p:column>
+
+								<p:column headerText="Contato">
+									<h:outputText value="#{forn.fornecedor.contato}" />
+								</p:column>
+								
+								<p:column headerText="Endereço">
+									<h:outputText value="#{forn.fornecedor.endereco}" />
+								</p:column>
+
+							</p:dataTable>
+
+						</p:dialog>
+					</p:panel>
+				</div>
+			</h:form>
+
+
+		</div>
+	</section>
+
+	<!-- Rodapé -->
+	<footer>
+		<div class="rdp">
+			<div class="mid">
+				<p:commandButton id="ajuda" value="Ajuda" type="button" />
+				<p:overlayPanel for="ajuda" style="width:350px">
+
+				</p:overlayPanel>
+			</div>
+		</div>
+	</footer>
+
+
+</h:body>
+</html>

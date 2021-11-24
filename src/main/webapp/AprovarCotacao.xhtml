@@ -166,7 +166,7 @@
 							severity="warn">
 							<p:commandButton value="Sim" icon="pi pi-check"
 								actionListener="#{ordemCompraBean.negar}" process="@this"
-								oncomplete="PF('deletePedidoDialog').hide()" />
+								oncomplete="PF('deletePedidoDialog').hide()" update=":form:msgs, :form:cota" />
 							<p:commandButton value="Não" type="button"
 								styleClass="ui-button-secondary" icon="pi pi-times"
 								onclick="PF('deletePedidoDialog').hide()" />
@@ -195,6 +195,10 @@
 
 								<p:column headerText="Produto">
 									<h:outputText value="#{itens.produto.nome}" />
+								</p:column>
+								
+								<p:column headerText="Marca">
+									<h:outputText value="#{itens.produto.marca}" />
 								</p:column>
 
 								<p:column headerText="Quantidade">

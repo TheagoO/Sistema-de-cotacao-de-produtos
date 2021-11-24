@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 
 import br.edu.unifacear.model.entity.Cotacao;
+import br.edu.unifacear.model.entity.CotacaoFornecedorPreco;
 import br.edu.unifacear.model.entity.Requisicao;
 import br.edu.unifacear.model.entity.Cotacao;
 import br.edu.unifacear.model.facade.GestaoFacade;
@@ -86,17 +87,27 @@ public class CotacaoController {
 		}
 	}
 	
-	public void lancaCotacao(Cotacao c) {
+	public String lancaCotacao(List<CotacaoFornecedorPreco> c) {
 		GestaoFacade facade = new GestaoFacade();
 		FacesContext fc = FacesContext.getCurrentInstance();
 
+		int id = 0;
 		try {
-			facade.salvarCotacao(c);
+			for(CotacaoFornecedorPreco cf : c) {
+				CotacaoFornecedorPreco cfp = new CotacaoFornecedorPreco();
+				id = cf.getCotacaoItem().getCotacao().getOrdemCompra().getId();
+				cfp = cf;
+				facade.editarCotacaoFornecedorPreco(cfp);
+			}
+			
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "SUCESSO", "Cotação Lançada!"));
+			return facade.cotacaoLancada(id);
+			
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao ao Lançar Cotação"));
 			e.printStackTrace();
 		}
+		return"";
 	}
 		
 	public void onRowEdit(RowEditEvent<Cotacao> event) {
@@ -150,7 +161,6 @@ public class CotacaoController {
 	public void setSelecionado(Cotacao selecionado) {
 		this.selecionado = selecionado;
 	}
-	
-	
+
 	
 }

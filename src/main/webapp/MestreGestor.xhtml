@@ -19,7 +19,7 @@
 		<div class="d-logo">
 			<img src="imagens/infotechlogo.png" alt="Logo.png" width="120" />
 			<div class="d-logo-center">
-				<h1>Almoxarifado</h1>
+				<h1>Gestord</h1>
 			</div>
 		</div>
 		<div class="d-center"></div>
@@ -43,11 +43,12 @@
 			<p:panel id="fold" header="Menu">
 				<h:form>
 					<p:tieredMenu style="width:100%; height:100%;">
-					<p:menuitem value="Início" icon="pi pi-home" action="Home" />
-						<p:submenu label="Pedidos" icon="pi pi-bars">
-							<p:menuitem value="Gerenciar" icon="pi pi-fw pi-plus" action="Gerenciar" />
-						</p:submenu>
-
+						<p:menuitem value="Início" icon="pi pi-home" action="Home" />
+						<p:menuitem value="Pedidos" icon="pi pi-bars" action="Gerenciar" />
+						<p:menuitem value="Ordem compra" icon="pi pi-shopping-cart"
+							action="Compra" />
+						<p:menuitem value="Notas fiscais" icon="pi pi-file"
+							action="Fiscal" />
 					</p:tieredMenu>
 				</h:form>
 				<p:effect type="fold" event="dblclick" />
