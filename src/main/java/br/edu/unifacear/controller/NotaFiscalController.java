@@ -67,9 +67,17 @@ public class NotaFiscalController {
 
 	}
 	
-	public void pegaFornecedor(Fornecedor f) {
+	public void pegaFornecedor(int id) {
+		GestaoFacade facade = new GestaoFacade();
 		this.fornecedor = new Fornecedor();
-		this.fornecedor = f;
+		System.out.println(id);
+		try {
+			this.fornecedor = facade.pegarFornecedor(String.valueOf(id));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	public String notaLancada(OrdemCompra oc) {
@@ -90,6 +98,7 @@ public class NotaFiscalController {
 	public NotaFiscalController() {
 		this.notaFiscal = new NotaFiscal();
 		this.notas = new ArrayList<NotaFiscal>();
+		notasr();
 	}
 	public NotaFiscal getNotaFiscal() {
 		return notaFiscal;

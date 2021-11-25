@@ -76,11 +76,18 @@
 
 					<p:growl id="msgs" showDetail="true" />
 
-					<p:panel header="Lançar cotação">
+					<p:panel header="Notas fiscais">
+						<div class="search-area">
+							<div></div>
+							<p:commandButton update=":form:nf, :form:msgs"
+								action="#{notaFiscalBean.notasr}" value="Atualizar"
+								process="@parent" icon="pi pi-refresh" />
 
+						</div>
+						<br />
 						<!-- Listagem dos produtos -->
-						<p:dataTable id="nf" var="nf" editable="true"
-							value="#{notaFiscalBean.notas}" sortBy="#{nf.codigo}">
+						<p:dataTable id="nf" var="notaf" editable="true"
+							value="#{notaFiscalBean.notas}" sortBy="#{notaf.codigo}">
 
 							<p:headerRow field="codigo" expandable="true">
 
@@ -88,30 +95,34 @@
 									<div class="p-d-inline-flex p-ai-center"
 										style="vertical-align: middle">
 
-										<h:outputText styleClass="p-ml-2" value="#{nf.codigo}" />
+										<h:outputText styleClass="p-ml-2" value="#{notaf.codigo}" />
 									</div>
 								</p:column>
 							</p:headerRow>
 
 							<!-- Cabeçalho das colunas -->
 							<p:column headerText="Código">
-								<h:outputText value="#{nf.codigo}" />
+								<h:outputText value="#{notaf.codigo}" />
 							</p:column>
 
 							<p:column headerText="Data emissão">
-								<h:outputText value="#{nf.dataEmissao}" />
+								<h:outputText value="#{notaf.dataEmissao}" />
 							</p:column>
 
 							<p:column headerText="Detalhes do Fornecedor">
 								<p:commandButton value="Detalhes"
 									styleClass="rounded-button ui-button-secondary ui-button-outlined"
-									onclick="PF('dlg2').show()" action="#{notaFiscalBean.pegarFornecedor(fn.fornecedor)}" update=":form:fornec" />
+									onclick="PF('dlg3').show()"
+									action="#{notaFiscalBean.pegaFornecedor(notaf.fornecedor.id)}"
+									update=":form:fornec" />
 							</p:column>
 
 							<p:column headerText="Detalhes dos itens">
 								<p:commandButton value="Detalhes"
 									styleClass="rounded-button ui-button-secondary ui-button-outlined"
-									onclick="PF('dlg2').show()" action="#{notaFiscalItemBean.listarItens(nf.id)}" update=":form:itens" />
+									onclick="PF('dlg2').show()"
+									action="#{notaFiscalItemBean.listarItens(notaf.id)}"
+									update=":form:itens" />
 							</p:column>
 
 
@@ -129,11 +140,11 @@
 								</p:column>
 
 								<p:column headerText="Produto">
-									<h:outputText value="#{itens.produto.nome}" />
+									<h:outputText value="#{itens.item.nome}" />
 								</p:column>
 
 								<p:column headerText="Marca">
-									<h:outputText value="#{itens.produto.marca}" />
+									<h:outputText value="#{itens.item.marca}" />
 								</p:column>
 
 								<p:column headerText="Quantidade">
@@ -152,32 +163,36 @@
 
 							</p:dataTable>
 
-
-							<p:dataTable id="fornec" var="forn"
+						</p:dialog>
+						
+						<p:dialog header="Detalhes" widgetVar="dlg3" minHeight="300"
+							width="1000" showEffect="fade" modal="true"
+							style="overflow: scroll">
+						
+						<p:dataTable id="fornec" var="forn"
 								value="#{notaFiscalBean.fornecedor}" style="width: 100%;">
 
 								<p:column headerText="CNPJ">
-									<h:outputText value="#{forn.fornecedor.cnpj}" />
+									<h:outputText value="#{forn.cnpj}" />
 								</p:column>
 
 								<p:column headerText="Empresa">
-									<h:outputText value="#{forn.fornecedor.empresa}" />
+									<h:outputText value="#{forn.empresa}" />
 								</p:column>
 
 								<p:column headerText="E-mail">
-									<h:outputText value="#{forn.fornecedor.email}" />
+									<h:outputText value="#{forn.email}" />
 								</p:column>
 
 								<p:column headerText="Contato">
-									<h:outputText value="#{forn.fornecedor.contato}" />
+									<h:outputText value="#{forn.contato}" />
 								</p:column>
-								
+
 								<p:column headerText="Endereço">
-									<h:outputText value="#{forn.fornecedor.endereco}" />
+									<h:outputText value="#{forn.endereco}" />
 								</p:column>
 
 							</p:dataTable>
-
 						</p:dialog>
 					</p:panel>
 				</div>

@@ -133,9 +133,17 @@ public class GestaoFacade {
 	public Fornecedor pegarFornecedor(String s) throws Exception {
 		Fornecedor f = new Fornecedor();
 
-		for (Fornecedor fo : this.fornecedorBo.listar(s)) {
+		for (Fornecedor fo : this.fornecedorBo.listar("")) {
 			if (Integer.parseInt(s) == fo.getId()) {
 				f = fo;
+				break;
+			}
+		}
+		
+		for(Endereco e : this.enderecoBo.listar("")) {
+			if(e.getId() == f.getEndereco().getId()) {
+				f.setEndereco(e);
+				break;
 			}
 		}
 

@@ -56,7 +56,7 @@ public class NotaFiscalItemController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		
 		try {
-			facade.listarItensNf(id);
+			this.itens = facade.listarItensNf(id);
 		} catch (Exception e) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERRO", "Erro ao listar itens da Nf"));
 			e.printStackTrace();
