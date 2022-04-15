@@ -1,2 +1,2 @@
 # ProjetoIntegradorIV
-Sistema web de cotação de produtos. JavaEE, JSF, Primefaces
+Sistema web de cotação de produtos. Java, JSF, Primefaces
